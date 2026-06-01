@@ -3,6 +3,8 @@ import {notFound} from "next/navigation"
 import type {Metadata} from "next"
 import formatSlug from "@/lib/formatSlug"
 import Link from "next/link"
+import InstituteCard from "@/components/institutes/InstituteCard"
+import Breadcrumb from "@/components/navigation/BreadCrumbs"
 
 export const revalidate = 86400;
 
@@ -39,6 +41,18 @@ export default async function CategroryCityPage({params}: PageProps) {
     // }
     return (
     <div>
+      <Breadcrumb 
+        items = {[
+          {
+            label: categoryName,
+            href: `${category}`
+          },
+          {
+            label: cityName,
+            href: `/{category}/${city}`
+          },
+        ]}
+        />
       <h1>
         Best {categoryName} in {cityName}
       </h1>
@@ -46,12 +60,23 @@ export default async function CategroryCityPage({params}: PageProps) {
       {institutes.length === 0 ? (
         <p>No institutes found.</p>
       ) : (
-        institutes.map((institute) => (
-          <div key={institute.id}>
-            <Link href={"/inst/${institute.id}-${institute.slug}"}><h2>{institute.name}</h2></Link>
-            <p>{institute.description ?? "No description available"}</p>
-          </div>
-        ))
+        institutes.map((institute) => {
+            const averageRating = institute.reviews.length > 0 ? institute.reviews.reduce((sum, review) => sum + review.rating, 0) / institute.reviews.length : null;
+            const reviewCount = institute.reviews.length;
+            return (
+          <InstituteCard
+            key={institute.id}
+            id={institute.id}
+            slug={institute.slug}
+            name={institute.name}
+            description={institute.description}
+            city={institute.city}
+            averageRating={averageRating}
+            reviewCount={reviewCount}
+            image={institute.imageUrl}
+          />
+            )
+})
       )}
     </div>
   );

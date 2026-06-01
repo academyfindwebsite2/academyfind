@@ -16,6 +16,7 @@ export async function getInstitutesByCategoryAndCity(categorySlug: string, cityS
     },
     include:{
         city: true,
+        reviews: true,
     }
 
 })

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import InstituteCard from "@/components/institutes/InstituteCard";
 
 import formatSlug from "@/lib/formatSlug";
 
@@ -9,6 +10,7 @@ import {
   getCitiesForCategory,
   getFeaturedInstitutesForCategory,
 } from "@/lib/category";
+import Breadcrumb from "@/components/navigation/BreadCrumbs";
 
 export const revalidate = 86400;
 
@@ -54,7 +56,14 @@ export default async function CategoryPage({
   return (
     <main className="max-w-7xl mx-auto px-6 py-10">
 
-      {/* HERO */}
+      <Breadcrumb
+        items={[
+          {
+            label: categoryData.name,
+            href: `/${category}`,
+          },
+        ]}
+      />
 
       <section>
         <h1 className="text-4xl font-bold">
@@ -91,23 +100,25 @@ export default async function CategoryPage({
           Featured Institutes
         </h2>
 
-        <div className="mt-6 space-y-4">
-          {featuredInstitutes.map((institute) => (
-            <Link
-              key={institute.id}
-              href={`/institute/${institute.id}-${institute.slug}`}
-              className="block border rounded-lg p-4"
-            >
-              <h3 className="font-semibold">
-                {institute.name}
-              </h3>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {featuredInstitutes.map((institute) => {
+            const averageRating = institute.reviews.length > 0? institute.reviews.reduce((sum, review) => sum + review.rating,0) / institute.reviews.length: null;
 
-              <p className="text-sm text-gray-500">
-                {institute.city.name}
-              </p>
-            </Link>
-          ))}
-        </div>
+            return (
+              <InstituteCard
+                key={institute.id}
+                id={institute.id}
+                slug={institute.slug}
+                name={institute.name}
+                description={institute.description}
+                city={institute.city}
+                averageRating={averageRating}
+                reviewCount={institute.reviews.length}
+                image={institute.imageUrl}
+              />
+            );
+        })}
+      </div>
       </section>
 
 

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import extractId from "@/lib/extractId";
 import { getInstituteById } from "@/lib/institutes_id";
+import Breadcrumb from "@/components/navigation/BreadCrumbs";
 
 export const revalidate = 86400;
 
@@ -22,11 +23,11 @@ export async function generateMetadata({
 
   const institute = await getInstituteById(id);
 
-  // if (!institute) {
-  //   return {
-  //     title: "Institute Not Found",
-  //   };
-  // }
+  if (!institute) {
+    return {
+      title: "Institute Not Found",
+    };
+  }
 
   return {
     title: `${institute?.name} | AcademyFind`,
@@ -54,8 +55,46 @@ export default async function InstitutePage({
     notFound();
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+
+    name: institute.name,
+
+    description:
+      institute.description ??
+      "No description available",
+
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: institute.city.name,
+    },
+  };
+
   return (
     <main className="max-w-6xl mx-auto p-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
+      <Breadcrumb
+        items={[
+          {
+            label: institute.categories[0]?.category.name,
+            href: `/${institute.categories[0]?.category.slug}`,
+          },
+          {
+            label: institute.city.name,
+            href: `/${institute.categories[0]?.category.slug}/${institute.city.slug}`,
+          },
+          {
+            label: institute.name,
+            href: "#",
+          },
+        ]}
+      />
 
       <h1 className="text-4xl font-bold">
         {institute.name}

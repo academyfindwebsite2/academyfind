@@ -45,6 +45,7 @@ export async function getFeaturedInstitutesForCategory(
     take: 10,
     include: {
       city: true,
+      reviews: true,
     },
   });
 }

@@ -71,6 +71,8 @@ model Institute {
   cityId String
   city   City   @relation(fields: [cityId], references: [id])
 
+  imageUrl String?
+
   isVerified Boolean @default(false)
   isFeatured Boolean @default(false)
   isActive   Boolean @default(true)
