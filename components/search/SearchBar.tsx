@@ -6,17 +6,51 @@ import { Button } from "@/components/ui/button";
 
 export function SearchBar() {
   return (
-    <div className="flex w-full max-w-2xl items-center gap-2 rounded-2xl border bg-white p-2 shadow-lg">
-      <Search className="ml-2 h-5 w-5 text-muted-foreground" />
+    <div
+      className="
+        flex
+        h-14
+        w-full
+        items-center
+        rounded-2xl
+        border
+        border-slate-200
+        bg-white
+        p-2
+        shadow-lg
+        sm:h-24
+        sm:flex-col
+      "
+    >
+      <Search className="ml-2 mr-3 h-5 w-5 shrink-0 text-amber-400" />
 
       <Input
-        placeholder="Search JEE coaching in Kota, UPSC coaching in Delhi..."
-        className="border-0 shadow-none focus-visible:ring-0"
+        placeholder="Search coaching institutes..."
+        className="
+          flex-1
+          border-0
+          p-0
+          text-sm
+          shadow-none
+          focus-visible:ring-0
+
+          sm:text-base
+        "
       />
 
       <Button
-        size="lg"
-        className="rounded-xl bg-amber-400 hover:bg-amber-500 h-8 w-20 cursor-pointer"
+        className="
+          h-10
+          rounded-xl
+          bg-amber-400
+          px-4
+          text-sm
+          font-medium
+          hover:bg-amber-500
+
+          sm:h-24
+          sm:px-10
+        "
       >
         Search
       </Button>

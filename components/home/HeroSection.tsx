@@ -2,9 +2,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { SearchBar } from "@/components/search/SearchBar";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const trendingSearches = [
   "Allen vs Motion",
@@ -15,204 +12,179 @@ const trendingSearches = [
 
 export function HeroSection() {
   return (
-    <section className="overflow-hidden border-b bg-gradient-to-b from-amber-50/50 via-background to-background">
-      <div className="container mx-auto px-4 py-10 sm:py-14 lg:py-24">
-        <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-12">
+    <section className="relative overflow-hidden border-b bg-gradient-to-b from-amber-50 via-background to-background">
+      {/* Background Glow */}
+      <div
+        className="
+          absolute
+          left-1/2
+          top-20
+          -z-10
+          h-[300px]
+          w-[300px]
+          -translate-x-1/2
+          rounded-full
+          bg-amber-200/20
+          blur-3xl
 
-          {/* LEFT */}
-          <div className="flex flex-col justify-center">
+          sm:h-[450px]
+          sm:w-[450px]
+        "
+      />
 
-            {/* Trust Badge */}
-            {/* <div className="mb-4 inline-flex w-fit items-center rounded-full border bg-white/80 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur">
-              ⭐ Trusted by Students Across India
-            </div> */}
+      <div className="container mx-auto px-4 py-14 sm:py-20 lg:py-28">
+        <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
+          {/* Badge */}
+          <div
+            className="
+              mb-5
+              rounded-full
+              border
+              bg-white/80
+              px-4
+              py-2
+              text-xs
+              font-medium
+              shadow-sm
+              backdrop-blur
+            "
+          >
+            India's Coaching Discovery Platform
+          </div>
 
-            {/* <Badge className="mb-5 w-fit">
-              India's Coaching Discovery Platform
-            </Badge> */}
+          {/* Heading */}
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
+            Find the Right
+            <span className="block text-amber-500">
+              Coaching Institute
+            </span>
+          </h1>
 
-            <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-              Find the Right
-              <span className="block text-amber-500">
-                Coaching Institute
-              </span>
-            </h1>
+          {/* Description */}
+          <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            Compare coaching institutes, explore cities,
+            read reviews and discover the best place
+            for your preparation journey.
+          </p>
 
-            <p className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Compare coaching institutes, explore cities,
-              read reviews, and discover the best place
-              for your preparation journey.
+          {/* Search Label */}
+<p
+  className="
+    mt-10
+    mb-4
+    text-xs
+    font-semibold
+    uppercase
+    tracking-[0.2em]
+    text-amber-500
+    sm:text-sm
+  "
+>
+  Search by Exam, Institute or City
+</p>
+
+{/* Search */}
+<div className="relative w-full max-w-4xl">
+  {/* Outer Glow */}
+  <div
+    className="
+      pointer-events-none
+      absolute
+      inset-0
+      -z-10
+      scale-110
+      rounded-[2rem]
+      bg-gradient-to-r
+      from-amber-300/25
+      via-yellow-200/25
+      to-amber-300/25
+      blur-3xl
+    "
+  />
+
+  {/* Secondary Glow */}
+  <div
+    className="
+      pointer-events-none
+      absolute
+      left-1/2
+      top-1/2
+      -z-10
+      h-32
+      w-[80%]
+      -translate-x-1/2
+      -translate-y-1/2
+      rounded-full
+      bg-amber-400/10
+      blur-3xl
+    "
+  />
+
+  {/* Search Card */}
+  <div
+    className="
+      relative
+      rounded-[2rem]
+      border
+      border-amber-100
+      bg-white/95
+      p-3
+      shadow-[0_20px_60px_rgba(251,191,36,0.15)]
+      backdrop-blur-sm
+
+      sm:p-4
+    "
+  >
+    <SearchBar />
+  </div>
+</div>
+
+          {/* Trending */}
+          <div className="mt-10">
+            <p className="mb-4 text-sm font-medium text-muted-foreground">
+              🔥 Trending Today
             </p>
 
-            {/* Search */}
-            <div className="mt-6 sm:mt-8">
-              <SearchBar />
-            </div>
-
-            {/* Trending */}
-            <div className="mt-6 sm:mt-8">
-              <p className="mb-3 text-sm font-medium text-muted-foreground">
-                🔥 Trending Today
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {trendingSearches.map((item) => (
-                  <Link
-                    key={item}
-                    href="#"
-                    className="
-                      rounded-full
-                      border
-                      bg-background
-                      px-3
-                      py-1.5
-                      text-xs
-                      transition-all
-                      hover:border-amber-200
-                      hover:bg-amber-50
-                      sm:px-4
-                      sm:py-2
-                      sm:text-sm
-                    "
-                  >
-                    {item}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA Link */}
-            <Link
-              href="/categories"
-              className="
-                mt-6
-                inline-flex
-                items-center
-                gap-2
-                font-medium
-                text-amber-500
-                transition-colors
-                hover:text-amber-600
-              "
-            >
-              Browse All Categories
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          {/* RIGHT */}
-          <div>
-            <Card
-              className="
-                rounded-2xl
-                border
-                shadow-lg
-                lg:rounded-3xl
-                lg:shadow-xl
-              "
-            >
-              <CardContent className="p-5 sm:p-6">
-                <h2 className="text-xl font-bold sm:text-2xl">
-                  Free Expert Guidance
-                </h2>
-
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Get personalized coaching recommendations
-                  based on your goals and preferred city.
-                </p>
-
-                <div className="mt-6 space-y-4">
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    className="
-                      h-12
-                      w-full
-                      rounded-xl
-                      border
-                      px-4
-                      text-sm
-                      outline-none
-                      focus:border-amber-400
-                    "
-                  />
-
-                  <input
-                    type="tel"
-                    placeholder="Phone Number"
-                    className="
-                      h-12
-                      w-full
-                      rounded-xl
-                      border
-                      px-4
-                      text-sm
-                      outline-none
-                      focus:border-amber-400
-                    "
-                  />
-
-                  <select
-                    className="
-                      h-12
-                      w-full
-                      rounded-xl
-                      border
-                      px-4
-                      text-sm
-                      outline-none
-                      focus:border-amber-400
-                    "
-                  >
-                    <option>Select Exam</option>
-                    <option>JEE</option>
-                    <option>NEET</option>
-                    <option>UPSC</option>
-                    <option>CAT</option>
-                    <option>SSC</option>
-                    <option>CLAT</option>
-                    <option>Others</option>
-                  </select>
-
-                  <input
-                    type="text"
-                    placeholder="Your Query"
-                    className="
-                      h-12
-                      w-full
-                      rounded-xl
-                      border
-                      px-4
-                      text-sm
-                      outline-none
-                      focus:border-amber-400
-                    "
-                  />
-                </div>
-
-                <Button
+            <div className="flex flex-wrap justify-center gap-2">
+              {trendingSearches.map((item) => (
+                <Link
+                  key={item}
+                  href="#"
                   className="
-                    mt-5
-                    h-12
-                    w-full
-                    rounded-xl
-                    bg-amber-500
+                    rounded-full
+                    border
+                    bg-background
+                    px-4
+                    py-2
                     text-sm
-                    font-semibold
-                    hover:bg-amber-600
+                    transition-all
+                    hover:border-amber-200
+                    hover:bg-amber-50
                   "
                 >
-                  Get Free Guidance
-                </Button>
-
-                <p className="mt-3 text-center text-xs text-muted-foreground">
-                  No spam. We'll only contact you regarding
-                  coaching recommendations.
-                </p>
-              </CardContent>
-            </Card>
+                  {item}
+                </Link>
+              ))}
+            </div>
           </div>
 
+          {/* CTA */}
+          <Link
+            href="/categories"
+            className="
+              mt-8
+              inline-flex
+              items-center
+              gap-2
+              font-medium
+              text-amber-500
+              transition-colors
+              hover:text-amber-600
+            "
+          >
+            Browse All Categories
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>
