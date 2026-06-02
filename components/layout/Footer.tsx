@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GraduationCap } from "lucide-react";
+import Image from "next/image";
 
 const categories = [
   "JEE",
@@ -40,7 +41,11 @@ export function Footer() {
                 sm:justify-start
               "
             >
-              <GraduationCap className="h-6 w-6 text-amber-500" />
+              <Image
+                src="/square-logo.png"
+                alt="AcademyFind Logo"
+                width={36}
+                height={36} />
 
               <div>
                 <h2 className="text-xl font-bold">

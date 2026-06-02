@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Institute" ADD COLUMN     "averageRating" DOUBLE PRECISION DEFAULT 0,
+ADD COLUMN     "reviewCount" INTEGER NOT NULL DEFAULT 0;

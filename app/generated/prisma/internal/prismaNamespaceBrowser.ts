@@ -108,6 +108,8 @@ export const InstituteScalarFieldEnum = {
   longitude: 'longitude',
   logo: 'logo',
   coverImage: 'coverImage',
+  averageRating: 'averageRating',
+  reviewCount: 'reviewCount',
   googlePlaceId: 'googlePlaceId',
   googleRating: 'googleRating',
   googleReviewCount: 'googleReviewCount',

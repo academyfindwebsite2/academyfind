@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import CategoryCard from "./CategoryCard";
+import CategoryCard from "./CategoriesCard";
 
 const categories = [
   {

@@ -19,6 +19,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Image from "next/image";
 
 export default function Navbar() {
   return (
@@ -28,7 +29,11 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <div className="flex size-9 items-center justify-center rounded-xl bg-amber-400 text-amber-50 shadow-lg shadow-amber-500/30">
-            <BookOpen className="size-5" />
+            <Image
+              src="/square-logo.png"
+              alt="AcademyFind Logo"
+              width={36}
+              height={36} />
           </div>
 
           <div>
@@ -72,12 +77,12 @@ export default function Navbar() {
 
         {/* Desktop Auth */}
         <div className="hidden lg:flex items-center gap-2">
-          <Button variant="ghost" className="gap-2">
+          <Button variant="ghost" className="gap-2 cursor-pointer">
             <LogIn className="size-4" />
             Login
           </Button>
 
-          <Button className="gap-2 bg-amber-500 text-white hover:bg-amber-600">
+          <Button className="gap-2 bg-amber-400 text-white hover:bg-amber-500 cursor-pointer">
             <UserPlus className="size-4" />
             Sign Up
           </Button>

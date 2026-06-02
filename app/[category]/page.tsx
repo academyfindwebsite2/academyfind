@@ -11,6 +11,14 @@ import {
   getFeaturedInstitutesForCategory,
 } from "@/lib/category";
 import Breadcrumb from "@/components/navigation/BreadCrumbs";
+import CategoryHero from "@/components/category/CategoryHero";
+import TopCities from "@/components/category/TopCities";
+import FeaturedInstitutes from "@/components/category/FeaturedInstitutes";
+import CategoryCTA from "@/components/category/CategoryCTA";
+import CategoryFAQ from "@/components/category/CategoryFAQ";
+import PopularSearches from "@/components/category/PopularSearches";
+import WhyChoose from "@/components/category/WhyChoose";
+
 
 export const revalidate = 86400;
 
@@ -45,7 +53,7 @@ export default async function CategoryPage({
     notFound();
   }
 
-  const cities =
+  const cities = 
     await getCitiesForCategory(category);
 
   const featuredInstitutes =
@@ -54,120 +62,38 @@ export default async function CategoryPage({
     );
 
   return (
-    <main className="max-w-7xl mx-auto px-6 py-10">
+  <main className="max-w-7xl mx-auto px-6 py-10">
+    <Breadcrumb
+      items={[
+        {
+          label: categoryData.name,
+          href: `/${category}`,
+        },
+      ]}
+    />
 
-      <Breadcrumb
-        items={[
-          {
-            label: categoryData.name,
-            href: `/${category}`,
-          },
-        ]}
-      />
+    <CategoryHero category={categoryData} />
 
-      <section>
-        <h1 className="text-4xl font-bold">
-          Best {categoryData.name} Institutes in India
-        </h1>
+    <TopCities
+      category={category}
+      cities={cities}
+    />
 
-        <p className="mt-4 text-gray-600">
-          Compare top {categoryData.name} institutes,
-          explore cities, reviews and course details.
-        </p>
-      </section>
+    <FeaturedInstitutes
+      institutes={featuredInstitutes}
+    />
 
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">
-          Popular Cities
-        </h2>
+    <WhyChoose
+      title={categoryData.name}
+    />
 
-        <div className="mt-6 flex flex-wrap gap-4">
-          {cities.map((city) => (
-            <Link
-              key={city.id}
-              href={`/${category}/${city.slug}`}
-              className="border rounded-lg px-4 py-2"
-            >
-              {city.name}
-            </Link>
-          ))}
-        </div>
-      </section>
+    <PopularSearches categoryName={categoryData.name} />
 
+    <CategoryFAQ
+      categoryName={categoryData.name}
+    />
 
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">
-          Featured Institutes
-        </h2>
-
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-            {featuredInstitutes.map((institute) => {
-            const averageRating = institute.reviews.length > 0? institute.reviews.reduce((sum, review) => sum + review.rating,0) / institute.reviews.length: null;
-
-            return (
-              <InstituteCard
-                key={institute.id}
-                id={institute.id}
-                slug={institute.slug}
-                name={institute.name}
-                description={institute.description}
-                city={institute.city}
-                averageRating={averageRating}
-                reviewCount={institute.reviews.length}
-                image={institute.imageUrl}
-              />
-            );
-        })}
-      </div>
-      </section>
-
-
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">
-          About {categoryData.name}
-        </h2>
-
-        <p className="mt-4 text-gray-600">
-          Find and compare the best{" "}
-          {categoryData.name} institutes across
-          India. Explore locations, reviews,
-          facilities, and course information.
-        </p>
-      </section>
-
-      {/* FAQ */}
-
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">
-          Frequently Asked Questions
-        </h2>
-
-        <div className="mt-6 space-y-4">
-          <div>
-            <h3 className="font-medium">
-              Which city is best for {categoryData.name}?
-            </h3>
-
-            <p className="text-gray-600">
-              Popular cities include Kota,
-              Delhi, Hyderabad and Jaipur.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium">
-              How do I compare institutes?
-            </h3>
-
-            <p className="text-gray-600">
-              Compare reviews, courses,
-              facilities and location before
-              making a decision.
-            </p>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  );
+    <CategoryCTA />
+  </main>
+);
 }
