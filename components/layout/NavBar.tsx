@@ -24,7 +24,7 @@ import Image from "next/image";
 export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200/60 bg-white/70 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1140px] items-center justify-between px-4 py-4 lg:px-8">
+      <div className="mx-auto flex max-w-285 items-center justify-between px-4 py-4 lg:px-8">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export default function Navbar() {
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="w-[300px]">
+            <SheetContent side="right" className="w-75">
               <div className="mt-8 flex flex-col gap-2">
 
                 <Button

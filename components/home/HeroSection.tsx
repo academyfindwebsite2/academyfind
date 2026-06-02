@@ -12,7 +12,7 @@ const trendingSearches = [
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden border-b bg-gradient-to-b from-amber-50 via-background to-background">
+    <section className="relative overflow-hidden border-b bg-linear-to-b from-amber-50 via-background to-background">
       {/* Background Glow */}
       <div
         className="
@@ -20,15 +20,15 @@ export function HeroSection() {
           left-1/2
           top-20
           -z-10
-          h-[300px]
-          w-[300px]
+          h-75
+          w-75
           -translate-x-1/2
           rounded-full
           bg-amber-200/20
           blur-3xl
 
-          sm:h-[450px]
-          sm:w-[450px]
+          sm:h-112.5
+          sm:w-112.5
         "
       />
 
@@ -94,7 +94,7 @@ export function HeroSection() {
       -z-10
       scale-110
       rounded-[2rem]
-      bg-gradient-to-r
+      bg-linear-to-r
       from-amber-300/25
       via-yellow-200/25
       to-amber-300/25

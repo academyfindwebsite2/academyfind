@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 export default function CityCTA() {
   return (
     <section className="mt-20">
-      <div className="relative overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-500 via-orange-500 to-orange-600 p-10 md:p-14 text-center text-white">
+      <div className="relative overflow-hidden rounded-3xl border border-amber-200 bg-linear-to-br from-amber-500 via-orange-500 to-orange-600 p-10 md:p-14 text-center text-white">
 
         {/* Glow */}
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />

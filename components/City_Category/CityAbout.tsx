@@ -17,7 +17,7 @@ export default function CityAbout({
         </h2>
       </div>
 
-      <div className="rounded-3xl border border-amber-100 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-8 md:p-10">
+      <div className="rounded-3xl border border-amber-100 bg-linear-to-br from-amber-50 via-white to-orange-50 p-8 md:p-10">
         <p className="text-slate-700 leading-8">
           Explore and compare the best{" "}
           <span className="font-semibold text-slate-900">
