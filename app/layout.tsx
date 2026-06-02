@@ -3,6 +3,7 @@ import { Geist, Geist_Mono,Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/NavBar";
 import { Footer } from "@/components/layout/Footer";
+import { CursorGlow } from "@/components/ui/cursor-glow";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Navbar />
+        <CursorGlow />
         {children}
         <Footer />
       </body>

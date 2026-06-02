@@ -4,6 +4,7 @@ import { FAQSection } from "@/components/home/FAQ";
 import { FeaturedInstitutes } from "@/components/home/FeaturedInstitutes";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PopularCities } from "@/components/home/PopularCities";
+import { StartJourney } from "@/components/home/StartJourney";
 import { TrendingDestinations } from "@/components/home/Trending";
 import Image from "next/image";
 
@@ -16,6 +17,7 @@ export default function Home() {
       <PopularComparisons />
       <FeaturedInstitutes />
       <PopularCities />
+      <StartJourney />
       <FAQSection />
     </>
   );
