@@ -149,7 +149,22 @@ export function HeroSection() {
                     <option>CAT</option>
                     <option>SSC</option>
                     <option>CLAT</option>
+                    <option>Others</option>
                   </select>
+
+                  <input
+                    type="tel"
+                    placeholder="Your Query"
+                    className="
+                      w-full
+                      rounded-xl
+                      border
+                      px-4
+                      py-3
+                      outline-none
+                      focus:border-amber-400
+                    "
+                  />
                 </div>
 
                 <Button
@@ -158,6 +173,9 @@ export function HeroSection() {
                     w-full
                     bg-amber-500
                     hover:bg-amber-600
+                    h-9
+                    w-full
+                    rounded-xl
                   "
                 >
                   Get Free Guidance
