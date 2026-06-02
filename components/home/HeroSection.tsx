@@ -55,7 +55,7 @@ export function HeroSection() {
           {/* Heading */}
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
             Find the Right
-            <span className="block text-amber-500">
+            <span className="block text-amber-400">
               Coaching Institute
             </span>
           </h1>
