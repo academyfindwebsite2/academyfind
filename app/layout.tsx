@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/NavBar";
 import { Footer } from "@/components/layout/Footer";
 import { CursorGlow } from "@/components/ui/cursor-glow";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({
   subsets: ["latin"],

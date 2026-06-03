@@ -33,8 +33,8 @@ export default function Navbar() {
             <Image
               src="/square-logo.png"
               alt="AcademyFind Logo"
-              width={36}
-              height={36} />
+              width={120}
+              height={120} />
           </div>
 
           <div>
