@@ -62,9 +62,7 @@ export function HeroSection() {
 
           {/* Description */}
           <p className="mt-5 max-w-2xl text-sm text-muted-foreground sm:text-lg mb-4">
-            Compare coaching institutes, explore cities,
-            read reviews and discover the best place
-            for your preparation journey.
+            Compare top coaching institutes across India. Read reviews, check ratings, and find the perfect fit for you
           </p>
 
           {/* Search Label */}
