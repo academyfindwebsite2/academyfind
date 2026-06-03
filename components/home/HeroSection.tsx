@@ -61,14 +61,14 @@ export function HeroSection() {
           </h1>
 
           {/* Description */}
-          <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
+          <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg mb-4">
             Compare coaching institutes, explore cities,
             read reviews and discover the best place
             for your preparation journey.
           </p>
 
           {/* Search Label */}
-<p
+{/* <p
   className="
     mt-10
     mb-4
@@ -81,7 +81,7 @@ export function HeroSection() {
   "
 >
   Search by Exam, Institute or City
-</p>
+</p> */}
 
 {/* Search */}
 <div className="relative w-full max-w-4xl">
