@@ -57,8 +57,8 @@ export function HeroSection() {
             className="
               font-extrabold
               tracking-tight
-              leading-tight
-              text-[clamp(2.25rem,6vw,5.5rem)]
+              leading-[1.05]
+              text-[clamp(1.9rem,4.5vw,4.25rem)]
             "
           >
             Find the Right
@@ -71,12 +71,12 @@ export function HeroSection() {
           <p
             className="
               mt-3
-              max-w-2xl
-              text-sm
+              max-w-xl
+              text-xs
               text-muted-foreground
 
-              sm:text-base
-              lg:text-lg
+              sm:text-sm
+              lg:text-base
             "
           >
             Compare coaching institutes, explore cities,
