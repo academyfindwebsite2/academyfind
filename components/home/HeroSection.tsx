@@ -61,7 +61,7 @@ export function HeroSection() {
           </h1>
 
           {/* Description */}
-          <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg mb-4">
+          <p className="mt-5 max-w-2xl text-sm text-muted-foreground sm:text-lg mb-4">
             Compare coaching institutes, explore cities,
             read reviews and discover the best place
             for your preparation journey.
