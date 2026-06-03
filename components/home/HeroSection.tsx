@@ -18,26 +18,26 @@ export function HeroSection() {
         className="
           absolute
           left-1/2
-          top-20
+          top-10
           -z-10
-          h-75
-          w-75
+          h-64
+          w-64
           -translate-x-1/2
           rounded-full
           bg-amber-200/20
           blur-3xl
 
-          sm:h-112.5
-          sm:w-112.5
+          sm:h-96
+          sm:w-96
         "
       />
 
-      <div className="container mx-auto px-4 py-14 sm:py-20 lg:py-28">
+      <div className="container mx-auto px-4 py-10 sm:py-14 lg:py-20">
         <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
           {/* Badge */}
           <div
             className="
-              mb-5
+              mb-3
               rounded-full
               border
               bg-white/80
@@ -53,7 +53,14 @@ export function HeroSection() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-4xl lg:text-6xl">
+          <h1
+            className="
+              font-extrabold
+              tracking-tight
+              leading-tight
+              text-[clamp(2.25rem,6vw,5.5rem)]
+            "
+          >
             Find the Right
             <span className="block text-amber-400">
               Coaching Institute
@@ -61,85 +68,98 @@ export function HeroSection() {
           </h1>
 
           {/* Description */}
-          <p className="mt-5 max-w-2xl text-sm text-muted-foreground sm:text-lg mb-4">
-            Compare top coaching institutes across India. Read reviews, check ratings, and find the perfect fit for you
+          <p
+            className="
+              mt-3
+              max-w-2xl
+              text-sm
+              text-muted-foreground
+
+              sm:text-base
+              lg:text-lg
+            "
+          >
+            Compare coaching institutes, explore cities,
+            read reviews and discover the best place
+            for your preparation journey.
           </p>
 
           {/* Search Label */}
-{/* <p
-  className="
-    mt-10
-    mb-4
-    text-xs
-    font-semibold
-    uppercase
-    tracking-[0.2em]
-    text-amber-500
-    sm:text-sm
-  "
->
-  Search by Exam, Institute or City
-</p> */}
+          <p
+            className="
+              mt-6
+              mb-3
+              text-xs
+              font-semibold
+              uppercase
+              tracking-[0.2em]
+              text-amber-500
 
-{/* Search */}
-<div className="relative w-full max-w-4xl">
-  {/* Outer Glow */}
-  <div
-    className="
-      pointer-events-none
-      absolute
-      inset-0
-      -z-10
-      scale-110
-      rounded-[2rem]
-      bg-linear-to-r
-      from-amber-300/25
-      via-yellow-200/25
-      to-amber-300/25
-      blur-3xl
-    "
-  />
+              sm:text-sm
+            "
+          >
+            Search by Exam, Institute or City
+          </p>
 
-  {/* Secondary Glow */}
-  <div
-    className="
-      pointer-events-none
-      absolute
-      left-1/2
-      top-1/2
-      -z-10
-      h-32
-      w-[80%]
-      -translate-x-1/2
-      -translate-y-1/2
-      rounded-full
-      bg-amber-400/10
-      blur-3xl
-    "
-  />
+          {/* Search */}
+          <div className="relative w-full max-w-4xl">
+            {/* Outer Glow */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+                -z-10
+                scale-110
+                rounded-[2rem]
+                bg-linear-to-r
+                from-amber-300/25
+                via-yellow-200/25
+                to-amber-300/25
+                blur-3xl
+              "
+            />
 
-  {/* Search Card */}
-  <div
-    className="
-      relative
-      rounded-[2rem]
-      border
-      border-amber-100
-      bg-white/95
-      p-3
-      shadow-[0_20px_60px_rgba(251,191,36,0.15)]
-      backdrop-blur-sm
+            {/* Secondary Glow */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                left-1/2
+                top-1/2
+                -z-10
+                h-32
+                w-[80%]
+                -translate-x-1/2
+                -translate-y-1/2
+                rounded-full
+                bg-amber-400/10
+                blur-3xl
+              "
+            />
 
-      sm:p-4
-    "
-  >
-    <SearchBar />
-  </div>
-</div>
+            {/* Search Card */}
+            <div
+              className="
+                relative
+                rounded-[2rem]
+                border
+                border-amber-100
+                bg-white/95
+                p-3
+                shadow-[0_20px_60px_rgba(251,191,36,0.15)]
+                backdrop-blur-sm
+
+                sm:p-4
+              "
+            >
+              <SearchBar />
+            </div>
+          </div>
 
           {/* Trending */}
-          <div className="mt-10">
-            <p className="mb-4 text-sm font-medium text-muted-foreground">
+          <div className="mt-6">
+            <p className="mb-3 text-sm font-medium text-muted-foreground">
               🔥 Trending Today
             </p>
 
@@ -170,7 +190,7 @@ export function HeroSection() {
           <Link
             href="/categories"
             className="
-              mt-8
+              mt-5
               inline-flex
               items-center
               gap-2
