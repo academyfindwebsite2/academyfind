@@ -27,6 +27,7 @@ export function SearchBar() {
       <Input
         placeholder="Search coaching institutes..."
         className="
+          min-w-0
           flex-1
           border-0
           p-0
@@ -41,6 +42,7 @@ export function SearchBar() {
       <Button
         className="
           h-10
+          shrink-0
           rounded-xl
           bg-amber-400
           px-4
