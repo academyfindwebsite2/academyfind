@@ -53,7 +53,7 @@ export function HeroSection() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-4xl lg:text-6xl">
             Find the Right
             <span className="block text-amber-400">
               Coaching Institute
