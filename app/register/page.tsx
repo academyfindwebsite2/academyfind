@@ -28,8 +28,8 @@ export default function LoginPage() {
         <div className="relative hidden w-1/2 overflow-hidden bg-gradient-to-b from-amber-400 to-orange-500 p-12 text-white lg:flex lg:flex-col">
         {/* Logo */}
         <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/20 backdrop-blur">
-            <GraduationCap size={22} />
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/90 backdrop-blur">
+            <Image src="/logo.png" alt="academy find logo" width={120} height={120}/>
             </div>
 
             <span className="font-semibold">AcademyFind</span>
@@ -106,9 +106,9 @@ export default function LoginPage() {
 
             {/* Logo */}
             <div className="mb-8 text-center">
-              <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-500 text-white shadow-lg">
+              <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl  text-white shadow-lg shadow-amber-500/30">
                 <Image
-                    src="/square-logo.png"
+                    src="/logo.png"
                     alt="AcademyFind Logo"
                     width={120}
                     height={120} />

@@ -29,12 +29,13 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex size-9 items-center justify-center rounded-xl bg-amber-400 text-amber-50 shadow-lg shadow-amber-500/30">
+          <div className="flex size-9 items-center justify-center rounded-xl shadow-lg shadow-amber-500/30">
             <Image
-              src="/square-logo.png"
+              src="/logo.png"
               alt="AcademyFind Logo"
               width={120}
-              height={120} />
+              height={120} 
+              className="mx-6"/>
           </div>
 
           <div>
@@ -42,7 +43,7 @@ export default function Navbar() {
               AcademyFind
             </span>
 
-            <p className="hidden text-[0.6rem] text-muted-foreground sm:block">
+            <p className="hidden text-[0.6rem] sm:block text-amber-400">
               Academy Search Simplified
             </p>
           </div>
