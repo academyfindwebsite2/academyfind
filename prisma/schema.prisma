@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
@@ -12,37 +7,24 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  USER
-  CONTENT_WRITER
-  INSTITUTE_MANAGER
-  ADMIN
-}
-
 model User {
-  id           String  @id @default(cuid())
-  name         String? // Better Auth reads this field
-  email        String  @unique
-  phone        String?
-  passwordHash String? // Your custom credentials field
-  image        String?
-
-  role Role @default(USER)
-
-  managedInstitutes InstituteManager[]
-  reviews           Review[]
-
-  isActive            Boolean @default(true)
-  emailVerified       Boolean @default(false) // Better Auth reads this
-  onboardingCompleted Boolean @default(false)
-
-  lastLoginAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  // Better Auth required relations
-  sessions Session[]
-  accounts Account[]
+  id                  String             @id @default(cuid())
+  name                String?
+  email               String             @unique
+  phone               String?
+  passwordHash        String?
+  image               String?
+  role                Role               @default(USER)
+  isActive            Boolean            @default(true)
+  emailVerified       Boolean            @default(false)
+  onboardingCompleted Boolean            @default(false)
+  lastLoginAt         DateTime?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  managedInstitutes   InstituteManager[]
+  reviews             Review[]
+  accounts            Account[]
+  sessions            Session[]
 
   @@map("user")
 }
@@ -66,7 +48,6 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -76,6 +57,7 @@ model Account {
   password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("account")
 }
@@ -84,96 +66,74 @@ model Verification {
   id         String   @id @default(cuid())
   identifier String
   value      String
-  expiresAt  DateTime // Maps to verification expiry
+  expiresAt  DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
   @@map("verification")
 }
 
-
 model Institute {
-  id          String  @id @default(cuid())
-  name        String
-  slug        String
-  description String?
-
-  phone   String?
-  email   String?
-  website String?
-
-  address   String
-  latitude  Float?
-  longitude Float?
-
-  managers   InstituteManager[]
-  reviews    Review[]
-  categories InstituteCategory[]
-
-  logo       String?
-  coverImage String?
-
-  averageRating Float? @default(0)
-  reviewCount   Int    @default(0)
-
-  googlePlaceId     String? @unique
+  id                String              @id @default(cuid())
+  name              String
+  slug              String
+  description       String?
+  phone             String?
+  email             String?
+  website           String?
+  address           String
+  latitude          Float?
+  longitude         Float?
+  logo              String?
+  coverImage        String?
+  googlePlaceId     String?             @unique
   googleRating      Float?
   googleReviewCount Int?
-
-  googleMapsUrl String?
-  placeTypes     String[]
-
-  cityId String
-  city   City   @relation(fields: [cityId], references: [id])
-
-  imageUrl String?
-
-  isVerified Boolean @default(false)
-  isFeatured Boolean @default(false)
-  isActive   Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  cityId            String
+  isVerified        Boolean             @default(false)
+  isFeatured        Boolean             @default(false)
+  isActive          Boolean             @default(true)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  imageUrl          String?
+  averageRating     Float?              @default(0)
+  reviewCount       Int                 @default(0)
+  googleMapsUrl     String?
+  placeTypes        String[]
+  city              City                @relation(fields: [cityId], references: [id])
+  categories        InstituteCategory[]
+  managers          InstituteManager[]
+  reviews           Review[]
 
   @@index([cityId])
   @@index([slug])
 }
 
 model City {
-  id String @id @default(cuid())
-
-  name String
-  slug String @unique
-
-  state   String
-  country String @default("India")
-
+  id         String      @id @default(cuid())
+  name       String
+  slug       String      @unique
+  state      String
+  country    String      @default("India")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
   institutes Institute[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@index([state])
 }
 
 model Category {
-  id String @id @default(cuid())
-
-  name String
-  slug String @unique
-
-  parentId String?
-
-  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  children Category[] @relation("CategoryHierarchy")
-
-  level Int @default(0)
-  isActive Boolean @default(true)
-
+  id         String              @id @default(cuid())
+  name       String
+  slug       String              @unique
+  parentId   String?
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+  isActive   Boolean             @default(true)
+  level      Int                 @default(0)
+  parent     Category?           @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children   Category[]          @relation("CategoryHierarchy")
   institutes InstituteCategory[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@index([parentId])
 }
@@ -181,9 +141,8 @@ model Category {
 model InstituteCategory {
   instituteId String
   categoryId  String
-
-  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-  category  Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@id([instituteId, categoryId])
   @@index([categoryId])
@@ -192,33 +151,33 @@ model InstituteCategory {
 model InstituteManager {
   userId      String
   instituteId String
-
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
+  createdAt   DateTime  @default(now())
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, instituteId])
   @@index([instituteId])
 }
 
 model Review {
-  id String @id @default(cuid())
-
-  rating  Int
-  comment String?
-
+  id          String    @id @default(cuid())
+  rating      Int
+  comment     String?
   userId      String
   instituteId String
-
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, instituteId])
   @@index([userId])
   @@index([instituteId])
 }
 
+enum Role {
+  USER
+  CONTENT_WRITER
+  INSTITUTE_MANAGER
+  ADMIN
+}

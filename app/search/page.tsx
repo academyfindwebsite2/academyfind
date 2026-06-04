@@ -10,6 +10,7 @@ import CompareCTA from "@/components/searchPage/CompareCTA";
 type Props = {
   searchParams: Promise<{
     q?: string;
+    city?: string;
   }>;
 };
 
@@ -32,7 +33,7 @@ export async function generateMetadata({
 export default async function SearchPage({
   searchParams,
 }: Props) {
-  const { q = "" } = await searchParams;
+  const { q = "", city="" } = await searchParams;
 
   return (
     <>
@@ -45,7 +46,7 @@ export default async function SearchPage({
           <div className="space-y-14">
             <SearchResultsHeader query={q} />
 
-            <InstituteResults />
+            <InstituteResults query={q} city={city}/>
 
             <RelatedCategories />
 
