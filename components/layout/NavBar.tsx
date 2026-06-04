@@ -84,16 +84,21 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop Auth */}
+        
         <div className="hidden lg:flex items-center gap-2">
+          <Link href="/login">
           <Button variant="ghost" className="gap-2 cursor-pointer">
             <LogIn className="size-4" />
             Login
           </Button>
-
+          </Link>
+        
+          <Link href="/register">
           <Button className="gap-2 bg-amber-400 text-white hover:bg-amber-500 cursor-pointer">
             <UserPlus className="size-4" />
             Sign Up
           </Button>
+          </Link>
         </div>
 
         {/* Mobile Menu */}
@@ -154,6 +159,7 @@ export default function Navbar() {
 
                 <div className="my-4 border-t" />
 
+                <Link href="/login">
                 <Button
                   variant="outline"
                   className="justify-start gap-3"
@@ -161,11 +167,14 @@ export default function Navbar() {
                   <LogIn className="size-4" />
                   Login
                 </Button>
+                </Link>
 
+                <Link href="/register">
                 <Button className="gap-3 bg-amber-500 hover:bg-amber-600">
                   <UserPlus className="size-4" />
                   Sign Up
                 </Button>
+                </Link>
               </div>
             </SheetContent>
           </Sheet>
