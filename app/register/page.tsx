@@ -248,12 +248,12 @@ export default function LoginPage() {
               </div>
 
               <div>
-  <label className="mb-2 block text-sm font-medium text-slate-700">
-    Confirm Password
-  </label>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                    Confirm Password
+                </label>
 
-  <div className="relative">
-    <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
 
                     <input
                     type={showConfirmPassword ? "text" : "password"}
@@ -308,7 +308,7 @@ export default function LoginPage() {
             <p className="mt-8 text-center text-sm text-slate-500">
               Already have an account?{" "}
               <Link
-                href="/register"
+                href="/login"
                 className="font-semibold text-amber-400 hover:text-amber-500"
               >
                 Sign In
