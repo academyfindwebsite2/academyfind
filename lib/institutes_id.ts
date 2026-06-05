@@ -1,10 +1,13 @@
 import { prisma } from "@/lib/prisma";
 
-export async function getInstituteById(id: string) {
+export async function getInstituteById(
+  id: string
+) {
   return prisma.institute.findUnique({
     where: {
       id,
     },
+
     include: {
       city: true,
 
@@ -14,7 +17,20 @@ export async function getInstituteById(id: string) {
         },
       },
 
-      reviews: true,
+      reviews: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
     },
   });
 }

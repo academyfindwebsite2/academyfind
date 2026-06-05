@@ -1,25 +1,23 @@
+"use client"
+
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, MapPin, Star } from "lucide-react";
+import { CldImage } from "next-cloudinary"
 
 export interface InstituteCardProps {
   id: string;
   slug: string;
-
   name: string;
-
   description?: string | null;
-
   city: {
     name: string;
     slug: string;
   };
-
   averageRating?: number | null;
   reviewCount?: number | null;
-
+  googleRating?: number | null; // Added
+  googleReviewCount?: number | null; // Added
   website?: string | null;
-
   image?: string | null;
 }
 
@@ -31,8 +29,17 @@ export default function InstituteCard({
   city,
   averageRating,
   reviewCount,
+  googleRating,
+  googleReviewCount,
   image,
 }: InstituteCardProps) {
+  
+  const isCloudinaryImage = image?.includes("cloudinary.com");
+  
+  // Priority: googleRating > averageRating > null
+  const displayRating = googleRating ?? averageRating;
+  const displayReviewCount = googleReviewCount ?? reviewCount ?? 0;
+
   return (
     <Link
       href={`/institute/${id}-${slug}`}
@@ -52,17 +59,24 @@ export default function InstituteCard({
     >
       {/* Image */}
       <div className="relative h-52 overflow-hidden">
-        {image ? (
-          <Image
-            src="/inst.jpg"
+        {image && isCloudinaryImage ? (
+          <CldImage
+            src={image}
             alt={name}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="
               object-cover
               transition-transform
               duration-500
               group-hover:scale-105
             "
+          />
+        ) : image ? (
+          <img 
+            src={image} 
+            alt={name} 
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-muted">
@@ -71,10 +85,9 @@ export default function InstituteCard({
             </span>
           </div>
         )}
-        
 
         {/* Rating */}
-        {averageRating && (
+        {displayRating ? (
           <div
             className="
               absolute
@@ -92,10 +105,10 @@ export default function InstituteCard({
           >
             <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
             <span className="text-sm font-medium">
-              {averageRating.toFixed(1)}
+              {displayRating.toFixed(1)}
             </span>
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* Content */}
@@ -156,7 +169,7 @@ export default function InstituteCard({
         {/* Footer */}
         <div className="mt-5 flex items-center justify-between">
           <span className="text-sm text-muted-foreground">
-            {reviewCount ?? 0} reviews
+            {displayReviewCount} reviews
           </span>
 
           <span className="text-sm font-medium text-amber-500">

@@ -13,19 +13,19 @@ const destinations = [
     href: "/neet-coaching/noida",
   },
   {
-    title: "UPSC Coaching in Mukherjee Nagar",
+    title: "UPSC Coaching in Noida",
     subtitle: "300+ Institutes",
-    href: "/upsc-coaching/delhi",
+    href: "/upsc-coaching/noida",
   },
   {
-    title: "CAT Coaching in Bangalore",
+    title: "CAT Coaching in Noida",
     subtitle: "450+ Institutes",
-    href: "/cat-coaching/bangalore",
+    href: "/cat-coaching/noida",
   },
   {
-    title: "SSC Coaching in Jaipur",
+    title: "SSC Coaching in Noida",
     subtitle: "600+ Institutes",
-    href: "/ssc-coaching/jaipur",
+    href: "/ssc-coaching/Noida",
   },
 ];
 
