@@ -52,9 +52,9 @@ export default function InstituteCard({
     >
       {/* Image */}
       <div className="relative h-52 overflow-hidden">
-        {/* {image ? (
+        {image ? (
           <Image
-            src={image}
+            src="/inst.jpg"
             alt={name}
             fill
             className="
@@ -64,12 +64,13 @@ export default function InstituteCard({
               group-hover:scale-105
             "
           />
-        ) : ( */}
+        ) : (
           <div className="flex h-full items-center justify-center bg-muted">
             <span className="text-sm text-muted-foreground">
               No Image
             </span>
           </div>
+        )}
         
 
         {/* Rating */}
