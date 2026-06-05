@@ -156,20 +156,20 @@ export const InstituteScalarFieldEnum = {
   longitude: 'longitude',
   logo: 'logo',
   coverImage: 'coverImage',
-  averageRating: 'averageRating',
-  reviewCount: 'reviewCount',
   googlePlaceId: 'googlePlaceId',
   googleRating: 'googleRating',
   googleReviewCount: 'googleReviewCount',
-  googleMapsUrl: 'googleMapsUrl',
-  placeTypes: 'placeTypes',
   cityId: 'cityId',
-  imageUrl: 'imageUrl',
   isVerified: 'isVerified',
   isFeatured: 'isFeatured',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  imageUrl: 'imageUrl',
+  averageRating: 'averageRating',
+  reviewCount: 'reviewCount',
+  googleMapsUrl: 'googleMapsUrl',
+  placeTypes: 'placeTypes'
 } as const
 
 export type InstituteScalarFieldEnum = (typeof InstituteScalarFieldEnum)[keyof typeof InstituteScalarFieldEnum]
@@ -193,10 +193,10 @@ export const CategoryScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   parentId: 'parentId',
-  level: 'level',
-  isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isActive: 'isActive',
+  level: 'level'
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]

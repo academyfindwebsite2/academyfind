@@ -158,15 +158,15 @@ export type InstituteCategoryWhereInput = {
   NOT?: Prisma.InstituteCategoryWhereInput | Prisma.InstituteCategoryWhereInput[]
   instituteId?: Prisma.StringFilter<"InstituteCategory"> | string
   categoryId?: Prisma.StringFilter<"InstituteCategory"> | string
-  institute?: Prisma.XOR<Prisma.InstituteScalarRelationFilter, Prisma.InstituteWhereInput>
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
+  institute?: Prisma.XOR<Prisma.InstituteScalarRelationFilter, Prisma.InstituteWhereInput>
 }
 
 export type InstituteCategoryOrderByWithRelationInput = {
   instituteId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
-  institute?: Prisma.InstituteOrderByWithRelationInput
   category?: Prisma.CategoryOrderByWithRelationInput
+  institute?: Prisma.InstituteOrderByWithRelationInput
 }
 
 export type InstituteCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -176,8 +176,8 @@ export type InstituteCategoryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.InstituteCategoryWhereInput | Prisma.InstituteCategoryWhereInput[]
   instituteId?: Prisma.StringFilter<"InstituteCategory"> | string
   categoryId?: Prisma.StringFilter<"InstituteCategory"> | string
-  institute?: Prisma.XOR<Prisma.InstituteScalarRelationFilter, Prisma.InstituteWhereInput>
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
+  institute?: Prisma.XOR<Prisma.InstituteScalarRelationFilter, Prisma.InstituteWhereInput>
 }, "instituteId_categoryId">
 
 export type InstituteCategoryOrderByWithAggregationInput = {
@@ -197,8 +197,8 @@ export type InstituteCategoryScalarWhereWithAggregatesInput = {
 }
 
 export type InstituteCategoryCreateInput = {
-  institute: Prisma.InstituteCreateNestedOneWithoutCategoriesInput
   category: Prisma.CategoryCreateNestedOneWithoutInstitutesInput
+  institute: Prisma.InstituteCreateNestedOneWithoutCategoriesInput
 }
 
 export type InstituteCategoryUncheckedCreateInput = {
@@ -207,8 +207,8 @@ export type InstituteCategoryUncheckedCreateInput = {
 }
 
 export type InstituteCategoryUpdateInput = {
-  institute?: Prisma.InstituteUpdateOneRequiredWithoutCategoriesNestedInput
   category?: Prisma.CategoryUpdateOneRequiredWithoutInstitutesNestedInput
+  institute?: Prisma.InstituteUpdateOneRequiredWithoutCategoriesNestedInput
 }
 
 export type InstituteCategoryUncheckedUpdateInput = {
@@ -457,22 +457,22 @@ export type InstituteCategoryUncheckedUpdateManyWithoutCategoryInput = {
 export type InstituteCategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   instituteId?: boolean
   categoryId?: boolean
-  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["instituteCategory"]>
 
 export type InstituteCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   instituteId?: boolean
   categoryId?: boolean
-  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["instituteCategory"]>
 
 export type InstituteCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   instituteId?: boolean
   categoryId?: boolean
-  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["instituteCategory"]>
 
 export type InstituteCategorySelectScalar = {
@@ -482,23 +482,23 @@ export type InstituteCategorySelectScalar = {
 
 export type InstituteCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"instituteId" | "categoryId", ExtArgs["result"]["instituteCategory"]>
 export type InstituteCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
 }
 export type InstituteCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
 }
 export type InstituteCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  institute?: boolean | Prisma.InstituteDefaultArgs<ExtArgs>
 }
 
 export type $InstituteCategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "InstituteCategory"
   objects: {
-    institute: Prisma.$InstitutePayload<ExtArgs>
     category: Prisma.$CategoryPayload<ExtArgs>
+    institute: Prisma.$InstitutePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     instituteId: string
@@ -897,8 +897,8 @@ readonly fields: InstituteCategoryFieldRefs;
  */
 export interface Prisma__InstituteCategoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  institute<T extends Prisma.InstituteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstituteDefaultArgs<ExtArgs>>): Prisma.Prisma__InstituteClient<runtime.Types.Result.GetResult<Prisma.$InstitutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   category<T extends Prisma.CategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  institute<T extends Prisma.InstituteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstituteDefaultArgs<ExtArgs>>): Prisma.Prisma__InstituteClient<runtime.Types.Result.GetResult<Prisma.$InstitutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

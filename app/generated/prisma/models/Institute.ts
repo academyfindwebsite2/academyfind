@@ -29,19 +29,19 @@ export type AggregateInstitute = {
 export type InstituteAvgAggregateOutputType = {
   latitude: number | null
   longitude: number | null
-  averageRating: number | null
-  reviewCount: number | null
   googleRating: number | null
   googleReviewCount: number | null
+  averageRating: number | null
+  reviewCount: number | null
 }
 
 export type InstituteSumAggregateOutputType = {
   latitude: number | null
   longitude: number | null
-  averageRating: number | null
-  reviewCount: number | null
   googleRating: number | null
   googleReviewCount: number | null
+  averageRating: number | null
+  reviewCount: number | null
 }
 
 export type InstituteMinAggregateOutputType = {
@@ -57,19 +57,19 @@ export type InstituteMinAggregateOutputType = {
   longitude: number | null
   logo: string | null
   coverImage: string | null
-  averageRating: number | null
-  reviewCount: number | null
   googlePlaceId: string | null
   googleRating: number | null
   googleReviewCount: number | null
-  googleMapsUrl: string | null
   cityId: string | null
-  imageUrl: string | null
   isVerified: boolean | null
   isFeatured: boolean | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  imageUrl: string | null
+  averageRating: number | null
+  reviewCount: number | null
+  googleMapsUrl: string | null
 }
 
 export type InstituteMaxAggregateOutputType = {
@@ -85,19 +85,19 @@ export type InstituteMaxAggregateOutputType = {
   longitude: number | null
   logo: string | null
   coverImage: string | null
-  averageRating: number | null
-  reviewCount: number | null
   googlePlaceId: string | null
   googleRating: number | null
   googleReviewCount: number | null
-  googleMapsUrl: string | null
   cityId: string | null
-  imageUrl: string | null
   isVerified: boolean | null
   isFeatured: boolean | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  imageUrl: string | null
+  averageRating: number | null
+  reviewCount: number | null
+  googleMapsUrl: string | null
 }
 
 export type InstituteCountAggregateOutputType = {
@@ -113,20 +113,20 @@ export type InstituteCountAggregateOutputType = {
   longitude: number
   logo: number
   coverImage: number
-  averageRating: number
-  reviewCount: number
   googlePlaceId: number
   googleRating: number
   googleReviewCount: number
-  googleMapsUrl: number
-  placeTypes: number
   cityId: number
-  imageUrl: number
   isVerified: number
   isFeatured: number
   isActive: number
   createdAt: number
   updatedAt: number
+  imageUrl: number
+  averageRating: number
+  reviewCount: number
+  googleMapsUrl: number
+  placeTypes: number
   _all: number
 }
 
@@ -134,19 +134,19 @@ export type InstituteCountAggregateOutputType = {
 export type InstituteAvgAggregateInputType = {
   latitude?: true
   longitude?: true
-  averageRating?: true
-  reviewCount?: true
   googleRating?: true
   googleReviewCount?: true
+  averageRating?: true
+  reviewCount?: true
 }
 
 export type InstituteSumAggregateInputType = {
   latitude?: true
   longitude?: true
-  averageRating?: true
-  reviewCount?: true
   googleRating?: true
   googleReviewCount?: true
+  averageRating?: true
+  reviewCount?: true
 }
 
 export type InstituteMinAggregateInputType = {
@@ -162,19 +162,19 @@ export type InstituteMinAggregateInputType = {
   longitude?: true
   logo?: true
   coverImage?: true
-  averageRating?: true
-  reviewCount?: true
   googlePlaceId?: true
   googleRating?: true
   googleReviewCount?: true
-  googleMapsUrl?: true
   cityId?: true
-  imageUrl?: true
   isVerified?: true
   isFeatured?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
+  averageRating?: true
+  reviewCount?: true
+  googleMapsUrl?: true
 }
 
 export type InstituteMaxAggregateInputType = {
@@ -190,19 +190,19 @@ export type InstituteMaxAggregateInputType = {
   longitude?: true
   logo?: true
   coverImage?: true
-  averageRating?: true
-  reviewCount?: true
   googlePlaceId?: true
   googleRating?: true
   googleReviewCount?: true
-  googleMapsUrl?: true
   cityId?: true
-  imageUrl?: true
   isVerified?: true
   isFeatured?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
+  averageRating?: true
+  reviewCount?: true
+  googleMapsUrl?: true
 }
 
 export type InstituteCountAggregateInputType = {
@@ -218,20 +218,20 @@ export type InstituteCountAggregateInputType = {
   longitude?: true
   logo?: true
   coverImage?: true
-  averageRating?: true
-  reviewCount?: true
   googlePlaceId?: true
   googleRating?: true
   googleReviewCount?: true
-  googleMapsUrl?: true
-  placeTypes?: true
   cityId?: true
-  imageUrl?: true
   isVerified?: true
   isFeatured?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
+  imageUrl?: true
+  averageRating?: true
+  reviewCount?: true
+  googleMapsUrl?: true
+  placeTypes?: true
   _all?: true
 }
 
@@ -334,20 +334,20 @@ export type InstituteGroupByOutputType = {
   longitude: number | null
   logo: string | null
   coverImage: string | null
-  averageRating: number | null
-  reviewCount: number
   googlePlaceId: string | null
   googleRating: number | null
   googleReviewCount: number | null
-  googleMapsUrl: string | null
-  placeTypes: string[]
   cityId: string
-  imageUrl: string | null
   isVerified: boolean
   isFeatured: boolean
   isActive: boolean
   createdAt: Date
   updatedAt: Date
+  imageUrl: string | null
+  averageRating: number | null
+  reviewCount: number
+  googleMapsUrl: string | null
+  placeTypes: string[]
   _count: InstituteCountAggregateOutputType | null
   _avg: InstituteAvgAggregateOutputType | null
   _sum: InstituteSumAggregateOutputType | null
@@ -386,24 +386,24 @@ export type InstituteWhereInput = {
   longitude?: Prisma.FloatNullableFilter<"Institute"> | number | null
   logo?: Prisma.StringNullableFilter<"Institute"> | string | null
   coverImage?: Prisma.StringNullableFilter<"Institute"> | string | null
-  averageRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
-  reviewCount?: Prisma.IntFilter<"Institute"> | number
   googlePlaceId?: Prisma.StringNullableFilter<"Institute"> | string | null
   googleRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
   googleReviewCount?: Prisma.IntNullableFilter<"Institute"> | number | null
-  googleMapsUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
-  placeTypes?: Prisma.StringNullableListFilter<"Institute">
   cityId?: Prisma.StringFilter<"Institute"> | string
-  imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   isVerified?: Prisma.BoolFilter<"Institute"> | boolean
   isFeatured?: Prisma.BoolFilter<"Institute"> | boolean
   isActive?: Prisma.BoolFilter<"Institute"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  averageRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
+  reviewCount?: Prisma.IntFilter<"Institute"> | number
+  googleMapsUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  placeTypes?: Prisma.StringNullableListFilter<"Institute">
+  city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
+  categories?: Prisma.InstituteCategoryListRelationFilter
   managers?: Prisma.InstituteManagerListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
-  categories?: Prisma.InstituteCategoryListRelationFilter
-  city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
 }
 
 export type InstituteOrderByWithRelationInput = {
@@ -419,24 +419,24 @@ export type InstituteOrderByWithRelationInput = {
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   logo?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
-  averageRating?: Prisma.SortOrderInput | Prisma.SortOrder
-  reviewCount?: Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   googleRating?: Prisma.SortOrderInput | Prisma.SortOrder
   googleReviewCount?: Prisma.SortOrderInput | Prisma.SortOrder
-  googleMapsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  placeTypes?: Prisma.SortOrder
   cityId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  averageRating?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  googleMapsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  placeTypes?: Prisma.SortOrder
+  city?: Prisma.CityOrderByWithRelationInput
+  categories?: Prisma.InstituteCategoryOrderByRelationAggregateInput
   managers?: Prisma.InstituteManagerOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
-  categories?: Prisma.InstituteCategoryOrderByRelationAggregateInput
-  city?: Prisma.CityOrderByWithRelationInput
 }
 
 export type InstituteWhereUniqueInput = Prisma.AtLeast<{
@@ -456,23 +456,23 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   longitude?: Prisma.FloatNullableFilter<"Institute"> | number | null
   logo?: Prisma.StringNullableFilter<"Institute"> | string | null
   coverImage?: Prisma.StringNullableFilter<"Institute"> | string | null
-  averageRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
-  reviewCount?: Prisma.IntFilter<"Institute"> | number
   googleRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
   googleReviewCount?: Prisma.IntNullableFilter<"Institute"> | number | null
-  googleMapsUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
-  placeTypes?: Prisma.StringNullableListFilter<"Institute">
   cityId?: Prisma.StringFilter<"Institute"> | string
-  imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   isVerified?: Prisma.BoolFilter<"Institute"> | boolean
   isFeatured?: Prisma.BoolFilter<"Institute"> | boolean
   isActive?: Prisma.BoolFilter<"Institute"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  averageRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
+  reviewCount?: Prisma.IntFilter<"Institute"> | number
+  googleMapsUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  placeTypes?: Prisma.StringNullableListFilter<"Institute">
+  city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
+  categories?: Prisma.InstituteCategoryListRelationFilter
   managers?: Prisma.InstituteManagerListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
-  categories?: Prisma.InstituteCategoryListRelationFilter
-  city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
 }, "id" | "googlePlaceId">
 
 export type InstituteOrderByWithAggregationInput = {
@@ -488,20 +488,20 @@ export type InstituteOrderByWithAggregationInput = {
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   logo?: Prisma.SortOrderInput | Prisma.SortOrder
   coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
-  averageRating?: Prisma.SortOrderInput | Prisma.SortOrder
-  reviewCount?: Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   googleRating?: Prisma.SortOrderInput | Prisma.SortOrder
   googleReviewCount?: Prisma.SortOrderInput | Prisma.SortOrder
-  googleMapsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  placeTypes?: Prisma.SortOrder
   cityId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  averageRating?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  googleMapsUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  placeTypes?: Prisma.SortOrder
   _count?: Prisma.InstituteCountOrderByAggregateInput
   _avg?: Prisma.InstituteAvgOrderByAggregateInput
   _max?: Prisma.InstituteMaxOrderByAggregateInput
@@ -525,20 +525,20 @@ export type InstituteScalarWhereWithAggregatesInput = {
   longitude?: Prisma.FloatNullableWithAggregatesFilter<"Institute"> | number | null
   logo?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
   coverImage?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
-  averageRating?: Prisma.FloatNullableWithAggregatesFilter<"Institute"> | number | null
-  reviewCount?: Prisma.IntWithAggregatesFilter<"Institute"> | number
   googlePlaceId?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
   googleRating?: Prisma.FloatNullableWithAggregatesFilter<"Institute"> | number | null
   googleReviewCount?: Prisma.IntNullableWithAggregatesFilter<"Institute"> | number | null
-  googleMapsUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
-  placeTypes?: Prisma.StringNullableListFilter<"Institute">
   cityId?: Prisma.StringWithAggregatesFilter<"Institute"> | string
-  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
   isVerified?: Prisma.BoolWithAggregatesFilter<"Institute"> | boolean
   isFeatured?: Prisma.BoolWithAggregatesFilter<"Institute"> | boolean
   isActive?: Prisma.BoolWithAggregatesFilter<"Institute"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Institute"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Institute"> | Date | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
+  averageRating?: Prisma.FloatNullableWithAggregatesFilter<"Institute"> | number | null
+  reviewCount?: Prisma.IntWithAggregatesFilter<"Institute"> | number
+  googleMapsUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
+  placeTypes?: Prisma.StringNullableListFilter<"Institute">
 }
 
 export type InstituteCreateInput = {
@@ -554,23 +554,23 @@ export type InstituteCreateInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  city: Prisma.CityCreateNestedOneWithoutInstitutesInput
+  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
-  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
-  city: Prisma.CityCreateNestedOneWithoutInstitutesInput
 }
 
 export type InstituteUncheckedCreateInput = {
@@ -586,23 +586,23 @@ export type InstituteUncheckedCreateInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   cityId: string
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
-  categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUpdateInput = {
@@ -618,23 +618,23 @@ export type InstituteUpdateInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
+  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
-  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
-  city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
 }
 
 export type InstituteUncheckedUpdateInput = {
@@ -650,23 +650,23 @@ export type InstituteUncheckedUpdateInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   cityId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
-  categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateManyInput = {
@@ -682,20 +682,20 @@ export type InstituteCreateManyInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   cityId: string
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
 }
 
 export type InstituteUpdateManyMutationInput = {
@@ -711,19 +711,19 @@ export type InstituteUpdateManyMutationInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
 }
 
 export type InstituteUncheckedUpdateManyInput = {
@@ -739,20 +739,20 @@ export type InstituteUncheckedUpdateManyInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   cityId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -776,29 +776,29 @@ export type InstituteCountOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  reviewCount?: Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrder
   googleRating?: Prisma.SortOrder
   googleReviewCount?: Prisma.SortOrder
-  googleMapsUrl?: Prisma.SortOrder
-  placeTypes?: Prisma.SortOrder
   cityId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  googleMapsUrl?: Prisma.SortOrder
+  placeTypes?: Prisma.SortOrder
 }
 
 export type InstituteAvgOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  reviewCount?: Prisma.SortOrder
   googleRating?: Prisma.SortOrder
   googleReviewCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type InstituteMaxOrderByAggregateInput = {
@@ -814,19 +814,19 @@ export type InstituteMaxOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  reviewCount?: Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrder
   googleRating?: Prisma.SortOrder
   googleReviewCount?: Prisma.SortOrder
-  googleMapsUrl?: Prisma.SortOrder
   cityId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  googleMapsUrl?: Prisma.SortOrder
 }
 
 export type InstituteMinOrderByAggregateInput = {
@@ -842,28 +842,28 @@ export type InstituteMinOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   logo?: Prisma.SortOrder
   coverImage?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  reviewCount?: Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrder
   googleRating?: Prisma.SortOrder
   googleReviewCount?: Prisma.SortOrder
-  googleMapsUrl?: Prisma.SortOrder
   cityId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  googleMapsUrl?: Prisma.SortOrder
 }
 
 export type InstituteSumOrderByAggregateInput = {
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  reviewCount?: Prisma.SortOrder
   googleRating?: Prisma.SortOrder
   googleReviewCount?: Prisma.SortOrder
+  averageRating?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type InstituteListRelationFilter = {
@@ -893,16 +893,16 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
+export type IntFieldUpdateOperationsInput = {
+  set?: number
   increment?: number
   decrement?: number
   multiply?: number
@@ -1011,22 +1011,22 @@ export type InstituteCreateWithoutCityInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
-  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutCityInput = {
@@ -1042,22 +1042,22 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
-  categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutCityInput = {
@@ -1102,20 +1102,20 @@ export type InstituteScalarWhereInput = {
   longitude?: Prisma.FloatNullableFilter<"Institute"> | number | null
   logo?: Prisma.StringNullableFilter<"Institute"> | string | null
   coverImage?: Prisma.StringNullableFilter<"Institute"> | string | null
-  averageRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
-  reviewCount?: Prisma.IntFilter<"Institute"> | number
   googlePlaceId?: Prisma.StringNullableFilter<"Institute"> | string | null
   googleRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
   googleReviewCount?: Prisma.IntNullableFilter<"Institute"> | number | null
-  googleMapsUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
-  placeTypes?: Prisma.StringNullableListFilter<"Institute">
   cityId?: Prisma.StringFilter<"Institute"> | string
-  imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   isVerified?: Prisma.BoolFilter<"Institute"> | boolean
   isFeatured?: Prisma.BoolFilter<"Institute"> | boolean
   isActive?: Prisma.BoolFilter<"Institute"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  averageRating?: Prisma.FloatNullableFilter<"Institute"> | number | null
+  reviewCount?: Prisma.IntFilter<"Institute"> | number
+  googleMapsUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  placeTypes?: Prisma.StringNullableListFilter<"Institute">
 }
 
 export type InstituteCreateWithoutCategoriesInput = {
@@ -1131,22 +1131,22 @@ export type InstituteCreateWithoutCategoriesInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
-  city: Prisma.CityCreateNestedOneWithoutInstitutesInput
 }
 
 export type InstituteUncheckedCreateWithoutCategoriesInput = {
@@ -1162,20 +1162,20 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   cityId: string
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
 }
@@ -1209,22 +1209,22 @@ export type InstituteUpdateWithoutCategoriesInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
-  city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutCategoriesInput = {
@@ -1240,20 +1240,20 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   cityId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
 }
@@ -1271,22 +1271,22 @@ export type InstituteCreateWithoutManagersInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
-  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
+  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutManagersInput = {
@@ -1302,22 +1302,22 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   cityId: string
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutManagersInput = {
@@ -1349,22 +1349,22 @@ export type InstituteUpdateWithoutManagersInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
-  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
+  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutManagersInput = {
@@ -1380,22 +1380,22 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   cityId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutReviewsInput = {
@@ -1411,22 +1411,22 @@ export type InstituteCreateWithoutReviewsInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
-  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
+  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutReviewsInput = {
@@ -1442,22 +1442,22 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   cityId: string
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutReviewsInput = {
@@ -1489,22 +1489,22 @@ export type InstituteUpdateWithoutReviewsInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
-  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
+  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutReviewsInput = {
@@ -1520,22 +1520,22 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   cityId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateManyCityInput = {
@@ -1551,19 +1551,19 @@ export type InstituteCreateManyCityInput = {
   longitude?: number | null
   logo?: string | null
   coverImage?: string | null
-  averageRating?: number | null
-  reviewCount?: number
   googlePlaceId?: string | null
   googleRating?: number | null
   googleReviewCount?: number | null
-  googleMapsUrl?: string | null
-  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
-  imageUrl?: string | null
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
 }
 
 export type InstituteUpdateWithoutCityInput = {
@@ -1579,22 +1579,22 @@ export type InstituteUpdateWithoutCityInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
-  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutCityInput = {
@@ -1610,22 +1610,22 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
-  categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateManyWithoutCityInput = {
@@ -1641,19 +1641,19 @@ export type InstituteUncheckedUpdateManyWithoutCityInput = {
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
 }
 
 
@@ -1662,15 +1662,15 @@ export type InstituteUncheckedUpdateManyWithoutCityInput = {
  */
 
 export type InstituteCountOutputType = {
+  categories: number
   managers: number
   reviews: number
-  categories: number
 }
 
 export type InstituteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  categories?: boolean | InstituteCountOutputTypeCountCategoriesArgs
   managers?: boolean | InstituteCountOutputTypeCountManagersArgs
   reviews?: boolean | InstituteCountOutputTypeCountReviewsArgs
-  categories?: boolean | InstituteCountOutputTypeCountCategoriesArgs
 }
 
 /**
@@ -1681,6 +1681,13 @@ export type InstituteCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
    * Select specific fields to fetch from the InstituteCountOutputType
    */
   select?: Prisma.InstituteCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * InstituteCountOutputType without action
+ */
+export type InstituteCountOutputTypeCountCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InstituteCategoryWhereInput
 }
 
 /**
@@ -1697,13 +1704,6 @@ export type InstituteCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.ReviewWhereInput
 }
 
-/**
- * InstituteCountOutputType without action
- */
-export type InstituteCountOutputTypeCountCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.InstituteCategoryWhereInput
-}
-
 
 export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1718,24 +1718,24 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   longitude?: boolean
   logo?: boolean
   coverImage?: boolean
-  averageRating?: boolean
-  reviewCount?: boolean
   googlePlaceId?: boolean
   googleRating?: boolean
   googleReviewCount?: boolean
-  googleMapsUrl?: boolean
-  placeTypes?: boolean
   cityId?: boolean
-  imageUrl?: boolean
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
+  googleMapsUrl?: boolean
+  placeTypes?: boolean
+  city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
+  categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
   managers?: boolean | Prisma.Institute$managersArgs<ExtArgs>
   reviews?: boolean | Prisma.Institute$reviewsArgs<ExtArgs>
-  categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
-  city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.InstituteCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -1752,20 +1752,20 @@ export type InstituteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   longitude?: boolean
   logo?: boolean
   coverImage?: boolean
-  averageRating?: boolean
-  reviewCount?: boolean
   googlePlaceId?: boolean
   googleRating?: boolean
   googleReviewCount?: boolean
-  googleMapsUrl?: boolean
-  placeTypes?: boolean
   cityId?: boolean
-  imageUrl?: boolean
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
+  googleMapsUrl?: boolean
+  placeTypes?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -1782,20 +1782,20 @@ export type InstituteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   longitude?: boolean
   logo?: boolean
   coverImage?: boolean
-  averageRating?: boolean
-  reviewCount?: boolean
   googlePlaceId?: boolean
   googleRating?: boolean
   googleReviewCount?: boolean
-  googleMapsUrl?: boolean
-  placeTypes?: boolean
   cityId?: boolean
-  imageUrl?: boolean
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
+  googleMapsUrl?: boolean
+  placeTypes?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -1812,28 +1812,28 @@ export type InstituteSelectScalar = {
   longitude?: boolean
   logo?: boolean
   coverImage?: boolean
-  averageRating?: boolean
-  reviewCount?: boolean
   googlePlaceId?: boolean
   googleRating?: boolean
   googleReviewCount?: boolean
-  googleMapsUrl?: boolean
-  placeTypes?: boolean
   cityId?: boolean
-  imageUrl?: boolean
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  imageUrl?: boolean
+  averageRating?: boolean
+  reviewCount?: boolean
+  googleMapsUrl?: boolean
+  placeTypes?: boolean
 }
 
-export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "averageRating" | "reviewCount" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "googleMapsUrl" | "placeTypes" | "cityId" | "imageUrl" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["institute"]>
+export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes", ExtArgs["result"]["institute"]>
 export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
+  categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
   managers?: boolean | Prisma.Institute$managersArgs<ExtArgs>
   reviews?: boolean | Prisma.Institute$reviewsArgs<ExtArgs>
-  categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
-  city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.InstituteCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InstituteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1846,10 +1846,10 @@ export type InstituteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Institute"
   objects: {
+    city: Prisma.$CityPayload<ExtArgs>
+    categories: Prisma.$InstituteCategoryPayload<ExtArgs>[]
     managers: Prisma.$InstituteManagerPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
-    categories: Prisma.$InstituteCategoryPayload<ExtArgs>[]
-    city: Prisma.$CityPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1864,20 +1864,20 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     longitude: number | null
     logo: string | null
     coverImage: string | null
-    averageRating: number | null
-    reviewCount: number
     googlePlaceId: string | null
     googleRating: number | null
     googleReviewCount: number | null
-    googleMapsUrl: string | null
-    placeTypes: string[]
     cityId: string
-    imageUrl: string | null
     isVerified: boolean
     isFeatured: boolean
     isActive: boolean
     createdAt: Date
     updatedAt: Date
+    imageUrl: string | null
+    averageRating: number | null
+    reviewCount: number
+    googleMapsUrl: string | null
+    placeTypes: string[]
   }, ExtArgs["result"]["institute"]>
   composites: {}
 }
@@ -2272,10 +2272,10 @@ readonly fields: InstituteFieldRefs;
  */
 export interface Prisma__InstituteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  city<T extends Prisma.CityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CityDefaultArgs<ExtArgs>>): Prisma.Prisma__CityClient<runtime.Types.Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  categories<T extends Prisma.Institute$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstituteCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   managers<T extends Prisma.Institute$managersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$managersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstituteManagerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Institute$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  categories<T extends Prisma.Institute$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstituteCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  city<T extends Prisma.CityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CityDefaultArgs<ExtArgs>>): Prisma.Prisma__CityClient<runtime.Types.Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2317,20 +2317,20 @@ export interface InstituteFieldRefs {
   readonly longitude: Prisma.FieldRef<"Institute", 'Float'>
   readonly logo: Prisma.FieldRef<"Institute", 'String'>
   readonly coverImage: Prisma.FieldRef<"Institute", 'String'>
-  readonly averageRating: Prisma.FieldRef<"Institute", 'Float'>
-  readonly reviewCount: Prisma.FieldRef<"Institute", 'Int'>
   readonly googlePlaceId: Prisma.FieldRef<"Institute", 'String'>
   readonly googleRating: Prisma.FieldRef<"Institute", 'Float'>
   readonly googleReviewCount: Prisma.FieldRef<"Institute", 'Int'>
-  readonly googleMapsUrl: Prisma.FieldRef<"Institute", 'String'>
-  readonly placeTypes: Prisma.FieldRef<"Institute", 'String[]'>
   readonly cityId: Prisma.FieldRef<"Institute", 'String'>
-  readonly imageUrl: Prisma.FieldRef<"Institute", 'String'>
   readonly isVerified: Prisma.FieldRef<"Institute", 'Boolean'>
   readonly isFeatured: Prisma.FieldRef<"Institute", 'Boolean'>
   readonly isActive: Prisma.FieldRef<"Institute", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Institute", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Institute", 'DateTime'>
+  readonly imageUrl: Prisma.FieldRef<"Institute", 'String'>
+  readonly averageRating: Prisma.FieldRef<"Institute", 'Float'>
+  readonly reviewCount: Prisma.FieldRef<"Institute", 'Int'>
+  readonly googleMapsUrl: Prisma.FieldRef<"Institute", 'String'>
+  readonly placeTypes: Prisma.FieldRef<"Institute", 'String[]'>
 }
     
 
@@ -2732,6 +2732,30 @@ export type InstituteDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * Institute.categories
+ */
+export type Institute$categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InstituteCategory
+   */
+  select?: Prisma.InstituteCategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InstituteCategory
+   */
+  omit?: Prisma.InstituteCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InstituteCategoryInclude<ExtArgs> | null
+  where?: Prisma.InstituteCategoryWhereInput
+  orderBy?: Prisma.InstituteCategoryOrderByWithRelationInput | Prisma.InstituteCategoryOrderByWithRelationInput[]
+  cursor?: Prisma.InstituteCategoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InstituteCategoryScalarFieldEnum | Prisma.InstituteCategoryScalarFieldEnum[]
+}
+
+/**
  * Institute.managers
  */
 export type Institute$managersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2777,30 +2801,6 @@ export type Institute$reviewsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
-}
-
-/**
- * Institute.categories
- */
-export type Institute$categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the InstituteCategory
-   */
-  select?: Prisma.InstituteCategorySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the InstituteCategory
-   */
-  omit?: Prisma.InstituteCategoryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.InstituteCategoryInclude<ExtArgs> | null
-  where?: Prisma.InstituteCategoryWhereInput
-  orderBy?: Prisma.InstituteCategoryOrderByWithRelationInput | Prisma.InstituteCategoryOrderByWithRelationInput[]
-  cursor?: Prisma.InstituteCategoryWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.InstituteCategoryScalarFieldEnum | Prisma.InstituteCategoryScalarFieldEnum[]
 }
 
 /**
