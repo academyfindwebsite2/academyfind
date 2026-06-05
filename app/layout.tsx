@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import GoogleMapsProvider from "@/components/providers/GoogleMapsProvider";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
@@ -39,10 +40,12 @@ export default function RootLayout({
         <Navbar />
 
         <CursorGlow />
+        <GoogleMapsProvider >
 
         <main className="flex-1">
           {children}
         </main>
+        </GoogleMapsProvider>
 
         <AuthPromptModal />
 

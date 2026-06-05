@@ -1,19 +1,22 @@
 import InstituteCard from "@/components/institutes/InstituteCard";
 import { meili } from "@/lib/meilisearch";
 
+// Naya Client Component import kiya (jo humne pichle step mein banaya tha)
+import MapToggleSection from "../maps/MapToggleSection"; 
+
 type Props = {
   query: string;
   city?: string;
 };
 
 export default async function InstituteResults({
-  query,city
+  query,
+  city
 }: Props) {
   const result = await meili
   .index("global_search")
   .search(query, {
     limit: 20,
-
     filter: city
       ? [
           'type = "institute"',
@@ -39,23 +42,37 @@ export default async function InstituteResults({
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      {institutes.map((institute) => (
-        <InstituteCard
-          key={institute.id}
-          id={institute.prismaId}
-          slug={institute.slug}
-          name={institute.name}
-          image={institute.imageUrl}
-          averageRating={institute.averageRating}
-          reviewCount={institute.reviewCount}
-          description={institute.description}
-          city={{
-            name: institute.city,
-            slug: institute.citySlug,
-          }}
-        />
-      ))}
-    </div>
+    <>
+        <MapToggleSection
+            institutes={institutes.map((institute) => ({
+              id: institute.id,
+              name: institute.name,
+              latitude: institute.latitude,
+              longitude: institute.longitude,
+              slug: `${institute.prismaId}-${institute.slug}`, // Note: Make sure 'slug' format matches what your InfoWindow Link expects
+            }))}
+          />
+      <div className="grid gap-6 md:grid-cols-2">
+        {institutes.map((institute) => (
+          <InstituteCard
+            key={institute.id}
+            id={institute.prismaId}
+            slug={institute.slug}
+            name={institute.name}
+            image={institute.imageUrl}
+            averageRating={institute.averageRating}
+            reviewCount={institute.reviewCount}
+            description={institute.description}
+            city={{
+              name: institute.city,
+              slug: institute.citySlug,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Direct map ki jagah ab humara premium toggle component aayega */}
+      
+    </>
   );
 }

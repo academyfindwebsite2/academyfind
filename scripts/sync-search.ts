@@ -34,6 +34,7 @@ async function main() {
   const docs = [
     ...institutes.map((inst) => ({
       id: `inst-${inst.id}`,
+      prismaId: inst.id,
       type: "institute",
 
       name: inst.name,
@@ -58,6 +59,9 @@ async function main() {
       reviewCount: inst.reviewCount ?? 0,
 
       imageUrl: inst.imageUrl ?? "",
+
+      latitude: inst.latitude,
+      longitude: inst.longitude,
 
       url: `/institute/${inst.id}-${inst.slug}`,
     })),

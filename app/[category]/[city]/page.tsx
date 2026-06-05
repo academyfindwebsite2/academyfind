@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import formatSlug from "@/lib/formatSlug";
 
 import Breadcrumb from "@/components/navigation/BreadCrumbs";
-
 import CityHero from "@/components/City_Category/CityHero";
 import CityFilters from "@/components/City_Category/CityFilters";
 import InstituteListing from "@/components/City_Category/InstituteListing";
@@ -12,6 +11,9 @@ import RelatedCities from "@/components/City_Category/RelatedCities";
 import CityFAQ from "@/components/City_Category/CityFAQ";
 import CityCTA from "@/components/City_Category/CityCTA";
 
+// Naya component import karein
+import MapToggleSection from "@/components/maps/MapToggleSection"; 
+
 export const revalidate = 86400;
 
 interface PageProps {
@@ -19,7 +21,6 @@ interface PageProps {
     category: string;
     city: string;
   }>;
-
   searchParams: Promise<{
     sort?: string;
   }>;
@@ -39,25 +40,25 @@ export async function generateMetadata({
   };
 }
 
+// Server Component (No 'useState' here)
 export default async function CategoryCityPage({
-  params,searchParams
+  params,
+  searchParams,
 }: PageProps) {
   const { category, city } = await params;
-  const { sort} = await searchParams;
+  const { sort } = await searchParams;
 
   const categoryName = formatSlug(category);
   const cityName = formatSlug(city);
 
-  const institutes =
-    await getInstitutesByCategoryAndCity(
-      category,
-      city,
-      sort
-    );
+  const institutes = await getInstitutesByCategoryAndCity(
+    category,
+    city,
+    sort
+  );
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-10">
-
       <Breadcrumb
         items={[
           {
@@ -71,30 +72,27 @@ export default async function CategoryCityPage({
         ]}
       />
 
-      <CityHero
-        categoryName={categoryName}
-        cityName={cityName}
+      <CityHero categoryName={categoryName} cityName={cityName} />
+
+      <CityFilters category={category} city={city} activeSort={sort} />
+
+      <MapToggleSection
+        institutes={institutes.map((institute) => ({
+          id: institute.id,
+          name: institute.name,
+          latitude: institute.latitude,
+          longitude: institute.longitude,
+          slug: `${institute.id}-${institute.slug}`,
+        }))}
       />
 
-      <CityFilters category={category} city={city} activeSort={sort}/>
+      <InstituteListing institutes={institutes} />
 
-      <InstituteListing
-        institutes={institutes}
-      />
+      <CityAbout categoryName={categoryName} cityName={cityName} />
 
-      <CityAbout
-        categoryName={categoryName}
-        cityName={cityName}
-      />
+      <RelatedCities category={category} />
 
-      <RelatedCities
-        category={category}
-      />
-
-      <CityFAQ
-        categoryName={categoryName}
-        cityName={cityName}
-      />
+      <CityFAQ categoryName={categoryName} cityName={cityName} />
 
       <CityCTA />
     </main>

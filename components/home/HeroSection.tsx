@@ -17,8 +17,8 @@ const trendingSearches = [
     slug:"neet-coaching/noida"
   },
   {
-    title:"NEET Coaching in Noida",
-    slug:"neet-coaching/noida"
+    title:"CLAT Coaching in Noida",
+    slug:"clat-coaching/noida"
   
   }
   

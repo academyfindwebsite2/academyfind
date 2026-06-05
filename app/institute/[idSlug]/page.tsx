@@ -5,6 +5,7 @@ import extractId from "@/lib/extractId";
 import { getInstituteById } from "@/lib/institutes_id";
 import Breadcrumb from "@/components/navigation/BreadCrumbs";
 import Link from "next/link";
+import InstituteMap from "@/components/maps/InstituteMap";
 
 export const revalidate = 86400;
 
@@ -271,6 +272,27 @@ export default async function InstitutePage({
         <button className="mt-8 rounded-xl bg-black px-8 py-3 font-semibold text-white">
           Compare Institutes
         </button>
+
+        <div>
+            
+          institute.latitude &&
+            institute.longitude && (
+              <section className="mt-16">
+                <h2 className="mb-6 text-3xl font-bold">
+                  Location
+                </h2>
+
+                <InstituteMap
+                  name={institute.name}
+                  latitude={institute.latitude}
+                  longitude={institute.longitude}
+                />
+              </section>
+            );
+        
+        </div>
+
+        
       </section>
     </div>
   </main>

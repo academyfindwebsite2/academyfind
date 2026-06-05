@@ -1269,7 +1269,7 @@ export const InstituteScalarFieldEnum = {
   longitude: 'longitude',
   logo: 'logo',
   coverImage: 'coverImage',
-3  googlePlaceId: 'googlePlaceId',
+  googlePlaceId: 'googlePlaceId',
   googleRating: 'googleRating',
   googleReviewCount: 'googleReviewCount',
   cityId: 'cityId',

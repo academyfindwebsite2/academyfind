@@ -6,6 +6,7 @@ import RelatedCategories from "@/components/searchPage/RelatedCategories";
 import RelatedCities from "@/components/searchPage/RelatedCities";
 import RelatedBlogs from "@/components/searchPage/RelatedBlogs";
 import CompareCTA from "@/components/searchPage/CompareCTA";
+import InstitutesMap from "@/components/maps/InstitutesMap";
 
 type Props = {
   searchParams: Promise<{
