@@ -10,6 +10,7 @@ import { CursorGlow } from "@/components/ui/cursor-glow";
 import { AuthPromptModal } from "@/components/layout/auth-prompt-model";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import NextTopLoader from 'nextjs-toploader'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
 
         <CursorGlow />
         <GoogleMapsProvider >
+        <NextTopLoader color="#f59e0b" showSpinner={false} />
 
         <main className="flex-1">
           {children}

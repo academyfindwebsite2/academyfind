@@ -9,6 +9,7 @@ import InstituteMap from "@/components/maps/InstituteMap";
 import ReviewForm from "@/components/reviews/ReviewForm";
 import { Star } from "lucide-react"; // Star icon import kiya hai
 import Image from "next/image";
+import SmartButton from "@/components/ui/SmartButton";
 
 export const revalidate = 86400;
 
@@ -154,9 +155,9 @@ export default async function InstitutePage({ params }: PageProps) {
                   Connect with experts and compare institutes before admission.
                 </p>
                 <Link href="/contact">
-                  <button className="mt-5 w-full rounded-xl bg-amber-400 px-5 py-3 font-semibold text-black transition hover:bg-amber-500">
+                  <SmartButton className="mt-5 w-full rounded-xl bg-amber-400 px-5 py-3 font-semibold text-black transition hover:bg-amber-500">
                     Enquire Now
-                  </button>
+                  </SmartButton>
                 </Link>
               </div>
             </div>
@@ -225,9 +226,9 @@ export default async function InstitutePage({ params }: PageProps) {
           <p className="mt-4 text-black/80">
             Compare top coaching institutes, courses and reviews on AcademyFind.
           </p>
-          <button className="mt-8 rounded-xl bg-black px-8 py-3 font-semibold text-white">
+          <SmartButton className="mt-8 rounded-xl bg-black px-8 py-3 font-semibold text-white">
             Compare Institutes
-          </button>
+          </SmartButton>
         </section>
 
         {/* Location Map */}

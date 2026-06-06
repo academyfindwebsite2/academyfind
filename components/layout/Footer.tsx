@@ -3,17 +3,34 @@ import { GraduationCap } from "lucide-react";
 import Image from "next/image";
 
 const categories = [
-  "JEE",
-  "NEET",
-  "UPSC",
-  "CAT",
+  {
+    name: "JEE",
+    slug: "jee-coaching",
+  },
+  {
+    name: "UPSC",
+    slug: "upsc-coaching",
+  },
+  {
+    name: "NEET",
+    slug: "neet-coaching",
+  },
+  {
+    name: "CAT",
+    slug: "cat-coaching",
+  },
 ];
 
 const cities = [
-  "Kota",
-  "Delhi",
-  "Jaipur",
-  "Hyderabad",
+  {
+    name: "Noida",
+    slug: "jee-coaching/noida",
+  },
+  {
+    name: "Delhi",
+    slug: "upsc-coaching/delhi",
+  },
+  
 ];
 
 const comparisons = [
@@ -98,12 +115,12 @@ export function Footer() {
 
             <ul className="space-y-3 text-sm text-muted-foreground">
               {categories.map((item) => (
-                <li key={item}>
+                <li key={item.slug}>
                   <Link
-                    href="/categories"
+                    href={`/${item.slug}`}
                     className="transition-colors hover:text-foreground"
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -118,12 +135,12 @@ export function Footer() {
 
             <ul className="space-y-3 text-sm text-muted-foreground">
               {cities.map((item) => (
-                <li key={item}>
+                <li key={item.slug}>
                   <Link
-                    href="/cities"
+                    href={`/${item.slug}`}
                     className="transition-colors hover:text-foreground"
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}

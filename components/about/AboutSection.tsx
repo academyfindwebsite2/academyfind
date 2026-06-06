@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SmartButton from "../ui/SmartButton";
 
 export default function AboutCTA() {
   return (
@@ -22,7 +23,7 @@ export default function AboutCTA() {
         informed decisions for your future.
       </p>
 
-      <Link
+      <SmartButton
         href="/categories"
         className="
           mt-8
@@ -38,7 +39,7 @@ export default function AboutCTA() {
         "
       >
         Explore Institutes
-      </Link>
+      </SmartButton>
     </section>
   );
 }

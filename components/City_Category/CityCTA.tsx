@@ -1,5 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import InteractiveLink from "../ui/InteractiveLink";
+import SmartButton from "../ui/SmartButton";
 
 export default function CityCTA() {
   return (
@@ -28,7 +31,7 @@ export default function CityCTA() {
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               size="lg"
-              className="bg-white text-orange-600 hover:bg-orange-50"
+              className="bg-white text-orange-600 hover:bg-orange-50 cursor-pointer"
             >
               Explore Institutes
             </Button>

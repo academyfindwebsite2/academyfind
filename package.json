@@ -25,6 +25,7 @@
     "meilisearch": "^0.58.0",
     "next": "16.2.6",
     "next-cloudinary": "^6.17.5",
+    "nextjs-toploader": "^3.9.17",
     "pg": "^8.21.0",
     "prisma": "^7.8.0",
     "radix-ui": "^1.4.3",
