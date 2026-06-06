@@ -5,7 +5,7 @@ export default function CategoryCTA() {
     <section className="py-20 border-t">
       <div className="container mx-auto px-4">
         <div className="rounded-3xl border p-10 text-center">
-          <h2 className="text-4xl font-bold">
+          <h2 className="text-4xl font-bold text-amber-400">
             Start Exploring Today
           </h2>
 
@@ -16,7 +16,7 @@ export default function CategoryCTA() {
 
           <Button
             size="lg"
-            className="mt-8"
+            className="mt-8 text-amber-500 bg-white border border-amber-600 cursor-pointer hover"
           >
             Explore Institutes
           </Button>

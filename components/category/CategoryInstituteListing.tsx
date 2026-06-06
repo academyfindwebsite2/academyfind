@@ -66,9 +66,8 @@ export default function InstituteListing({
               name: institute.city.name,
               slug: institute.city.slug,
             }}
-            averageRating={institute.averageRating ?? 0}
-            reviewCount={institute.reviewCount ?? 0}
-            // 👇 Google Ratings pass karna mat bhoolna
+            averageRating={institute.googleRating ?? 0}
+            reviewCount={institute.googleReviewCount ?? 0}
             googleRating={institute.googleRating}
             googleReviewCount={institute.googleReviewCount}
             image={institute.imageUrl}

@@ -1,11 +1,13 @@
-import { Building2, MapPin, Star } from "lucide-react";
+import { Building2, ShieldCheck, Star } from "lucide-react";
 
 export default function CityHero({
   categoryName,
   cityName,
+  totalCount,
 }: {
   categoryName: string;
   cityName: string;
+  totalCount: number;
 }) {
   return (
     <section className="relative overflow-hidden rounded-3xl border border-amber-100 bg-linear-to-br from-amber-50 via-white to-orange-50 p-8 md:p-12 mb-12">
@@ -15,7 +17,7 @@ export default function CityHero({
 
       <div className="relative">
         <div className="inline-flex items-center rounded-full border border-amber-200 bg-amber-100 px-4 py-1 text-sm font-medium text-amber-400">
-          {cityName}
+          📍 {cityName}
         </div>
 
         <h1 className="mt-6 text-4xl md:text-6xl font-bold tracking-tight text-slate-900">
@@ -31,33 +33,36 @@ export default function CityHero({
 
         {/* Stats */}
         <div className="mt-10 grid grid-cols-3 gap-4 max-w-xl">
+          {/* Stat 1: Total Institutes (Dynamic) */}
           <div className="rounded-2xl border border-amber-100 bg-white/80 p-4 backdrop-blur">
             <Building2 className="h-5 w-5 text-amber-600" />
             <p className="mt-2 text-2xl font-bold text-slate-900">
-              312+
+              {totalCount}
             </p>
             <p className="text-sm text-slate-500">
               Institutes
             </p>
           </div>
 
+          {/* Stat 2: Verified Data (Logical Replacement) */}
           <div className="rounded-2xl border border-amber-100 bg-white/80 p-4 backdrop-blur">
-            <MapPin className="h-5 w-5 text-amber-600" />
+            <ShieldCheck className="h-5 w-5 text-amber-600" />
             <p className="mt-2 text-2xl font-bold text-slate-900">
-              48+
+              100%
             </p>
             <p className="text-sm text-slate-500">
-              Cities
+              Verified Data
             </p>
           </div>
 
+          {/* Stat 3: Top Rated (Based on DB Sorting) */}
           <div className="rounded-2xl border border-amber-100 bg-white/80 p-4 backdrop-blur">
             <Star className="h-5 w-5 text-amber-600" />
             <p className="mt-2 text-2xl font-bold text-slate-900">
-              4.6
+              Top
             </p>
             <p className="text-sm text-slate-500">
-              Avg Rating
+              Rated Choices
             </p>
           </div>
         </div>

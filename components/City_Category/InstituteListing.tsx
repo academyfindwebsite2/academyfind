@@ -41,7 +41,7 @@ export default function InstituteListing({
             </h2>
 
             <p className="mt-3 text-amber-400/80">
-            {institutes.length} institutes available in this city
+            {institutes.length} visible on this page
             </p>
         </div>
 
@@ -54,8 +54,8 @@ export default function InstituteListing({
                 name={institute.name}
                 description={institute.description}
                 city={institute.city}
-                averageRating={institute.averageRating ?? 0}
-                reviewCount={institute.reviewCount ?? 0}
+                averageRating={institute.googleRating ?? 0}
+                reviewCount={institute.googleReviewCount ?? 0}
                 image={institute.imageUrl}
             />
             ))}

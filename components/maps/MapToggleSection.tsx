@@ -23,7 +23,7 @@ export default function MapToggleSection({ institutes }: Props) {
       {/* Premium Toggle Button */}
       <button
         onClick={() => setMapOpen(!mapOpen)}
-        className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all hover:bg-gray-50 hover:ring-gray-400"
+        className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-amber-700 shadow-sm ring-1 ring-inset ring-gray-300 transition-all hover:bg-gray-50 hover:ring-gray-400"
       >
         {!mapOpen ? (
           <>
@@ -31,14 +31,14 @@ export default function MapToggleSection({ institutes }: Props) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
             </svg>
-            Explore Interactive Map
+            <p className="text-amber-600 cursor-pointer hover:text-amber-800">Explore Interactive Map</p>
           </>
         ) : (
           <>
             <svg className="h-5 w-5 text-gray-500 transition-transform group-hover:rotate-90" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
-            Close Map View
+            <p className="text-amber-600 cursor-pointer hover:text-amber-800">Close Map View</p>
           </>
         )}
       </button>

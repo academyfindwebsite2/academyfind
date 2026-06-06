@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CityCard from "./CityCard";
 
 interface City {
   id: string;
@@ -24,13 +25,8 @@ export default function TopCities({
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
           {cities.map((city) => (
-            <Link
-              key={city.id}
-              href={`/${category}/${city.slug}`}
-              className="rounded-xl border p-5 hover:border-primary transition"
-            >
-              {city.name}
-            </Link>
+            <CityCard cityName={city.name} citySlug={city.slug} categorySlug={category} />
+            
           ))}
         </div>
       </div>

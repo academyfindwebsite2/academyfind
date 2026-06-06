@@ -55,7 +55,7 @@ export default async function CategoryCityPage({
 
   const currentPage = page ? parseInt(page, 10) : 1;
 
-  const {institutes, totalPages} = await getInstitutesByCategoryAndCity(
+  const {institutes, totalPages, totalCount} = await getInstitutesByCategoryAndCity(
     category,
     city,
     sort,
@@ -77,7 +77,7 @@ export default async function CategoryCityPage({
         ]}
       />
 
-      <CityHero categoryName={categoryName} cityName={cityName} />
+      <CityHero categoryName={categoryName} cityName={cityName} totalCount={totalCount}/>
 
       <CityFilters category={category} city={city} activeSort={sort} />
 

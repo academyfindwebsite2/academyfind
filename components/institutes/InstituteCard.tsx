@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, MapPin, Star } from "lucide-react";
 import { CldImage } from "next-cloudinary"
+import Image from "next/image";
 
 export interface InstituteCardProps {
   id: string;
@@ -38,6 +39,7 @@ export default function InstituteCard({
   
   // Priority: googleRating > averageRating > null
   const displayRating = googleRating ?? averageRating;
+  console.log(googleRating)
   const displayReviewCount = googleReviewCount ?? reviewCount ?? 0;
 
   return (
@@ -80,9 +82,7 @@ export default function InstituteCard({
         //   />
         ) : (
           <div className="flex h-full items-center justify-center bg-muted">
-            <span className="text-sm text-muted-foreground">
-              No Image
-            </span>
+            <Image src="/inst.jpg" alt="No Image" width={400} height={400}/>
           </div>
         )}
 

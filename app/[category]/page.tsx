@@ -65,7 +65,7 @@ export default async function CategoryPage({ params,searchParams }: PageProps) {
 
   
   // 👈 Ye actual institutes laane ke liye call hai
-  const {institutes,totalPages} = await getInstitutesByCategory(category,currentPage); 
+  const {institutes,totalPages,totalCount} = await getInstitutesByCategory(category,currentPage); 
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-10">
@@ -78,7 +78,7 @@ export default async function CategoryPage({ params,searchParams }: PageProps) {
         ]}
       />
 
-      <CategoryHero category={categoryData} />
+      <CategoryHero category={categoryData} totalCount={totalCount}/>
 
       <TopCities category={category} cities={cities} />
 

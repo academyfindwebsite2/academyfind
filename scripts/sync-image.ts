@@ -21,7 +21,7 @@ async function main() {
     select: { id: true, name: true, imageUrl: true },
     // DHYAN DEIN: Test run ke liye sirf 10 items process karne ka limit lagaya hai.
     // Jab ye theek se chal jaye, toh `take: 10` ko comment/remove kar dena.
-    take: 2000,
+    take: 400,
   });
 
   console.log(`Found ${institutes.length} institutes to process.`);

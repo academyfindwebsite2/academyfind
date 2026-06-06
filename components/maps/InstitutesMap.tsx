@@ -63,7 +63,7 @@ export default function InstitutesMap({ institutes }: Props) {
           >
             {/* Custom styled pin */}
             <Pin
-              background={"#111827"} // Dark premium color (Tailwind gray-900)
+              background={"#EAB308"} // Dark premium color (Tailwind gray-900)
               borderColor={"#111827"}
               glyphColor={"#ffffff"}
               scale={1.1} // Thoda bada marker

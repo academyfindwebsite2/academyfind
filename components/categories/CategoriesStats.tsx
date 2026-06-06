@@ -8,17 +8,17 @@ import {
 const stats = [
   {
     title: "Categories",
-    value: "24",
+    value: "28",
     icon: Layers3,
   },
   {
     title: "Institutes",
-    value: "2400+",
+    value: "8000+",
     icon: Building2,
   },
   {
     title: "Cities",
-    value: "120",
+    value: "2",
     icon: MapPin,
   },
   {
