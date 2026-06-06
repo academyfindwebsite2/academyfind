@@ -1,12 +1,7 @@
 import InstituteCard from "@/components/institutes/InstituteCard";
 import { getInstitutesByCategoryAndCity } from "@/lib/institutes_cat_city";
 
-type InstituteWithRelations =
-  Awaited<
-    ReturnType<
-      typeof getInstitutesByCategoryAndCity
-    >
-  >[number];
+type InstituteWithRelations = Awaited<ReturnType<typeof getInstitutesByCategoryAndCity>>["institutes"][number];
 
 interface Props {
   institutes: InstituteWithRelations[];

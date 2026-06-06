@@ -10,6 +10,7 @@ import CityAbout from "@/components/City_Category/CityAbout";
 import RelatedCities from "@/components/City_Category/RelatedCities";
 import CityFAQ from "@/components/City_Category/CityFAQ";
 import CityCTA from "@/components/City_Category/CityCTA";
+import Pagination from "@/components/navigation/Pagination";
 
 // Naya component import karein
 import MapToggleSection from "@/components/maps/MapToggleSection"; 
@@ -23,6 +24,7 @@ interface PageProps {
   }>;
   searchParams: Promise<{
     sort?: string;
+    page?: string;
   }>;
 }
 
@@ -46,15 +48,18 @@ export default async function CategoryCityPage({
   searchParams,
 }: PageProps) {
   const { category, city } = await params;
-  const { sort } = await searchParams;
+  const { sort,page } = await searchParams;
 
   const categoryName = formatSlug(category);
   const cityName = formatSlug(city);
 
-  const institutes = await getInstitutesByCategoryAndCity(
+  const currentPage = page ? parseInt(page, 10) : 1;
+
+  const {institutes, totalPages} = await getInstitutesByCategoryAndCity(
     category,
     city,
-    sort
+    sort,
+    currentPage
   );
 
   return (
@@ -87,6 +92,8 @@ export default async function CategoryCityPage({
       />
 
       <InstituteListing institutes={institutes} />
+
+      <Pagination totalPages={totalPages} />
 
       <CityAbout categoryName={categoryName} cityName={cityName} />
 

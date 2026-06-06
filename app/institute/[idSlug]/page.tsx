@@ -8,6 +8,7 @@ import Link from "next/link";
 import InstituteMap from "@/components/maps/InstituteMap";
 import ReviewForm from "@/components/reviews/ReviewForm";
 import { Star } from "lucide-react"; // Star icon import kiya hai
+import Image from "next/image";
 
 export const revalidate = 86400;
 
@@ -98,8 +99,8 @@ export default async function InstitutePage({ params }: PageProps) {
             <div>
               <div className="rounded-3xl border bg-white p-8 shadow-sm">
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-3xl bg-amber-100 text-4xl font-bold text-amber-600">
-                    {institute.name.charAt(0)}
+                  <div className="flex w-28 shrink-0 items-center justify-center rounded-3xl text-4xl font-bold ">
+                    <Image src={institute.imageUrl ?? "/inst.jpg"} alt={institute.name.charAt(0)} width={400} height={400}/>
                   </div>
 
                   <div className="flex-1">

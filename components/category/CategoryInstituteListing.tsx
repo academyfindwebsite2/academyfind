@@ -1,13 +1,10 @@
 import InstituteCard from "@/components/institutes/InstituteCard";
 import { getInstitutesByCategory } from "@/lib/category_inst"; // 👈 Sahi function import kiya type ke liye
+import MapToggleSection from "../maps/MapToggleSection";
 
 // Ye ensure karta hai ki TypeScript ko exact DB columns pata hon
-type InstituteWithRelations =
-  Awaited<
-    ReturnType<
-      typeof getInstitutesByCategory
-    >
-  >[number];
+type InstituteWithRelations = Awaited<ReturnType<typeof getInstitutesByCategory>>["institutes"][number];
+
 
 interface Props {
   institutes: InstituteWithRelations[];
@@ -49,7 +46,12 @@ export default function InstituteListing({
         <p className="mt-2 text-lg text-slate-600">
           {institutes.length} institutes available to explore
         </p>
+
+        <MapToggleSection institutes={institutes} />
       </div>
+
+      
+
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

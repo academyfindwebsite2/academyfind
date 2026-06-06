@@ -21,6 +21,8 @@ import CategoryCTA from "@/components/category/CategoryCTA";
 import CategoryFAQ from "@/components/category/CategoryFAQ";
 import PopularSearches from "@/components/category/PopularSearches";
 import WhyChoose from "@/components/category/WhyChoose";
+import Pagination from "@/components/navigation/Pagination";
+import MapToggleSection from "@/components/maps/MapToggleSection";
 
 export const revalidate = 86400;
 
@@ -28,6 +30,9 @@ interface PageProps {
   params: Promise<{
     category: string;
   }>;
+  searchParams: Promise<{
+    page?: string;
+  }>
 }
 
 export async function generateMetadata({
@@ -43,8 +48,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function CategoryPage({ params }: PageProps) {
+export default async function CategoryPage({ params,searchParams }: PageProps) {
   const { category } = await params;
+  const {page} = await searchParams;
 
   const categoryData = await getCategoryBySlug(category);
 
@@ -55,9 +61,11 @@ export default async function CategoryPage({ params }: PageProps) {
   // Data fetching
   const cities = await getCitiesForCategory(category);
   const featuredInstitutes = await getFeaturedInstitutesForCategory(category);
+  const currentPage = page ? parseInt(page, 10) : 1;
+
   
   // 👈 Ye actual institutes laane ke liye call hai
-  const allInstitutes = await getInstitutesByCategory(category); 
+  const {institutes,totalPages} = await getInstitutesByCategory(category,currentPage); 
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-10">
@@ -81,12 +89,11 @@ export default async function CategoryPage({ params }: PageProps) {
           </h2>
         </div>
         
-        <InstituteListing institutes={allInstitutes} />
+        <InstituteListing institutes={institutes} />
+        <Pagination totalPages={totalPages} />
       </section>
 
-      <FeaturedInstitutes institutes={featuredInstitutes} />
-
-      {/* 👇 YAHAN ADD KIYA ACTUAL INSTITUTES GRID */}
+      {/*<FeaturedInstitutes institutes={featuredInstitutes} />*/}
       
 
       <WhyChoose title={categoryData.name} />
