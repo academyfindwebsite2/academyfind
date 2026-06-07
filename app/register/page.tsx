@@ -9,380 +9,406 @@ import {
   Eye,
   EyeOff,
   User,
+  Loader2, // 👈 Loading spinner ke liye add kiya hai
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import toast from 'react-hot-toast'
 
-export default function LoginPage() {
+export default function RegisterPage() { // Component ka naam RegisterPage hona better hai
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword,setShowConfirmPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  // User Details States
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setphone] = useState("")
+  const [phone, setphone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const router = useRouter()
+  
+  // 🚀 Nayi States for frictionless flow
+  const [showOtpScreen, setShowOtpScreen] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const router = useRouter();
 
-  const handleGoogleLogin = async() => {
-      await authClient.signIn.social({
-        provider: "google",
-        callbackURL: "/"
-      })
-    }
+  const handleGoogleLogin = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  };
 
+  // 1. Account Create & Send OTP
   async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (method !== "email") {
-      alert("Phone registration will be implemented separately.");
+      toast.error("Phone registration will be implemented separately.");
       return;
     }
-
-    if (!name.trim()) {
-      alert("Please enter your name");
+    if (!name.trim() || !email.trim()) {
+      toast.error("Please enter both name and email");
       return;
     }
-
-    if (!email.trim()) {
-      alert("Please enter your email");
-      return;
-    }
-
     if (password.length < 8) {
-      alert("Password must be at least 8 characters");
+      toast.error("Password must be at least 8 characters");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
       return;
     }
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
+    setIsLoading(true);
+
+    try {
+      // Step A: Account Create Karein
+      const { error: signUpError } = await authClient.signUp.email({
+        name,
+        email,
+        password,
+      });
+
+      if (signUpError) {
+        toast.error("Registration failed" );
+        setIsLoading(false);
+        return;
+      }
+
+      const { error: otpError } = await authClient.emailOtp.sendVerificationOtp({
+        email: email,
+        type: "email-verification",
+      });
+
+      if (otpError) {
+        toast.error("Account created, but OTP sending failed " );
+      } else {
+        // Step C: UI change karke OTP screen dikhayein (No Redirect)
+        setShowOtpScreen(true);
+        toast.success("OTP Sent your mail, Please verify")
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
-  const { error } = await authClient.signUp.email({
-    name,
-    email,
-    password,
-    callbackURL: "/confirm-otp",
-  });
+  // 2. Verify OTP & Auto-Login
+  async function handleVerifyAndLogin(e: React.FormEvent) {
+    e.preventDefault();
+    if (otp.length < 6) return;
+    
+    setIsLoading(true);
 
-  if (error) {
-    alert(error.message);
-    return;
+    try {
+      // Step A: Verify OTP
+      const { error: verifyError } = await authClient.emailOtp.verifyEmail({
+        email,
+        otp,
+      });
+
+      if (verifyError) {
+        toast.error("Invalid OTP, please enter correct one");
+        setOtp("")
+        setIsLoading(false);
+        return;
+      }
+
+      // Step B: Auto Login using state password
+      const { error: loginError } = await authClient.signIn.email({
+        email,
+        password,
+      });
+
+      if (loginError) {
+        toast.error("Email verified, but auto-login failed. Please login manually.");
+        router.push("/login");
+      } else {
+        // Step C: Makkhan redirect to dashboard
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong during verification.");
+    } finally {
+      setIsLoading(false);
+    }
   }
-
-  router.push("/confirm-otp");
-}
 
   return (
     <main className="min-h-screen bg-[#f8f8f8] p-4 lg:p-8">
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-7xl overflow-hidden rounded-[32px] bg-white shadow-2xl">
+        
         {/* LEFT PANEL */}
-        <div className="relative hidden w-1/2 overflow-hidden bg-gradient-to-b from-amber-400 to-orange-500 p-12 text-white lg:flex lg:flex-col">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div className="relative hidden w-1/2 overflow-hidden bg-linear-to-b from-amber-400 to-orange-500 p-12 text-white lg:flex lg:flex-col">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/90 backdrop-blur">
-            <Image src="/logo.png" alt="academy find logo" width={120} height={120}/>
+              <Image src="/logo.png" alt="academy find logo" width={120} height={120} />
             </div>
-
             <span className="font-semibold">AcademyFind</span>
-        </div>
+          </div>
 
-        {/* Content */}
-        <div className="mt-20">
+          {/* Content */}
+          <div className="mt-20">
             <h1 className="max-w-md text-5xl font-bold leading-tight">
-            Start Your Learning Journey With Confidence
+              Start Your Learning Journey With Confidence
             </h1>
-
             <p className="mt-5 max-w-sm text-orange-100">
-            Join thousands of students discovering the best coaching
-            institutes across India.
+              Join thousands of students discovering the best coaching institutes across India.
             </p>
 
             {/* Journey Steps */}
             <div className="mt-12 space-y-4">
-            {[
-                {
-                title: "Search Institutes",
-                desc: "Explore coaching institutes across India",
-                },
-                {
-                title: "Compare Options",
-                desc: "Check ratings, reviews and facilities",
-                },
-                {
-                title: "Connect Directly",
-                desc: "Reach institutes without middlemen",
-                },
-                {
-                title: "Choose Confidently",
-                desc: "Make better academic decisions",
-                },
-            ].map((step, index) => (
-                <div
-                key={step.title}
-                className="flex items-start gap-4 rounded-2xl bg-white/10 p-4 backdrop-blur-md"
-                >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold text-orange-500">
+              {[
+                { title: "Search Institutes", desc: "Explore coaching institutes across India" },
+                { title: "Compare Options", desc: "Check ratings, reviews and facilities" },
+                { title: "Connect Directly", desc: "Reach institutes without middlemen" },
+                { title: "Choose Confidently", desc: "Make better academic decisions" },
+              ].map((step, index) => (
+                <div key={step.title} className="flex items-start gap-4 rounded-2xl bg-white/10 p-4 backdrop-blur-md">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold text-orange-500">
                     {index + 1}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{step.title}</h3>
+                    <p className="mt-1 text-sm text-orange-100">{step.desc}</p>
+                  </div>
                 </div>
-
-                <div>
-                    <h3 className="font-semibold">
-                    {step.title}
-                    </h3>
-
-                    <p className="mt-1 text-sm text-orange-100">
-                    {step.desc}
-                    </p>
-                </div>
-                </div>
-            ))}
+              ))}
             </div>
-        </div>
+          </div>
 
-        {/* Decorative Circle */}
-        <div className="absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-
-        <div className="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-white/10 blur-3xl" />
+          {/* Decorative Circles */}
+          <div className="absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-white/10 blur-3xl" />
         </div>
 
         {/* RIGHT PANEL */}
         <div className="flex flex-1 items-center justify-center bg-[#fafafa] px-6 py-10">
           <div className="w-full max-w-md">
-            {/* Mobile Branding */}
-            {/* <div className="mb-8 flex justify-center lg:hidden">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500 text-white">
-                <GraduationCap />
-              </div>
-            </div> */}
-
-            {/* Logo */}
+            
+            {/* Logo Mobile */}
             <div className="mb-8 text-center">
-              <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl  text-white shadow-lg shadow-amber-500/30">
-                <Image
-                    src="/logo.png"
-                    alt="AcademyFind Logo"
-                    width={120}
-                    height={120} />
+              <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl text-white shadow-lg shadow-amber-500/30">
+                <Image src="/logo.png" alt="AcademyFind Logo" width={120} height={120} />
               </div>
-
-              <h3 className="text-sm font-bold tracking-[0.25em] text-slate-900">
-                ACADEMYFIND
-              </h3>
-
+              <h3 className="text-sm font-bold tracking-[0.25em] text-slate-900">ACADEMYFIND</h3>
               <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-amber-400">
                 Academy Search Simplified
               </p>
             </div>
 
-            {/* Heading */}
-            <div className="mb-6 text-center">
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-500 to-rose-200 bg-clip-text text-transparent">
-                Create Account
-              </h2>
+            {/* 🔥 CONDITIONAL RENDERING STARTS HERE */}
+            {showOtpScreen ? (
+              
+              /* ================= OTP VERIFICATION UI ================= */
+              <div className="animate-in fade-in zoom-in duration-300">
+                <div className="mb-8 text-center">
+                  <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-500 to-rose-200 bg-clip-text text-transparent">
+                    Check Your Email
+                  </h2>
+                  <p className="mt-2 text-sm text-slate-500">
+                    We've sent a 6-digit verification code to <br/> <strong className="text-slate-800">{email}</strong>
+                  </p>
+                </div>
 
-              <p className="mt-2 text-sm text-slate-500">
-                Join  AcademyFind  and  discover  India's  best  coaching  institutes.
-              </p>
-            </div>
-
-            {/* Toggle */}
-            <div className="mb-6 grid grid-cols-2 rounded-xl bg-slate-100 p-1">
-              <button
-                type="button"
-                onClick={() => setMethod("email")}
-                className={`flex items-center justify-center gap-2 cursor-pointer rounded-lg py-2 text-sm font-medium transition-all ${
-                  method === "email"
-                    ? "bg-amber-400 text-white shadow-sm"
-                    : "text-slate-600"
-                }`}
-              >
-                <Mail size={16} />
-                Email
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setMethod("phone")}
-                className={`flex items-center justify-center gap-2 cursor-pointer rounded-lg py-2 text-sm font-medium transition-all ${
-                  method === "phone"
-                    ? "bg-amber-400 text-white shadow-sm"
-                    : "text-slate-600"
-                }`}
-              >
-                <Phone size={16} />
-                Phone
-              </button>
-            </div>
-
-            <form className="space-y-5" onSubmit={handleRegister}>
-
-                <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                    Full Name
-                </label>
-
-                <div className="relative">
-                    <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-
+                <form onSubmit={handleVerifyAndLogin} className="space-y-6">
+                  <div>
                     <input
-                    type="text"
-                    placeholder="Enter your full name"
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
+                      type="text"
+                      maxLength={6}
+                      placeholder="123456"
+                      className="h-14 w-full rounded-xl border border-slate-200 bg-white px-4 text-center text-2xl font-semibold tracking-[0.5em] outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                     />
-                </div>
-                </div>
-              {/* Email / Phone */}
-              <div> 
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  {method === "email"
-                    ? "Email Address"
-                    : "Phone Number"}
-                </label>
-
-                <div className="relative">
-                  {method === "email" ? (
-                    <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                  ) : (
-                    <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                  )}
-
-                  <input
-                    type={method === "email" ? "email" : "tel"}
-                    placeholder={
-                      method === "email"
-                        ? "Enter your email"
-                        : "Enter mobile number"
-                    }
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
-                    value={method === "email" ? email : phone}
-                    onChange={(e) => {
-                      if(method === "email")
-                        setEmail(e.target.value)
-                      else
-                        setphone(e.target.value)
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Password */}
-              <div>
-                <div className="mb-2 flex items-center justify-between">
-                  <label className="text-sm font-medium text-slate-700">
-                    Password
-                  </label>
-
-                  <Link
-                    href="/forgot-password"
-                    className="text-xs text-amber-400 hover:text-amber-500"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
-
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-12 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  </div>
 
                   <button
-                    type="button"
-                    onClick={() =>
-                      setShowPassword(!showPassword)
-                    }
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    type="submit"
+                    disabled={isLoading || otp.length < 6}
+                    className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-400 font-semibold text-white shadow-md transition-all hover:shadow-lg hover:shadow-amber-500/30 disabled:opacity-70"
                   >
-                    {showPassword ? (
-                      <EyeOff size={18} />
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" /> Verifying...
+                      </>
                     ) : (
-                      <Eye size={18} />
+                      "Verify & Login"
                     )}
                   </button>
-                </div>
+                </form>
+
+                <p className="mt-8 text-center text-sm text-slate-500">
+                  Made a mistake?{" "}
+                  <button
+                    onClick={() => setShowOtpScreen(false)}
+                    className="font-semibold text-amber-400 hover:text-amber-500"
+                  >
+                    Change Email
+                  </button>
+                </p>
               </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                    Confirm Password
-                </label>
+            ) : (
 
-                <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              /* ================= ORIGINAL REGISTRATION UI ================= */
+              <div className="animate-in fade-in duration-300">
+                <div className="mb-6 text-center">
+                  <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-500 to-rose-200 bg-clip-text text-transparent">
+                    Create Account
+                  </h2>
+                  <p className="mt-2 text-sm text-slate-500">
+                    Join AcademyFind and discover India's best coaching institutes.
+                  </p>
+                </div>
 
-                    <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
-                    className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-12 text-sm outline-none transition-all focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-
-                    <button
+                {/* <div className="mb-6 grid grid-cols-2 rounded-xl bg-slate-100 p-1">
+                  <button
                     type="button"
-                    onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                    }
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"
-                    >
-                    {showConfirmPassword ? (
-                        <EyeOff size={18} />
+                    onClick={() => setMethod("email")}
+                    className={`flex items-center justify-center gap-2 cursor-pointer rounded-lg py-2 text-sm font-medium transition-all ${
+                      method === "email" ? "bg-amber-400 text-white shadow-sm" : "text-slate-600"
+                    }`}
+                  >
+                    <Mail size={16} /> Email
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMethod("phone")}
+                    className={`flex items-center justify-center gap-2 cursor-pointer rounded-lg py-2 text-sm font-medium transition-all ${
+                      method === "phone" ? "bg-amber-400 text-white shadow-sm" : "text-slate-600"
+                    }`}
+                  >
+                    <Phone size={16} /> Phone
+                  </button>
+                </div> */}
+
+                <form className="space-y-5" onSubmit={handleRegister}>
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">Full Name</label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        placeholder="Enter your full name"
+                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                      {method === "email" ? "Email Address" : "Phone Number"}
+                    </label>
+                    <div className="relative">
+                      {method === "email" ? (
+                        <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      ) : (
+                        <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      )}
+                      <input
+                        type={method === "email" ? "email" : "tel"}
+                        placeholder={method === "email" ? "Enter your email" : "Enter mobile number"}
+                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+                        value={method === "email" ? email : phone}
+                        onChange={(e) => {
+                          if (method === "email") setEmail(e.target.value);
+                          else setphone(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium text-slate-700 mb-2 block">Password</label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
+                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-12 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"
+                      >
+                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium text-slate-700 mb-2 block">Confirm Password</label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Confirm your password"
+                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-12 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"
+                      >
+                        {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="flex h-12 w-full items-center justify-center gap-2 cursor-pointer rounded-xl bg-amber-400 font-semibold text-white shadow-md transition-all hover:shadow-lg hover:shadow-amber-500/30 disabled:opacity-70"
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" /> Processing...
+                      </>
                     ) : (
-                        <Eye size={18} />
+                      "Create Account"
                     )}
-                    </button>
+                  </button>
+                </form>
+
+                <div className="my-6 flex items-center">
+                  <div className="h-px flex-1 bg-slate-200" />
+                  <span className="mx-4 text-xs text-slate-400">OR</span>
+                  <div className="h-px flex-1 bg-slate-200" />
                 </div>
-                </div>
 
-              {/* Login */}
-              <button
-                type="submit"
-                className="h-12 w-full rounded-xl bg-amber-400 font-semibold text-white shadow-md transition-all hover:shadow-lg hover:shadow-amber-500/30"
-              >
-                Create Account
-              </button>
-            </form>
+                <button
+                  type="button"
+                  className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+                  onClick={handleGoogleLogin}
+                >
+                  <FcGoogle size={20} /> Continue with Google
+                </button>
 
-            {/* Divider */}
-            <div className="my-6 flex items-center">
-              <div className="h-px flex-1 bg-slate-200" />
-              <span className="mx-4 text-xs text-slate-400">
-                OR
-              </span>
-              <div className="h-px flex-1 bg-slate-200" />
-            </div>
-
-            {/* Google Login */}
-            <button
-              type="button"
-              className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-700 transition hover:bg-slate-50"
-              onClick={handleGoogleLogin}
-            >
-              <FcGoogle size={20} />
-              Continue with Google
-            </button>
-
-            {/* SignIn */}
-            <p className="mt-8 text-center text-sm text-slate-500">
-              Already have an account?{" "}
-              <Link
-                href="/login"
-                className="font-semibold text-amber-400 hover:text-amber-500"
-              >
-                Sign In
-              </Link>
-            </p>
+                <p className="mt-8 text-center text-sm text-slate-500">
+                  Already have an account?{" "}
+                  <Link href="/login" className="font-semibold text-amber-400 hover:text-amber-500">
+                    Sign In
+                  </Link>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

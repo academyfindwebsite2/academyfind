@@ -11,6 +11,7 @@ import { AuthPromptModal } from "@/components/layout/auth-prompt-model";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTopLoader from 'nextjs-toploader'
+import {Toaster} from 'react-hot-toast'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -49,6 +50,7 @@ export default function RootLayout({
         </main>
         </GoogleMapsProvider>
 
+        <Toaster position="top-center" reverseOrder={false} />
         <AuthPromptModal />
 
         <Footer />

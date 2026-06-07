@@ -25,7 +25,7 @@ export default function TopCities({
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
           {cities.map((city) => (
-            <CityCard cityName={city.name} citySlug={city.slug} categorySlug={category} />
+            <CityCard cityName={city.name} citySlug={city.slug} categorySlug={category} key={city.id}/>
             
           ))}
         </div>

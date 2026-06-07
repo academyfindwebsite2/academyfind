@@ -29,6 +29,7 @@ export function AuthPromptModal() {
     const excludedRoutes = [
     "/login",
     "/register",
+    "/confirm-otp",
     ];
 
     if (excludedRoutes.includes(pathname)) {
