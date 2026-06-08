@@ -12,6 +12,9 @@ import {
   UserPlus,
   Menu,
 } from "lucide-react";
+// 👇 Hooks import kiye hain auto-close logic ke liye
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation"; 
 
 import { Button } from "@/components/ui/button";
 
@@ -19,24 +22,34 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
+  SheetHeader, 
+  SheetTitle,
 } from "@/components/ui/sheet";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-
 
 export default function Navbar() {
-
-  const {data: session, isPending} = authClient.useSession()
+  const { data: session, isPending } = authClient.useSession();
   const router = useRouter();
-  const handleLogOut = async()=> {
-    try{
-      await authClient.signOut()
+  const pathname = usePathname(); 
+
+  // 👇 Mobile Menu ko control karne ke liye state
+  const [isOpen, setIsOpen] = useState(false);
+
+  // 👇 Route change hone par menu auto-close hoga
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  const handleLogOut = async () => {
+    try {
+      await authClient.signOut();
+      setIsOpen(false); // Logout par bhi menu close karein
       router.push("/");
-    }catch(err){
+    } catch (err) {
       console.error(err);
     }
-    
-  }
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200/60 bg-white/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-285 items-center justify-between px-4 py-4 lg:px-8">
@@ -48,15 +61,15 @@ export default function Navbar() {
               src="/logo.png"
               alt="AcademyFind Logo"
               width={120}
-              height={120} 
-              className="mx-6"/>
+              height={120}
+              className="mx-6"
+            />
           </div>
 
           <div>
             <span className="block text-lg font-bold tracking-tight">
               AcademyFind
             </span>
-
             <p className="hidden text-[0.6rem] sm:block text-amber-400">
               Academy Search Simplified
             </p>
@@ -65,43 +78,43 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-1">
-          <Link href="/">
-          <Button variant="ghost" className="gap-2">
-            <Search className="size-4" />
-            Search
+          {/* 🚀 Fix: Button pe asChild lagaya aur Link ko andar rakha */}
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/">
+              <Search className="size-4" />
+              Search
+            </Link>
           </Button>
-          </Link>
 
-          <Link href="/about">
-            <Button variant="ghost" className="gap-2">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/about">
               <Building2 className="size-4" />
               About Us
-            </Button>
-          </Link>
+            </Link>
+          </Button>
 
+          {/* Note: Compare button currently doesn't have a Link in your code */}
           <Button variant="ghost" className="gap-2">
             <BarChart3 className="size-4" />
             Compare
           </Button>
 
-          <Link href="/blog">
-            <Button variant="ghost" className="gap-2">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/blog">
               <FileText className="size-4" />
               Resources
-            </Button>
-          </Link>
+            </Link>
+          </Button>
 
-          <Link href="/contact">
-            <Button variant="ghost" className="gap-2">
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/contact">
               <Building2 className="size-4" />
               Contact Us
-            </Button>
-          </Link>
-
+            </Link>
+          </Button>
         </nav>
 
         {/* Desktop Auth */}
-        
         <div className="hidden lg:flex items-center gap-3">
           {session?.user ? (
             <>
@@ -133,33 +146,34 @@ export default function Navbar() {
               <Button
                 variant="outline"
                 onClick={handleLogOut}
-                className="bg-amber-50"
+                className="bg-amber-50 cursor-pointer"
               >
                 Logout
               </Button>
             </>
           ) : (
             <>
-              <Link href="/login">
-                <Button variant="ghost" className="gap-2 cursor-pointer">
+              <Button asChild variant="ghost" className="gap-2 cursor-pointer">
+                <Link href="/login">
                   <LogIn className="size-4" />
                   Login
-                </Button>
-              </Link>
+                </Link>
+              </Button>
 
-              <Link href="/register">
-                <Button className="gap-2 bg-amber-400 text-white hover:bg-amber-500 cursor-pointer">
+              <Button asChild className="gap-2 bg-amber-400 text-white hover:bg-amber-500 cursor-pointer">
+                <Link href="/register">
                   <UserPlus className="size-4" />
                   Sign Up
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </>
           )}
         </div>
 
         {/* Mobile Menu */}
         <div className="lg:hidden">
-          <Sheet>
+          {/* 🚀 Fix: Sheet ko state-driven banaya */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu className="size-5" />
@@ -167,95 +181,82 @@ export default function Navbar() {
             </SheetTrigger>
 
             <SheetContent side="right" className="w-75">
+              <SheetHeader className="sr-only">
+                <SheetTitle>Navigation Menu</SheetTitle>
+              </SheetHeader>
               <div className="mt-8 flex flex-col gap-2">
-
-                <Link href="/">
-                <Button
-                  variant="ghost"
-                  className="justify-start gap-3"
-                >
-                  <Search className="size-4" />
-                  Search
+                
+                {/* 🚀 Fix: Mobile Links mein bhi asChild lagaya */}
+                <Button asChild variant="ghost" className="justify-start gap-3">
+                  <Link href="/">
+                    <Search className="size-4" />
+                    Search
+                  </Link>
                 </Button>
-                </Link>
 
-                <Link href="/about">
-                  <Button variant="ghost" className="justify-start gap-3">
+                <Button asChild variant="ghost" className="justify-start gap-3">
+                  <Link href="/about">
                     <Building2 className="size-4" />
                     About Us
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
 
-                <Button
-                  variant="ghost"
-                  className="justify-start gap-3"
-                >
+                <Button variant="ghost" className="justify-start gap-3">
                   <BarChart3 className="size-4" />
                   Compare
                 </Button>
 
-                <Link href="/blog">
-                  <Button
-                    variant="ghost"
-                    className="justify-start gap-3"
-                  >
+                <Button asChild variant="ghost" className="justify-start gap-3">
+                  <Link href="/blog">
                     <FileText className="size-4" />
                     Blogs
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
 
-
-                <Link href="/contact">
-                  <Button
-                    variant="ghost"
-                    className="justify-start gap-3"
-                  >
+                <Button asChild variant="ghost" className="justify-start gap-3">
+                  <Link href="/contact">
                     <Building2 className="size-4" />
                     Contact
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
 
                 <div className="my-4 border-t" />
 
                 {session?.user ? (
-                <>
-                  <div className="rounded-xl border p-4">
-                    <p className="font-semibold">
-                      {session.user.name}
-                    </p>
+                  <>
+                    <div className="rounded-xl border p-4">
+                      <p className="font-semibold">
+                        {session.user.name}
+                      </p>
+                      <p className="text-sm text-zinc-500">
+                        {session.user.email}
+                      </p>
+                    </div>
 
-                    <p className="text-sm text-zinc-500">
-                      {session.user.email}
-                    </p>
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    onClick={handleLogOut}
-                  >
-                    Logout
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Link href="/login">
                     <Button
                       variant="outline"
-                      className="justify-start gap-3"
+                      onClick={handleLogOut}
                     >
-                      <LogIn className="size-4" />
-                      Login
+                      Logout
                     </Button>
-                  </Link>
+                  </>
+                ) : (
+                  <>
+                    <Button asChild variant="outline" className="justify-start gap-3">
+                      <Link href="/login">
+                        <LogIn className="size-4" />
+                        Login
+                      </Link>
+                    </Button>
 
-                  <Link href="/register">
-                    <Button className="gap-3 bg-amber-500 hover:bg-amber-600">
-                      <UserPlus className="size-4" />
-                      Sign Up
+                    <Button asChild className="gap-3 bg-amber-500 hover:bg-amber-600">
+                      <Link href="/register">
+                        <UserPlus className="size-4" />
+                        Sign Up
+                      </Link>
                     </Button>
-                  </Link>
-                </>
-)}
+                  </>
+                )}
               </div>
             </SheetContent>
           </Sheet>
