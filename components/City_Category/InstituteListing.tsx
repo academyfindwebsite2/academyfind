@@ -1,10 +1,11 @@
 import InstituteCard from "@/components/institutes/InstituteCard";
 import { getInstitutesByCategoryAndCity } from "@/lib/institutes_cat_city";
+import { InstituteWithDistance } from "@/lib/institutes_cat_city";
 
 type InstituteWithRelations = Awaited<ReturnType<typeof getInstitutesByCategoryAndCity>>["institutes"][number];
 
 interface Props {
-  institutes: InstituteWithRelations[];
+  institutes: InstituteWithDistance[];
 }
 
 export default function InstituteListing({
@@ -57,6 +58,7 @@ export default function InstituteListing({
                 averageRating={institute.googleRating ?? 0}
                 reviewCount={institute.googleReviewCount ?? 0}
                 image={institute.imageUrl}
+                distance={institute.distance}
             />
             ))}
         </div>

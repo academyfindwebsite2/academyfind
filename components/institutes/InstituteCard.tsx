@@ -20,6 +20,7 @@ export interface InstituteCardProps {
   googleReviewCount?: number | null; // Added
   website?: string | null;
   image?: string | null;
+  distance?: string | null;
 }
 
 export default function InstituteCard({
@@ -33,6 +34,7 @@ export default function InstituteCard({
   googleRating,
   googleReviewCount,
   image,
+  distance,
 }: InstituteCardProps) {
   
   const isCloudinaryImage = image?.includes("cloudinary.com");
@@ -112,54 +114,33 @@ export default function InstituteCard({
       </div>
 
       {/* Content */}
+      {/* Content */}
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
-          <h3
-            className="
-              line-clamp-2
-              text-lg
-              font-semibold
-              transition-colors
-              group-hover:text-amber-500
-            "
-          >
+          <h3 className="line-clamp-2 text-lg font-semibold transition-colors group-hover:text-amber-500">
             {name}
           </h3>
-
-          <ArrowRight
-            className="
-              h-4
-              w-4
-              shrink-0
-              text-muted-foreground
-              transition-all
-              group-hover:translate-x-1
-              group-hover:text-amber-500
-            "
-          />
+          <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-amber-500" />
         </div>
 
-        {/* City */}
-        <div
-          className="
-            mt-3
-            inline-flex
-            items-center
-            gap-1
-            rounded-full
-            bg-amber-50
-            px-3
-            py-1
-            text-xs
-            font-medium
-            text-amber-600
-          "
-        >
-          <MapPin className="h-3 w-3" />
-          {city.name}
+        {/* City aur Distance ka Row (Aamne-Samne) */}
+        <div className="mt-3 flex items-center gap-2 justify-between">
+          {/* City Chip */}
+          <div className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-600">
+            <MapPin className="h-3 w-3" />
+            {city.name}
+          </div>
+
+          {/* Distance Chip */}
+          {distance && (
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-100 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
+              <MapPin className="h-3 w-3 text-amber-500" />
+              {distance} km away
+            </div>
+          )}
         </div>
 
-        {/* Description */}
+        {/* Description (Ye alag se block mein rahega) */}
         {description && (
           <p className="mt-4 line-clamp-2 text-sm text-muted-foreground">
             {description}
@@ -168,15 +149,10 @@ export default function InstituteCard({
 
         {/* Footer */}
         <div className="mt-5 flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">
-            {displayReviewCount} reviews
-          </span>
-
-          <span className="text-sm font-medium text-amber-500">
-            View Profile
-          </span>
+          <span className="text-sm text-muted-foreground">{displayReviewCount} reviews</span>
+          <span className="text-sm font-medium text-amber-500">View Profile</span>
         </div>
       </div>
-    </Link>
-  );
+  </Link>
+        );
 }

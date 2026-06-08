@@ -1,5 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { meili } from "@/lib/meilisearch";
+import { Institute, City, Review } from "@/app/generated/prisma/client";
+
+export type InstituteWithDistance = Institute & {
+  city: City;
+  reviews: Review[];
+  distance?: string | null;
+};
 
 export async function getInstitutesByCategoryAndCity(
   categorySlug: string,
@@ -9,8 +16,8 @@ export async function getInstitutesByCategoryAndCity(
   q?: string,
   lat?: number, 
   lng?: number, 
-  radius?: number,     // 👈 Naya
-  minRating?: number,  // 👈 Naya
+  radius?: number,    
+  minRating?: number, 
   limit: number = 12
 ) {
   const skip = (page - 1) * limit;
@@ -89,9 +96,23 @@ export async function getInstitutesByCategoryAndCity(
       include: { city: true, reviews: true },
     });
 
+    const distanceMap = new Map(
+      searchRes.hits.map((hit: any) => [
+        hit.prismaId, 
+        hit._geoDistance ? (hit._geoDistance / 1000).toFixed(1) : null
+      ])
+    );
+
+    // Ab institutes ko sort karein aur distance add karein
     const orderedInstitutes = instituteIds.flatMap((id) => {
       const inst = dbInstitutes.find((i) => i.id === id);
-      return inst ? [inst] : [];
+      if (!inst) return [];
+      
+      // Distance inject karein
+      return [{
+        ...inst,
+        distance: distanceMap.get(id) || null
+      }];
     });
 
     return {

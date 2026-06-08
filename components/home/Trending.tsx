@@ -4,7 +4,7 @@ import { ArrowRight, TrendingUp } from "lucide-react";
 const destinations = [
   {
     title: "JEE Coaching in Noida",
-    subtitle: "1,200+ Institutes",
+    subtitle: "700+ Institutes",
     href: "/jee-coaching/noida",
   },
   {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -33,6 +33,8 @@ export function SearchBar() {
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [loading, setLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   // 👇 Naya State: Google Places se aaye hue coordinates ke liye
   const [selectedLocation, setSelectedLocation] = useState<{
@@ -42,6 +44,20 @@ export function SearchBar() {
   } | null>(null);
 
   const router = useRouter();
+
+  useEffect(() => {
+  function handleClickOutside(event: MouseEvent) {
+    // Agar click wrapperRef (Input + Dropdown) ke BAHAR hua hai
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      setShowSuggestions(false); // Dropdown band kar do
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
 
   // Handle Autocomplete Suggestions (Sirf "What" input ke liye)
   useEffect(() => {
@@ -150,6 +166,7 @@ export function SearchBar() {
   };
 
   const handleSuggestionClick = (url: string) => {
+    setShowSuggestions(false);
     setSuggestions([]);
     router.push(url);
   };
@@ -173,14 +190,20 @@ export function SearchBar() {
       "
     >
       {/* 1. "What" Input Box */}
-      <div className="relative min-w-0 w-full flex-1">
+      <div ref={wrapperRef} className="relative min-w-0 w-full flex-1">
         <div className="flex items-center h-12">
           <Search className="ml-2 mr-3 h-5 w-5 shrink-0 text-amber-400" />
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onFocus={() => {
+              if (input.trim().length >= 2) setShowSuggestions(true);
+            }}
             onKeyDown={(e) => {
-              if (e.key === "Enter") handleSearch();
+              if (e.key === "Enter"){
+                setShowSuggestions(false)
+                handleSearch();
+              } 
             }}
             placeholder="Search 'JEE Coaching' or 'Aakash'..."
             className="
@@ -197,8 +220,8 @@ export function SearchBar() {
         </div>
 
         {/* Suggestions Dropdown Container */}
-        {(suggestions.length > 0 || loading) && (
-          <div className="absolute left-0 top-full z-50 mt-3 w-full max-h-96 overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-2xl">
+        {(showSuggestions && (suggestions.length > 0 || loading)) && (
+          <div className="relative md:absolute md:left-0 md:top-full z-50 mt-2 md:mt-3 w-full max-h-52 md:max-h-96 overflow-y-auto rounded-2xl border border-slate-200 bg-white md:shadow-2xl shadow-md">
             {loading && (
               <div className="px-4 py-3 text-sm text-slate-500">
                 Searching...
