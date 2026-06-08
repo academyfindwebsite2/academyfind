@@ -26,9 +26,11 @@ interface PageProps {
     sort?: string;
     page?: string;
     q?: string;
-    lat?: string;     // 👈 Naya Add Kiya
-    lng?: string;     // 👈 Naya Add Kiya
-    address?: string; // 👈 Naya Add Kiya
+    lat?: string;
+    lng?: string;     
+    address?: string; 
+    radius?: string;
+    rating?: string;
   }>;
 }
 
@@ -51,7 +53,7 @@ export default async function CategoryCityPage({
 }: PageProps) {
   const { category, city } = await params;
   // 👇 URL se lat, lng, aur address catch kiya
-  const { sort, page, q, lat, lng, address } = await searchParams;
+  const { sort, page, q, lat, lng, address, radius, rating } = await searchParams;
 
   const categoryName = formatSlug(category);
   const cityName = formatSlug(city);
@@ -62,6 +64,9 @@ export default async function CategoryCityPage({
   const parsedLat = lat ? parseFloat(lat) : undefined;
   const parsedLng = lng ? parseFloat(lng) : undefined;
 
+  const parsedRadius = radius ? parseInt(radius,10) : undefined
+  const minRating = rating ? parseFloat(rating) : undefined
+
   // 👇 Backend function ko lat/lng paas kiye
   const {institutes, totalPages, totalCount, exactAreaMatch} = await getInstitutesByCategoryAndCity(
     category,
@@ -70,7 +75,9 @@ export default async function CategoryCityPage({
     currentPage,
     q,
     parsedLat,
-    parsedLng
+    parsedLng,
+    parsedRadius,
+    minRating,
   );
 
   // Fallback text jise hum UI par dikhayenge
@@ -87,7 +94,7 @@ export default async function CategoryCityPage({
 
       <CityHero categoryName={categoryName} cityName={cityName} totalCount={totalCount}/>
 
-      <CityFilters category={category} city={city} activeSort={sort} />
+      <CityFilters category={category} city={city} hasLocation={!!parsedLat}/>
 
       <MapToggleSection
         institutes={institutes.map((institute) => ({

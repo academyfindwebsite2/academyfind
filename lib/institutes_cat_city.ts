@@ -7,15 +7,18 @@ export async function getInstitutesByCategoryAndCity(
   sort?: string,
   page: number = 1,
   q?: string,
-  lat?: number, // 👈 Naya Parameter
-  lng?: number, // 👈 Naya Parameter
+  lat?: number, 
+  lng?: number, 
+  radius?: number,     // 👈 Naya
+  minRating?: number,  // 👈 Naya
   limit: number = 12
 ) {
   const skip = (page - 1) * limit;
-  const radiusInMeters = 5000; // 5 km radius
+  // Agar radius select kiya hai, toh usko meters me convert karo, nahi toh 5km default
+  const radiusInMeters = radius ? radius * 1000 : 5000; 
 
   // ==========================================
-  // 🚀 SCENARIO 1: MEILISEARCH (Jab search me q, lat, ya lng aaye)
+  // 🚀 SCENARIO 1: MEILISEARCH
   // ==========================================
   if ((q && q.trim() !== "") || (lat && lng)) {
     let exactAreaMatch = true;
@@ -30,33 +33,47 @@ export async function getInstitutesByCategoryAndCity(
       offset: skip,
     };
 
-    // 1. Agar user ne Location select ki hai (Google Places se coordinates aaye hain)
-    if (lat && lng) {
-      searchOptions.filter.push(`_geoRadius(${lat}, ${lng}, ${radiusInMeters})`);
-      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`]; // Jo sabse paas hai, wo sabse upar!
+    // Rating Filter add kiya
+    if (minRating) {
+      searchOptions.filter.push(`googleRating >= ${minRating}`);
     }
 
-    // 2. Search Execute karo (Agar 'q' nahi hai toh empty string jayegi, par geo-filter kaam karega)
+    // Distance Radius
+    if (lat && lng) {
+      searchOptions.filter.push(`_geoRadius(${lat}, ${lng}, ${radiusInMeters})`);
+    }
+
+    // Smart Sorting Logic
+    if (sort === "rating") {
+      searchOptions.sort = ["googleRating:desc"];
+    } else if (sort === "reviews") {
+      searchOptions.sort = ["googleReviewCount:desc"];
+    } else if (lat && lng) {
+      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`]; // Default distance sort
+    }
+
     const searchQuery = q ? q.trim() : "";
     let searchRes = await meili.index("global_search").search(searchQuery, searchOptions);
 
-    // 3. The Fallback (Agar us 5km radius mein institute nahi mila)
     if (searchRes.hits.length === 0) {
-      exactAreaMatch = false; // Frontend pe Amber Banner dikhane ke liye
-
-      // Fallback A: Radius aur Sorting hata kar poore city me dhoondo
+      exactAreaMatch = false; 
+      
+      // Fallback A (Radius hatao, par rating filter rakho)
       searchOptions.filter = [
         `type = "institute"`,
         `citySlug = "${citySlug}"`,
         `categorySlugs = "${categorySlug}"`
       ];
-      delete searchOptions.sort;
+      if (minRating) searchOptions.filter.push(`googleRating >= ${minRating}`);
+      
+      // Sorting reset
+      if (sort === "rating") searchOptions.sort = ["googleRating:desc"];
+      else if (sort === "reviews") searchOptions.sort = ["googleReviewCount:desc"];
+      else delete searchOptions.sort;
 
       searchRes = await meili.index("global_search").search(searchQuery, searchOptions);
 
-      // Fallback B: Agar abhi bhi 0 hits aaye (matlab user ki query 'q' me koi kachra tha)
       if (searchRes.hits.length === 0 && searchQuery !== "") {
-         // Query text hata do, aur city ke top institutes dikha do
          searchRes = await meili.index("global_search").search("", searchOptions);
       }
     }
@@ -87,36 +104,35 @@ export async function getInstitutesByCategoryAndCity(
   }
 
   // ==========================================
-  // 🏢 SCENARIO 2: PURE PRISMA (Jab user Dropdown/Links se aaye)
+  // 🏢 SCENARIO 2: PURE PRISMA
   // ==========================================
   let orderBy = {};
   switch (sort) {
-    case "rating":
-      orderBy = [{ googleRating: "desc" }, { id: "asc" }];
-      break;
-    case "reviews":
-      orderBy = [{ googleReviewCount: "desc" }, { id: "asc" }];
-      break;
-    default:
-      orderBy = [{ googleRating: "desc" }, { id: "asc" }];
+    case "rating": orderBy = [{ googleRating: "desc" }, { id: "asc" }]; break;
+    case "reviews": orderBy = [{ googleReviewCount: "desc" }, { id: "asc" }]; break;
+    default: orderBy = [{ googleRating: "desc" }, { id: "asc" }];
+  }
+
+  // Prisma Rating Filter
+  const prismaWhere: any = {
+    city: { slug: citySlug },
+    categories: { some: { category: { slug: categorySlug } } },
+  };
+
+  if (minRating) {
+    prismaWhere.googleRating = { gte: minRating };
   }
 
   const [institutes, totalCount] = await Promise.all([
     prisma.institute.findMany({
-      where: {
-        city: { slug: citySlug },
-        categories: { some: { category: { slug: categorySlug } } },
-      },
+      where: prismaWhere,
       include: { city: true, reviews: true },
       orderBy,
       skip: skip,
       take: limit,
     }),
     prisma.institute.count({
-      where: {
-        city: { slug: citySlug },
-        categories: { some: { category: { slug: categorySlug } } },
-      },
+      where: prismaWhere,
     }),
   ]);
 

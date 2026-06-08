@@ -19,11 +19,14 @@ async function main() {
     "citySlug",
     "categorySlugs",
     "_geo",
+    "googleRating"
   ]);
 
   const sortableTask = await index.updateSortableAttributes([
     "name",
-    "_geo"
+    "_geo",
+    "googleRating",
+    "googleReviewCount"
   ]);
 
   const typoTask = await index.updateTypoTolerance({

@@ -1,62 +1,116 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ArrowDownUp, MapPin, Star, IndianRupee } from "lucide-react";
 
 interface Props {
   category: string;
   city: string;
-  activeSort?: string;
+  hasLocation: boolean;
 }
 
-const filters = [
-  {
-    label: "Top Rated",
-    value: "rating",
-  },
-  {
-    label: "Most Reviewed",
-    value: "reviews",
-  },
-  {
-    label: "Lowest Fees",
-    value: "fees",
-  },
-];
+export default function CityFilters({ category, city, hasLocation }: Props) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-export default function CityFilters({
-  category,
-  city,
-  activeSort,
-}: Props) {
+  // Current values from URL (Default 'all' set kiya hai UI match karne ke liye)
+  const currentSort = searchParams.get("sort") || "relevance";
+  const currentRadius = searchParams.get("radius") || "5";
+  const currentRating = searchParams.get("rating") || "all";
+  const currentFee = searchParams.get("fee") || "all";
+
+  // 🚀 Magic Function
+  const handleFilterChange = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    
+    if (value && value !== "relevance" && value !== "all") {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+    
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  // 💅 Common styles for the premium pill look
+  const triggerClasses = "rounded-full border-amber-200 bg-white hover:bg-amber-50 focus:ring-2 focus:ring-amber-400 focus:ring-offset-0 focus:outline-none transition-all data-[state=open]:bg-amber-50 data-[state=open]:border-amber-400 h-10 shadow-sm";
+
   return (
-    <section className="mb-8">
-      <div className="flex flex-wrap gap-3">
-        {filters.map((filter) => {
-          const isActive =
-            activeSort === filter.value;
+    <section className="mb-8 flex flex-wrap items-center gap-3">
+      
+      {/* 1. Sort By */}
+      <Select value={currentSort} onValueChange={(val) => handleFilterChange("sort", val)}>
+        <SelectTrigger className={`w-40 ${triggerClasses}`}>
+          <div className="flex items-center gap-2 font-medium text-slate-700">
+            <ArrowDownUp className="h-4 w-4 text-amber-500" />
+            <SelectValue placeholder="Sort By" />
+          </div>
+        </SelectTrigger>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl">
+          <SelectItem value="relevance" className="cursor-pointer">Relevance</SelectItem>
+          <SelectItem value="rating" className="cursor-pointer">Top Rated</SelectItem>
+          <SelectItem value="reviews" className="cursor-pointer">Most Reviewed</SelectItem>
+        </SelectContent>
+      </Select>
 
-          return (
-            <Link
-              key={filter.value}
-              href={`/${category}/${city}?sort=${filter.value}`}
-              className={`
-                rounded-full
-                px-4
-                py-2
-                text-sm
-                font-medium
-                transition-all
+      {/* 2. Distance Filter */}
+      {hasLocation && (
+        <Select value={currentRadius} onValueChange={(val) => handleFilterChange("radius", val)}>
+          <SelectTrigger className={`w-37.5 ${triggerClasses}`}>
+            <div className="flex items-center gap-2 font-medium text-slate-700">
+              <MapPin className="h-4 w-4 text-amber-500" />
+              <SelectValue placeholder="Distance" />
+            </div>
+          </SelectTrigger>
+          <SelectContent className="rounded-xl border-slate-100 shadow-xl">
+            <SelectItem value="2" className="cursor-pointer">Within 2 km</SelectItem>
+            <SelectItem value="5" className="cursor-pointer">Within 5 km</SelectItem>
+            <SelectItem value="10" className="cursor-pointer">Within 10 km</SelectItem>
+            <SelectItem value="20" className="cursor-pointer">Within 20 km</SelectItem>
+          </SelectContent>
+        </Select>
+      )}
 
-                ${
-                  isActive
-                    ? "bg-amber-500 text-white border border-amber-500"
-                    : "bg-white text-slate-700 border border-amber-200 hover:bg-amber-50"
-                }
-              `}
-            >
-              {filter.label}
-            </Link>
-          );
-        })}
-      </div>
+      {/* 3. Ratings Filter */}
+      <Select value={currentRating} onValueChange={(val) => handleFilterChange("rating", val)}>
+        <SelectTrigger className={`w-35 ${triggerClasses}`}>
+          <div className="flex items-center gap-2 font-medium text-slate-700">
+            <Star className="h-4 w-4 text-amber-500" />
+            <SelectValue placeholder="Ratings" />
+          </div>
+        </SelectTrigger>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl">
+          <SelectItem value="all" className="cursor-pointer">Any Rating</SelectItem>
+          <SelectItem value="4.5" className="cursor-pointer">4.5+ Stars</SelectItem>
+          <SelectItem value="4.0" className="cursor-pointer">4.0+ Stars</SelectItem>
+          <SelectItem value="3.5" className="cursor-pointer">3.5+ Stars</SelectItem>
+        </SelectContent>
+      </Select>
+
+      {/* 4. Fees Filter */}
+      <Select value={currentFee} onValueChange={(val) => handleFilterChange("fee", val)}>
+        <SelectTrigger className={`w-37.5 ${triggerClasses}`}>
+          <div className="flex items-center gap-2 font-medium text-slate-700">
+            <IndianRupee className="h-4 w-4 text-amber-500" />
+            <SelectValue placeholder="Fees" />
+          </div>
+        </SelectTrigger>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl">
+          <SelectItem value="all" className="cursor-pointer">Any Fee</SelectItem>
+          <SelectItem value="50000" className="cursor-pointer">&lt; ₹50,000</SelectItem>
+          <SelectItem value="100000" className="cursor-pointer">&lt; ₹1,00,000</SelectItem>
+          <SelectItem value="150000" className="cursor-pointer">&lt; ₹1,50,000</SelectItem>
+        </SelectContent>
+      </Select>
+
     </section>
   );
 }
