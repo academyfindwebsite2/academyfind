@@ -46,7 +46,7 @@ export default function MapToggleSection({ institutes }: Props) {
       {/* Expandable Map Container with Animation */}
       <div 
         className={`w-full transition-all duration-500 ease-in-out overflow-hidden ${
-          mapOpen ? "max-h-[600px] mt-6 opacity-100" : "max-h-0 mt-0 opacity-0"
+          mapOpen ? "max-h-150 mt-6 opacity-100" : "max-h-0 mt-0 opacity-0"
         }`}
       >
         {mapOpen && <InstitutesMap institutes={institutes} />}

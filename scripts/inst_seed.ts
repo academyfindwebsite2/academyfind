@@ -270,34 +270,7 @@ async function main() {
   const selectedCategories =
     categories.filter((c) =>
       [
-        // "jee-coaching",
-        // "neet-coaching",
-        // "upsc-coaching",
-        // "cuet-coaching",
-        // "banking-coaching",
-        // "clat-coaching",
-        // "ssc-coaching",
-        // "railway-coaching",
-        // "cat-coaching",
-        // "gate-coaching",
-        // "ca-coaching",
-        // "ielts-coaching",
-        // "gre-coaching",
-        // "web-development",
-        // "cyber-security-training",
-        // "english-speaking",
-        // "dance-classes",
-        // "music-classes",
-        // "cricket-academy",
-        // "football-academy",
-        // "abacus-classes",
-        // "chess-academy",
-        // "yoga-classes",
-        // "martial-arts",
-        // "coding-classes",
-        // "commerce-coaching",
-        "law-coaching",
-        // "swimming-classes"
+        "nursing-coaching",
       ].includes(c.slug)
     );
 

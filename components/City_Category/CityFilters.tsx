@@ -126,7 +126,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
         </SelectContent>
       </Select>
 
-      <Button 
+      {hasLocation && (<Button 
         variant={isClosest ? "default" : "outline"}
         onClick={toggleClosest}
         className={`rounded-full transition-all ${
@@ -137,7 +137,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
       >
         <MapPin className="mr-2 h-4 w-4" />
         {isClosest ? "Sorted: Closest" : "Sort by Closest"}
-      </Button>
+      </Button>)}
 
     </section>
   );

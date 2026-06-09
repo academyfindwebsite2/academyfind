@@ -30,7 +30,7 @@ export default function InstitutesMap({ institutes }: Props) {
 
   if (!validInstitutes.length) {
     return (
-      <div className="flex h-[500px] items-center justify-center rounded-3xl border border-gray-100 bg-gray-50 text-gray-500">
+      <div className="flex h-125 items-center justify-center rounded-3xl border border-gray-100 bg-gray-50 text-gray-500">
         No locations available to map.
       </div>
     );
@@ -60,6 +60,7 @@ export default function InstitutesMap({ institutes }: Props) {
               lng: institute.longitude!,
             }}
             onClick={() => setSelected(institute)}
+            onMouseEnter={() => setSelected(institute)}
           >
             {/* Custom styled pin */}
             <Pin
