@@ -116,7 +116,7 @@ export default async function ProfilePage() {
                                 <div className="py-8 text-center text-slate-400 text-sm">No saved institutes.</div>
                             ) : (
                                 <div className="space-y-3 w-full">
-                                    {displayShortlist.map((item) => (
+                                    {displayShortlist.map((item: any) => (
                                         <Link key={item.instituteId} href={`/institute/${item.institute.id}-${item.institute.slug}`} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
                                             <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
                                             <div className="flex-1 overflow-hidden">
@@ -141,7 +141,7 @@ export default async function ProfilePage() {
                                             <DialogTitle className="text-lg sm:text-xl font-bold text-slate-800">All Shortlisted Institutes</DialogTitle>
                                         </DialogHeader>
                                         <div className="space-y-3 mt-2">
-                                            {shortlistedItems.map((item) => (
+                                            {shortlistedItems.map((item: any) => (
                                                 <Link 
                                                     key={item.instituteId} 
                                                     href={`/institute/${item.institute.id}-${item.institute.slug}`} 
@@ -186,7 +186,7 @@ export default async function ProfilePage() {
                                 <div className="py-8 text-center text-slate-400 text-sm">Browsing history is clear.</div>
                             ) : (
                                 <div className="space-y-3 w-full">
-                                    {displayHistory.map((item) => (
+                                    {displayHistory.map((item: any) => (
                                         <Link key={item.id} href={`/institute/${item.institute.id}-${item.institute.slug}`} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
                                             <div className="w-2.5 h-2.5 rounded-full bg-blue-400"></div>
                                             <div className="flex-1 overflow-hidden">
@@ -211,7 +211,7 @@ export default async function ProfilePage() {
                                             <DialogTitle className="text-lg sm:text-xl font-bold text-slate-800">Browsing History</DialogTitle>
                                         </DialogHeader>
                                         <div className="space-y-3 mt-2">
-                                            {historyItems.map((item) => (
+                                            {historyItems.map((item: any) => (
                                                 <Link 
                                                     key={item.id} 
                                                     href={`/institute/${item.institute.id}-${item.institute.slug}`} 
