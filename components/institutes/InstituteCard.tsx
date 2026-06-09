@@ -21,6 +21,7 @@ export interface InstituteCardProps {
   website?: string | null;
   image?: string | null;
   distance?: string | null;
+  category: string;
 }
 
 export default function InstituteCard({
@@ -35,6 +36,7 @@ export default function InstituteCard({
   googleReviewCount,
   image,
   distance,
+  category
 }: InstituteCardProps) {
   
   const isCloudinaryImage = image?.includes("cloudinary.com");
@@ -43,6 +45,141 @@ export default function InstituteCard({
   const displayRating = googleRating ?? averageRating;
   console.log(googleRating)
   const displayReviewCount = googleReviewCount ?? reviewCount ?? 0;
+
+  const getFallBackImage = (category: string) => {
+    if(!category)
+      return "/no_image/coaching_inst.PNG";
+
+    switch(category){
+      case "jee-coaching":
+        return "/no_image/jee_neet.PNG"
+      case "neet-coaching":
+        return "/no_image/jee_neet.PNG"
+      case "upsc-coaching":
+        return "/no_image/upsc_ias.PNG"
+      case "cuet-coaching":
+        return "/no_image/jee_neet.PNG"
+      case "class-1-tuition":
+        return "/no_image/tution.PNG"
+      case "class-2-tuition":
+        return "/no_image/tution.PNG"
+      case "class-3-tuition":
+        return "/no_image/tution.PNG"
+      case "class-4-tuition":
+        return "/no_image/tution.PNG"
+      case "class-5-tuition":
+        return "/no_image/tution.PNG"
+      case "class-6-tuition":
+        return "/no_image/tution.PNG"
+      case "class-7-tuition":
+        return "/no_image/tution.PNG"
+      case "class-8-tuition":
+        return "/no_image/tution.PNG"
+      case "class-9-tuition":
+        return "/no_image/tution.PNG"
+      case "class-10-tuition":
+        return "/no_image/tution.PNG"
+      case "class-11-tuition":
+        return "/no_image/tution.PNG"
+      case "class-12-tuition":
+        return "/no_image/tution.PNG"
+      case "online-tuition":
+        return "/no_image/tution.PNG"
+      case "home-tution":
+        return "/no_image/tution.PNG"
+      case "ssc-coaching":
+        return "/no_image/bank_ssc.PNG"
+      case "banking-coaching":
+        return "/no_image/bank_ssc.PNG"
+      case "coding-classes":
+        return "/no_image/computer_it.PNG"
+      case "web-development":
+        return "/no_image/computer_it.PNG"
+      case "software-testing":
+        return "/no_image/computer_it.PNG"
+      case "app-development":
+        return "/no_image/computer_it.PNG"
+      case "interview-preparation":
+        return "/no_image/test_prep.PNG"
+      case "english-speaking":
+        return "/no_image/language.PNG"
+      case "hindi-speaking":
+        return "/no_image/language.PNG"
+      case "french-classes":
+        return "/no_image/language.PNG"
+      case "german-classes":
+        return "/no_image/language.PNG"
+      case "spanish-classes":
+        return "/no_image/language.PNG"
+      case "japanese-classes":
+        return "/no_image/language.PNG"
+      case "korean-classes":
+        return "/no_image/language.PNG"
+      case "dance-classes":
+        return "no_image/dance.PNG"
+      case "music-classes":
+        return "/no_image/music.PNG"
+      case "singing-classes":
+        return "/no_image/music.PNG"
+      case "guitar-classes":
+        return "/no_image/music.PNG"
+      case "piano-classes":
+        return "/no_image/music.PNG"
+      case "tabla-classes":
+        return "/no_image/music.PNG"
+      case "violin-classes":
+        return "/no_image/music.PNG"
+      case "drawing-painting":
+        return "/no_image/art_craft.PNG"
+      case "fine-arts":
+        return "/no_image/art_craft.PNG"
+      case "sketching":
+        return "/no_image/art_craft.PNG"
+      case "art-craft-classes":
+        return "/no_image/art_craft.PNG"
+      case "swimming-classes":
+        return "/no_image/sports_fitness.PNG"
+      case "cricket-academy":
+        return "/no_image/sports_fitness.PNG"
+      case "football-academy":
+        return "/no_image/sports_fitness.PNG"
+      case "basketball-academy":
+        return "/no_image/sports_fitness.PNG"
+      case "badminton-academy":
+        return "/no_image/sports_fitness.PNG"
+      case "tennis-academy":
+        return "/no_image/sports_fitness.PNG"
+      case "gymnastics":
+        return "/no_image/sports_fitness.PNG"
+      case "skating-classes":
+        return "/no_image/sports_fitness.PNG"
+      case "athletics":
+        return "/no_image/sports_fitness.PNG"
+      case "martial-arts":
+        return "/no_image/sports_fitness.PNG"
+      case "karate":
+        return "/no_image/sports_fitness.PNG"
+      case "taekwondo":
+        return "/no_image/sport_fitness.PNG"
+      case "yoga-classes":
+        return "/no_image/yoga_welness.PNG"
+      case "phonics":
+        return "/no_image/kids.PNG"
+      case "preschool-programs":
+        return "/no_image/kids.PNG"
+      case "handwriting-improvement":
+        return "/no_image/kids.PNG"
+      case "coding-for-kids":
+        return "no_image/kids.PNG"
+      case "abacus-classes":
+        return "/no_image/abacus_math.PNG"
+      case "vedic-maths":
+        return "/no_image/abacus_math.PNG"
+      default:
+        return "/no_image/coaching_inst.PNG"
+      
+    }
+  }
 
   return (
     <Link
@@ -84,7 +221,7 @@ export default function InstituteCard({
         //   />
         ) : (
           <div className="flex h-full items-center justify-center bg-muted">
-            <Image src="/inst.jpg" alt="No Image" width={400} height={400}/>
+            <Image src={getFallBackImage(category)} alt="No Image" width={400} height={400}/>
           </div>
         )}
 

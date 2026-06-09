@@ -96,7 +96,7 @@ export default async function CategoryPage({ params,searchParams }: PageProps) {
           
         </div>
         
-        <InstituteListing institutes={institutes} />
+        <InstituteListing institutes={institutes} category={category}/>
         <Pagination totalPages={totalPages} />
       </section>
 

@@ -141,7 +141,7 @@ export default async function CategoryCityPage({
           </div>
         )}
 
-        <InstituteListing institutes={institutes} />
+        <InstituteListing institutes={institutes} category={category}/>
 
         <Pagination totalPages={totalPages} />
       </div>

@@ -6,10 +6,11 @@ type InstituteWithRelations = Awaited<ReturnType<typeof getInstitutesByCategoryA
 
 interface Props {
   institutes: InstituteWithDistance[];
+  category: string
 }
 
 export default function InstituteListing({
-  institutes,
+  institutes,category
 }: Props) {
   if (!institutes.length) {
     return (
@@ -59,6 +60,7 @@ export default function InstituteListing({
                 reviewCount={institute.googleReviewCount ?? 0}
                 image={institute.imageUrl}
                 distance={institute.distance}
+                category={category}
             />
             ))}
         </div>
