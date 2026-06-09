@@ -70,7 +70,7 @@ export default function Navbar() {
             <span className="block text-lg font-bold tracking-tight">
               AcademyFind
             </span>
-            <p className="hidden text-[0.6rem] sm:block text-amber-400">
+            <p className="text-[0.6rem] text-amber-400">
               Academy Search Simplified
             </p>
           </div>
