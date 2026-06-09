@@ -11,6 +11,7 @@ import ReviewForm from "@/components/reviews/ReviewForm";
 import { Star, Phone, MapPin, Mail, Globe, CheckCircle } from "lucide-react"; 
 import Image from "next/image";
 import SmartButton from "@/components/ui/SmartButton";
+import { Button } from "@/components/ui/button";
 
 export const revalidate = 86400;
 
@@ -184,9 +185,31 @@ export default async function InstitutePage({ params }: PageProps) {
                 </div>
 
                 {/* Description */}
-                <p className="mt-8 leading-8 text-slate-600">
-                  {institute.description ?? "A premier educational institute dedicated to providing quality coaching, expert guidance, and a competitive environment to help students achieve their academic goals."}
-                </p>
+               {institute.description ? (
+  <p className="mt-8 leading-8 text-amber-600 bg-slate-50 p-4 border border-slate-100 rounded-xl">
+    {institute.description}
+  </p>
+                ) : (
+                  <div className="mt-8 text-amber-600 bg-slate-50 p-4 border border-slate-100 rounded-xl space-y-4">
+                    <p className="leading-8">
+                      <strong>{institute.name}</strong> located in {institute.city.name} is listed on AcademyFind to help students and parents discover educational and learning opportunities. Information displayed on this page has been compiled from publicly available sources and may be updated over time. For the latest details regarding courses, fees, schedules, admissions, and facilities, please contact the institute directly.
+                    </p>
+                    
+                    {/* Clean, Flexbox CTA Section */}
+                    <div className="pt-4 border-t border-amber-200/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <p className="text-amber-700 text-sm sm:text-base leading-relaxed">
+                        <strong>Are you the owner or representative of this institute?</strong>{' '}
+                        Claim this profile to update information, add photos, and enhance your presence on AcademyFind.
+                      </p>
+
+                      <Link href="/claim" className="shrink-0">
+                        <Button className="bg-amber-600 hover:bg-amber-700 text-white cursor-pointer transition-colors px-6">
+                          Claim Profile
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
