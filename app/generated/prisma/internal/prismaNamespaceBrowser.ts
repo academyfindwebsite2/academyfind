@@ -61,7 +61,9 @@ export const ModelName = {
   InstituteCategory: 'InstituteCategory',
   InstituteManager: 'InstituteManager',
   Review: 'Review',
-  InstituteClaim: 'InstituteClaim'
+  InstituteClaim: 'InstituteClaim',
+  UserShortlist: 'UserShortlist',
+  UserHistory: 'UserHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -248,6 +250,25 @@ export const InstituteClaimScalarFieldEnum = {
 } as const
 
 export type InstituteClaimScalarFieldEnum = (typeof InstituteClaimScalarFieldEnum)[keyof typeof InstituteClaimScalarFieldEnum]
+
+
+export const UserShortlistScalarFieldEnum = {
+  userId: 'userId',
+  instituteId: 'instituteId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserShortlistScalarFieldEnum = (typeof UserShortlistScalarFieldEnum)[keyof typeof UserShortlistScalarFieldEnum]
+
+
+export const UserHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  instituteId: 'instituteId',
+  viewedAt: 'viewedAt'
+} as const
+
+export type UserHistoryScalarFieldEnum = (typeof UserHistoryScalarFieldEnum)[keyof typeof UserHistoryScalarFieldEnum]
 
 
 export const SortOrder = {

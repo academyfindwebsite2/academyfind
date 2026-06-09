@@ -12,6 +12,11 @@ import { Star, Phone, MapPin, Mail, Globe, CheckCircle } from "lucide-react";
 import Image from "next/image";
 import SmartButton from "@/components/ui/SmartButton";
 import { Button } from "@/components/ui/button";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { trackVisitHistory } from "@/lib/user-activity";
+import { prisma } from "@/lib/prisma";
+import SaveButton from "@/components/ui/SaveButton.tsx";
 
 export const revalidate = 86400;
 
@@ -48,6 +53,27 @@ export default async function InstitutePage({ params }: PageProps) {
     notFound();
   }
 
+  const session = await auth.api.getSession({
+  headers: await headers()
+})
+
+let alreadySaved = false;
+
+if(session?.user){
+  await trackVisitHistory(session.user.id,institute.id).catch(console.error)
+
+  const savedEntry = await prisma.userShortlist.findUnique({
+    where:{
+      userId_instituteId:{
+        userId: session.user.id,
+        instituteId: institute.id
+      }
+    }
+  });
+  alreadySaved = !!savedEntry
+}
+
+  
   const displayRating = institute.googleRating ?? institute.averageRating ?? 0;
   const displayReviewCount = institute.googleReviewCount ?? institute.reviewCount ?? 0;
 
@@ -142,6 +168,13 @@ export default async function InstitutePage({ params }: PageProps) {
                           )}
                         </div>
                       </div>
+                      <div className="shrink-0 flex items-center justify-center pt-1 sm:pt-0">
+                        <SaveButton 
+                          userId={session?.user?.id} 
+                          instituteId={institute.id} 
+                          isInitiallySaved={alreadySaved} 
+                        />
+                      </div>
                     </div>
 
                     {/* 🚀 Updated Contact Info Box */}
@@ -186,9 +219,9 @@ export default async function InstitutePage({ params }: PageProps) {
 
                 {/* Description */}
                {institute.description ? (
-  <p className="mt-8 leading-8 text-amber-600 bg-slate-50 p-4 border border-slate-100 rounded-xl">
-    {institute.description}
-  </p>
+                  <p className="mt-8 leading-8 text-amber-600 bg-slate-50 p-4 border border-slate-100 rounded-xl">
+                    {institute.description}
+                  </p>
                 ) : (
                   <div className="mt-8 text-amber-600 bg-slate-50 p-4 border border-slate-100 rounded-xl space-y-4">
                     <p className="leading-8">

@@ -405,6 +405,8 @@ export type InstituteWhereInput = {
   managers?: Prisma.InstituteManagerListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   claims?: Prisma.InstituteClaimListRelationFilter
+  shortlistedBy?: Prisma.UserShortlistListRelationFilter
+  viewHistory?: Prisma.UserHistoryListRelationFilter
 }
 
 export type InstituteOrderByWithRelationInput = {
@@ -439,6 +441,8 @@ export type InstituteOrderByWithRelationInput = {
   managers?: Prisma.InstituteManagerOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   claims?: Prisma.InstituteClaimOrderByRelationAggregateInput
+  shortlistedBy?: Prisma.UserShortlistOrderByRelationAggregateInput
+  viewHistory?: Prisma.UserHistoryOrderByRelationAggregateInput
 }
 
 export type InstituteWhereUniqueInput = Prisma.AtLeast<{
@@ -476,6 +480,8 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   managers?: Prisma.InstituteManagerListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   claims?: Prisma.InstituteClaimListRelationFilter
+  shortlistedBy?: Prisma.UserShortlistListRelationFilter
+  viewHistory?: Prisma.UserHistoryListRelationFilter
 }, "id" | "googlePlaceId">
 
 export type InstituteOrderByWithAggregationInput = {
@@ -575,6 +581,8 @@ export type InstituteCreateInput = {
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateInput = {
@@ -608,6 +616,8 @@ export type InstituteUncheckedCreateInput = {
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUpdateInput = {
@@ -641,6 +651,8 @@ export type InstituteUpdateInput = {
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateInput = {
@@ -674,6 +686,8 @@ export type InstituteUncheckedUpdateInput = {
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateManyInput = {
@@ -1019,6 +1033,34 @@ export type InstituteUpdateOneRequiredWithoutClaimsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InstituteUpdateToOneWithWhereWithoutClaimsInput, Prisma.InstituteUpdateWithoutClaimsInput>, Prisma.InstituteUncheckedUpdateWithoutClaimsInput>
 }
 
+export type InstituteCreateNestedOneWithoutShortlistedByInput = {
+  create?: Prisma.XOR<Prisma.InstituteCreateWithoutShortlistedByInput, Prisma.InstituteUncheckedCreateWithoutShortlistedByInput>
+  connectOrCreate?: Prisma.InstituteCreateOrConnectWithoutShortlistedByInput
+  connect?: Prisma.InstituteWhereUniqueInput
+}
+
+export type InstituteUpdateOneRequiredWithoutShortlistedByNestedInput = {
+  create?: Prisma.XOR<Prisma.InstituteCreateWithoutShortlistedByInput, Prisma.InstituteUncheckedCreateWithoutShortlistedByInput>
+  connectOrCreate?: Prisma.InstituteCreateOrConnectWithoutShortlistedByInput
+  upsert?: Prisma.InstituteUpsertWithoutShortlistedByInput
+  connect?: Prisma.InstituteWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstituteUpdateToOneWithWhereWithoutShortlistedByInput, Prisma.InstituteUpdateWithoutShortlistedByInput>, Prisma.InstituteUncheckedUpdateWithoutShortlistedByInput>
+}
+
+export type InstituteCreateNestedOneWithoutViewHistoryInput = {
+  create?: Prisma.XOR<Prisma.InstituteCreateWithoutViewHistoryInput, Prisma.InstituteUncheckedCreateWithoutViewHistoryInput>
+  connectOrCreate?: Prisma.InstituteCreateOrConnectWithoutViewHistoryInput
+  connect?: Prisma.InstituteWhereUniqueInput
+}
+
+export type InstituteUpdateOneRequiredWithoutViewHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.InstituteCreateWithoutViewHistoryInput, Prisma.InstituteUncheckedCreateWithoutViewHistoryInput>
+  connectOrCreate?: Prisma.InstituteCreateOrConnectWithoutViewHistoryInput
+  upsert?: Prisma.InstituteUpsertWithoutViewHistoryInput
+  connect?: Prisma.InstituteWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstituteUpdateToOneWithWhereWithoutViewHistoryInput, Prisma.InstituteUpdateWithoutViewHistoryInput>, Prisma.InstituteUncheckedUpdateWithoutViewHistoryInput>
+}
+
 export type InstituteCreateWithoutCityInput = {
   id?: string
   name: string
@@ -1049,6 +1091,8 @@ export type InstituteCreateWithoutCityInput = {
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutCityInput = {
@@ -1081,6 +1125,8 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutCityInput = {
@@ -1171,6 +1217,8 @@ export type InstituteCreateWithoutCategoriesInput = {
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutCategoriesInput = {
@@ -1203,6 +1251,8 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutCategoriesInput = {
@@ -1251,6 +1301,8 @@ export type InstituteUpdateWithoutCategoriesInput = {
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutCategoriesInput = {
@@ -1283,6 +1335,8 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutManagersInput = {
@@ -1315,6 +1369,8 @@ export type InstituteCreateWithoutManagersInput = {
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutManagersInput = {
@@ -1347,6 +1403,8 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutManagersInput = {
@@ -1395,6 +1453,8 @@ export type InstituteUpdateWithoutManagersInput = {
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutManagersInput = {
@@ -1427,6 +1487,8 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutReviewsInput = {
@@ -1459,6 +1521,8 @@ export type InstituteCreateWithoutReviewsInput = {
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutReviewsInput = {
@@ -1491,6 +1555,8 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutReviewsInput = {
@@ -1539,6 +1605,8 @@ export type InstituteUpdateWithoutReviewsInput = {
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutReviewsInput = {
@@ -1571,6 +1639,8 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutClaimsInput = {
@@ -1603,6 +1673,8 @@ export type InstituteCreateWithoutClaimsInput = {
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutClaimsInput = {
@@ -1635,6 +1707,8 @@ export type InstituteUncheckedCreateWithoutClaimsInput = {
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutClaimsInput = {
@@ -1683,6 +1757,8 @@ export type InstituteUpdateWithoutClaimsInput = {
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutClaimsInput = {
@@ -1715,6 +1791,312 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
+}
+
+export type InstituteCreateWithoutShortlistedByInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  phone?: string | null
+  email?: string | null
+  website?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  logo?: string | null
+  coverImage?: string | null
+  googlePlaceId?: string | null
+  googleRating?: number | null
+  googleReviewCount?: number | null
+  isVerified?: boolean
+  isFeatured?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  city: Prisma.CityCreateNestedOneWithoutInstitutesInput
+  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
+  claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
+}
+
+export type InstituteUncheckedCreateWithoutShortlistedByInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  phone?: string | null
+  email?: string | null
+  website?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  logo?: string | null
+  coverImage?: string | null
+  googlePlaceId?: string | null
+  googleRating?: number | null
+  googleReviewCount?: number | null
+  cityId: string
+  isVerified?: boolean
+  isFeatured?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
+  claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
+}
+
+export type InstituteCreateOrConnectWithoutShortlistedByInput = {
+  where: Prisma.InstituteWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstituteCreateWithoutShortlistedByInput, Prisma.InstituteUncheckedCreateWithoutShortlistedByInput>
+}
+
+export type InstituteUpsertWithoutShortlistedByInput = {
+  update: Prisma.XOR<Prisma.InstituteUpdateWithoutShortlistedByInput, Prisma.InstituteUncheckedUpdateWithoutShortlistedByInput>
+  create: Prisma.XOR<Prisma.InstituteCreateWithoutShortlistedByInput, Prisma.InstituteUncheckedCreateWithoutShortlistedByInput>
+  where?: Prisma.InstituteWhereInput
+}
+
+export type InstituteUpdateToOneWithWhereWithoutShortlistedByInput = {
+  where?: Prisma.InstituteWhereInput
+  data: Prisma.XOR<Prisma.InstituteUpdateWithoutShortlistedByInput, Prisma.InstituteUncheckedUpdateWithoutShortlistedByInput>
+}
+
+export type InstituteUpdateWithoutShortlistedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
+  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
+  claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
+}
+
+export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cityId?: Prisma.StringFieldUpdateOperationsInput | string
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
+  claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
+}
+
+export type InstituteCreateWithoutViewHistoryInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  phone?: string | null
+  email?: string | null
+  website?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  logo?: string | null
+  coverImage?: string | null
+  googlePlaceId?: string | null
+  googleRating?: number | null
+  googleReviewCount?: number | null
+  isVerified?: boolean
+  isFeatured?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  city: Prisma.CityCreateNestedOneWithoutInstitutesInput
+  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
+  claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+}
+
+export type InstituteUncheckedCreateWithoutViewHistoryInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  phone?: string | null
+  email?: string | null
+  website?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  logo?: string | null
+  coverImage?: string | null
+  googlePlaceId?: string | null
+  googleRating?: number | null
+  googleReviewCount?: number | null
+  cityId: string
+  isVerified?: boolean
+  isFeatured?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
+  claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+}
+
+export type InstituteCreateOrConnectWithoutViewHistoryInput = {
+  where: Prisma.InstituteWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstituteCreateWithoutViewHistoryInput, Prisma.InstituteUncheckedCreateWithoutViewHistoryInput>
+}
+
+export type InstituteUpsertWithoutViewHistoryInput = {
+  update: Prisma.XOR<Prisma.InstituteUpdateWithoutViewHistoryInput, Prisma.InstituteUncheckedUpdateWithoutViewHistoryInput>
+  create: Prisma.XOR<Prisma.InstituteCreateWithoutViewHistoryInput, Prisma.InstituteUncheckedCreateWithoutViewHistoryInput>
+  where?: Prisma.InstituteWhereInput
+}
+
+export type InstituteUpdateToOneWithWhereWithoutViewHistoryInput = {
+  where?: Prisma.InstituteWhereInput
+  data: Prisma.XOR<Prisma.InstituteUpdateWithoutViewHistoryInput, Prisma.InstituteUncheckedUpdateWithoutViewHistoryInput>
+}
+
+export type InstituteUpdateWithoutViewHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
+  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
+  claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+}
+
+export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cityId?: Prisma.StringFieldUpdateOperationsInput | string
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
+  claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateManyCityInput = {
@@ -1775,6 +2157,8 @@ export type InstituteUpdateWithoutCityInput = {
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutCityInput = {
@@ -1807,6 +2191,8 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateManyWithoutCityInput = {
@@ -1847,6 +2233,8 @@ export type InstituteCountOutputType = {
   managers: number
   reviews: number
   claims: number
+  shortlistedBy: number
+  viewHistory: number
 }
 
 export type InstituteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1854,6 +2242,8 @@ export type InstituteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensi
   managers?: boolean | InstituteCountOutputTypeCountManagersArgs
   reviews?: boolean | InstituteCountOutputTypeCountReviewsArgs
   claims?: boolean | InstituteCountOutputTypeCountClaimsArgs
+  shortlistedBy?: boolean | InstituteCountOutputTypeCountShortlistedByArgs
+  viewHistory?: boolean | InstituteCountOutputTypeCountViewHistoryArgs
 }
 
 /**
@@ -1894,6 +2284,20 @@ export type InstituteCountOutputTypeCountClaimsArgs<ExtArgs extends runtime.Type
   where?: Prisma.InstituteClaimWhereInput
 }
 
+/**
+ * InstituteCountOutputType without action
+ */
+export type InstituteCountOutputTypeCountShortlistedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserShortlistWhereInput
+}
+
+/**
+ * InstituteCountOutputType without action
+ */
+export type InstituteCountOutputTypeCountViewHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserHistoryWhereInput
+}
+
 
 export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1927,6 +2331,8 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   managers?: boolean | Prisma.Institute$managersArgs<ExtArgs>
   reviews?: boolean | Prisma.Institute$reviewsArgs<ExtArgs>
   claims?: boolean | Prisma.Institute$claimsArgs<ExtArgs>
+  shortlistedBy?: boolean | Prisma.Institute$shortlistedByArgs<ExtArgs>
+  viewHistory?: boolean | Prisma.Institute$viewHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.InstituteCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -2026,6 +2432,8 @@ export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   managers?: boolean | Prisma.Institute$managersArgs<ExtArgs>
   reviews?: boolean | Prisma.Institute$reviewsArgs<ExtArgs>
   claims?: boolean | Prisma.Institute$claimsArgs<ExtArgs>
+  shortlistedBy?: boolean | Prisma.Institute$shortlistedByArgs<ExtArgs>
+  viewHistory?: boolean | Prisma.Institute$viewHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.InstituteCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InstituteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2043,6 +2451,8 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     managers: Prisma.$InstituteManagerPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     claims: Prisma.$InstituteClaimPayload<ExtArgs>[]
+    shortlistedBy: Prisma.$UserShortlistPayload<ExtArgs>[]
+    viewHistory: Prisma.$UserHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2470,6 +2880,8 @@ export interface Prisma__InstituteClient<T, Null = never, ExtArgs extends runtim
   managers<T extends Prisma.Institute$managersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$managersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstituteManagerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Institute$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   claims<T extends Prisma.Institute$claimsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$claimsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstituteClaimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shortlistedBy<T extends Prisma.Institute$shortlistedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$shortlistedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserShortlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  viewHistory<T extends Prisma.Institute$viewHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$viewHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3019,6 +3431,54 @@ export type Institute$claimsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.InstituteClaimScalarFieldEnum | Prisma.InstituteClaimScalarFieldEnum[]
+}
+
+/**
+ * Institute.shortlistedBy
+ */
+export type Institute$shortlistedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserShortlist
+   */
+  select?: Prisma.UserShortlistSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserShortlist
+   */
+  omit?: Prisma.UserShortlistOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserShortlistInclude<ExtArgs> | null
+  where?: Prisma.UserShortlistWhereInput
+  orderBy?: Prisma.UserShortlistOrderByWithRelationInput | Prisma.UserShortlistOrderByWithRelationInput[]
+  cursor?: Prisma.UserShortlistWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserShortlistScalarFieldEnum | Prisma.UserShortlistScalarFieldEnum[]
+}
+
+/**
+ * Institute.viewHistory
+ */
+export type Institute$viewHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserHistory
+   */
+  select?: Prisma.UserHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserHistory
+   */
+  omit?: Prisma.UserHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserHistoryInclude<ExtArgs> | null
+  where?: Prisma.UserHistoryWhereInput
+  orderBy?: Prisma.UserHistoryOrderByWithRelationInput | Prisma.UserHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.UserHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserHistoryScalarFieldEnum | Prisma.UserHistoryScalarFieldEnum[]
 }
 
 /**

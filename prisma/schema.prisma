@@ -26,6 +26,8 @@ model User {
   accounts            Account[]
   sessions            Session[]
   claims              InstituteClaim[]
+  shortlisted         UserShortlist[]
+  viewHistory         UserHistory[]
 
   @@map("user")
 }
@@ -106,6 +108,8 @@ model Institute {
   managers          InstituteManager[]
   reviews           Review[]
   claims            InstituteClaim[]
+  shortlistedBy     UserShortlist[]
+  viewHistory       UserHistory[]
 
   @@index([cityId])
   @@index([slug])
@@ -185,30 +189,55 @@ enum Role {
 }
 
 model InstituteClaim {
-  id            String    @id @default(cuid())
-  
-  // Existing Relations Use Kiye Hain 👇
-  instituteId   String
-  institute     Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-  
-  userId        String   // Optional rakha hai, in case user logged out ho. (Agar login mandatory karna hai toh ? hata dena)
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  // Jisne form bhara hai uski details
-  fullName      String
-  email         String
-  phone         String
-  role          String    // e.g., "Owner", "Director"
-  message       String?   @db.Text
-  
-  // Admin dashboard ke liye
-  status        String    @default("PENDING") // PENDING, APPROVED, REJECTED
-  
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id String @id @default(cuid())
 
-  @@map("institute_claim")
+  // Existing Relations Use Kiye Hain 👇
+  instituteId String
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Jisne form bhara hai uski details
+  fullName String
+  email    String
+  phone    String
+  role     String
+  message  String? @db.Text
+
+  // Admin dashboard ke liye
+  status String @default("PENDING") // PENDING, APPROVED, REJECTED
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([instituteId])
   @@index([userId])
   @@index([status])
+  @@map("institute_claim")
+}
+
+model UserShortlist {
+  userId      String
+  instituteId String
+  createdAt   DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  @@id([userId, instituteId])
+  @@map("user_shortlist")
+}
+
+model UserHistory {
+  id          String   @id @default(cuid())
+  userId      String
+  instituteId String
+  viewedAt    DateTime @default(now()) @updatedAt
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_history")
 }

@@ -11,6 +11,7 @@ import RelatedCities from "@/components/City_Category/RelatedCities";
 import CityFAQ from "@/components/City_Category/CityFAQ";
 import CityCTA from "@/components/City_Category/CityCTA";
 import Pagination from "@/components/navigation/Pagination";
+import { trackVisitHistory } from "@/lib/user-activity";
 
 // Naya component import karein
 import MapToggleSection from "@/components/maps/MapToggleSection"; 
@@ -46,6 +47,7 @@ export async function generateMetadata({
     description: `Discover the best ${categoryName} in ${cityName}.`,
   };
 }
+
 
 export default async function CategoryCityPage({
   params,

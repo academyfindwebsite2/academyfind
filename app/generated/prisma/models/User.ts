@@ -251,6 +251,8 @@ export type UserWhereInput = {
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   claims?: Prisma.InstituteClaimListRelationFilter
+  shortlisted?: Prisma.UserShortlistListRelationFilter
+  viewHistory?: Prisma.UserHistoryListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -272,6 +274,8 @@ export type UserOrderByWithRelationInput = {
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   claims?: Prisma.InstituteClaimOrderByRelationAggregateInput
+  shortlisted?: Prisma.UserShortlistOrderByRelationAggregateInput
+  viewHistory?: Prisma.UserHistoryOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -296,6 +300,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   claims?: Prisma.InstituteClaimListRelationFilter
+  shortlisted?: Prisma.UserShortlistListRelationFilter
+  viewHistory?: Prisma.UserHistoryListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -355,6 +361,8 @@ export type UserCreateInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -376,6 +384,8 @@ export type UserUncheckedCreateInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -397,6 +407,8 @@ export type UserUpdateInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -418,6 +430,8 @@ export type UserUncheckedUpdateInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -615,6 +629,34 @@ export type UserUpdateOneRequiredWithoutClaimsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClaimsInput, Prisma.UserUpdateWithoutClaimsInput>, Prisma.UserUncheckedUpdateWithoutClaimsInput>
 }
 
+export type UserCreateNestedOneWithoutShortlistedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShortlistedInput, Prisma.UserUncheckedCreateWithoutShortlistedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShortlistedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShortlistedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShortlistedInput, Prisma.UserUncheckedCreateWithoutShortlistedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShortlistedInput
+  upsert?: Prisma.UserUpsertWithoutShortlistedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShortlistedInput, Prisma.UserUpdateWithoutShortlistedInput>, Prisma.UserUncheckedUpdateWithoutShortlistedInput>
+}
+
+export type UserCreateNestedOneWithoutViewHistoryInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutViewHistoryInput, Prisma.UserUncheckedCreateWithoutViewHistoryInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutViewHistoryInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutViewHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutViewHistoryInput, Prisma.UserUncheckedCreateWithoutViewHistoryInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutViewHistoryInput
+  upsert?: Prisma.UserUpsertWithoutViewHistoryInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutViewHistoryInput, Prisma.UserUpdateWithoutViewHistoryInput>, Prisma.UserUncheckedUpdateWithoutViewHistoryInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name?: string | null
@@ -633,6 +675,8 @@ export type UserCreateWithoutSessionsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -653,6 +697,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -689,6 +735,8 @@ export type UserUpdateWithoutSessionsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -709,6 +757,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -729,6 +779,8 @@ export type UserCreateWithoutAccountsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -749,6 +801,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -785,6 +839,8 @@ export type UserUpdateWithoutAccountsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -805,6 +861,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutManagedInstitutesInput = {
@@ -825,6 +883,8 @@ export type UserCreateWithoutManagedInstitutesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedInstitutesInput = {
@@ -845,6 +905,8 @@ export type UserUncheckedCreateWithoutManagedInstitutesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedInstitutesInput = {
@@ -881,6 +943,8 @@ export type UserUpdateWithoutManagedInstitutesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedInstitutesInput = {
@@ -901,6 +965,8 @@ export type UserUncheckedUpdateWithoutManagedInstitutesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -921,6 +987,8 @@ export type UserCreateWithoutReviewsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -941,6 +1009,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -977,6 +1047,8 @@ export type UserUpdateWithoutReviewsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -997,6 +1069,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClaimsInput = {
@@ -1017,6 +1091,8 @@ export type UserCreateWithoutClaimsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClaimsInput = {
@@ -1037,6 +1113,8 @@ export type UserUncheckedCreateWithoutClaimsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClaimsInput = {
@@ -1073,6 +1151,8 @@ export type UserUpdateWithoutClaimsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClaimsInput = {
@@ -1093,6 +1173,216 @@ export type UserUncheckedUpdateWithoutClaimsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutShortlistedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  emailVerified?: boolean
+  onboardingCompleted?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  managedInstitutes?: Prisma.InstituteManagerCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutShortlistedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  emailVerified?: boolean
+  onboardingCompleted?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  managedInstitutes?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutShortlistedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShortlistedInput, Prisma.UserUncheckedCreateWithoutShortlistedInput>
+}
+
+export type UserUpsertWithoutShortlistedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShortlistedInput, Prisma.UserUncheckedUpdateWithoutShortlistedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShortlistedInput, Prisma.UserUncheckedCreateWithoutShortlistedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShortlistedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShortlistedInput, Prisma.UserUncheckedUpdateWithoutShortlistedInput>
+}
+
+export type UserUpdateWithoutShortlistedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedInstitutes?: Prisma.InstituteManagerUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShortlistedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedInstitutes?: Prisma.InstituteManagerUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutViewHistoryInput = {
+  id?: string
+  name?: string | null
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  emailVerified?: boolean
+  onboardingCompleted?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  managedInstitutes?: Prisma.InstituteManagerCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutViewHistoryInput = {
+  id?: string
+  name?: string | null
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  emailVerified?: boolean
+  onboardingCompleted?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  managedInstitutes?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutViewHistoryInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutViewHistoryInput, Prisma.UserUncheckedCreateWithoutViewHistoryInput>
+}
+
+export type UserUpsertWithoutViewHistoryInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutViewHistoryInput, Prisma.UserUncheckedUpdateWithoutViewHistoryInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutViewHistoryInput, Prisma.UserUncheckedCreateWithoutViewHistoryInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutViewHistoryInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutViewHistoryInput, Prisma.UserUncheckedUpdateWithoutViewHistoryInput>
+}
+
+export type UserUpdateWithoutViewHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedInstitutes?: Prisma.InstituteManagerUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutViewHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  managedInstitutes?: Prisma.InstituteManagerUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1106,6 +1396,8 @@ export type UserCountOutputType = {
   accounts: number
   sessions: number
   claims: number
+  shortlisted: number
+  viewHistory: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1114,6 +1406,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   claims?: boolean | UserCountOutputTypeCountClaimsArgs
+  shortlisted?: boolean | UserCountOutputTypeCountShortlistedArgs
+  viewHistory?: boolean | UserCountOutputTypeCountViewHistoryArgs
 }
 
 /**
@@ -1161,6 +1455,20 @@ export type UserCountOutputTypeCountClaimsArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.InstituteClaimWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShortlistedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserShortlistWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountViewHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserHistoryWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1181,6 +1489,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   claims?: boolean | Prisma.User$claimsArgs<ExtArgs>
+  shortlisted?: boolean | Prisma.User$shortlistedArgs<ExtArgs>
+  viewHistory?: boolean | Prisma.User$viewHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1239,6 +1549,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   claims?: boolean | Prisma.User$claimsArgs<ExtArgs>
+  shortlisted?: boolean | Prisma.User$shortlistedArgs<ExtArgs>
+  viewHistory?: boolean | Prisma.User$viewHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1252,6 +1564,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     claims: Prisma.$InstituteClaimPayload<ExtArgs>[]
+    shortlisted: Prisma.$UserShortlistPayload<ExtArgs>[]
+    viewHistory: Prisma.$UserHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1666,6 +1980,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   claims<T extends Prisma.User$claimsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$claimsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstituteClaimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shortlisted<T extends Prisma.User$shortlistedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shortlistedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserShortlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  viewHistory<T extends Prisma.User$viewHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$viewHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2218,6 +2534,54 @@ export type User$claimsArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.InstituteClaimScalarFieldEnum | Prisma.InstituteClaimScalarFieldEnum[]
+}
+
+/**
+ * User.shortlisted
+ */
+export type User$shortlistedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserShortlist
+   */
+  select?: Prisma.UserShortlistSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserShortlist
+   */
+  omit?: Prisma.UserShortlistOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserShortlistInclude<ExtArgs> | null
+  where?: Prisma.UserShortlistWhereInput
+  orderBy?: Prisma.UserShortlistOrderByWithRelationInput | Prisma.UserShortlistOrderByWithRelationInput[]
+  cursor?: Prisma.UserShortlistWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserShortlistScalarFieldEnum | Prisma.UserShortlistScalarFieldEnum[]
+}
+
+/**
+ * User.viewHistory
+ */
+export type User$viewHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserHistory
+   */
+  select?: Prisma.UserHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserHistory
+   */
+  omit?: Prisma.UserHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserHistoryInclude<ExtArgs> | null
+  where?: Prisma.UserHistoryWhereInput
+  orderBy?: Prisma.UserHistoryOrderByWithRelationInput | Prisma.UserHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.UserHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserHistoryScalarFieldEnum | Prisma.UserHistoryScalarFieldEnum[]
 }
 
 /**

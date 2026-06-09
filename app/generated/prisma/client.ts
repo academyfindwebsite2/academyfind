@@ -96,3 +96,13 @@ export type Review = Prisma.ReviewModel
  * 
  */
 export type InstituteClaim = Prisma.InstituteClaimModel
+/**
+ * Model UserShortlist
+ * 
+ */
+export type UserShortlist = Prisma.UserShortlistModel
+/**
+ * Model UserHistory
+ * 
+ */
+export type UserHistory = Prisma.UserHistoryModel

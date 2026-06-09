@@ -394,7 +394,9 @@ export const ModelName = {
   InstituteCategory: 'InstituteCategory',
   InstituteManager: 'InstituteManager',
   Review: 'Review',
-  InstituteClaim: 'InstituteClaim'
+  InstituteClaim: 'InstituteClaim',
+  UserShortlist: 'UserShortlist',
+  UserHistory: 'UserHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim"
+    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1228,6 +1230,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UserShortlist: {
+      payload: Prisma.$UserShortlistPayload<ExtArgs>
+      fields: Prisma.UserShortlistFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserShortlistFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserShortlistFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>
+        }
+        findFirst: {
+          args: Prisma.UserShortlistFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserShortlistFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>
+        }
+        findMany: {
+          args: Prisma.UserShortlistFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>[]
+        }
+        create: {
+          args: Prisma.UserShortlistCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>
+        }
+        createMany: {
+          args: Prisma.UserShortlistCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserShortlistCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>[]
+        }
+        delete: {
+          args: Prisma.UserShortlistDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>
+        }
+        update: {
+          args: Prisma.UserShortlistUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserShortlistDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserShortlistUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserShortlistUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserShortlistUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserShortlistPayload>
+        }
+        aggregate: {
+          args: Prisma.UserShortlistAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserShortlist>
+        }
+        groupBy: {
+          args: Prisma.UserShortlistGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserShortlistGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserShortlistCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserShortlistCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserHistory: {
+      payload: Prisma.$UserHistoryPayload<ExtArgs>
+      fields: Prisma.UserHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.UserHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.UserHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.UserHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.UserHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.UserHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>
+        }
+        update: {
+          args: Prisma.UserHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.UserHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserHistory>
+        }
+        groupBy: {
+          args: Prisma.UserHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1435,6 +1585,25 @@ export const InstituteClaimScalarFieldEnum = {
 } as const
 
 export type InstituteClaimScalarFieldEnum = (typeof InstituteClaimScalarFieldEnum)[keyof typeof InstituteClaimScalarFieldEnum]
+
+
+export const UserShortlistScalarFieldEnum = {
+  userId: 'userId',
+  instituteId: 'instituteId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserShortlistScalarFieldEnum = (typeof UserShortlistScalarFieldEnum)[keyof typeof UserShortlistScalarFieldEnum]
+
+
+export const UserHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  instituteId: 'instituteId',
+  viewedAt: 'viewedAt'
+} as const
+
+export type UserHistoryScalarFieldEnum = (typeof UserHistoryScalarFieldEnum)[keyof typeof UserHistoryScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1664,6 +1833,8 @@ export type GlobalOmitConfig = {
   instituteManager?: Prisma.InstituteManagerOmit
   review?: Prisma.ReviewOmit
   instituteClaim?: Prisma.InstituteClaimOmit
+  userShortlist?: Prisma.UserShortlistOmit
+  userHistory?: Prisma.UserHistoryOmit
 }
 
 /* Types for Logging */
