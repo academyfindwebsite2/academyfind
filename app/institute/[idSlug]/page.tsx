@@ -326,7 +326,7 @@ if(session?.user){
                 Be the first to review {institute.name} on our platform!
               </div>
             ) : (
-              institute.reviews.map((review) => (
+              institute.reviews.map((review: any) => (
                 <div key={review.id} className="rounded-3xl border bg-white p-6">
                   <div className="font-semibold">{review.user?.name || "Anonymous User"}</div>
                   <div className="mt-2 text-amber-400">{"⭐".repeat(review.rating)}</div>
