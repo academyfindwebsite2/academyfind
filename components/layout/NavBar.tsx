@@ -209,14 +209,14 @@ export default function Navbar() {
                 <Button asChild variant="ghost" className="justify-start gap-3">
                   <Link href="/blog">
                     <FileText className="size-4" />
-                    Blogs
+                    Resources
                   </Link>
                 </Button>
 
                 <Button asChild variant="ghost" className="justify-start gap-3">
                   <Link href="/contact">
                     <Building2 className="size-4" />
-                    Contact
+                    Contact Us
                   </Link>
                 </Button>
 
