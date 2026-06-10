@@ -76,7 +76,7 @@ const claims = response.data;
               </tr>
             </thead>
             <tbody className="divide-y">
-              {claims?.map((claim) => (
+              {claims?.map((claim: any) => (
                 <tr key={claim.id} className="hover:bg-muted/50 transition-colors">
                   {/* Institute Details */}
                   <td className="p-4">

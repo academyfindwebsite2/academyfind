@@ -63,7 +63,7 @@ export default async function ManagerRootPage(){
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {managedInstitutes.map(({ institute }) => (
+                {managedInstitutes.map(({ institute: institute }) => (
                     <Link key={institute.id} href={`/manager/${institute.id}/profile`}>
                         <Card className="h-full rounded-2xl border-slate-200 hover:border-blue-400 hover:shadow-md transition-all cursor-pointer group">
                             <CardHeader className="pb-3">
