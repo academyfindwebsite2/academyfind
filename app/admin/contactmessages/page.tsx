@@ -10,7 +10,7 @@ export default async function ContactMessagesPage() {
         take: 100 
     });
 
-    const unreadCount = messages.filter(m => !m.isRead).length;
+    const unreadCount = messages.filter((m: any) => !m.isRead).length;
 
     return (
         <div className="space-y-6 animate-in fade-in duration-500 max-w-7xl mx-auto pb-12">
