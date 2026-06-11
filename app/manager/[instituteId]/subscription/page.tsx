@@ -109,7 +109,7 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ i
                             {currentPlan === plan.id
                                 ? "Active"
                                 : currentPlanRank > (planPriority[plan.id] ?? 0)
-                                    ? "Current plan"
+                                    ? "Already in Your Plan"
                                     : "Upgrade Now"}
                         </button>
                     </div>
