@@ -3,6 +3,20 @@
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 
+export async function toggleUserListingPermission(userId: string, newStatus: boolean) {
+    try {
+        await prisma.user.update({
+            where: { id: userId },
+            data: { canAddInstitute: newStatus }
+        });
+        
+        revalidatePath("/admin/users");
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: "Failed to update permission" };
+    }
+}
+
 // 1. Role Change Action
 export async function updateUserRole(userId: string, newRole: "USER" | "CONTENT_WRITER" | "INSTITUTE_MANAGER" | "ADMIN") {
     try {

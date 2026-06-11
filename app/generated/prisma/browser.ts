@@ -92,3 +92,13 @@ export type InstituteEnquiry = Prisma.InstituteEnquiryModel
  * 
  */
 export type TeacherProfile = Prisma.TeacherProfileModel
+/**
+ * Model ContactMessage
+ * 
+ */
+export type ContactMessage = Prisma.ContactMessageModel
+/**
+ * Model InstituteRequest
+ * 
+ */
+export type InstituteRequest = Prisma.InstituteRequestModel

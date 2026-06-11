@@ -28,6 +28,8 @@ model User {
   claims              InstituteClaim[]
   shortlisted         UserShortlist[]
   viewHistory         UserHistory[]
+  canAddInstitute     Boolean            @default(false)
+  instituteRequests   InstituteRequest[]
 
   @@map("user")
 }
@@ -116,6 +118,11 @@ model Institute {
   enquiries        InstituteEnquiry[]           
   youtubeVideos     String[]           
   teachers          TeacherProfile[]
+
+  feeInfo           String?            
+  classroomImages   String[]
+
+  instituteRequest  InstituteRequest?
 
   @@index([cityId])
   @@index([slug])
@@ -284,4 +291,29 @@ model TeacherProfile {
 
   @@index([instituteId])
   @@map("teacher_profile")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  email     String
+  subject   String?
+  message   String   @db.Text
+  isRead    Boolean  @default(false) 
+  createdAt DateTime @default(now())
+
+  @@map("contact_message")
+}
+
+model InstituteRequest {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  instituteId String    @unique // 🚀 Binding direct Relation
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  status      String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  createdAt   DateTime  @default(now())
+
+  @@map("institute_request")
 }

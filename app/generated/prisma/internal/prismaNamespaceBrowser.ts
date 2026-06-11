@@ -65,7 +65,9 @@ export const ModelName = {
   UserShortlist: 'UserShortlist',
   UserHistory: 'UserHistory',
   InstituteEnquiry: 'InstituteEnquiry',
-  TeacherProfile: 'TeacherProfile'
+  TeacherProfile: 'TeacherProfile',
+  ContactMessage: 'ContactMessage',
+  InstituteRequest: 'InstituteRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -97,7 +99,8 @@ export const UserScalarFieldEnum = {
   onboardingCompleted: 'onboardingCompleted',
   lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  canAddInstitute: 'canAddInstitute'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -177,7 +180,9 @@ export const InstituteScalarFieldEnum = {
   placeTypes: 'placeTypes',
   gallery: 'gallery',
   subscriptionPlan: 'subscriptionPlan',
-  youtubeVideos: 'youtubeVideos'
+  youtubeVideos: 'youtubeVideos',
+  feeInfo: 'feeInfo',
+  classroomImages: 'classroomImages'
 } as const
 
 export type InstituteScalarFieldEnum = (typeof InstituteScalarFieldEnum)[keyof typeof InstituteScalarFieldEnum]
@@ -301,6 +306,31 @@ export const TeacherProfileScalarFieldEnum = {
 } as const
 
 export type TeacherProfileScalarFieldEnum = (typeof TeacherProfileScalarFieldEnum)[keyof typeof TeacherProfileScalarFieldEnum]
+
+
+export const ContactMessageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  phone: 'phone',
+  email: 'email',
+  subject: 'subject',
+  message: 'message',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+} as const
+
+export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
+
+
+export const InstituteRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  instituteId: 'instituteId',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type InstituteRequestScalarFieldEnum = (typeof InstituteRequestScalarFieldEnum)[keyof typeof InstituteRequestScalarFieldEnum]
 
 
 export const SortOrder = {

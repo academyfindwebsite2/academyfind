@@ -146,7 +146,7 @@ export default function EditProfileForm({institute} : {institute: any}){
                 maxLimit={limits.maxResults} 
             />
 
-{/* 🚀 ADD TEACHER PROFILES */}
+
             <EditTeachers 
                 instituteId={institute.id} 
                 currentTeachers={institute.teachers || []} 

@@ -9,26 +9,53 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, LogOut, LayoutDashboard, ChevronDown } from "lucide-react";
+import { User, LogOut, LayoutDashboard, ChevronDown, PlusCircle, Building2 } from "lucide-react"; 
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth/auth-client"; // Apne auth-client ka path check kar lena
+import { authClient } from "@/lib/auth/auth-client"; 
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function UserDropdown({ user }: { user: any }) {
   const router = useRouter();
 
+  const [liveUserData, setLiveUserData] = useState({
+    role: user?.role || "USER",
+    canAddInstitute: user?.canAddInstitute || false
+  });
+
+  // 🚀 BACKGROUND FETCH: Background me chupke se fresh database records laao
+  useEffect(() => {
+    async function fetchFreshPermissions() {
+      try {
+        const res = await fetch("/api/user/me");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.authenticated) {
+            setLiveUserData({
+              role: data.role,
+              canAddInstitute: data.canAddInstitute
+            });
+          }
+        }
+      } catch (err) {
+        console.error("Failed to sync dropdown with DB:", err);
+      }
+    }
+    fetchFreshPermissions();
+  }, []);
+
   const handleLogout = async () => {
     await authClient.signOut();
     router.push("/login");
-    router.refresh(); // Logout ke baad cache refresh karne ke liye zaroori hai
+    router.refresh(); 
   };
 
   return (
     <DropdownMenu>
-      {/* Premium Trigger Button */}
+      {/* Trigger Button */}
       <DropdownMenuTrigger className="flex items-center gap-2 outline-none rounded-full p-1 pr-2.5 hover:bg-slate-100 transition-colors focus:ring-2 focus:ring-amber-500">
         <Avatar className="h-9 w-9 border border-slate-200 shadow-sm">
-          {/* Image Bug Fix: "" ki jagah undefined pass kiya */}
           {user.image ? (
                 <Image
                     src={user.image}
@@ -41,12 +68,12 @@ export default function UserDropdown({ user }: { user: any }) {
                     <div className="flex h-full w-full items-center justify-center rounded-full bg-amber-100 font-semibold text-amber-700">
                         {user.name?.charAt(0).toUpperCase() || "U"}
                     </div>
-        )}
+          )}
         </Avatar>
         <ChevronDown className="h-4 w-4 text-slate-500" />
       </DropdownMenuTrigger>
       
-      {/* Polished Dropdown Content */}
+      {/* Dropdown Content */}
       <DropdownMenuContent 
         className="w-64 mt-1 rounded-2xl p-2 shadow-xl shadow-slate-200/50 border-slate-100" 
         align="end" 
@@ -61,39 +88,47 @@ export default function UserDropdown({ user }: { user: any }) {
         
         <DropdownMenuSeparator className="bg-slate-100 my-1" />
         
-        {/* Profile Item */}
-        <DropdownMenuItem 
-          onClick={() => router.push("/profile")}
-          className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors"
-        >
-          <User className="mr-3 h-4 w-4" />
-          <span className="font-medium text-sm">My Profile</span>
+        {/* 🚀 Profile Item - Wrapped inside Link with asChild to prevent navigation threads crash */}
+        <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+          <Link href="/profile">
+            <User className="mr-3 h-4 w-4" />
+            <span className="font-medium text-sm">My Profile</span>
+          </Link>
         </DropdownMenuItem>
         
-        {/* Dashboard Item (Role Based) */}
-        {(user?.role === 'ADMIN') && (
-          <DropdownMenuItem 
-            onClick={() => router.push("/admin")}
-            className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors"
-          >
-            <LayoutDashboard className="mr-3 h-4 w-4" />
-            <span className="font-medium text-sm">Admin Panel</span>
+        {/* Admin Dashboard */}
+        {liveUserData?.role === 'ADMIN' && (
+          <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+            <Link href="/admin">
+              <LayoutDashboard className="mr-3 h-4 w-4" />
+              <span className="font-medium text-sm">Admin Panel</span>
+            </Link>
           </DropdownMenuItem>
         )}
 
-        {(user?.role === 'INSTITUTE_MANAGER') && (
-          <DropdownMenuItem 
-            onClick={() => router.push("/manager")}
-            className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors"
-          >
-            <LayoutDashboard className="mr-3 h-4 w-4" />
-            <span className="font-medium text-sm">Manage Institutes</span>
+        {/* Manager Workspace */}
+        {liveUserData?.role === 'INSTITUTE_MANAGER' && (
+          <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+            <Link href="/manager">
+              <Building2 className="mr-3 h-4 w-4" />
+              <span className="font-medium text-sm">Manage Institutes</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
+
+        {/* 🚀 ADD LISTING PASS - Strictly rendering via native Boolean DB query passed from Server Navbar */}
+        {liveUserData?.canAddInstitute === true && (
+          <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 bg-emerald-50 hover:bg-emerald-100/80 text-emerald-700 focus:bg-emerald-100 focus:text-emerald-800 transition-colors">
+            <Link href="/add-institute">
+              <PlusCircle className="mr-3 h-4 w-4 text-emerald-600" />
+              <span className="font-bold text-sm">Add Listing</span>
+            </Link>
           </DropdownMenuItem>
         )}
 
         <DropdownMenuSeparator className="bg-slate-100 my-1" />
         
-        {/* Logout Item */}
+        {/* Logout */}
         <DropdownMenuItem 
           onClick={handleLogout} 
           className="rounded-xl cursor-pointer py-3 px-3 text-red-600 focus:bg-red-50 focus:text-red-700 transition-colors"

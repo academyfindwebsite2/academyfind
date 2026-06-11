@@ -31,6 +31,7 @@ export const PLAN_LIMITS = {
         maxTeachers: 4,
         maxResults: 4,
         maxVideos: 4,
+        maxClassroomPics: 4,
         hasPriorityRanking: false,
     },
     ULTRA: {
@@ -40,6 +41,7 @@ export const PLAN_LIMITS = {
         maxTeachers: 4,
         maxResults: 4,
         maxVideos: 4,
+        maxClassroomPics: 4,
         hasPriorityRanking: true, // 🌟 Top Search Ranking
     }
 } as const;

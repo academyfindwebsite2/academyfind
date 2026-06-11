@@ -12,6 +12,7 @@ import {
   UserPlus,
   Menu,
   User,
+  Building,
 } from "lucide-react";
 // 👇 Hooks import kiye hain auto-close logic ke liye
 import { useState, useEffect } from "react";
@@ -51,6 +52,8 @@ export default function Navbar() {
       console.error(err);
     }
   };
+
+  
 
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200/60 bg-white/70 backdrop-blur-xl">
@@ -96,10 +99,10 @@ export default function Navbar() {
           </Button>
 
           {/* Note: Compare button currently doesn't have a Link in your code */}
-          <Button variant="ghost" className="gap-2">
+          {/* <Button variant="ghost" className="gap-2">
             <BarChart3 className="size-4" />
             Compare
-          </Button>
+          </Button> */}
 
           <Button asChild variant="ghost" className="gap-2">
             <Link href="/blog">
@@ -112,6 +115,13 @@ export default function Navbar() {
             <Link href="/contact">
               <Building2 className="size-4" />
               Contact Us
+            </Link>
+          </Button>
+
+          <Button asChild variant="ghost" className="gap-2">
+            <Link href="/contact">
+              <Building className="size-4" />
+              List your Institute?
             </Link>
           </Button>
         </nav>
@@ -172,10 +182,10 @@ export default function Navbar() {
                   </Link>
                 </Button>
 
-                <Button variant="ghost" className="justify-start gap-3">
+                {/* <Button variant="ghost" className="justify-start gap-3">
                   <BarChart3 className="size-4" />
                   Compare
-                </Button>
+                </Button> */}
 
                 <Button asChild variant="ghost" className="justify-start gap-3">
                   <Link href="/blog">
@@ -188,6 +198,13 @@ export default function Navbar() {
                   <Link href="/contact">
                     <Building2 className="size-4" />
                     Contact Us
+                  </Link>
+                </Button>
+
+                <Button asChild variant="ghost" className="justify-start gap-3">
+                  <Link href="/contact">
+                    <Building className="size-4" />
+                    List Your Institute?
                   </Link>
                 </Button>
 
