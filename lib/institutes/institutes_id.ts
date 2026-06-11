@@ -11,6 +11,7 @@ export async function getInstituteById(
     include: {
       city: true,
       teachers: true,
+      managers: true,
 
       categories: {
         include: {

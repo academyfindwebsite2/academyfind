@@ -7,7 +7,6 @@ import Breadcrumb from "@/components/navigation/BreadCrumbs";
 import Link from "next/link";
 import InstituteMap from "@/components/maps/InstituteMap";
 import ReviewForm from "@/components/reviews/ReviewForm";
-// 👇 Naye Icons add kiye hain premium look ke liye
 import { Star, Phone, MapPin, Mail, Globe, CheckCircle, Users, Trophy, PlayCircle, User } from "lucide-react"; 
 import Image from "next/image";
 import SmartButton from "@/components/ui/SmartButton";
@@ -16,7 +15,7 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth/auth";
 import { trackVisitHistory } from "@/lib/User/user/user-activity";
 import { prisma } from "@/lib/prisma";
-import SaveButton from "@/components/ui/SaveButton.tsx";
+import SaveButton from "@/components/ui/SaveButton"; // Fixed extension .tsx
 
 export const revalidate = 86400;
 
@@ -44,7 +43,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-// 🚀 Helper Function to extract YouTube ID for embedding
 function getYouTubeId(url: string) {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
@@ -83,21 +81,24 @@ export default async function InstitutePage({ params }: PageProps) {
   const displayRating = institute.googleRating ?? institute.averageRating ?? 0;
   const displayReviewCount = institute.googleReviewCount ?? institute.reviewCount ?? 0;
 
+  // 🚀 Logic to hide "Claim Profile" if a manager already exists
+  const isAlreadyClaimed = institute.managers && institute.managers.length > 0;
+
   const primaryCategoryId = institute.categories[0]?.categoryId;
   
   let similarInstitutes: any[] = [];
   if (primaryCategoryId && institute.cityId) {
     similarInstitutes = await prisma.institute.findMany({
       where: {
-        cityId: institute.cityId, // Same City
+        cityId: institute.cityId,
         isActive: true,
-        id: { not: institute.id }, // Khud ko list se hatao
+        id: { not: institute.id },
         categories: {
-          some: { categoryId: primaryCategoryId } // Same primary category
+          some: { categoryId: primaryCategoryId }
         }
       },
-      take: 3, // Sirf 4 chahiye
-      orderBy: { averageRating: 'desc' }, // Top rated pehle
+      take: 3,
+      orderBy: { averageRating: 'desc' },
       include: {
         city: true,
         categories: { include: { category: true } }
@@ -125,7 +126,6 @@ export default async function InstitutePage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Hero */}
       <section className="relative overflow-hidden border-b bg-linear-to-b from-amber-50 via-white to-white">
         <div className="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-amber-300/20 blur-3xl" />
 
@@ -149,46 +149,43 @@ export default async function InstitutePage({ params }: PageProps) {
               <div className="rounded-3xl border bg-white p-8 shadow-sm">
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
                   
-                  {/* Institute Image/Logo */}
                   <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-3xl border shadow-sm">
                     <Image 
                       src={institute.logo ?? institute.imageUrl ?? "/inst.jpg"} 
                       alt={institute.name} 
-                      width={40}
-                      height={40}
+                      width={128}
+                      height={128}
                       className="h-full w-full object-cover"
                     />
                   </div>
 
                   <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                    {/* 🚀 FIX: Made this row completely flex so the save button is ALWAYS on the right */}
+                    <div className="flex items-start justify-between gap-4">
                       <div>
-                        {/* Title with Verified Badge */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                           <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
                             {institute.name}
                           </h1>
                           {institute.isVerified && (
-                            <p className="text-[0.6rem] font-bold text-blue-600 flex items-center gap-1 bg-blue-50 px-2 py-1 rounded-full border border-blue-100 mt-1">
+                            <p className="text-[0.65rem] font-bold text-blue-600 flex items-center gap-1 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100 mt-1">
                               <CheckCircle className="h-3.5 w-3.5"/> Verified
                             </p>
                           )}
                         </div>
 
                         <div className="mt-3 flex flex-wrap items-center gap-3">
-                          {/* Categories */}
                           <div className="flex flex-wrap gap-2">
                             {institute.categories.map((item: any) => (
                               <span
                                 key={item.category.id}
-                                className="rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-800"
+                                className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800 tracking-wide uppercase"
                               >
                                 {item.category.name}
                               </span>
                             ))}
                           </div>
                           
-                          {/* Google Rating Badge */}
                           {displayRating > 0 && (
                             <div className="flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700">
                               <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
@@ -197,28 +194,27 @@ export default async function InstitutePage({ params }: PageProps) {
                           )}
                         </div>
                       </div>
-                      <div className="shrink-0 flex items-center justify-center pt-1 sm:pt-0">
+                      
+                      {/* 🚀 FIX: Save Button & Text wrapped in a col-flex */}
+                      <div className="shrink-0 flex flex-col items-center justify-center gap-1.5 pt-1">
                         <SaveButton 
                           userId={session?.user?.id} 
                           instituteId={institute.id} 
                           isInitiallySaved={alreadySaved} 
                         />
+                        <span className={`text-[10px] font-bold uppercase tracking-wider ${alreadySaved ? "text-amber-600" : "text-slate-400"}`}>
+                          {alreadySaved ? "Saved" : "Save"}
+                        </span>
                       </div>
                     </div>
 
-                    {/* Contact Info Box */}
                     <div className="mt-6 flex flex-col gap-3 rounded-2xl bg-slate-50 p-4 border border-slate-100">
-                      
-                      {/* Address */}
                       <div className="flex items-start gap-2.5 text-slate-600">
                         <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
                         <span className="text-sm leading-relaxed">{institute.address || institute.city.name}</span>
                       </div>
 
-                      {/* Flex Container for Phone, Email, Website */}
                       <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6 pt-2 border-t border-slate-200/60 mt-1">
-                        
-                        {/* Phone */}
                         {institute.phone && (
                           <a href={`tel:${institute.phone}`} className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600 transition">
                             <Phone className="h-4 w-4 text-amber-500" />
@@ -226,7 +222,6 @@ export default async function InstitutePage({ params }: PageProps) {
                           </a>
                         )}
 
-                        {/* Email */}
                         {institute.email && (
                           <a href={`mailto:${institute.email}`} className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600 transition">
                             <Mail className="h-4 w-4 text-amber-500" />
@@ -234,7 +229,6 @@ export default async function InstitutePage({ params }: PageProps) {
                           </a>
                         )}
 
-                        {/* Website */}
                         {institute.website && (
                           <a href={institute.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600 transition">
                             <Globe className="h-4 w-4 text-amber-500" />
@@ -246,7 +240,6 @@ export default async function InstitutePage({ params }: PageProps) {
                   </div>
                 </div>
 
-                {/* Description */}
                 {institute.description ? (
                   <p className="mt-8 leading-8 text-amber-700 bg-amber-50/50 p-5 border border-amber-100 rounded-2xl">
                     {institute.description}
@@ -257,19 +250,21 @@ export default async function InstitutePage({ params }: PageProps) {
                       <strong>{institute.name}</strong> located in {institute.city.name} is listed on AcademyFind to help students and parents discover educational and learning opportunities. Information displayed on this page has been compiled from publicly available sources and may be updated over time. For the latest details regarding courses, fees, schedules, admissions, and facilities, please contact the institute directly.
                     </p>
                     
-                    {/* Clean, Flexbox CTA Section */}
-                    <div className="pt-4 border-t border-amber-200/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <p className="text-amber-800 text-sm sm:text-base leading-relaxed">
-                        <strong>Are you the owner or representative of this institute?</strong>{' '}
-                        Claim this profile to update information, add photos, and enhance your presence on AcademyFind.
-                      </p>
+                    {/* 🚀 FIX: Hidden if already claimed */}
+                    {!isAlreadyClaimed && (
+                        <div className="pt-4 border-t border-amber-200/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <p className="text-amber-800 text-sm sm:text-base leading-relaxed">
+                            <strong>Are you the owner or representative of this institute?</strong>{' '}
+                            Claim this profile to update information, add photos, and enhance your presence on AcademyFind.
+                        </p>
 
-                      <Link href={`/institute/${institute.id}-${institute.slug}/claim`} className="shrink-0">
-                        <Button className="bg-amber-600 hover:bg-amber-700 text-white cursor-pointer transition-colors px-6">
-                          Claim Profile
-                        </Button>
-                      </Link>
-                    </div>
+                        <Link href={`/institute/${institute.id}-${institute.slug}/claim`} className="shrink-0">
+                            <Button className="bg-amber-600 hover:bg-amber-700 text-white cursor-pointer transition-colors px-6">
+                            Claim Profile
+                            </Button>
+                        </Link>
+                        </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -327,8 +322,8 @@ export default async function InstitutePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 🚀 NAYA SECTION: TEACHERS / FACULTY */}
-        {institute && institute.teachers.length > 0 && (
+        {/* TEACHERS / FACULTY */}
+        {institute && institute.teachers && institute.teachers.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-emerald-100 text-emerald-600 rounded-xl"><Users className="w-6 h-6" /></div>
@@ -359,7 +354,7 @@ export default async function InstitutePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* 🚀 NAYA SECTION: RESULT IMAGES / GALLERY */}
+        {/* RESULT IMAGES / GALLERY */}
         {institute.gallery && institute.gallery.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -372,7 +367,7 @@ export default async function InstitutePage({ params }: PageProps) {
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {institute.gallery.map((url: string, idx: number) => (
-                <div key={idx} className="relative aspect-square overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
+                <div key={idx} className="relative aspect-4/3 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
                   <img 
                     src={url} 
                     alt={`Result ${idx + 1}`} 
@@ -385,7 +380,7 @@ export default async function InstitutePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* 🚀 NAYA SECTION: YOUTUBE VIDEOS */}
+        {/* YOUTUBE VIDEOS */}
         {institute.youtubeVideos && institute.youtubeVideos.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -450,9 +445,7 @@ export default async function InstitutePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* ... Aapka Reviews Section yahan khatam ho raha hai ... */}
-        
-        {/* 🚀 NAYA SECTION: SIMILAR INSTITUTES */}
+        {/* SIMILAR INSTITUTES */}
         {similarInstitutes.length > 0 && (
           <section className="border-t border-slate-200 pt-16 mt-16">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
