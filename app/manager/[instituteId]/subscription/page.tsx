@@ -7,6 +7,13 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ i
     if (!institute) return null;
 
     const currentPlan = institute.subscriptionPlan; // Backend values: BASIC, VERIFIED, PREMIUM, ULTRA
+    const planPriority: Record<string, number> = {
+        BASIC: 0,
+        VERIFIED: 1,
+        PREMIUM: 2,
+        ULTRA: 3,
+    };
+    const currentPlanRank = planPriority[currentPlan] ?? 0;
 
     // 🚀 Updated to match your exact business logic and limits
     const plans = [
@@ -95,11 +102,15 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ i
                         </ul>
 
                         <button className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all ${
-                            currentPlan === plan.id 
+                            currentPlan === plan.id || currentPlanRank > (planPriority[plan.id] ?? 0)
                                 ? "bg-slate-100 text-slate-400 cursor-not-allowed" 
                                 : "bg-slate-900 text-white hover:bg-blue-600 shadow-sm hover:shadow-md hover:-translate-y-0.5"
                         }`}>
-                            {currentPlan === plan.id ? "Active" : "Upgrade Now"}
+                            {currentPlan === plan.id
+                                ? "Active"
+                                : currentPlanRank > (planPriority[plan.id] ?? 0)
+                                    ? "Current plan"
+                                    : "Upgrade Now"}
                         </button>
                     </div>
                 ))}
