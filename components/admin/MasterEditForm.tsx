@@ -28,48 +28,21 @@ export default function MasterEditForm({
     const [selectedCategories, setSelectedCategories] = useState<string[]>(currentCategoryIds);
 
     // 📸 Image Preview & URL State
-    const [mainImageUrl, setMainImageUrl] = useState<string>(institute.imageUrl || "");
-    const [isUploadingImage, setIsUploadingImage] = useState(false);
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string>(institute.imageUrl || "");
 
-    const isCloudinaryImage = mainImageUrl.includes("cloudinary.com");
-
-    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const showActualImage = imagePreview.includes("cloudinary.com") || imagePreview.startsWith("blob:");
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-        const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-
-        if (!cloudName || !uploadPreset) {
-            toast.error("Cloudinary credentials missing in environment files.");
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error("Image too large. Max allowed limit is 5MB.");
             return;
         }
 
-        setIsUploadingImage(true);
-
-        const cloudinaryData = new FormData();
-        cloudinaryData.append("file", file);
-        cloudinaryData.append("upload_preset", uploadPreset);
-
-        try {
-            const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-                method: "POST",
-                body: cloudinaryData
-            });
-            const data = await res.json();
-            
-            if (data.secure_url) {
-                setMainImageUrl(data.secure_url); 
-                toast.success(`Image uploaded successfully!`);
-            } else {
-                toast.error("Upload failed from Cloudinary cloud.");
-            }
-        } catch (error) {
-            console.error(error);
-            toast.error("Network error during cloud upload.");
-        } finally {
-            setIsUploadingImage(false);
-        }
+        setImageFile(file);
+        setImagePreview(URL.createObjectURL(file)); // Generate instant fast preview
     };
 
     const handleCategoryToggle = (categoryId: string) => {
@@ -82,7 +55,9 @@ export default function MasterEditForm({
 
     async function handleFormSubmit(formData: FormData) {
         setIsLoading(true);
-        formData.append("imageUrl", mainImageUrl);
+        if (imageFile) {
+            formData.append("imageFile", imageFile);
+        }
 
         const result = await updateInstituteByAdmin(institute.id, formData, selectedCategories);
         if (result.success) toast.success(result.message || "sucessfully update institute data");
@@ -110,14 +85,14 @@ export default function MasterEditForm({
                     <div className="flex flex-col items-center justify-center p-6 bg-white border border-slate-200 rounded-xl space-y-4">
                         <div className="w-full max-w-lg h-48 sm:h-64 rounded-2xl border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden relative shadow-inner p-4 text-center">
                             
-                            {isCloudinaryImage ? (
-                                <img src={mainImageUrl} alt="Institute Cover" className="w-full h-full object-cover absolute inset-0" />
-                            ) : mainImageUrl ? (
+                            {showActualImage ? (
+                                <img src={imagePreview} alt="Institute Cover" className="w-full h-full object-cover absolute inset-0" />
+                            ) : imagePreview ? (
                                 <div className="flex flex-col items-center gap-3 text-slate-500 w-full">
                                     <ImageIcon className="w-8 h-8 text-slate-300" />
                                     <div className="text-sm font-semibold text-slate-700">Google Places / External Reference Stored</div>
                                     <div className="text-xs bg-white border border-slate-200 text-slate-500 px-3 py-2 rounded-lg w-full truncate font-mono select-all">
-                                        {mainImageUrl}
+                                        {imagePreview}
                                     </div>
                                     <div className="text-[10px] text-slate-400">Preview disabled to prevent API billing. Upload a new image to replace.</div>
                                 </div>
@@ -132,8 +107,8 @@ export default function MasterEditForm({
 
                         <label className="cursor-pointer bg-slate-900 hover:bg-purple-700 text-white text-sm px-6 py-2.5 rounded-xl font-semibold transition-all flex items-center gap-2">
                             <UploadCloud className="w-4 h-4" />
-                            {isUploadingImage ? "Uploading to Cloud..." : "Upload New Image"}
-                            <input type="file" accept="image/*" disabled={isUploadingImage} onChange={handleImageUpload} className="hidden" />
+                            Change Cover Image
+                            <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                         </label>
                     </div>
                 </div>
@@ -261,7 +236,7 @@ export default function MasterEditForm({
                     <Link href="/admin/institutes" className="inline-flex items-center text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">
                         <ArrowLeft className="w-4 h-4 mr-1" /> Return to List
                     </Link>
-                    <Button type="submit" disabled={isLoading || isUploadingImage} className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl gap-2 px-8 font-bold shadow-md">
+                    <Button type="submit" disabled={isLoading} className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl gap-2 px-8 font-bold shadow-md">
                         {isLoading ? "Saving Configurations..." : <><Save className="w-4 h-4" /> Save Master Overrides</>}
                     </Button>
                 </div>

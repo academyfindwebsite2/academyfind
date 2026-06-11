@@ -204,22 +204,19 @@ enum Role {
 model InstituteClaim {
   id String @id @default(cuid())
 
-  // Existing Relations Use Kiye Hain 👇
   instituteId String
   institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  // Jisne form bhara hai uski details
   fullName String
   email    String
   phone    String
   role     String
   message  String? @db.Text
 
-  // Admin dashboard ke liye
-  status String @default("PENDING") // PENDING, APPROVED, REJECTED
+  status String @default("PENDING") 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

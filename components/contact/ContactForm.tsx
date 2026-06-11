@@ -15,17 +15,24 @@ export default function ContactForm() {
     e.preventDefault();
     setIsLoading(true);
 
+    const formElement = e.currentTarget;
+
     const formData = new FormData(e.currentTarget);
-    const result = await submitContactForm(formData);
-
-    if (result.success) {
-      toast.success(result.message || "Message sent sucessfully");
-      e.currentTarget.reset(); 
-    } else {
-      toast.error(result.error || "Can't send message");
+    try {
+        const result = await submitContactForm(formData);
+        
+        if (result.success) {
+            toast.success(result.message || "Message sent successfully");
+            
+            formElement.reset(); 
+        } else {
+            toast.error(result.error || "Can't send message");
+        }
+    } catch (error) {
+        toast.error("An error occurred");
+    } finally {
+        setIsLoading(false);
     }
-
-    setIsLoading(false);
   }
 
   return (

@@ -2,7 +2,7 @@ export const PLAN_DISPLAY_NAMES = {
     BASIC: "Listing (Free)",
     VERIFIED: "Verified",
     PREMIUM: "Premium",
-    ULTRA: "Featured"
+    ULTRA: "Elite"
 } as const;
 
 export const PLAN_LIMITS = {
