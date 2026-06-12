@@ -28,16 +28,17 @@ export default async function ClaimInstitutePage({
   // 3. Fetch exact Institute details using ID (Bulletproof method)
   const institute = await prisma.institute.findUnique({
     where: { id: id },
-    select: { id: true, name: true, isVerified: true },
+    select: { id: true, name: true },
+    
   });
 
   if (!institute) {
     notFound();
   }
 
-  if (institute.isVerified) {
-    redirect(`/institute/${idSlug}?error=already_claimed`);
-  }
+  // if (institute.isVerified) {
+  //   redirect(`/institute/${idSlug}?error=already_claimed`);
+  // }
 
   return (
     <div className="min-h-screen bg-slate-50/50 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center font-sans">

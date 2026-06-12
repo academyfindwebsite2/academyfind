@@ -1,6 +1,6 @@
 const stats = [
   {
-    value: "500+",
+    value: "50k+",
     label: "Institutes",
   },
   {
@@ -8,7 +8,7 @@ const stats = [
     label: "Cities",
   },
   {
-    value: "10K+",
+    value: "100K+",
     label: "Students Helped",
   },
 ];

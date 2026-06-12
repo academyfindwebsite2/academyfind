@@ -281,20 +281,19 @@ export default async function InstitutePage({ params }: PageProps) {
                   </div>
                 )}
 
-                {/* 🚀 BUG FIX: Claim Profile is now completely independent and checks zero managers correctly */}
                 {!isAlreadyClaimed && (
-                  <div className="mt-5 p-5 bg-blue-50 border border-blue-100 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="mt-5 p-5 bg-amber-50 border border-amber-100 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="space-y-1">
-                      <p className="text-slate-900 font-bold flex items-center gap-1.5 text-sm md:text-base">
-                        <CheckCircle className="w-4 h-4 text-blue-500" /> Are you the owner or representative?
+                      <p className="text-amber-900 font-bold flex items-center gap-1.5 text-sm md:text-base">
+                        <CheckCircle className="w-4 h-4 text-amber-500" /> Are you the owner or representative?
                       </p>
-                      <p className="text-slate-600 text-xs md:text-sm leading-relaxed">
+                      <p className="text-amber-600 text-xs md:text-sm leading-relaxed">
                         Claim this profile to update listing information, manage classroom images, add faculty details, and respond to direct student leads.
                       </p>
                     </div>
 
                     <Link href={`/institute/${institute.id}-${institute.slug}/claim`} className="shrink-0 w-full sm:w-auto">
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white transition-colors px-6 font-bold w-full sm:w-auto rounded-xl">
+                      <Button className="bg-amber-600 hover:bg-amber-700 text-white transition-colors px-6 font-bold w-full sm:w-auto rounded-xl cursor-pointer">
                         Claim Profile
                       </Button>
                     </Link>
