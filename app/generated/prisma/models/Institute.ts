@@ -78,6 +78,8 @@ export type InstituteMinAggregateOutputType = {
   twitterUrl: string | null
   youtubeUrl: string | null
   telegramUrl: string | null
+  linkedinUrl: string | null
+  whatsappUrl: string | null
 }
 
 export type InstituteMaxAggregateOutputType = {
@@ -114,6 +116,8 @@ export type InstituteMaxAggregateOutputType = {
   twitterUrl: string | null
   youtubeUrl: string | null
   telegramUrl: string | null
+  linkedinUrl: string | null
+  whatsappUrl: string | null
 }
 
 export type InstituteCountAggregateOutputType = {
@@ -154,6 +158,8 @@ export type InstituteCountAggregateOutputType = {
   twitterUrl: number
   youtubeUrl: number
   telegramUrl: number
+  linkedinUrl: number
+  whatsappUrl: number
   _all: number
 }
 
@@ -210,6 +216,8 @@ export type InstituteMinAggregateInputType = {
   twitterUrl?: true
   youtubeUrl?: true
   telegramUrl?: true
+  linkedinUrl?: true
+  whatsappUrl?: true
 }
 
 export type InstituteMaxAggregateInputType = {
@@ -246,6 +254,8 @@ export type InstituteMaxAggregateInputType = {
   twitterUrl?: true
   youtubeUrl?: true
   telegramUrl?: true
+  linkedinUrl?: true
+  whatsappUrl?: true
 }
 
 export type InstituteCountAggregateInputType = {
@@ -286,6 +296,8 @@ export type InstituteCountAggregateInputType = {
   twitterUrl?: true
   youtubeUrl?: true
   telegramUrl?: true
+  linkedinUrl?: true
+  whatsappUrl?: true
   _all?: true
 }
 
@@ -413,6 +425,8 @@ export type InstituteGroupByOutputType = {
   twitterUrl: string | null
   youtubeUrl: string | null
   telegramUrl: string | null
+  linkedinUrl: string | null
+  whatsappUrl: string | null
   _count: InstituteCountAggregateOutputType | null
   _avg: InstituteAvgAggregateOutputType | null
   _sum: InstituteSumAggregateOutputType | null
@@ -476,6 +490,8 @@ export type InstituteWhereInput = {
   twitterUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   youtubeUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   telegramUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  whatsappUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
   categories?: Prisma.InstituteCategoryListRelationFilter
   managers?: Prisma.InstituteManagerListRelationFilter
@@ -527,6 +543,8 @@ export type InstituteOrderByWithRelationInput = {
   twitterUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   youtubeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   telegramUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  whatsappUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.CityOrderByWithRelationInput
   categories?: Prisma.InstituteCategoryOrderByRelationAggregateInput
   managers?: Prisma.InstituteManagerOrderByRelationAggregateInput
@@ -581,6 +599,8 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   twitterUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   youtubeUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   telegramUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  whatsappUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
   categories?: Prisma.InstituteCategoryListRelationFilter
   managers?: Prisma.InstituteManagerListRelationFilter
@@ -632,6 +652,8 @@ export type InstituteOrderByWithAggregationInput = {
   twitterUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   youtubeUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   telegramUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  whatsappUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.InstituteCountOrderByAggregateInput
   _avg?: Prisma.InstituteAvgOrderByAggregateInput
   _max?: Prisma.InstituteMaxOrderByAggregateInput
@@ -680,6 +702,8 @@ export type InstituteScalarWhereWithAggregatesInput = {
   twitterUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
   youtubeUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
   telegramUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
+  linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
+  whatsappUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
 }
 
 export type InstituteCreateInput = {
@@ -719,6 +743,8 @@ export type InstituteCreateInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -770,6 +796,8 @@ export type InstituteUncheckedCreateInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -819,6 +847,8 @@ export type InstituteUpdateInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -870,6 +900,8 @@ export type InstituteUncheckedUpdateInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -920,6 +952,8 @@ export type InstituteCreateManyInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
 }
 
 export type InstituteUpdateManyMutationInput = {
@@ -959,6 +993,8 @@ export type InstituteUpdateManyMutationInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type InstituteUncheckedUpdateManyInput = {
@@ -999,6 +1035,8 @@ export type InstituteUncheckedUpdateManyInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -1047,6 +1085,8 @@ export type InstituteCountOrderByAggregateInput = {
   twitterUrl?: Prisma.SortOrder
   youtubeUrl?: Prisma.SortOrder
   telegramUrl?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  whatsappUrl?: Prisma.SortOrder
 }
 
 export type InstituteAvgOrderByAggregateInput = {
@@ -1092,6 +1132,8 @@ export type InstituteMaxOrderByAggregateInput = {
   twitterUrl?: Prisma.SortOrder
   youtubeUrl?: Prisma.SortOrder
   telegramUrl?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  whatsappUrl?: Prisma.SortOrder
 }
 
 export type InstituteMinOrderByAggregateInput = {
@@ -1128,6 +1170,8 @@ export type InstituteMinOrderByAggregateInput = {
   twitterUrl?: Prisma.SortOrder
   youtubeUrl?: Prisma.SortOrder
   telegramUrl?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  whatsappUrl?: Prisma.SortOrder
 }
 
 export type InstituteSumOrderByAggregateInput = {
@@ -1437,6 +1481,8 @@ export type InstituteCreateWithoutCityInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
@@ -1486,6 +1532,8 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -1565,6 +1613,8 @@ export type InstituteScalarWhereInput = {
   twitterUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   youtubeUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   telegramUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  whatsappUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
 }
 
 export type InstituteCreateWithoutCategoriesInput = {
@@ -1604,6 +1654,8 @@ export type InstituteCreateWithoutCategoriesInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
@@ -1654,6 +1706,8 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
@@ -1718,6 +1772,8 @@ export type InstituteUpdateWithoutCategoriesInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
@@ -1768,6 +1824,8 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
@@ -1816,6 +1874,8 @@ export type InstituteCreateWithoutManagersInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
@@ -1866,6 +1926,8 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
@@ -1930,6 +1992,8 @@ export type InstituteUpdateWithoutManagersInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
@@ -1980,6 +2044,8 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2028,6 +2094,8 @@ export type InstituteCreateWithoutReviewsInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2078,6 +2146,8 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
@@ -2142,6 +2212,8 @@ export type InstituteUpdateWithoutReviewsInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2192,6 +2264,8 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2240,6 +2314,8 @@ export type InstituteCreateWithoutClaimsInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2290,6 +2366,8 @@ export type InstituteUncheckedCreateWithoutClaimsInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2354,6 +2432,8 @@ export type InstituteUpdateWithoutClaimsInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2404,6 +2484,8 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2452,6 +2534,8 @@ export type InstituteCreateWithoutShortlistedByInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2502,6 +2586,8 @@ export type InstituteUncheckedCreateWithoutShortlistedByInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2566,6 +2652,8 @@ export type InstituteUpdateWithoutShortlistedByInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2616,6 +2704,8 @@ export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2664,6 +2754,8 @@ export type InstituteCreateWithoutViewHistoryInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2714,6 +2806,8 @@ export type InstituteUncheckedCreateWithoutViewHistoryInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2778,6 +2872,8 @@ export type InstituteUpdateWithoutViewHistoryInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2828,6 +2924,8 @@ export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2876,6 +2974,8 @@ export type InstituteCreateWithoutEnquiriesInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2926,6 +3026,8 @@ export type InstituteUncheckedCreateWithoutEnquiriesInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2990,6 +3092,8 @@ export type InstituteUpdateWithoutEnquiriesInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -3040,6 +3144,8 @@ export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3088,6 +3194,8 @@ export type InstituteCreateWithoutTeachersInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -3138,6 +3246,8 @@ export type InstituteUncheckedCreateWithoutTeachersInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -3202,6 +3312,8 @@ export type InstituteUpdateWithoutTeachersInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -3252,6 +3364,8 @@ export type InstituteUncheckedUpdateWithoutTeachersInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3300,6 +3414,8 @@ export type InstituteCreateWithoutInstituteRequestInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -3350,6 +3466,8 @@ export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -3414,6 +3532,8 @@ export type InstituteUpdateWithoutInstituteRequestInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -3464,6 +3584,8 @@ export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3512,6 +3634,8 @@ export type InstituteCreateWithoutPaymentsInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -3562,6 +3686,8 @@ export type InstituteUncheckedCreateWithoutPaymentsInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -3626,6 +3752,8 @@ export type InstituteUpdateWithoutPaymentsInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -3676,6 +3804,8 @@ export type InstituteUncheckedUpdateWithoutPaymentsInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3724,6 +3854,8 @@ export type InstituteCreateManyCityInput = {
   twitterUrl?: string | null
   youtubeUrl?: string | null
   telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
 }
 
 export type InstituteUpdateWithoutCityInput = {
@@ -3763,6 +3895,8 @@ export type InstituteUpdateWithoutCityInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
@@ -3812,6 +3946,8 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3861,6 +3997,8 @@ export type InstituteUncheckedUpdateManyWithoutCityInput = {
   twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -4004,6 +4142,8 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   twitterUrl?: boolean
   youtubeUrl?: boolean
   telegramUrl?: boolean
+  linkedinUrl?: boolean
+  whatsappUrl?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
   managers?: boolean | Prisma.Institute$managersArgs<ExtArgs>
@@ -4056,6 +4196,8 @@ export type InstituteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   twitterUrl?: boolean
   youtubeUrl?: boolean
   telegramUrl?: boolean
+  linkedinUrl?: boolean
+  whatsappUrl?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -4097,6 +4239,8 @@ export type InstituteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   twitterUrl?: boolean
   youtubeUrl?: boolean
   telegramUrl?: boolean
+  linkedinUrl?: boolean
+  whatsappUrl?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -4138,9 +4282,11 @@ export type InstituteSelectScalar = {
   twitterUrl?: boolean
   youtubeUrl?: boolean
   telegramUrl?: boolean
+  linkedinUrl?: boolean
+  whatsappUrl?: boolean
 }
 
-export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "feeInfo" | "classroomImages" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "twitterUrl" | "youtubeUrl" | "telegramUrl", ExtArgs["result"]["institute"]>
+export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "feeInfo" | "classroomImages" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "twitterUrl" | "youtubeUrl" | "telegramUrl" | "linkedinUrl" | "whatsappUrl", ExtArgs["result"]["institute"]>
 export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
@@ -4215,6 +4361,8 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     twitterUrl: string | null
     youtubeUrl: string | null
     telegramUrl: string | null
+    linkedinUrl: string | null
+    whatsappUrl: string | null
   }, ExtArgs["result"]["institute"]>
   composites: {}
 }
@@ -4686,6 +4834,8 @@ export interface InstituteFieldRefs {
   readonly twitterUrl: Prisma.FieldRef<"Institute", 'String'>
   readonly youtubeUrl: Prisma.FieldRef<"Institute", 'String'>
   readonly telegramUrl: Prisma.FieldRef<"Institute", 'String'>
+  readonly linkedinUrl: Prisma.FieldRef<"Institute", 'String'>
+  readonly whatsappUrl: Prisma.FieldRef<"Institute", 'String'>
 }
     
 

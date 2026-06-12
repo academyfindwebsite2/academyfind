@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
+import { link } from "fs";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -44,6 +45,8 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
         const twitterUrl = formData.get("twitterUrl") as string;
         const youtubeUrl = formData.get("youtubeUrl") as string;
         const telegramUrl = formData.get("telegramUrl") as string;
+        const whatsappUrl = formData.get("whatsappUrl") as string;
+        const linkedinUrl = formData.get("linkedinUrl") as string;
         const latitude = (rawLat && !isNaN(parseFloat(rawLat))) ? parseFloat(rawLat) : null;
         const longitude = (rawLng && !isNaN(parseFloat(rawLng))) ? parseFloat(rawLng) : null;
 
@@ -86,6 +89,8 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
                 twitterUrl: twitterUrl,
                 youtubeUrl: youtubeUrl,
                 telegramUrl: telegramUrl,
+                whatsappUrl: whatsappUrl,
+                linkedinUrl: linkedinUrl,
                 imageUrl:secureUrl,
                 ...categoryUpdates
             }

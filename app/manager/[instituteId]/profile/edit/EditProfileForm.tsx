@@ -11,7 +11,7 @@ import { PLAN_LIMITS, PlanType } from "@/lib/plan_limits";
 import EditTeachers from "./EditTeacherProfile";
 import EditResultImages from "./EditResultImages";
 import LocationAutocomplete from "@/components/admin/AdminLocationAutoComplete";
-import { FaFacebook, FaInstagram, FaTelegram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import ClassroomImages from "./EditClassroomImages";
 
 export default function EditProfileForm({
@@ -272,6 +272,13 @@ export default function EditProfileForm({
                     <h3 className="text-base font-bold text-slate-800 border-b pb-2 mb-4">Social Media Presence</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
+                            <label className="text-xs font-semibold text-slate-600">Whatsapp URL</label>
+                            <div className="relative">
+                                <FaWhatsapp className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-400" />
+                                <input type="url" name="whatsappUrl" defaultValue={institute.whatsappUrl || ""} placeholder="https://wa.me..." className="w-full pl-9 p-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-400 outline-none transition-all" />
+                            </div>
+                        </div>
+                        <div className="space-y-1.5">
                             <label className="text-xs font-semibold text-slate-600">Instagram Profile URL</label>
                             <div className="relative">
                                 <FaInstagram className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-pink-600" />
@@ -297,6 +304,13 @@ export default function EditProfileForm({
                             <div className="relative">
                                 <FaTwitter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-400" />
                                 <input type="url" name="twitterUrl" defaultValue={institute.twitterUrl || ""} placeholder="https://twitter.com/..." className="w-full pl-9 p-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-400 outline-none transition-all" />
+                            </div>
+                        </div>
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-semibold text-slate-600">Linkedin URL</label>
+                            <div className="relative">
+                                <FaLinkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-600" />
+                                <input type="url" name="linkedinUrl" defaultValue={institute.linkedinUrl || ""} placeholder="https://linkedin.com/..." className="w-full pl-9 p-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-400 outline-none transition-all" />
                             </div>
                         </div>
                         <div className="space-y-1.5">

@@ -17,7 +17,7 @@ import { auth } from "@/lib/auth/auth";
 import { trackVisitHistory } from "@/lib/User/user/user-activity";
 import { prisma } from "@/lib/prisma";
 import SaveButton from "@/components/ui/SaveButton"; 
-import { FaFacebook, FaInstagram, FaTelegram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
 
 export const revalidate = 86400;
 
@@ -237,6 +237,11 @@ export default async function InstitutePage({ params }: PageProps) {
                       {(institute.facebookUrl || institute.instagramUrl || institute.twitterUrl || institute.youtubeUrl || institute.telegramUrl) && (
                         <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200/60 mt-1">
                           <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mr-1">Follow Us:</span>
+                          {institute.whatsappUrl && (
+                            <a href={institute.whatsappUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-pink-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs">
+                              <FaWhatsapp className="h-4 w-4" />
+                            </a>
+                          )}
                           {institute.instagramUrl && (
                             <a href={institute.instagramUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-pink-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs">
                               <FaInstagram className="h-4 w-4" />
@@ -250,6 +255,11 @@ export default async function InstitutePage({ params }: PageProps) {
                           {institute.youtubeUrl && (
                             <a href={institute.youtubeUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-red-600 hover:bg-red-50 hover:scale-105 transition-all shadow-xs">
                               <FaYoutube className="h-4 w-4" />
+                            </a>
+                          )}
+                          {institute.linkedinUrl && (
+                            <a href={institute.linkedinUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-pink-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs">
+                              <FaLinkedin className="h-4 w-4" />
                             </a>
                           )}
                           {institute.twitterUrl && (

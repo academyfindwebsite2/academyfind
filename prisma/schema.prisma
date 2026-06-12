@@ -132,6 +132,8 @@ model Institute {
   twitterUrl        String?
   youtubeUrl        String?
   telegramUrl       String?
+  linkedinUrl       String?
+  whatsappUrl       String?
 
   @@index([cityId])
   @@index([slug])
