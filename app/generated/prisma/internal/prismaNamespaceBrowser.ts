@@ -67,7 +67,8 @@ export const ModelName = {
   InstituteEnquiry: 'InstituteEnquiry',
   TeacherProfile: 'TeacherProfile',
   ContactMessage: 'ContactMessage',
-  InstituteRequest: 'InstituteRequest'
+  InstituteRequest: 'InstituteRequest',
+  SubscriptionPayment: 'SubscriptionPayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -182,7 +183,8 @@ export const InstituteScalarFieldEnum = {
   subscriptionPlan: 'subscriptionPlan',
   youtubeVideos: 'youtubeVideos',
   feeInfo: 'feeInfo',
-  classroomImages: 'classroomImages'
+  classroomImages: 'classroomImages',
+  planExpiresAt: 'planExpiresAt'
 } as const
 
 export type InstituteScalarFieldEnum = (typeof InstituteScalarFieldEnum)[keyof typeof InstituteScalarFieldEnum]
@@ -331,6 +333,23 @@ export const InstituteRequestScalarFieldEnum = {
 } as const
 
 export type InstituteRequestScalarFieldEnum = (typeof InstituteRequestScalarFieldEnum)[keyof typeof InstituteRequestScalarFieldEnum]
+
+
+export const SubscriptionPaymentScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  userId: 'userId',
+  planRequested: 'planRequested',
+  billingCycle: 'billingCycle',
+  amountPaid: 'amountPaid',
+  utrNumber: 'utrNumber',
+  proofImageUrl: 'proofImageUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubscriptionPaymentScalarFieldEnum = (typeof SubscriptionPaymentScalarFieldEnum)[keyof typeof SubscriptionPaymentScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -30,6 +30,7 @@ model User {
   viewHistory         UserHistory[]
   canAddInstitute     Boolean            @default(false)
   instituteRequests   InstituteRequest[]
+  payments            SubscriptionPayment[]
 
   @@map("user")
 }
@@ -123,6 +124,8 @@ model Institute {
   classroomImages   String[]
 
   instituteRequest  InstituteRequest?
+  planExpiresAt     DateTime?
+  payments          SubscriptionPayment[]
 
   @@index([cityId])
   @@index([slug])
@@ -313,4 +316,23 @@ model InstituteRequest {
   createdAt   DateTime  @default(now())
 
   @@map("institute_request")
+}
+
+model SubscriptionPayment {
+  id              String           @id @default(cuid())
+  instituteId     String
+  institute       Institute        @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  userId          String?
+  user            User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  planRequested   SubscriptionPlan // VERIFIED, PREMIUM, ULTRA
+  billingCycle    String           // MONTHLY, ANNUAL
+  amountPaid      Int
+  utrNumber       String           @unique 
+  proofImageUrl   String?          
+  status          String           @default("PENDING") // PENDING, APPROVED, REJECTED
+  
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map("subscription_payment")
 }

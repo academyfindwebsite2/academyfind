@@ -70,7 +70,7 @@ export async function addInstitute(userId: string, formData: FormData,selectedCa
                     name, slug, description, phone, email, website, address, feeInfo,
                     googleMapsUrl, cityId, latitude, longitude,
                     isActive: false,
-                    subscriptionPlan: "VERIFIED",
+                    subscriptionPlan: "BASIC",
                     imageUrl: secureUrl
                 }
             });

@@ -2,13 +2,17 @@
 
 import { useState } from "react";
 import { CheckCircle2, CreditCard } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface SubscriptionClientProps {
     currentPlan: string;
+    instituteId: string;
 }
 
-export default function SubscriptionClient({ currentPlan }: SubscriptionClientProps) {
+export default function SubscriptionClient({ currentPlan,instituteId }: SubscriptionClientProps) {
     const [isAnnual, setIsAnnual] = useState(false);
+    const [plan,setPlan] = useState();
 
     const planPriority: Record<string, number> = {
         BASIC: 0,
@@ -18,7 +22,6 @@ export default function SubscriptionClient({ currentPlan }: SubscriptionClientPr
     };
     const currentPlanRank = planPriority[currentPlan] ?? 0;
 
-    // 🚀 BASIC (Free) hataya gaya hai aur Nayi Pricing add ki gayi hai
     const plans = [
         { 
             id: "VERIFIED", 
@@ -65,6 +68,14 @@ export default function SubscriptionClient({ currentPlan }: SubscriptionClientPr
             ] 
         },
     ];
+
+    const router = useRouter();
+    const handleCheckout = (planId: string) => {
+    router.push(
+        `/manager/${instituteId}/subscription/checkout/${planId}?billingCycle=${isAnnual ? "ANNUAL" : "MONTHLY"}`
+    );
+    };
+   
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
@@ -138,7 +149,7 @@ export default function SubscriptionClient({ currentPlan }: SubscriptionClientPr
                                 ))}
                             </ul>
 
-                            <button className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${
+                            <Button onClick={() => handleCheckout(plan.id)} className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${
                                 currentPlan === plan.id || currentPlanRank > (planPriority[plan.id] ?? 0)
                                     ? "bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200" 
                                     : "bg-slate-900 text-white hover:bg-blue-600 shadow-sm hover:shadow-md hover:-translate-y-1"
@@ -148,7 +159,7 @@ export default function SubscriptionClient({ currentPlan }: SubscriptionClientPr
                                     : currentPlanRank > (planPriority[plan.id] ?? 0)
                                         ? "Included in current plan"
                                         : "Upgrade Now"}
-                            </button>
+                            </Button>
                         </div>
                     );
                 })}

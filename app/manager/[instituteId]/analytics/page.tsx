@@ -29,7 +29,7 @@ export default async function AnalyticsPage({ params }: { params: Promise<{ inst
     if (!institute) return <div>Institute not found</div>;
 
     // 🔒 LOCK SCREEN FOR BASIC & PREMIUM
-    if (institute.subscriptionPlan !== "ULTRA") {
+    if (institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED") {
         return (
             <div className="min-h-[500px] flex flex-col items-center justify-center text-center p-8 bg-slate-50/50 rounded-3xl border border-dashed border-slate-200">
                 <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-6">

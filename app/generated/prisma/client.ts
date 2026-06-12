@@ -126,3 +126,8 @@ export type ContactMessage = Prisma.ContactMessageModel
  * 
  */
 export type InstituteRequest = Prisma.InstituteRequestModel
+/**
+ * Model SubscriptionPayment
+ * 
+ */
+export type SubscriptionPayment = Prisma.SubscriptionPaymentModel

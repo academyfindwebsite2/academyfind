@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-// Naya client component import karein (Path apne hisaab se theek kar lein)
 import SubscriptionClient from "./Subscription"; 
 
 export default async function SubscriptionPage({ params }: { params: Promise<{ instituteId: string }> }) {
@@ -12,10 +11,9 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ i
     
     if (!institute) return null;
 
-    const currentPlan = institute.subscriptionPlan; // Backend values: BASIC, VERIFIED, PREMIUM, ULTRA
+    const currentPlan = institute.subscriptionPlan;
 
     return (
-        // Client Component ko current plan bhej dein
-        <SubscriptionClient currentPlan={currentPlan} />
+        <SubscriptionClient currentPlan={currentPlan} instituteId={institute.id}/>
     );
 }

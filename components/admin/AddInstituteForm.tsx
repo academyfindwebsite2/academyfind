@@ -40,30 +40,21 @@ export default function AddInstituteForm({
     };
 
     // Cloudinary Upload
-    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string>("");
+
+    const showActualImage = imagePreview.includes("cloudinary.com") || imagePreview.startsWith("blob:");
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-        const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-
-        setIsUploadingImage(true);
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", uploadPreset!);
-
-        try {
-            const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { method: "POST", body: formData });
-            const data = await res.json();
-            if (data.secure_url) {
-                setMainImageUrl(data.secure_url);
-                toast.success(`Image uploaded!`);
-            }
-        } catch (error) {
-            toast.error("Upload failed.");
-        } finally {
-            setIsUploadingImage(false);
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error("Image too large. Max allowed limit is 5MB.");
+            return;
         }
+
+        setImageFile(file);
+        setImagePreview(URL.createObjectURL(file)); 
     };
 
     const handleCategoryToggle = (categoryId: string) => {
@@ -76,7 +67,9 @@ export default function AddInstituteForm({
 
     async function handleFormSubmit(formData: FormData) {
         setIsLoading(true);
-        formData.append("imageUrl", mainImageUrl);
+         if (imageFile) {
+            formData.append("imageFile", imageFile);
+        }
         
         // Push controlled states to formData
         formData.set("address", address);

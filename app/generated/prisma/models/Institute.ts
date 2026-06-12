@@ -72,6 +72,7 @@ export type InstituteMinAggregateOutputType = {
   googleMapsUrl: string | null
   subscriptionPlan: $Enums.SubscriptionPlan | null
   feeInfo: string | null
+  planExpiresAt: Date | null
 }
 
 export type InstituteMaxAggregateOutputType = {
@@ -102,6 +103,7 @@ export type InstituteMaxAggregateOutputType = {
   googleMapsUrl: string | null
   subscriptionPlan: $Enums.SubscriptionPlan | null
   feeInfo: string | null
+  planExpiresAt: Date | null
 }
 
 export type InstituteCountAggregateOutputType = {
@@ -136,6 +138,7 @@ export type InstituteCountAggregateOutputType = {
   youtubeVideos: number
   feeInfo: number
   classroomImages: number
+  planExpiresAt: number
   _all: number
 }
 
@@ -186,6 +189,7 @@ export type InstituteMinAggregateInputType = {
   googleMapsUrl?: true
   subscriptionPlan?: true
   feeInfo?: true
+  planExpiresAt?: true
 }
 
 export type InstituteMaxAggregateInputType = {
@@ -216,6 +220,7 @@ export type InstituteMaxAggregateInputType = {
   googleMapsUrl?: true
   subscriptionPlan?: true
   feeInfo?: true
+  planExpiresAt?: true
 }
 
 export type InstituteCountAggregateInputType = {
@@ -250,6 +255,7 @@ export type InstituteCountAggregateInputType = {
   youtubeVideos?: true
   feeInfo?: true
   classroomImages?: true
+  planExpiresAt?: true
   _all?: true
 }
 
@@ -371,6 +377,7 @@ export type InstituteGroupByOutputType = {
   youtubeVideos: string[]
   feeInfo: string | null
   classroomImages: string[]
+  planExpiresAt: Date | null
   _count: InstituteCountAggregateOutputType | null
   _avg: InstituteAvgAggregateOutputType | null
   _sum: InstituteSumAggregateOutputType | null
@@ -428,6 +435,7 @@ export type InstituteWhereInput = {
   youtubeVideos?: Prisma.StringNullableListFilter<"Institute">
   feeInfo?: Prisma.StringNullableFilter<"Institute"> | string | null
   classroomImages?: Prisma.StringNullableListFilter<"Institute">
+  planExpiresAt?: Prisma.DateTimeNullableFilter<"Institute"> | Date | string | null
   city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
   categories?: Prisma.InstituteCategoryListRelationFilter
   managers?: Prisma.InstituteManagerListRelationFilter
@@ -438,6 +446,7 @@ export type InstituteWhereInput = {
   enquiries?: Prisma.InstituteEnquiryListRelationFilter
   teachers?: Prisma.TeacherProfileListRelationFilter
   instituteRequest?: Prisma.XOR<Prisma.InstituteRequestNullableScalarRelationFilter, Prisma.InstituteRequestWhereInput> | null
+  payments?: Prisma.SubscriptionPaymentListRelationFilter
 }
 
 export type InstituteOrderByWithRelationInput = {
@@ -472,6 +481,7 @@ export type InstituteOrderByWithRelationInput = {
   youtubeVideos?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   classroomImages?: Prisma.SortOrder
+  planExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.CityOrderByWithRelationInput
   categories?: Prisma.InstituteCategoryOrderByRelationAggregateInput
   managers?: Prisma.InstituteManagerOrderByRelationAggregateInput
@@ -482,6 +492,7 @@ export type InstituteOrderByWithRelationInput = {
   enquiries?: Prisma.InstituteEnquiryOrderByRelationAggregateInput
   teachers?: Prisma.TeacherProfileOrderByRelationAggregateInput
   instituteRequest?: Prisma.InstituteRequestOrderByWithRelationInput
+  payments?: Prisma.SubscriptionPaymentOrderByRelationAggregateInput
 }
 
 export type InstituteWhereUniqueInput = Prisma.AtLeast<{
@@ -519,6 +530,7 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   youtubeVideos?: Prisma.StringNullableListFilter<"Institute">
   feeInfo?: Prisma.StringNullableFilter<"Institute"> | string | null
   classroomImages?: Prisma.StringNullableListFilter<"Institute">
+  planExpiresAt?: Prisma.DateTimeNullableFilter<"Institute"> | Date | string | null
   city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
   categories?: Prisma.InstituteCategoryListRelationFilter
   managers?: Prisma.InstituteManagerListRelationFilter
@@ -529,6 +541,7 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   enquiries?: Prisma.InstituteEnquiryListRelationFilter
   teachers?: Prisma.TeacherProfileListRelationFilter
   instituteRequest?: Prisma.XOR<Prisma.InstituteRequestNullableScalarRelationFilter, Prisma.InstituteRequestWhereInput> | null
+  payments?: Prisma.SubscriptionPaymentListRelationFilter
 }, "id" | "googlePlaceId">
 
 export type InstituteOrderByWithAggregationInput = {
@@ -563,6 +576,7 @@ export type InstituteOrderByWithAggregationInput = {
   youtubeVideos?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   classroomImages?: Prisma.SortOrder
+  planExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.InstituteCountOrderByAggregateInput
   _avg?: Prisma.InstituteAvgOrderByAggregateInput
   _max?: Prisma.InstituteMaxOrderByAggregateInput
@@ -605,6 +619,7 @@ export type InstituteScalarWhereWithAggregatesInput = {
   youtubeVideos?: Prisma.StringNullableListFilter<"Institute">
   feeInfo?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
   classroomImages?: Prisma.StringNullableListFilter<"Institute">
+  planExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Institute"> | Date | string | null
 }
 
 export type InstituteCreateInput = {
@@ -638,6 +653,7 @@ export type InstituteCreateInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -648,6 +664,7 @@ export type InstituteCreateInput = {
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateInput = {
@@ -682,6 +699,7 @@ export type InstituteUncheckedCreateInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -691,6 +709,7 @@ export type InstituteUncheckedCreateInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUpdateInput = {
@@ -724,6 +743,7 @@ export type InstituteUpdateInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -734,6 +754,7 @@ export type InstituteUpdateInput = {
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateInput = {
@@ -768,6 +789,7 @@ export type InstituteUncheckedUpdateInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -777,6 +799,7 @@ export type InstituteUncheckedUpdateInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateManyInput = {
@@ -811,6 +834,7 @@ export type InstituteCreateManyInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
 }
 
 export type InstituteUpdateManyMutationInput = {
@@ -844,6 +868,7 @@ export type InstituteUpdateManyMutationInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type InstituteUncheckedUpdateManyInput = {
@@ -878,6 +903,7 @@ export type InstituteUncheckedUpdateManyInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -920,6 +946,7 @@ export type InstituteCountOrderByAggregateInput = {
   youtubeVideos?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrder
   classroomImages?: Prisma.SortOrder
+  planExpiresAt?: Prisma.SortOrder
 }
 
 export type InstituteAvgOrderByAggregateInput = {
@@ -959,6 +986,7 @@ export type InstituteMaxOrderByAggregateInput = {
   googleMapsUrl?: Prisma.SortOrder
   subscriptionPlan?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrder
+  planExpiresAt?: Prisma.SortOrder
 }
 
 export type InstituteMinOrderByAggregateInput = {
@@ -989,6 +1017,7 @@ export type InstituteMinOrderByAggregateInput = {
   googleMapsUrl?: Prisma.SortOrder
   subscriptionPlan?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrder
+  planExpiresAt?: Prisma.SortOrder
 }
 
 export type InstituteSumOrderByAggregateInput = {
@@ -1247,6 +1276,20 @@ export type InstituteUpdateOneRequiredWithoutInstituteRequestNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InstituteUpdateToOneWithWhereWithoutInstituteRequestInput, Prisma.InstituteUpdateWithoutInstituteRequestInput>, Prisma.InstituteUncheckedUpdateWithoutInstituteRequestInput>
 }
 
+export type InstituteCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.InstituteCreateWithoutPaymentsInput, Prisma.InstituteUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.InstituteCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.InstituteWhereUniqueInput
+}
+
+export type InstituteUpdateOneRequiredWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.InstituteCreateWithoutPaymentsInput, Prisma.InstituteUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.InstituteCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.InstituteUpsertWithoutPaymentsInput
+  connect?: Prisma.InstituteWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstituteUpdateToOneWithWhereWithoutPaymentsInput, Prisma.InstituteUpdateWithoutPaymentsInput>, Prisma.InstituteUncheckedUpdateWithoutPaymentsInput>
+}
+
 export type InstituteCreateWithoutCityInput = {
   id?: string
   name: string
@@ -1278,6 +1321,7 @@ export type InstituteCreateWithoutCityInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
@@ -1287,6 +1331,7 @@ export type InstituteCreateWithoutCityInput = {
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutCityInput = {
@@ -1320,6 +1365,7 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -1329,6 +1375,7 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutCityInput = {
@@ -1392,6 +1439,7 @@ export type InstituteScalarWhereInput = {
   youtubeVideos?: Prisma.StringNullableListFilter<"Institute">
   feeInfo?: Prisma.StringNullableFilter<"Institute"> | string | null
   classroomImages?: Prisma.StringNullableListFilter<"Institute">
+  planExpiresAt?: Prisma.DateTimeNullableFilter<"Institute"> | Date | string | null
 }
 
 export type InstituteCreateWithoutCategoriesInput = {
@@ -1425,6 +1473,7 @@ export type InstituteCreateWithoutCategoriesInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
@@ -1434,6 +1483,7 @@ export type InstituteCreateWithoutCategoriesInput = {
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutCategoriesInput = {
@@ -1468,6 +1518,7 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
@@ -1476,6 +1527,7 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutCategoriesInput = {
@@ -1525,6 +1577,7 @@ export type InstituteUpdateWithoutCategoriesInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
@@ -1534,6 +1587,7 @@ export type InstituteUpdateWithoutCategoriesInput = {
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutCategoriesInput = {
@@ -1568,6 +1622,7 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
@@ -1576,6 +1631,7 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutManagersInput = {
@@ -1609,6 +1665,7 @@ export type InstituteCreateWithoutManagersInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
@@ -1618,6 +1675,7 @@ export type InstituteCreateWithoutManagersInput = {
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutManagersInput = {
@@ -1652,6 +1710,7 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
@@ -1660,6 +1719,7 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutManagersInput = {
@@ -1709,6 +1769,7 @@ export type InstituteUpdateWithoutManagersInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
@@ -1718,6 +1779,7 @@ export type InstituteUpdateWithoutManagersInput = {
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutManagersInput = {
@@ -1752,6 +1814,7 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
@@ -1760,6 +1823,7 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutReviewsInput = {
@@ -1793,6 +1857,7 @@ export type InstituteCreateWithoutReviewsInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -1802,6 +1867,7 @@ export type InstituteCreateWithoutReviewsInput = {
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutReviewsInput = {
@@ -1836,6 +1902,7 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
@@ -1844,6 +1911,7 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutReviewsInput = {
@@ -1893,6 +1961,7 @@ export type InstituteUpdateWithoutReviewsInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -1902,6 +1971,7 @@ export type InstituteUpdateWithoutReviewsInput = {
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutReviewsInput = {
@@ -1936,6 +2006,7 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
@@ -1944,6 +2015,7 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutClaimsInput = {
@@ -1977,6 +2049,7 @@ export type InstituteCreateWithoutClaimsInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -1986,6 +2059,7 @@ export type InstituteCreateWithoutClaimsInput = {
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutClaimsInput = {
@@ -2020,6 +2094,7 @@ export type InstituteUncheckedCreateWithoutClaimsInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2028,6 +2103,7 @@ export type InstituteUncheckedCreateWithoutClaimsInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutClaimsInput = {
@@ -2077,6 +2153,7 @@ export type InstituteUpdateWithoutClaimsInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2086,6 +2163,7 @@ export type InstituteUpdateWithoutClaimsInput = {
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutClaimsInput = {
@@ -2120,6 +2198,7 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2128,6 +2207,7 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutShortlistedByInput = {
@@ -2161,6 +2241,7 @@ export type InstituteCreateWithoutShortlistedByInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2170,6 +2251,7 @@ export type InstituteCreateWithoutShortlistedByInput = {
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutShortlistedByInput = {
@@ -2204,6 +2286,7 @@ export type InstituteUncheckedCreateWithoutShortlistedByInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2212,6 +2295,7 @@ export type InstituteUncheckedCreateWithoutShortlistedByInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutShortlistedByInput = {
@@ -2261,6 +2345,7 @@ export type InstituteUpdateWithoutShortlistedByInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2270,6 +2355,7 @@ export type InstituteUpdateWithoutShortlistedByInput = {
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
@@ -2304,6 +2390,7 @@ export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2312,6 +2399,7 @@ export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutViewHistoryInput = {
@@ -2345,6 +2433,7 @@ export type InstituteCreateWithoutViewHistoryInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2354,6 +2443,7 @@ export type InstituteCreateWithoutViewHistoryInput = {
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutViewHistoryInput = {
@@ -2388,6 +2478,7 @@ export type InstituteUncheckedCreateWithoutViewHistoryInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2396,6 +2487,7 @@ export type InstituteUncheckedCreateWithoutViewHistoryInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutViewHistoryInput = {
@@ -2445,6 +2537,7 @@ export type InstituteUpdateWithoutViewHistoryInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2454,6 +2547,7 @@ export type InstituteUpdateWithoutViewHistoryInput = {
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
@@ -2488,6 +2582,7 @@ export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2496,6 +2591,7 @@ export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutEnquiriesInput = {
@@ -2529,6 +2625,7 @@ export type InstituteCreateWithoutEnquiriesInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2538,6 +2635,7 @@ export type InstituteCreateWithoutEnquiriesInput = {
   viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutEnquiriesInput = {
@@ -2572,6 +2670,7 @@ export type InstituteUncheckedCreateWithoutEnquiriesInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2580,6 +2679,7 @@ export type InstituteUncheckedCreateWithoutEnquiriesInput = {
   viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutEnquiriesInput = {
@@ -2629,6 +2729,7 @@ export type InstituteUpdateWithoutEnquiriesInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2638,6 +2739,7 @@ export type InstituteUpdateWithoutEnquiriesInput = {
   viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
@@ -2672,6 +2774,7 @@ export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2680,6 +2783,7 @@ export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
   viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutTeachersInput = {
@@ -2713,6 +2817,7 @@ export type InstituteCreateWithoutTeachersInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2722,6 +2827,7 @@ export type InstituteCreateWithoutTeachersInput = {
   viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutTeachersInput = {
@@ -2756,6 +2862,7 @@ export type InstituteUncheckedCreateWithoutTeachersInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2764,6 +2871,7 @@ export type InstituteUncheckedCreateWithoutTeachersInput = {
   viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutTeachersInput = {
@@ -2813,6 +2921,7 @@ export type InstituteUpdateWithoutTeachersInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -2822,6 +2931,7 @@ export type InstituteUpdateWithoutTeachersInput = {
   viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutTeachersInput = {
@@ -2856,6 +2966,7 @@ export type InstituteUncheckedUpdateWithoutTeachersInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2864,6 +2975,7 @@ export type InstituteUncheckedUpdateWithoutTeachersInput = {
   viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutInstituteRequestInput = {
@@ -2897,6 +3009,7 @@ export type InstituteCreateWithoutInstituteRequestInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -2906,6 +3019,7 @@ export type InstituteCreateWithoutInstituteRequestInput = {
   viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
   enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
@@ -2940,6 +3054,7 @@ export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2948,6 +3063,7 @@ export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
   viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
   enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutInstituteRequestInput = {
@@ -2997,6 +3113,7 @@ export type InstituteUpdateWithoutInstituteRequestInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -3006,6 +3123,7 @@ export type InstituteUpdateWithoutInstituteRequestInput = {
   viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
@@ -3040,6 +3158,7 @@ export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3048,6 +3167,199 @@ export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
   viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
+}
+
+export type InstituteCreateWithoutPaymentsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  phone?: string | null
+  email?: string | null
+  website?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  logo?: string | null
+  coverImage?: string | null
+  googlePlaceId?: string | null
+  googleRating?: number | null
+  googleReviewCount?: number | null
+  isVerified?: boolean
+  isFeatured?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  gallery?: Prisma.InstituteCreategalleryInput | string[]
+  subscriptionPlan?: $Enums.SubscriptionPlan
+  youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
+  feeInfo?: string | null
+  classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
+  city: Prisma.CityCreateNestedOneWithoutInstitutesInput
+  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
+  claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
+  enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
+  teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
+  instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+}
+
+export type InstituteUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  phone?: string | null
+  email?: string | null
+  website?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  logo?: string | null
+  coverImage?: string | null
+  googlePlaceId?: string | null
+  googleRating?: number | null
+  googleReviewCount?: number | null
+  cityId: string
+  isVerified?: boolean
+  isFeatured?: boolean
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  gallery?: Prisma.InstituteCreategalleryInput | string[]
+  subscriptionPlan?: $Enums.SubscriptionPlan
+  youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
+  feeInfo?: string | null
+  classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
+  categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
+  claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
+  enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
+  teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
+  instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+}
+
+export type InstituteCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.InstituteWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstituteCreateWithoutPaymentsInput, Prisma.InstituteUncheckedCreateWithoutPaymentsInput>
+}
+
+export type InstituteUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.InstituteUpdateWithoutPaymentsInput, Prisma.InstituteUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.InstituteCreateWithoutPaymentsInput, Prisma.InstituteUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.InstituteWhereInput
+}
+
+export type InstituteUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.InstituteWhereInput
+  data: Prisma.XOR<Prisma.InstituteUpdateWithoutPaymentsInput, Prisma.InstituteUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type InstituteUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  gallery?: Prisma.InstituteUpdategalleryInput | string[]
+  subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
+  feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
+  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
+  claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
+  enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
+  teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
+  instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+}
+
+export type InstituteUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cityId?: Prisma.StringFieldUpdateOperationsInput | string
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  gallery?: Prisma.InstituteUpdategalleryInput | string[]
+  subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
+  feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
+  claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
+  enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
+  teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
+  instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
 }
 
 export type InstituteCreateManyCityInput = {
@@ -3081,6 +3393,7 @@ export type InstituteCreateManyCityInput = {
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   feeInfo?: string | null
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
 }
 
 export type InstituteUpdateWithoutCityInput = {
@@ -3114,6 +3427,7 @@ export type InstituteUpdateWithoutCityInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
@@ -3123,6 +3437,7 @@ export type InstituteUpdateWithoutCityInput = {
   enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutCityInput = {
@@ -3156,6 +3471,7 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3165,6 +3481,7 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateManyWithoutCityInput = {
@@ -3198,6 +3515,7 @@ export type InstituteUncheckedUpdateManyWithoutCityInput = {
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -3214,6 +3532,7 @@ export type InstituteCountOutputType = {
   viewHistory: number
   enquiries: number
   teachers: number
+  payments: number
 }
 
 export type InstituteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3225,6 +3544,7 @@ export type InstituteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensi
   viewHistory?: boolean | InstituteCountOutputTypeCountViewHistoryArgs
   enquiries?: boolean | InstituteCountOutputTypeCountEnquiriesArgs
   teachers?: boolean | InstituteCountOutputTypeCountTeachersArgs
+  payments?: boolean | InstituteCountOutputTypeCountPaymentsArgs
 }
 
 /**
@@ -3293,6 +3613,13 @@ export type InstituteCountOutputTypeCountTeachersArgs<ExtArgs extends runtime.Ty
   where?: Prisma.TeacherProfileWhereInput
 }
 
+/**
+ * InstituteCountOutputType without action
+ */
+export type InstituteCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubscriptionPaymentWhereInput
+}
+
 
 export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3326,6 +3653,7 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   youtubeVideos?: boolean
   feeInfo?: boolean
   classroomImages?: boolean
+  planExpiresAt?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
   managers?: boolean | Prisma.Institute$managersArgs<ExtArgs>
@@ -3336,6 +3664,7 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   enquiries?: boolean | Prisma.Institute$enquiriesArgs<ExtArgs>
   teachers?: boolean | Prisma.Institute$teachersArgs<ExtArgs>
   instituteRequest?: boolean | Prisma.Institute$instituteRequestArgs<ExtArgs>
+  payments?: boolean | Prisma.Institute$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.InstituteCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -3371,6 +3700,7 @@ export type InstituteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   youtubeVideos?: boolean
   feeInfo?: boolean
   classroomImages?: boolean
+  planExpiresAt?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -3406,6 +3736,7 @@ export type InstituteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   youtubeVideos?: boolean
   feeInfo?: boolean
   classroomImages?: boolean
+  planExpiresAt?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -3441,9 +3772,10 @@ export type InstituteSelectScalar = {
   youtubeVideos?: boolean
   feeInfo?: boolean
   classroomImages?: boolean
+  planExpiresAt?: boolean
 }
 
-export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "feeInfo" | "classroomImages", ExtArgs["result"]["institute"]>
+export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "feeInfo" | "classroomImages" | "planExpiresAt", ExtArgs["result"]["institute"]>
 export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
@@ -3455,6 +3787,7 @@ export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   enquiries?: boolean | Prisma.Institute$enquiriesArgs<ExtArgs>
   teachers?: boolean | Prisma.Institute$teachersArgs<ExtArgs>
   instituteRequest?: boolean | Prisma.Institute$instituteRequestArgs<ExtArgs>
+  payments?: boolean | Prisma.Institute$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.InstituteCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InstituteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3477,6 +3810,7 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     enquiries: Prisma.$InstituteEnquiryPayload<ExtArgs>[]
     teachers: Prisma.$TeacherProfilePayload<ExtArgs>[]
     instituteRequest: Prisma.$InstituteRequestPayload<ExtArgs> | null
+    payments: Prisma.$SubscriptionPaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3510,6 +3844,7 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     youtubeVideos: string[]
     feeInfo: string | null
     classroomImages: string[]
+    planExpiresAt: Date | null
   }, ExtArgs["result"]["institute"]>
   composites: {}
 }
@@ -3914,6 +4249,7 @@ export interface Prisma__InstituteClient<T, Null = never, ExtArgs extends runtim
   enquiries<T extends Prisma.Institute$enquiriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$enquiriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstituteEnquiryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   teachers<T extends Prisma.Institute$teachersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$teachersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeacherProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   instituteRequest<T extends Prisma.Institute$instituteRequestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$instituteRequestArgs<ExtArgs>>): Prisma.Prisma__InstituteRequestClient<runtime.Types.Result.GetResult<Prisma.$InstituteRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  payments<T extends Prisma.Institute$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3974,6 +4310,7 @@ export interface InstituteFieldRefs {
   readonly youtubeVideos: Prisma.FieldRef<"Institute", 'String[]'>
   readonly feeInfo: Prisma.FieldRef<"Institute", 'String'>
   readonly classroomImages: Prisma.FieldRef<"Institute", 'String[]'>
+  readonly planExpiresAt: Prisma.FieldRef<"Institute", 'DateTime'>
 }
     
 
@@ -4583,6 +4920,30 @@ export type Institute$instituteRequestArgs<ExtArgs extends runtime.Types.Extensi
    */
   include?: Prisma.InstituteRequestInclude<ExtArgs> | null
   where?: Prisma.InstituteRequestWhereInput
+}
+
+/**
+ * Institute.payments
+ */
+export type Institute$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SubscriptionPayment
+   */
+  select?: Prisma.SubscriptionPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SubscriptionPayment
+   */
+  omit?: Prisma.SubscriptionPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubscriptionPaymentInclude<ExtArgs> | null
+  where?: Prisma.SubscriptionPaymentWhereInput
+  orderBy?: Prisma.SubscriptionPaymentOrderByWithRelationInput | Prisma.SubscriptionPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.SubscriptionPaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubscriptionPaymentScalarFieldEnum | Prisma.SubscriptionPaymentScalarFieldEnum[]
 }
 
 /**

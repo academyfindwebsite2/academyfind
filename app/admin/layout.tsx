@@ -11,7 +11,8 @@ import {
     ArrowLeft,
     MapPin,
     FileType2,
-    Contact
+    Contact,
+    Pyramid
 } from "lucide-react";
 
 export default async function AdminLayout({
@@ -64,6 +65,7 @@ export default async function AdminLayout({
                         <SidebarLink href="/admin/claims" icon={<FileText />} label="Claim Requests" />
                         <SidebarLink href="/admin/instituteRequests" icon={<FileType2 />} label="Institute Requests" />
                         <SidebarLink href="/admin/contactmessages" icon={<Contact />} label="Contact Messages" />
+                        <SidebarLink href="/admin/payments" icon={<Pyramid />} label="Payment Approvals" />
                         <SidebarLink href="/admin/institutes" icon={<Building2 />} label="All Institutes" />
                         <SidebarLink href="/admin/users" icon={<Users />} label="User Management" />
                         <div className="my-2 border-t border-slate-200"></div>
