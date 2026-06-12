@@ -255,36 +255,52 @@ export function SearchBar() {
   }, [input]);
 
   // Handle Search Execution
+  // Handle Search Execution
   const handleSearch = () => {
-    // Agar dono input khali hain, toh kuch mat karo
     if (!input.trim() && !selectedLocation) return;
-
     setSuggestions([]);
 
     const lowerInput = input.toLowerCase();
-    
-    // Google API se jo address aaya (e.g., "Sector 62, Noida, UP"), usko check karenge
     const lowerAddress = selectedLocation?.address.toLowerCase() || "";
 
     let matchedCategorySlug = null;
     let matchedCitySlug = null;
 
+    // 🚀 NEW: Helper function to safely escape regex special characters
+    const escapeRegExp = (string: string) => {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    };
+
     // 1. Find Category from "What" input
     for (const cat of CATEGORY_MAP) {
       for (const kw of cat.keywords) {
-        if (new RegExp(`\\b${kw}\\b`, "i").test(lowerInput)) {
-          matchedCategorySlug = cat.slug;
-          break;
+        // 🚀 FIX: kw ko pehle escape karein
+        const safeKw = escapeRegExp(kw); 
+        
+        // 🚨 PRO TIP: "c++" jaise words word-boundary (\b) ke sath kaam nahi karte kyunki '+' is not a word.
+        // Isiliye agar keyword mein special char hai, toh normal includes() use karein
+        const hasSpecialChar = /[.*+?^${}()|[\]\\]/.test(kw);
+        
+        if (hasSpecialChar) {
+           if (lowerInput.includes(kw)) {
+             matchedCategorySlug = cat.slug;
+             break;
+           }
+        } else {
+           if (new RegExp(`\\b${safeKw}\\b`, "i").test(lowerInput)) {
+             matchedCategorySlug = cat.slug;
+             break;
+           }
         }
       }
       if (matchedCategorySlug) break;
     }
 
-    // 2. Find City from "Where" Address (Google result) ya fallback text input
+    // 2. Find City from "Where" Address
     const citySearchText = lowerAddress || lowerInput;
     for (const c of CITY_MAP) {
       for (const kw of c.keywords) {
-        if (new RegExp(`\\b${kw}\\b`, "i").test(citySearchText)) {
+        if (new RegExp(`\\b${escapeRegExp(kw)}\\b`, "i").test(citySearchText)) {
           matchedCitySlug = c.slug;
           break;
         }
@@ -292,25 +308,34 @@ export function SearchBar() {
       if (matchedCitySlug) break;
     }
 
-    // 3. 🧹 Magic Cleaner: Taki URL neat and clean dikhe
+    // 3. 🧹 Magic Cleaner (Apply escapeRegExp here too)
     let cleanQuery = lowerInput;
     const stopWords = ["best", "top", "in", "near", "me", "coaching", "coachings", "institute", "institutes", "classes"];
     
     stopWords.forEach((kw) => {
-      cleanQuery = cleanQuery.replace(new RegExp(`\\b${kw}\\b`, "gi"), "");
+      cleanQuery = cleanQuery.replace(new RegExp(`\\b${escapeRegExp(kw)}\\b`, "gi"), "");
     });
-    // Category aur City hatao (Kyunki wo URL path me chali jayegi)
+    
     if (matchedCategorySlug) {
       CATEGORY_MAP.find(c => c.slug === matchedCategorySlug)?.keywords.forEach(kw => {
-        cleanQuery = cleanQuery.replace(new RegExp(`\\b${kw}\\b`, "gi"), "");
+        // Special chars wale keywords directly string replace se hatayein
+        if (/[.*+?^${}()|[\]\\]/.test(kw)) {
+           cleanQuery = cleanQuery.replace(kw, "");
+        } else {
+           cleanQuery = cleanQuery.replace(new RegExp(`\\b${escapeRegExp(kw)}\\b`, "gi"), "");
+        }
       });
     }
+
     if (matchedCitySlug && !selectedLocation) {
       CITY_MAP.find(c => c.slug === matchedCitySlug)?.keywords.forEach(kw => {
-        cleanQuery = cleanQuery.replace(new RegExp(`\\b${kw}\\b`, "gi"), "");
+        cleanQuery = cleanQuery.replace(new RegExp(`\\b${escapeRegExp(kw)}\\b`, "gi"), "");
       });
     }
+    
     cleanQuery = cleanQuery.replace(/\s+/g, " ").trim();
+
+    // ... (Baaki URL params aur Router Push ka code waisa hi rahega) ...
 
     // 4. Build URL Parameters
     const params = new URLSearchParams();

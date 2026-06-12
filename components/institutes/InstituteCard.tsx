@@ -116,7 +116,7 @@ export default function InstituteCard({
       case "korean-classes":
         return "/no_image/language.PNG"
       case "dance-classes":
-        return "no_image/dance.PNG"
+        return "/no_image/dance.PNG"
       case "music-classes":
         return "/no_image/music.PNG"
       case "singing-classes":

@@ -12,27 +12,20 @@ export default function LocationAutocomplete({ onLocationSelect }: LocationAutoc
   
   // 1. Session Token State
   const [sessionToken, setSessionToken] = useState<any>(null);
+  const [isGoogleReady, setIsGoogleReady] = useState(false);
 
-  // Component load hote hi Google ka Session Token generate karo
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
 
-    const initToken = () => {
-      // 🚨 Pura path securely check karna zaroori hai (Optional Chaining ka use)
+    useEffect(() => {
+    // 🚀 Yeh interval har 100ms mein check karega ki Google API load hui ya nahi
+    const checkGoogle = setInterval(() => {
       if (typeof window !== "undefined" && window.google?.maps?.places) {
+        setIsGoogleReady(true);
         setSessionToken(new window.google.maps.places.AutocompleteSessionToken());
-        clearInterval(intervalId); // Token milte hi interval rok do
+        clearInterval(checkGoogle); // Load hote hi interval rok do
       }
-    };
+    }, 100);
 
-    // 1. Component load hote hi pehli baar try karo
-    initToken();
-
-    // 2. Agar Google Maps slow load ho raha hai, toh har 300ms mein check karo
-    intervalId = setInterval(initToken, 300);
-
-    // 3. Cleanup function taaki memory leak na ho
-    return () => clearInterval(intervalId);
+    return () => clearInterval(checkGoogle);
   }, []);
 
   const handleSelect = (selectedOption: any) => {
@@ -66,10 +59,17 @@ export default function LocationAutocomplete({ onLocationSelect }: LocationAutoc
     }
   };
 
+  if (!isGoogleReady) {
+    return (
+      <div className="w-full sm:w-72 p-3 text-sm text-slate-500 bg-slate-50 rounded-xl border border-slate-200 animate-pulse">
+        Initializing Location Search...
+      </div>
+    );
+  }
+
   return (
     <div className="w-full sm:w-72">
       <GooglePlacesAutocomplete
-        apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
         apiOptions={{
           language: 'en',
           region: 'in',
@@ -102,6 +102,7 @@ export default function LocationAutocomplete({ onLocationSelect }: LocationAutoc
             padding: "0.5rem",
             boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
             border: "1px solid #e2e8f0",
+            zIndex: 9999,
           }),
           option: (provided, state) => ({
             ...provided,
