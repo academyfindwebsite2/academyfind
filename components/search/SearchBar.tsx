@@ -97,7 +97,7 @@ export const CATEGORY_MAP = [
   { keywords: ["cloud", "cloud computing", "azure", "gcp"], slug: "cloud-computing" },
   { keywords: ["aws", "amazon web services"], slug: "aws-training" },
   { keywords: ["devops", "docker", "kubernetes", "jenkins"], slug: "devops-training" },
-  { keywords: ["cyber security", "ethical hacking", "infosec", "penetration testing"], slug: "cyber-security-training" },
+  { keywords: ["cyber security","cybersecurity" ,"ethical hacking", "infosec", "penetration testing"], slug: "cyber-security-training" },
   { keywords: ["ui ux", "figma", "user interface", "user experience"], slug: "ui-ux-design" },
   { keywords: ["graphic design", "photoshop", "illustrator", "canva", "coreldraw"], slug: "graphic-design" },
   { keywords: ["video editing", "premiere pro", "after effects", "final cut pro", "vlog editing"], slug: "video-editing" },
