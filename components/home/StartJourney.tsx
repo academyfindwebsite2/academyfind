@@ -1,9 +1,19 @@
-import Link from "next/link";
+"use client"; // 👈 Ye add karna zaroori hai kyunki hum onClick use karenge
+
 import { ArrowRight, Compass } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
 export function StartJourney() {
+  
+  // Top par scroll karne ka function
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className="py-12 sm:py-16 lg:py-24">
       <div className="container mx-auto px-4">
@@ -57,8 +67,10 @@ export function StartJourney() {
 
           {/* CTA Buttons */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            
+            {/* 1. Explore Institutes - Scrolls to Top */}
             <Button
-              asChild
+              onClick={handleScrollToTop} // 👈 Click karne par upar jayega
               size="lg"
               className="
                 h-12
@@ -67,16 +79,16 @@ export function StartJourney() {
                 font-semibold
                 hover:bg-amber-600
                 sm:px-8
+                cursor-pointer
               "
             >
-              <Link href="/institutes">
-                Explore Institutes
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              Explore Institutes
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
 
+            {/* 2. Compare Institutes - Coming Soon */}
             <Button
-              asChild
+              disabled // 👈 Button click disable kar diya
               variant="outline"
               size="lg"
               className="
@@ -84,11 +96,11 @@ export function StartJourney() {
                 text-sm
                 font-semibold
                 sm:px-8
+                opacity-60 // 👈 Thoda transparent feel dene ke liye
+                cursor-not-allowed // 👈 Mouse pointer update karne ke liye
               "
             >
-              <Link href="/compare">
-                Compare Institutes
-              </Link>
+              Compare (Coming Soon)
             </Button>
           </div>
 
