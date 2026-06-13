@@ -26,9 +26,11 @@ export function RoleSelect({ userId, currentRole }: { userId: string, currentRol
             className="text-xs font-semibold bg-slate-50 border border-slate-200 text-slate-700 rounded-lg px-2 py-1.5 outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
         >
             <option value="USER">USER</option>
-            <option value="CONTENT_WRITER">CONTENT_WRITER</option>
+            <option value="SALES_MANAGER">SALES_MANAGER</option>
             <option value="INSTITUTE_MANAGER">INSTITUTE_MANAGER</option>
             <option value="ADMIN">ADMIN</option>
+            <option value="CONTENT_WRITER">CONTENT_WRITER</option>
+
         </select>
     )
 }

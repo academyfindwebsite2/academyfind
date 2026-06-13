@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, LogOut, LayoutDashboard, ChevronDown, PlusCircle, Building2 } from "lucide-react"; 
+import { User, LogOut, LayoutDashboard, ChevronDown, PlusCircle, Building2, Briefcase } from "lucide-react"; 
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth/auth-client"; 
 import Image from "next/image";
@@ -107,16 +107,25 @@ export default function UserDropdown({ user }: { user: any }) {
         )}
 
         {/* Manager Workspace */}
-        {liveUserData?.role === 'INSTITUTE_MANAGER' && (
+        {liveUserData?.role === 'SALES_MANAGER' && (
           <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
-            <Link href="/manager">
-              <Building2 className="mr-3 h-4 w-4" />
-              <span className="font-medium text-sm">Manage Institutes</span>
+            <Link href="/sales_manager">
+              <Briefcase className="mr-3 h-4 w-4" />
+              <span className="font-medium text-sm">Sales dashboard</span>
             </Link>
           </DropdownMenuItem>
         )}
 
         {/* 🚀 ADD LISTING PASS - Strictly rendering via native Boolean DB query passed from Server Navbar */}
+        {liveUserData?.canAddInstitute === true && (
+          <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 bg-emerald-50 hover:bg-emerald-100/80 text-emerald-700 focus:bg-emerald-100 focus:text-emerald-800 transition-colors">
+            <Link href="/user/create-institute">
+              <PlusCircle className="mr-3 h-4 w-4 text-emerald-600" />
+              <span className="font-bold text-sm">Add Listing</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
+
         {liveUserData?.canAddInstitute === true && (
           <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 bg-emerald-50 hover:bg-emerald-100/80 text-emerald-700 focus:bg-emerald-100 focus:text-emerald-800 transition-colors">
             <Link href="/user/create-institute">

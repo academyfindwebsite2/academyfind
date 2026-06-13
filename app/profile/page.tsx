@@ -80,6 +80,7 @@ export default async function ProfilePage() {
                             <CardTitle className="text-xl">Personal Information</CardTitle>
                                 <Badge className={
                                     dbUser.role === 'ADMIN' ? 'bg-purple-600 hover:bg-purple-700' : 
+                                    dbUser.role === 'SALES_MANAGER' ? 'bg-green-600 hover:bg-green-700' :
                                     dbUser.role === 'INSTITUTE_MANAGER' ? 'bg-blue-600 hover:bg-blue-700' : 
                                     'bg-amber-500 hover:bg-amber-600'
                                 }>

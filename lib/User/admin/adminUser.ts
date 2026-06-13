@@ -18,7 +18,7 @@ export async function toggleUserListingPermission(userId: string, newStatus: boo
 }
 
 // 1. Role Change Action
-export async function updateUserRole(userId: string, newRole: "USER" | "CONTENT_WRITER" | "INSTITUTE_MANAGER" | "ADMIN") {
+export async function updateUserRole(userId: string, newRole: "USER" | "SALES_MANAGER" | "INSTITUTE_MANAGER" | "ADMIN" |"CONTENT_WRITER" ) {
     try {
         await prisma.user.update({
             where: { id: userId },

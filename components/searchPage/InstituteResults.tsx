@@ -10,7 +10,7 @@ type Props = {
 export default async function InstituteResults({ query, city }: Props) {
   // 1. STRICT SEARCH (Pehle try karega exact Sector/Area dhoondhne ki)
   let result = await meili.index("global_search").search(query, {
-    limit: 20,
+    limit: 100,
     filter: city
       ? ['type = "institute"', `citySlug = "${city}"`]
       : ['type = "institute"'],
@@ -27,7 +27,7 @@ export default async function InstituteResults({ query, city }: Props) {
     // Ab hum specific query (Sector 62) hata kar, blank query "" se broad search karenge
     // Jisse us city ke baaki top rating wale institutes aa jayenge
     result = await meili.index("global_search").search("", {
-      limit: 20,
+      limit: 100,
       filter: city
         ? ['type = "institute"', `citySlug = "${city}"`]
         : ['type = "institute"'],

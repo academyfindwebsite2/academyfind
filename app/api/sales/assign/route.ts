@@ -33,9 +33,13 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "User is not a Sales Manager" }, { status: 400 });
         }
 
+        const cleanInstituteId = instituteId.startsWith("inst-") 
+        ? instituteId.replace("inst-", "") 
+        : instituteId;
+
         // Verify institute exists
         const institute = await prisma.institute.findUnique({
-            where: { id: instituteId },
+            where: { id: cleanInstituteId },
             select: { id: true }
         });
 
@@ -46,7 +50,7 @@ export async function POST(req: NextRequest) {
         // 🚀 SMART FIX: Upsert (Update if exists, Create if not)
         const assignment = await prisma.salesAssignment.upsert({
             where: { 
-                instituteId: instituteId // Find by strictly instituteId
+                instituteId: cleanInstituteId // Find by strictly instituteId
             },
             update: {
                 salesManagerId: salesManagerId, // Transfer to new manager
@@ -54,7 +58,7 @@ export async function POST(req: NextRequest) {
             },
             create: {
                 salesManagerId,
-                instituteId,
+                instituteId : cleanInstituteId,
                 deadline: deadline ? new Date(deadline) : null,
             },
             include: {
