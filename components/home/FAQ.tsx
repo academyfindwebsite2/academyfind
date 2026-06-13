@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Link from "next/link";
 
 const faqs = [
   {
@@ -108,9 +109,9 @@ export function FAQSection() {
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground">
             Still have questions?
-            <span className="ml-1 font-medium text-amber-500">
+            <Link href={'/contact'} className="ml-1 font-medium text-amber-500">
               Contact our team.
-            </span>
+            </Link>
           </p>
         </div>
       </div>

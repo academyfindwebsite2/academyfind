@@ -3,36 +3,36 @@ import { ArrowRight, MapPin } from "lucide-react";
 
 const cities = [
   {
-    name: "Kota",
-    institutes: "1,200+ Institutes",
-    href: "/city/kota",
+    name: "Noida",
+    institutes: "6000+ Institutes",
+    href: "/",
   },
   {
     name: "Delhi",
-    institutes: "950+ Institutes",
+    institutes: "3000+ Institutes",
     href: "/city/delhi",
   },
-  {
-    name: "Jaipur",
-    institutes: "700+ Institutes",
-    href: "/city/jaipur",
-  },
-  {
-    name: "Bangalore",
-    institutes: "650+ Institutes",
-    href: "/city/bangalore",
-  },
-  {
-    name: "Hyderabad",
-    institutes: "620+ Institutes",
-    href: "/city/hyderabad",
-  },
-  {
-    name: "Pune",
-    institutes: "550+ Institutes",
-    href: "/city/pune",
-  },
-];
+//   {
+//     name: "Jaipur",
+//     institutes: "700+ Institutes",
+//     href: "/city/jaipur",
+//   },
+//   {
+//     name: "Bangalore",
+//     institutes: "650+ Institutes",
+//     href: "/city/bangalore",
+//   },
+//   {
+//     name: "Hyderabad",
+//     institutes: "620+ Institutes",
+//     href: "/city/hyderabad",
+//   },
+//   {
+//     name: "Pune",
+//     institutes: "550+ Institutes",
+//     href: "/city/pune",
+//   },
+ ];
 
 export function PopularCities() {
   return (
