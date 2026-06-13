@@ -15,8 +15,8 @@ const trendingSearches = [
     slug:"jee-coaching/noida",
   },
   {
-    title:"NEET Coaching in Noida",
-    slug:"neet-coaching/noida"
+    title:"Swimming Classes in Noida",
+    slug:"swimming-classes/noida"
   },
   {
     title:"CLAT Coaching in Noida",
