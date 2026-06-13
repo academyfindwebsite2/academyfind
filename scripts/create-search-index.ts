@@ -19,7 +19,8 @@ async function main() {
     "citySlug",
     "categorySlugs",
     "_geo",
-    "googleRating"
+    "googleRating",
+    "isActive"
   ]);
 
   const sortableTask = await index.updateSortableAttributes([

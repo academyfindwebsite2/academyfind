@@ -21,7 +21,6 @@ export async function getInstitutesByCategoryAndCity(
   limit: number = 12
 ) {
   const skip = (page - 1) * limit;
-  // Agar radius select kiya hai, toh usko meters me convert karo, nahi toh 5km default
   const radiusInMeters = radius ? radius * 1000 : 5000; 
 
   // ==========================================
@@ -33,6 +32,7 @@ export async function getInstitutesByCategoryAndCity(
     let searchOptions: any = {
       filter: [
         `type = "institute"`,
+        `isActive = true`, // ✅ Meilisearch mein bhi isActive true filter
         `citySlug = "${citySlug}"`,
         `categorySlugs = "${categorySlug}"`
       ],
@@ -40,23 +40,20 @@ export async function getInstitutesByCategoryAndCity(
       offset: skip,
     };
 
-    // Rating Filter add kiya
     if (minRating) {
       searchOptions.filter.push(`googleRating >= ${minRating}`);
     }
 
-    // Distance Radius
     if (lat && lng) {
       searchOptions.filter.push(`_geoRadius(${lat}, ${lng}, ${radiusInMeters})`);
     }
 
-    // Smart Sorting Logic
     if (sort === "rating") {
       searchOptions.sort = ["googleRating:desc"];
     } else if (sort === "reviews") {
       searchOptions.sort = ["googleReviewCount:desc"];
     } else if (lat && lng) {
-      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`]; // Default distance sort
+      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`]; 
     }
 
     const searchQuery = q ? q.trim() : "";
@@ -65,15 +62,15 @@ export async function getInstitutesByCategoryAndCity(
     if (searchRes.hits.length === 0) {
       exactAreaMatch = false; 
       
-      // Fallback A (Radius hatao, par rating filter rakho)
+      // Fallback A (Radius hatao, par isActive rakho)
       searchOptions.filter = [
         `type = "institute"`,
+        `isActive = true`, // ✅ Fallback mein bhi isActive check
         `citySlug = "${citySlug}"`,
         `categorySlugs = "${categorySlug}"`
       ];
       if (minRating) searchOptions.filter.push(`googleRating >= ${minRating}`);
       
-      // Sorting reset
       if (sort === "rating") searchOptions.sort = ["googleRating:desc"];
       else if (sort === "reviews") searchOptions.sort = ["googleReviewCount:desc"];
       else delete searchOptions.sort;
@@ -92,7 +89,10 @@ export async function getInstitutesByCategoryAndCity(
     }
 
     const dbInstitutes = await prisma.institute.findMany({
-      where: { id: { in: instituteIds } },
+      where: { 
+        id: { in: instituteIds },
+        isActive: true // ✅ Double security layer DB side par
+      },
       include: { city: true, reviews: true },
     });
 
@@ -103,12 +103,10 @@ export async function getInstitutesByCategoryAndCity(
       ])
     );
 
-    // Ab institutes ko sort karein aur distance add karein
     const orderedInstitutes = instituteIds.flatMap((id) => {
       const inst = dbInstitutes.find((i) => i.id === id);
       if (!inst) return [];
       
-      // Distance inject karein
       return [{
         ...inst,
         distance: distanceMap.get(id) || null
@@ -136,6 +134,7 @@ export async function getInstitutesByCategoryAndCity(
 
   // Prisma Rating Filter
   const prismaWhere: any = {
+    isActive: true, // ✅ Prisma fallback mein isActive check
     city: { slug: citySlug },
     categories: { some: { category: { slug: categorySlug } } },
   };

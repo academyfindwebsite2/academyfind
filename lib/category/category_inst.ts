@@ -10,6 +10,7 @@ export async function getInstitutesByCategory(
 
   // 👇 2. Base where clause banaya
   const whereClause: any = {
+    isActive: true,
     categories: {
       some: {
         category: {
@@ -30,7 +31,7 @@ export async function getInstitutesByCategory(
 
   const [institutes, totalCount] = await prisma.$transaction([
     prisma.institute.findMany({
-      where: {isActive: true}, 
+      where: whereClause,
       include: {
         city: true, 
       },

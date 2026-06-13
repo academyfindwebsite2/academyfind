@@ -62,6 +62,8 @@ async function main() {
       googleRating: inst.googleRating,             // <-- YE DONO ADD HONE CHAHIYE
       googleReviewCount: inst.googleReviewCount,
 
+      isActive: inst.isActive,
+
       imageUrl: inst.imageUrl ?? "",
 
       _geo: inst.latitude && inst.longitude ? {
