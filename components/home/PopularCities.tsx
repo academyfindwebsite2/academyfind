@@ -5,12 +5,12 @@ const cities = [
   {
     name: "Noida",
     institutes: "6000+ Institutes",
-    href: "/",
+    href: "/categories?city=noida",
   },
   {
     name: "Delhi",
     institutes: "3000+ Institutes",
-    href: "/city/delhi",
+    href: "/categories?city=delhi",
   },
 //   {
 //     name: "Jaipur",
