@@ -46,7 +46,7 @@ export default async function AdminLayout({
 
     return (
         <div className="bg-slate-50 min-h-screen pb-12">
-            <div className="container mx-auto max-w-[1400px] pt-8 px-4 flex flex-col md:flex-row gap-8">
+            <div className="container mx-auto max-w-350 pt-8 px-4 flex flex-col md:flex-row gap-8">
                 
                 {/* --- ADMIN SIDEBAR --- */}
                 <aside className="w-full md:w-64 shrink-0 space-y-6">
@@ -79,7 +79,7 @@ export default async function AdminLayout({
                 </aside>
 
                 {/* --- MAIN ADMIN CONTENT AREA --- */}
-                <main className="flex-1 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 min-h-[700px]">
+                <main className="flex-1 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 min-h-175">
                     {children}
                 </main>
 
