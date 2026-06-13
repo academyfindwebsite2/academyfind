@@ -39,7 +39,6 @@ export default async function SalesManagerDashboardPage({
         a.deadline && new Date(a.deadline) < now && a.contactStatus !== "ONBOARDED"
     ).length;
 
-    // Upcoming deadlines (next 7 days)
     const sevenDaysLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
     const upcomingDeadlines = assignments
         .filter((a: any) =>
@@ -56,7 +55,7 @@ export default async function SalesManagerDashboardPage({
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             {/* Welcome Banner */}
-            <div className="bg-gradient-to-r from-teal-900 to-cyan-800 rounded-3xl p-8 text-white shadow-md relative overflow-hidden">
+            <div className="bg-linear-to-r from-teal-900 to-cyan-800 rounded-3xl p-8 text-white shadow-md relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
                 <h1 className="text-3xl font-extrabold tracking-tight mb-2">Sales Dashboard</h1>
                 <p className="text-teal-200 max-w-2xl">

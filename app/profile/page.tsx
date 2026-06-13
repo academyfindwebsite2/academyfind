@@ -320,7 +320,7 @@ export default async function ProfilePage() {
                 </div>
 
                 {/* 4. Contributions */}
-                <Card className="rounded-3xl border-amber-100 shadow-sm bg-gradient-to-br from-amber-50/50 to-white overflow-hidden relative">
+                <Card className="rounded-3xl border-amber-100 shadow-sm bg-linear-to-br from-amber-50/50 to-white overflow-hidden relative">
                     <div className="absolute right-0 top-0 -mr-16 -mt-16 w-48 h-48 bg-amber-400 rounded-full blur-[80px] opacity-20 pointer-events-none"></div>
                     <CardHeader className="pb-2">
                         <div className="flex items-center gap-2 mb-1">
