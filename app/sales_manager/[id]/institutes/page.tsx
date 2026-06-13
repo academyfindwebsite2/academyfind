@@ -22,7 +22,7 @@ export default async function SalesAllInstitutesPage({
         select: { categoryId: true, category: { select: { name: true } } },
     });
 
-    const assignedCategoryIds = assignedCategories.map(c => c.categoryId);
+    const assignedCategoryIds = assignedCategories.map((c: any) => c.categoryId);
 
     // Build where clause: show institutes in assigned categories
     const whereCondition: any = {};
@@ -83,7 +83,7 @@ export default async function SalesAllInstitutesPage({
                 {assignedCategories.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-3">
                         <span className="text-xs text-slate-500 font-medium">Your categories:</span>
-                        {assignedCategories.map(c => (
+                        {assignedCategories.map((c:any) => (
                             <span key={c.categoryId} className="text-[10px] font-bold uppercase tracking-wider bg-teal-50 text-teal-700 border border-teal-100 px-2 py-0.5 rounded-full flex items-center gap-1">
                                 <Tag className="w-2.5 h-2.5" /> {c.category.name}
                             </span>
@@ -118,9 +118,9 @@ export default async function SalesAllInstitutesPage({
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {institutes.map((inst) => {
-                        const myAssignment = inst.salesAssignments.find(a => a.salesManagerId === id);
-                        const otherAssignments = inst.salesAssignments.filter(a => a.salesManagerId !== id);
+                    {institutes.map((inst: any) => {
+                        const myAssignment = inst.salesAssignments.find((a:any) => a.salesManagerId === id);
+                        const otherAssignments = inst.salesAssignments.filter((a: any) => a.salesManagerId !== id);
 
                         return (
                             <div
@@ -142,7 +142,7 @@ export default async function SalesAllInstitutesPage({
                                         </div>
                                         {inst.categories.length > 0 && (
                                             <div className="flex gap-1.5 mt-2 flex-wrap">
-                                                {inst.categories.map(c => (
+                                                {inst.categories.map((c:any) => (
                                                     <span key={c.category.id} className="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-medium">
                                                         {c.category.name}
                                                     </span>
@@ -167,7 +167,7 @@ export default async function SalesAllInstitutesPage({
                                                 <SalesStatusBadge status={myAssignment.contactStatus} />
                                             </>
                                         ) : otherAssignments.length > 0 ? (
-                                            otherAssignments.map((a, i) => (
+                                            otherAssignments.map((a: any, i:any) => (
                                                 <span key={i} className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full flex items-center gap-1">
                                                     <User className="w-2.5 h-2.5" /> {a.salesManager.name}
                                                 </span>

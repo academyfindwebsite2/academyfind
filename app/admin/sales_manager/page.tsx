@@ -80,21 +80,21 @@ export default async function AdminSalesManagerPage({
     const now = new Date();
 
     // Compute stats for each manager
-    const managersWithStats = managers.map(m => {
+    const managersWithStats = managers.map((m: any) => {
         const total = m.salesAssignments.length;
-        const onboarded = m.salesAssignments.filter(a => a.contactStatus === "ONBOARDED").length;
-        const contacted = m.salesAssignments.filter(a => a.contactStatus === "CONTACTED").length;
-        const notContacted = m.salesAssignments.filter(a => a.contactStatus === "NOT_CONTACTED").length;
-        const overdue = m.salesAssignments.filter(a =>
+        const onboarded = m.salesAssignments.filter((a: any) => a.contactStatus === "ONBOARDED").length;
+        const contacted = m.salesAssignments.filter((a: any) => a.contactStatus === "CONTACTED").length;
+        const notContacted = m.salesAssignments.filter((a: any) => a.contactStatus === "NOT_CONTACTED").length;
+        const overdue = m.salesAssignments.filter((a: any) =>
             a.deadline && new Date(a.deadline) < now && a.contactStatus !== "ONBOARDED"
         ).length;
         const completionRate = total > 0 ? Math.round((onboarded / total) * 100) : 0;
 
         // Get unique categories
         const categories = new Set<string>();
-        m.salesCategoryAssignments.forEach(c => categories.add(c.category.name));
-        m.salesAssignments.forEach(a => {
-            a.institute.categories?.forEach(c => categories.add(c.category.name));
+        m.salesCategoryAssignments.forEach((c: any) => categories.add(c.category.name));
+        m.salesAssignments.forEach((a: any) => {
+            a.institute.categories?.forEach((c: any) => categories.add(c.category.name));
         });
 
         return {
@@ -174,7 +174,7 @@ export default async function AdminSalesManagerPage({
                                     </td>
                                 </tr>
                             ) : (
-                                sortedManagers.map((manager) => (
+                                sortedManagers.map((manager: any) => (
                                     <tr key={manager.id} className="hover:bg-slate-50/50 transition-colors">
                                         {/* Manager Info */}
                                         <td className="p-4">
@@ -255,7 +255,7 @@ export default async function AdminSalesManagerPage({
                                                 {manager.categoryNames.length === 0 ? (
                                                     <span className="text-xs text-slate-400">None</span>
                                                 ) : (
-                                                    manager.categoryNames.slice(0, 3).map((name, i) => (
+                                                    manager.categoryNames.slice(0, 3).map((name: any, i: any) => (
                                                         <span key={i} className="text-[10px] bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded font-medium border border-purple-100">
                                                             {name}
                                                         </span>

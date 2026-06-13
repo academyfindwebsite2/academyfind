@@ -207,7 +207,7 @@ export default async function AdminSalesManagerDetailPage({
                     </div>
                     <div className="p-4">
                         <div className="flex flex-wrap gap-2">
-                            {categoryAssignments.map((ca) => (
+                            {categoryAssignments.map((ca: any) => (
                                 <div
                                     key={ca.id}
                                     className="inline-flex items-center gap-2 bg-teal-50 border border-teal-100 rounded-xl px-3 py-2"
@@ -253,7 +253,7 @@ export default async function AdminSalesManagerDetailPage({
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
-                                {assignments.map((a) => {
+                                {assignments.map((a: any) => {
                                     const isOverdue = a.deadline && new Date(a.deadline) < now && a.contactStatus !== "ONBOARDED";
                                     return (
                                         <tr key={a.id} className={`hover:bg-slate-50/50 transition-colors ${isOverdue ? "bg-red-50/30" : ""}`}>

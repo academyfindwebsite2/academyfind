@@ -42,7 +42,7 @@ export default async function SalesManagerDashboardPage({
     // Upcoming deadlines (next 7 days)
     const sevenDaysLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
     const upcomingDeadlines = assignments
-        .filter(a =>
+        .filter((a: any) =>
             a.deadline &&
             new Date(a.deadline) >= now &&
             new Date(a.deadline) <= sevenDaysLater &&
@@ -90,7 +90,7 @@ export default async function SalesManagerDashboardPage({
                         {upcomingDeadlines.length === 0 ? (
                             <div className="text-center text-slate-400 py-8 text-sm">No upcoming deadlines! 🎉</div>
                         ) : (
-                            upcomingDeadlines.slice(0, 5).map((a) => (
+                            upcomingDeadlines.slice(0, 5).map((a: any) => (
                                 <div key={a.id} className="flex justify-between items-center p-3 rounded-xl border border-slate-100 hover:bg-slate-50 transition">
                                     <div className="min-w-0">
                                         <p className="font-bold text-sm text-slate-800 truncate">{a.institute.name}</p>
@@ -120,7 +120,7 @@ export default async function SalesManagerDashboardPage({
                         {recentActivity.length === 0 ? (
                             <div className="text-center text-slate-400 py-8 text-sm">No assignments yet. Admin will assign institutes to you.</div>
                         ) : (
-                            recentActivity.map((a) => (
+                            recentActivity.map((a: any) => (
                                 <div key={a.id} className="flex justify-between items-center p-3 rounded-xl border border-slate-100 hover:bg-slate-50 transition">
                                     <div className="min-w-0">
                                         <p className="font-bold text-sm text-slate-800 truncate flex items-center gap-2">

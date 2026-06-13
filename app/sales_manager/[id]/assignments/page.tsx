@@ -128,7 +128,7 @@ export default async function SalesAssignmentsPage({
                 </div>
             ) : (
                 <div className="space-y-4">
-                    {assignments.map((assignment) => {
+                    {assignments.map((assignment: any) => {
                         const isOverdue = assignment.deadline && new Date(assignment.deadline) < now && assignment.contactStatus !== "ONBOARDED";
                         const isExpanded = expandedId === assignment.id;
 
