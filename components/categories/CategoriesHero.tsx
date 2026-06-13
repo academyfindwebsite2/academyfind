@@ -1,6 +1,11 @@
 import { Layers3 } from "lucide-react";
 
-export default function CategoriesHero() {
+export default function CategoriesHero({ citySlug }: { citySlug?: string }) {
+  // City name ko thoda sundar format karne ke liye (e.g., 'new-delhi' -> 'New Delhi')
+  const formattedCity = citySlug 
+    ? citySlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') 
+    : "";
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-b from-amber-50 via-background to-background dark:from-amber-950/20" />
@@ -8,20 +13,20 @@ export default function CategoriesHero() {
       <div className="container mx-auto px-4 pt-16 pb-12 relative">
         <div className="inline-flex items-center gap-2 rounded-full border bg-background px-4 py-2 text-sm shadow-sm">
           <Layers3 className="h-4 w-4 text-amber-500" />
-          All Categories
+          {citySlug ? `Categories in ${formattedCity}` : "All Categories"}
         </div>
 
         <div className="mt-8 max-w-4xl">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
             Explore Every{" "}
             <span className="text-amber-400">
-              Preparation Goal
+              Preparation Goal {citySlug && `in ${formattedCity}`}
             </span>
           </h1>
 
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
             Browse all exam categories and discover top-rated
-            institutes tailored to your educational journey.
+            institutes tailored to your educational journey {citySlug && `specifically in ${formattedCity}`}.
           </p>
         </div>
       </div>

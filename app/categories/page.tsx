@@ -1,20 +1,26 @@
 // app/categories/page.tsx
 import { prisma } from "@/lib/prisma";
-// ... (imports remain same)
 import CategoryContainer from "@/components/categories/CategoryContainer"; 
 import CategoriesHero from "@/components/categories/CategoriesHero";
 import CategoryStats from "@/components/categories/CategoriesStats";
 import CategoryCTA from "@/components/category/CategoryCTA";
 import MoreCategories from "@/components/categories/MoreCategories";
 
-export default async function CategoriesPage() {
-  // DB se Level 0 (parentId: null) aur unke nested children fetch karein
+export default async function CategoriesPage({
+  searchParams,
+}: {
+  // 👇 1. searchParams define kiya
+  searchParams: Promise<{ city?: string }>;
+}) {
+  const sp = await searchParams;
+  const citySlug = sp.city; // 👇 2. URL se city nikal li (e.g., '?city=delhi')
+
   const parentCategories = await prisma.category.findMany({
     where: { parentId: null },
     include: {
       children: {
         include: {
-          children: true, // 👈 Ye Level 2 (SEO pages) ko bhi fetch kar lega
+          children: true, 
         },
       },
     },
@@ -23,12 +29,11 @@ export default async function CategoriesPage() {
 
   return (
     <>
-      <CategoriesHero />
+      {/* 👇 3. citySlug sabko as prop bhej diya */}
+      <CategoriesHero citySlug={citySlug} />
       <CategoryStats />
-      
-      <CategoryContainer parentCategories={parentCategories} />
-      
-       <MoreCategories />  
+      <CategoryContainer parentCategories={parentCategories} citySlug={citySlug} />
+      <MoreCategories citySlug={citySlug} />  
       <CategoryCTA />
     </>
   );
