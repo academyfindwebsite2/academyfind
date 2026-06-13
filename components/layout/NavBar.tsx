@@ -119,7 +119,7 @@ export default function Navbar() {
           </Button>
 
           <Button asChild variant="ghost" className="gap-2">
-            <Link href="/contact">
+            <Link href="/user/create-institute">
               <Building className="size-4" />
               List your Institute?
             </Link>

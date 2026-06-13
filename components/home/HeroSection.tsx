@@ -7,8 +7,8 @@ import TypingHeading from "./TypingHeading";
 
 const trendingSearches = [
   {
-    title:"Dance Classes in Delhi",
-    slug: "dance-classes/delhi"
+    title:"Dance Classes in Noida",
+    slug: "dance-classes/noida"
   },
   {
     title:"JEE Coaching in Noida",

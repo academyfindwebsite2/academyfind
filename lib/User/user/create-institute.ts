@@ -84,9 +84,9 @@ export async function addInstitute(userId: string, formData: FormData,selectedCa
                 });
             }
 
-            await tx.instituteManager.create({
-                data: { userId, instituteId: institute.id }
-            });
+            // await tx.instituteManager.create({
+            //     data: { userId, instituteId: institute.id }
+            // });
 
             await tx.instituteRequest.create({
                 data: {
@@ -104,7 +104,7 @@ export async function addInstitute(userId: string, formData: FormData,selectedCa
         });
 
         revalidatePath("/user/create-institute");
-        return { success: true, message: "Institute created successfully!", id: newInstitute.id };
+        return { success: true, message: "Institute created successfully!", id: newInstitute.id, slug: slug };
     } catch (error) {
         console.error("Create Institute Error:", error);
         return { success: false, error: "Failed to create institute." };

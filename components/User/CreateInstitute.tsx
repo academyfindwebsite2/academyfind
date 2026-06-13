@@ -74,7 +74,7 @@ export default function CreateInstituteForm({
             
             if (result.success) {
                 toast.success("Listing sent for admin approval!");
-                router.push("/profile");
+                router.push(`/user/create-institute/${result.id}/claim`);
                 router.refresh();
             } else {
                 toast.error(result.error || "Submission failed.");
