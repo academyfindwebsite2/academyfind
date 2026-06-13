@@ -45,3 +45,12 @@ export const InterestStatus = {
 } as const
 
 export type InterestStatus = (typeof InterestStatus)[keyof typeof InterestStatus]
+
+
+export const LifeCoachRequestStatus = {
+  PENDING: 'PENDING',
+  CONTACTED: 'CONTACTED',
+  RESOLVED: 'RESOLVED'
+} as const
+
+export type LifeCoachRequestStatus = (typeof LifeCoachRequestStatus)[keyof typeof LifeCoachRequestStatus]

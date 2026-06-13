@@ -70,7 +70,8 @@ export const ModelName = {
   InstituteRequest: 'InstituteRequest',
   SubscriptionPayment: 'SubscriptionPayment',
   SalesAssignment: 'SalesAssignment',
-  SalesCategoryAssignment: 'SalesCategoryAssignment'
+  SalesCategoryAssignment: 'SalesCategoryAssignment',
+  LifeCoachRequest: 'LifeCoachRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -388,6 +389,19 @@ export const SalesCategoryAssignmentScalarFieldEnum = {
 } as const
 
 export type SalesCategoryAssignmentScalarFieldEnum = (typeof SalesCategoryAssignmentScalarFieldEnum)[keyof typeof SalesCategoryAssignmentScalarFieldEnum]
+
+
+export const LifeCoachRequestScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  phone: 'phone',
+  email: 'email',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type LifeCoachRequestScalarFieldEnum = (typeof LifeCoachRequestScalarFieldEnum)[keyof typeof LifeCoachRequestScalarFieldEnum]
 
 
 export const SortOrder = {

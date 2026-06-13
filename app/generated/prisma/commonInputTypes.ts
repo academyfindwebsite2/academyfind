@@ -314,6 +314,23 @@ export type EnumSubscriptionPlanNullableWithAggregatesFilter<$PrismaModel = neve
   _max?: Prisma.NestedEnumSubscriptionPlanNullableFilter<$PrismaModel>
 }
 
+export type EnumLifeCoachRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LifeCoachRequestStatus | Prisma.EnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LifeCoachRequestStatus[] | Prisma.ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LifeCoachRequestStatus[] | Prisma.ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLifeCoachRequestStatusFilter<$PrismaModel> | $Enums.LifeCoachRequestStatus
+}
+
+export type EnumLifeCoachRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LifeCoachRequestStatus | Prisma.EnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LifeCoachRequestStatus[] | Prisma.ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LifeCoachRequestStatus[] | Prisma.ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLifeCoachRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.LifeCoachRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLifeCoachRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLifeCoachRequestStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -614,6 +631,23 @@ export type NestedEnumSubscriptionPlanNullableWithAggregatesFilter<$PrismaModel 
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumSubscriptionPlanNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumSubscriptionPlanNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumLifeCoachRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LifeCoachRequestStatus | Prisma.EnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LifeCoachRequestStatus[] | Prisma.ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LifeCoachRequestStatus[] | Prisma.ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLifeCoachRequestStatusFilter<$PrismaModel> | $Enums.LifeCoachRequestStatus
+}
+
+export type NestedEnumLifeCoachRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LifeCoachRequestStatus | Prisma.EnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LifeCoachRequestStatus[] | Prisma.ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LifeCoachRequestStatus[] | Prisma.ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLifeCoachRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.LifeCoachRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLifeCoachRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLifeCoachRequestStatusFilter<$PrismaModel>
 }
 
 

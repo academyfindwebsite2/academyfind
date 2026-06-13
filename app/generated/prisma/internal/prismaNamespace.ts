@@ -403,7 +403,8 @@ export const ModelName = {
   InstituteRequest: 'InstituteRequest',
   SubscriptionPayment: 'SubscriptionPayment',
   SalesAssignment: 'SalesAssignment',
-  SalesCategoryAssignment: 'SalesCategoryAssignment'
+  SalesCategoryAssignment: 'SalesCategoryAssignment',
+  LifeCoachRequest: 'LifeCoachRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -419,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment"
+    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1903,6 +1904,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LifeCoachRequest: {
+      payload: Prisma.$LifeCoachRequestPayload<ExtArgs>
+      fields: Prisma.LifeCoachRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LifeCoachRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LifeCoachRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.LifeCoachRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LifeCoachRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>
+        }
+        findMany: {
+          args: Prisma.LifeCoachRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>[]
+        }
+        create: {
+          args: Prisma.LifeCoachRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>
+        }
+        createMany: {
+          args: Prisma.LifeCoachRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LifeCoachRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.LifeCoachRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>
+        }
+        update: {
+          args: Prisma.LifeCoachRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.LifeCoachRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LifeCoachRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LifeCoachRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.LifeCoachRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LifeCoachRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.LifeCoachRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLifeCoachRequest>
+        }
+        groupBy: {
+          args: Prisma.LifeCoachRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LifeCoachRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LifeCoachRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LifeCoachRequestCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2243,6 +2318,19 @@ export const SalesCategoryAssignmentScalarFieldEnum = {
 export type SalesCategoryAssignmentScalarFieldEnum = (typeof SalesCategoryAssignmentScalarFieldEnum)[keyof typeof SalesCategoryAssignmentScalarFieldEnum]
 
 
+export const LifeCoachRequestScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  phone: 'phone',
+  email: 'email',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type LifeCoachRequestScalarFieldEnum = (typeof LifeCoachRequestScalarFieldEnum)[keyof typeof LifeCoachRequestScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2391,6 +2479,20 @@ export type EnumInterestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 export type ListEnumInterestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InterestStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'LifeCoachRequestStatus'
+ */
+export type EnumLifeCoachRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LifeCoachRequestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LifeCoachRequestStatus[]'
+ */
+export type ListEnumLifeCoachRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LifeCoachRequestStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2521,6 +2623,7 @@ export type GlobalOmitConfig = {
   subscriptionPayment?: Prisma.SubscriptionPaymentOmit
   salesAssignment?: Prisma.SalesAssignmentOmit
   salesCategoryAssignment?: Prisma.SalesCategoryAssignmentOmit
+  lifeCoachRequest?: Prisma.LifeCoachRequestOmit
 }
 
 /* Types for Logging */

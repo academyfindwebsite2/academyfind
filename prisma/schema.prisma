@@ -409,3 +409,19 @@ model SalesCategoryAssignment {
   @@index([salesManagerId])
   @@map("sales_category_assignment")
 }
+
+enum LifeCoachRequestStatus {
+  PENDING
+  CONTACTED
+  RESOLVED
+}
+
+model LifeCoachRequest {
+  id        String   @id @default(cuid())
+  fullName  String
+  phone     String
+  email     String
+  message   String?
+  status    LifeCoachRequestStatus  @default(PENDING) 
+  createdAt DateTime @default(now())
+}
