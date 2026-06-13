@@ -38,7 +38,7 @@ export default async function UserCreateInstitutePage() {
                     instituteId: latestReq.instituteId
                 }
             })
-            if(existingClaim){
+            if(!existingClaim){
                 needClaim = true;
             }
         }
