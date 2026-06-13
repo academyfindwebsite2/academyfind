@@ -28,7 +28,7 @@ model User {
   claims              InstituteClaim[]
   shortlisted         UserShortlist[]
   viewHistory         UserHistory[]
-  canAddInstitute     Boolean            @default(false)
+  canAddInstitute     Boolean            @default(true)
   instituteRequests          InstituteRequest[]
   payments                   SubscriptionPayment[]
   salesAssignments           SalesAssignment[]          @relation("SalesAssignments")
