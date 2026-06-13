@@ -32,10 +32,10 @@ export default async function SalesManagerDashboardPage({
     const now = new Date();
 
     const total = assignments.length;
-    const notContacted = assignments.filter(a => a.contactStatus === "NOT_CONTACTED").length;
-    const contacted = assignments.filter(a => a.contactStatus === "CONTACTED").length;
-    const onboarded = assignments.filter(a => a.contactStatus === "ONBOARDED").length;
-    const overdue = assignments.filter(a =>
+    const notContacted = assignments.filter((a: any) => a.contactStatus === "NOT_CONTACTED").length;
+    const contacted = assignments.filter((a:any) => a.contactStatus === "CONTACTED").length;
+    const onboarded = assignments.filter((a:any) => a.contactStatus === "ONBOARDED").length;
+    const overdue = assignments.filter((a:any) =>
         a.deadline && new Date(a.deadline) < now && a.contactStatus !== "ONBOARDED"
     ).length;
 
