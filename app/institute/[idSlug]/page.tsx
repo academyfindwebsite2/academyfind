@@ -7,7 +7,6 @@ import Breadcrumb from "@/components/navigation/BreadCrumbs";
 import Link from "next/link";
 import InstituteMap from "@/components/maps/InstituteMap";
 import ReviewForm from "@/components/reviews/ReviewForm";
-// 🚀 Naye icons import kiye hain social aur classrooms ke liye
 import { Star, Phone, MapPin, Mail, Globe, CheckCircle, Users, Trophy, PlayCircle, User, Presentation, IndianRupee } from "lucide-react"; 
 import Image from "next/image";
 import SmartButton from "@/components/ui/SmartButton";
@@ -51,6 +50,12 @@ function getYouTubeId(url: string) {
   return (match && match[2].length === 11) ? match[2] : null;
 }
 
+// 🚀 Helper Function: Check if the URL is a valid Cloudinary URL
+function isCloudinaryImage(url?: string | null) {
+  if (!url) return false;
+  return url.includes("cloudinary.com");
+}
+
 export default async function InstitutePage({ params }: PageProps) {
   const { idSlug } = await params;
   const id = extractId(idSlug);
@@ -62,7 +67,7 @@ export default async function InstitutePage({ params }: PageProps) {
 
   const session = await auth.api.getSession({
     headers: await headers()
-  })
+  });
 
   let alreadySaved = false;
 
@@ -120,6 +125,15 @@ export default async function InstitutePage({ params }: PageProps) {
     url: institute.website ?? undefined,
   };
 
+  // 🚀 Filter valid Cloudinary images only
+  const validClassroomImages = institute.classroomImages?.filter(isCloudinaryImage) || [];
+  const validGalleryImages = institute.gallery?.filter(isCloudinaryImage) || [];
+  
+  // 🚀 Determine Main Logo
+  const mainLogo = isCloudinaryImage(institute.logo) 
+    ? institute.logo 
+    : (isCloudinaryImage(institute.imageUrl) ? institute.imageUrl : "/inst.jpg");
+
   return (
     <main className="min-h-screen bg-slate-50">
       <script
@@ -152,7 +166,7 @@ export default async function InstitutePage({ params }: PageProps) {
                   
                   <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-3xl border shadow-sm mx-auto md:mx-0">
                     <Image 
-                      src={institute.logo ?? institute.imageUrl ?? "/inst.jpg"} 
+                      src={mainLogo!} 
                       alt={institute.name} 
                       width={128}
                       height={128}
@@ -388,7 +402,8 @@ export default async function InstitutePage({ params }: PageProps) {
               {institute.teachers.map((teacher: any) => (
                 <div key={teacher.id} className="rounded-3xl border border-slate-200 bg-white p-6 flex items-center gap-5 shadow-sm hover:shadow-md transition">
                   <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center">
-                    {teacher.imageUrl ? (
+                    {/* 🚀 Filter Teacher Image as well */}
+                    {isCloudinaryImage(teacher.imageUrl) ? (
                       <Image src={teacher.imageUrl} alt={teacher.name} width={60} height={60} className="h-full w-full object-cover" />
                     ) : (
                       <User className="h-8 w-8 text-slate-300" />
@@ -405,8 +420,8 @@ export default async function InstitutePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* 🚀 NAYA INTEGRATION: CAMPUS & CLASSROOM IMAGES GALLERY */}
-        {institute.classroomImages && institute.classroomImages.length > 0 && (
+        {/* 🚀 ONLY SHOW IF VALID CLOUDINARY IMAGES EXIST */}
+        {validClassroomImages.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-blue-100 text-blue-600 rounded-xl"><Presentation className="w-6 h-6" /></div>
@@ -417,7 +432,8 @@ export default async function InstitutePage({ params }: PageProps) {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {institute.classroomImages.map((url: string, idx: number) => (
+              {/* 🚀 MAP OVER FILTERED ARRAY */}
+              {validClassroomImages.map((url: string, idx: number) => (
                 <div key={idx} className="relative aspect-4/3 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
                   <img 
                     src={url} 
@@ -431,8 +447,8 @@ export default async function InstitutePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* RESULT IMAGES / GALLERY */}
-        {institute.gallery && institute.gallery.length > 0 && (
+        {/* 🚀 ONLY SHOW IF VALID CLOUDINARY IMAGES EXIST */}
+        {validGalleryImages.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-amber-100 text-amber-600 rounded-xl"><Trophy className="w-6 h-6" /></div>
@@ -443,7 +459,8 @@ export default async function InstitutePage({ params }: PageProps) {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {institute.gallery.map((url: string, idx: number) => (
+              {/* 🚀 MAP OVER FILTERED ARRAY */}
+              {validGalleryImages.map((url: string, idx: number) => (
                 <div key={idx} className="relative aspect-4/3 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
                   <img 
                     src={url} 
@@ -540,52 +557,60 @@ export default async function InstitutePage({ params }: PageProps) {
             </div>
             
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {similarInstitutes.map((simInst: any) => (
-                <Link 
-                  href={`/institute/${simInst.id}-${simInst.slug}`} 
-                  key={simInst.id} 
-                  className="group flex flex-col rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-slate-100 relative">
-                    <img 
-                      src={simInst.imageUrl ?? simInst.logo ?? "/no_image/coaching_inst.PNG"} 
-                      alt={simInst.name} 
-                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                    />
-                    {simInst.isVerified && (
-                        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                            <CheckCircle className="w-3.5 h-3.5 text-blue-500" />
-                            <span className="text-[10px] font-bold text-slate-700">Verified</span>
-                        </div>
-                    )}
-                  </div>
-                  
-                  <div className="p-5 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md line-clamp-1">
-                            {simInst.categories[0]?.category.name}
-                        </span>
+              {similarInstitutes.map((simInst: any) => {
+                
+                // 🚀 Determine Similar Institute Logo
+                const simDisplayLogo = isCloudinaryImage(simInst.imageUrl) 
+                  ? simInst.imageUrl 
+                  : (isCloudinaryImage(simInst.logo) ? simInst.logo : "/no_image/coaching_inst.PNG");
+
+                return (
+                  <Link 
+                    href={`/institute/${simInst.id}-${simInst.slug}`} 
+                    key={simInst.id} 
+                    className="group flex flex-col rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <div className="aspect-[4/3] w-full overflow-hidden bg-slate-100 relative">
+                      <img 
+                        src={simDisplayLogo} 
+                        alt={simInst.name} 
+                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                      {simInst.isVerified && (
+                          <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                              <CheckCircle className="w-3.5 h-3.5 text-blue-500" />
+                              <span className="text-[10px] font-bold text-slate-700">Verified</span>
+                          </div>
+                      )}
                     </div>
-                    <h3 className="font-bold text-slate-900 text-lg line-clamp-1 group-hover:text-amber-600 transition-colors">
-                      {simInst.name}
-                    </h3>
-                    <p className="text-sm text-slate-500 mt-1.5 flex items-start gap-1.5 line-clamp-2">
-                      <MapPin className="w-4 h-4 shrink-0 mt-0.5" /> 
-                      {simInst.address || simInst.city.name}
-                    </p>
                     
-                    <div className="mt-auto pt-5 flex items-center gap-2">
-                        <div className="flex items-center gap-1 bg-slate-50 border border-slate-100 px-2 py-1 rounded-lg">
-                          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                          <span className="text-xs font-bold text-slate-800">
-                            {simInst.googleRating > 0 ? simInst.googleRating : "New"}
+                    <div className="p-5 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md line-clamp-1">
+                              {simInst.categories[0]?.category.name}
                           </span>
-                        </div>
-                        <span className="text-xs font-medium text-slate-400">({simInst.googleReviewCount} reviews)</span>
+                      </div>
+                      <h3 className="font-bold text-slate-900 text-lg line-clamp-1 group-hover:text-amber-600 transition-colors">
+                        {simInst.name}
+                      </h3>
+                      <p className="text-sm text-slate-500 mt-1.5 flex items-start gap-1.5 line-clamp-2">
+                        <MapPin className="w-4 h-4 shrink-0 mt-0.5" /> 
+                        {simInst.address || simInst.city.name}
+                      </p>
+                      
+                      <div className="mt-auto pt-5 flex items-center gap-2">
+                          <div className="flex items-center gap-1 bg-slate-50 border border-slate-100 px-2 py-1 rounded-lg">
+                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                            <span className="text-xs font-bold text-slate-800">
+                              {simInst.googleRating > 0 ? simInst.googleRating : "New"}
+                            </span>
+                          </div>
+                          <span className="text-xs font-medium text-slate-400">({simInst.googleReviewCount} reviews)</span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           </section>
         )}
