@@ -9,11 +9,10 @@ import MoreCategories from "@/components/categories/MoreCategories";
 export default async function CategoriesPage({
   searchParams,
 }: {
-  // 👇 1. searchParams define kiya
   searchParams: Promise<{ city?: string }>;
 }) {
   const sp = await searchParams;
-  const citySlug = sp.city; // 👇 2. URL se city nikal li (e.g., '?city=delhi')
+  const citySlug = sp.city;
 
   const parentCategories = await prisma.category.findMany({
     where: { parentId: null },

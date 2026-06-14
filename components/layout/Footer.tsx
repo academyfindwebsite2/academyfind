@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedinIn, FaTelegram, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import { Button } from "../ui/button";
 
 const categories = [
   {
@@ -13,12 +14,12 @@ const categories = [
     slug: "upsc-coaching",
   },
   {
-    name: "NEET",
-    slug: "neet-coaching",
+    name: "Dance",
+    slug: "dance-classes",
   },
   {
-    name: "CAT",
-    slug: "cat-coaching",
+    name: "View All",
+    slug: "categories",
   },
 ];
 
@@ -159,19 +160,21 @@ export function Footer() {
 
           {/* Compare */}
           <div>
-            <h3 className="mb-4 font-semibold">
-              Compare
-            </h3>
+            <div className="flex items-center gap-2 mb-4">
+              <h3 className="font-semibold">
+                Compare
+              </h3>
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                Coming Soon
+              </span>
+            </div>
 
-            <ul className="space-y-3 text-sm text-muted-foreground">
+            <ul className="space-y-3 text-sm text-muted-foreground opacity-50">
               {comparisons.map((item) => (
                 <li key={item}>
-                  <Link
-                    href="/compare"
-                    className="transition-colors hover:text-foreground"
-                  >
+                  <span className="cursor-not-allowed">
                     {item}
-                  </Link>
+                  </span>
                 </li>
               ))}
             </ul>
@@ -229,14 +232,14 @@ export function Footer() {
               </Link>
 
               <Link
-                href="/privacy"
+                href={""}
                 className="transition-colors hover:text-foreground"
               >
                 Privacy
               </Link>
 
               <Link
-                href="/terms"
+                  href={""}
                 className="transition-colors hover:text-foreground"
               >
                 Terms

@@ -20,10 +20,7 @@ interface CategoryGridProps {
 }
 
 export default function CategoryGrid({ childrenCategories, citySlug }: CategoryGridProps) {
-  
-  // 🚀 2. THE FILTER MAGIC
-  // Pehle leaf categories filter karo jinme min 1 institute ho
-  // Phir un parent categories ko hata do jinke paas koi valid leaf bachi hi nahi
+ 
   const filteredCategories = childrenCategories
     .map((subCat) => {
       const activeLeaves = subCat.children.filter(
@@ -33,7 +30,6 @@ export default function CategoryGrid({ childrenCategories, citySlug }: CategoryG
     })
     .filter((subCat) => subCat.children.length > 0);
 
-  // Agar sab kuch filter hone ke baad khali bacha:
   if (!filteredCategories || filteredCategories.length === 0) {
     return (
       <section className="container mx-auto px-4 py-10 text-center">
