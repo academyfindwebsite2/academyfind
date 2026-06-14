@@ -348,13 +348,16 @@ export function SearchBar() {
     }
 
     if(selectedLocation?.lat === 28.4743879 && selectedLocation?.lng === 77.50399039999999){
-      router.push(`/${matchedCategorySlug}/greater-noida}`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/greater-noida`);
+        else router.push(`/categories?city=greater-noida`);
     }
     else if(selectedLocation?.lat === 28.5355161 && selectedLocation?.lng === 77.3910265){
-      router.push(`/${matchedCategorySlug}/noida}`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/noida`);
+      else router.push(`/categories?city=noida`);
     }
     else if(selectedLocation?.lat === 28.7040592 && selectedLocation?.lng === 77.10249019999999){
-      router.push(`/${matchedCategorySlug}/delhi}`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/delhi`);
+      else router.push(`/categories?city=delhi`);
     }
     else if (matchedCategorySlug && matchedCitySlug) {
       router.push(`/${matchedCategorySlug}/${matchedCitySlug}?${params.toString()}`);
