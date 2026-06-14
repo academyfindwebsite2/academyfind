@@ -7,7 +7,7 @@ import SmartButton from "../ui/SmartButton";
 export default function CityCTA() {
   return (
     <section className="mt-20">
-      <div className="relative overflow-hidden rounded-3xl border border-amber-200 bg-linear-to-br from-amber-500 via-orange-500 to-orange-600 p-10 md:p-14 text-center text-white">
+      <div className="relative overflow-hidden rounded-3xl border border-amber-200 bg-linear-to-br from-amber-400 via-orange-400 to-amber-500 p-10 md:p-14 text-center text-white">
 
         {/* Glow */}
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
@@ -31,18 +31,27 @@ export default function CityCTA() {
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               size="lg"
-              className="bg-white text-orange-600 hover:bg-orange-50 cursor-pointer"
+              className="bg-white text-amber-500 hover:bg-orange-50 cursor-pointer"
             >
-              Explore Institutes
+              <Link href={"/"}>Explore Institutes</Link>
+              
             </Button>
 
             <Button
-              size="lg"
+              disabled 
               variant="outline"
-              className="border-white/40 bg-white/10 text-white hover:bg-white/20"
+              size="lg"
+              className="
+                bg-white
+                border-white/50
+                text-black
+                text-sm
+                font-semibold
+                opacity-80 
+                cursor-not-allowed
+              "
             >
-              Compare Institutes
-              <ArrowRight className="ml-2 h-4 w-4" />
+              Compare (Coming Soon)
             </Button>
           </div>
         </div>

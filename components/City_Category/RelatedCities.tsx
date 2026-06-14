@@ -2,16 +2,28 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const cities = [
-  "kota",
-  "delhi",
-  "jaipur",
-  "hyderabad",
+  {
+    name: "Delhi",
+    slug: "delhi"
+  },
+  {
+    name: "Greater Noida",
+    slug: "greater-noida",
+  },
+  {
+    name: "Noida",
+    slug: "noida",
+  }
 ];
 
 export default function RelatedCities({
   category,
+  cityName,
+  citySlug,
 }: {
   category: string;
+  cityName: string;
+  citySlug: string;
 }) {
   return (
     <section className="mt-20">
@@ -31,10 +43,10 @@ export default function RelatedCities({
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {cities.map((city) => (
+        {cities.filter((city) => city.slug !== citySlug).map((city) => (
           <Link
-            key={city}
-            href={`/${category}/${city}`}
+            key={city.slug}
+            href={`/${category}/${city.slug}`}
             className="
               group
               rounded-2xl
@@ -52,7 +64,7 @@ export default function RelatedCities({
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-lg font-semibold text-slate-900 capitalize">
-                  {city}
+                  {city.name}
                 </p>
 
                 <p className="mt-1 text-sm text-slate-500">

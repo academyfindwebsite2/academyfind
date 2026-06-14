@@ -82,7 +82,6 @@ export default async function CategoryCityPage({
     minRating,
   );
 
-  // Fallback text jise hum UI par dikhayenge
   const displayLocationText = address || q || cityName;
 
   return (
@@ -152,7 +151,7 @@ export default async function CategoryCityPage({
       
 
       <CityAbout categoryName={categoryName} cityName={cityName} />
-      <RelatedCities category={category} />
+      <RelatedCities category={category} cityName={city} citySlug={city}/>
       <CityFAQ categoryName={categoryName} cityName={cityName} />
       <CityCTA />
     </main>

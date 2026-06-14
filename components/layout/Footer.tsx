@@ -32,7 +32,10 @@ const cities = [
     name: "Delhi",
     slug: "upsc-coaching/delhi",
   },
-  
+  {
+    name: "Greater Noida",
+    slug: "greater-noida",
+  }
 ];
 
 const comparisons = [
