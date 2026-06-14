@@ -228,7 +228,6 @@ export function SearchBar() {
   };
 }, []);
 
-  // Handle Autocomplete Suggestions (Sirf "What" input ke liye)
   useEffect(() => {
     const fetchSuggestions = async () => {
       if (input.trim().length < 2) {
@@ -335,7 +334,6 @@ export function SearchBar() {
     
     cleanQuery = cleanQuery.replace(/\s+/g, " ").trim();
 
-    // ... (Baaki URL params aur Router Push ka code waisa hi rahega) ...
 
     // 4. Build URL Parameters
     const params = new URLSearchParams();
@@ -349,8 +347,16 @@ export function SearchBar() {
       params.set("address", selectedLocation.address); 
     }
 
-    // 5. Smart Routing
-    if (matchedCategorySlug && matchedCitySlug) {
+    if(selectedLocation?.lat === 28.4743879 && selectedLocation?.lng === 77.50399039999999){
+      router.push(`/${matchedCategorySlug}/greater-noida}`);
+    }
+    else if(selectedLocation?.lat === 28.5355161 && selectedLocation?.lng === 77.3910265){
+      router.push(`/${matchedCategorySlug}/noida}`);
+    }
+    else if(selectedLocation?.lat === 28.7040592 && selectedLocation?.lng === 77.10249019999999){
+      router.push(`/${matchedCategorySlug}/delhi}`);
+    }
+    else if (matchedCategorySlug && matchedCitySlug) {
       router.push(`/${matchedCategorySlug}/${matchedCitySlug}?${params.toString()}`);
     } else if (matchedCategorySlug) {
       router.push(`/${matchedCategorySlug}?${params.toString()}`);

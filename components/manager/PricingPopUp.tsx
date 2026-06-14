@@ -158,7 +158,6 @@ export function PricingModal({ children }: { children: React.ReactNode }) {
                             ))}
                         </ul>
 
-                        {/* 🚀 FIX: Button ki padding py-3 se py-2.5 ki */}
                         {/* <DialogClose asChild className="transition">
                         <button className={`w-full py-2.5 rounded-xl text-sm font-bold transition-colors ${
                             isPremium 
