@@ -64,6 +64,7 @@ export type InstituteMinAggregateOutputType = {
   isVerified: boolean | null
   isFeatured: boolean | null
   isActive: boolean | null
+  isPublished: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   imageUrl: string | null
@@ -102,6 +103,7 @@ export type InstituteMaxAggregateOutputType = {
   isVerified: boolean | null
   isFeatured: boolean | null
   isActive: boolean | null
+  isPublished: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
   imageUrl: string | null
@@ -140,6 +142,7 @@ export type InstituteCountAggregateOutputType = {
   isVerified: number
   isFeatured: number
   isActive: number
+  isPublished: number
   createdAt: number
   updatedAt: number
   imageUrl: number
@@ -202,6 +205,7 @@ export type InstituteMinAggregateInputType = {
   isVerified?: true
   isFeatured?: true
   isActive?: true
+  isPublished?: true
   createdAt?: true
   updatedAt?: true
   imageUrl?: true
@@ -240,6 +244,7 @@ export type InstituteMaxAggregateInputType = {
   isVerified?: true
   isFeatured?: true
   isActive?: true
+  isPublished?: true
   createdAt?: true
   updatedAt?: true
   imageUrl?: true
@@ -278,6 +283,7 @@ export type InstituteCountAggregateInputType = {
   isVerified?: true
   isFeatured?: true
   isActive?: true
+  isPublished?: true
   createdAt?: true
   updatedAt?: true
   imageUrl?: true
@@ -407,6 +413,7 @@ export type InstituteGroupByOutputType = {
   isVerified: boolean
   isFeatured: boolean
   isActive: boolean
+  isPublished: boolean
   createdAt: Date
   updatedAt: Date
   imageUrl: string | null
@@ -472,6 +479,7 @@ export type InstituteWhereInput = {
   isVerified?: Prisma.BoolFilter<"Institute"> | boolean
   isFeatured?: Prisma.BoolFilter<"Institute"> | boolean
   isActive?: Prisma.BoolFilter<"Institute"> | boolean
+  isPublished?: Prisma.BoolFilter<"Institute"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -526,6 +534,7 @@ export type InstituteOrderByWithRelationInput = {
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -583,6 +592,7 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   isVerified?: Prisma.BoolFilter<"Institute"> | boolean
   isFeatured?: Prisma.BoolFilter<"Institute"> | boolean
   isActive?: Prisma.BoolFilter<"Institute"> | boolean
+  isPublished?: Prisma.BoolFilter<"Institute"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -637,6 +647,7 @@ export type InstituteOrderByWithAggregationInput = {
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -687,6 +698,7 @@ export type InstituteScalarWhereWithAggregatesInput = {
   isVerified?: Prisma.BoolWithAggregatesFilter<"Institute"> | boolean
   isFeatured?: Prisma.BoolWithAggregatesFilter<"Institute"> | boolean
   isActive?: Prisma.BoolWithAggregatesFilter<"Institute"> | boolean
+  isPublished?: Prisma.BoolWithAggregatesFilter<"Institute"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Institute"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Institute"> | Date | string
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
@@ -728,6 +740,7 @@ export type InstituteCreateInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -782,6 +795,7 @@ export type InstituteUncheckedCreateInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -834,6 +848,7 @@ export type InstituteUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -888,6 +903,7 @@ export type InstituteUncheckedUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -941,6 +957,7 @@ export type InstituteCreateManyInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -982,6 +999,7 @@ export type InstituteUpdateManyMutationInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1024,6 +1042,7 @@ export type InstituteUncheckedUpdateManyInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1074,6 +1093,7 @@ export type InstituteCountOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -1125,6 +1145,7 @@ export type InstituteMaxOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -1163,6 +1184,7 @@ export type InstituteMinOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -1484,6 +1506,7 @@ export type InstituteCreateWithoutCityInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -1536,6 +1559,7 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -1618,6 +1642,7 @@ export type InstituteScalarWhereInput = {
   isVerified?: Prisma.BoolFilter<"Institute"> | boolean
   isFeatured?: Prisma.BoolFilter<"Institute"> | boolean
   isActive?: Prisma.BoolFilter<"Institute"> | boolean
+  isPublished?: Prisma.BoolFilter<"Institute"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Institute"> | Date | string
   imageUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -1659,6 +1684,7 @@ export type InstituteCreateWithoutCategoriesInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -1712,6 +1738,7 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -1779,6 +1806,7 @@ export type InstituteUpdateWithoutCategoriesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1832,6 +1860,7 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1883,6 +1912,7 @@ export type InstituteCreateWithoutManagersInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -1936,6 +1966,7 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2003,6 +2034,7 @@ export type InstituteUpdateWithoutManagersInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2056,6 +2088,7 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2107,6 +2140,7 @@ export type InstituteCreateWithoutReviewsInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2160,6 +2194,7 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2227,6 +2262,7 @@ export type InstituteUpdateWithoutReviewsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2280,6 +2316,7 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2331,6 +2368,7 @@ export type InstituteCreateWithoutClaimsInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2384,6 +2422,7 @@ export type InstituteUncheckedCreateWithoutClaimsInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2451,6 +2490,7 @@ export type InstituteUpdateWithoutClaimsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2504,6 +2544,7 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2555,6 +2596,7 @@ export type InstituteCreateWithoutShortlistedByInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2608,6 +2650,7 @@ export type InstituteUncheckedCreateWithoutShortlistedByInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2675,6 +2718,7 @@ export type InstituteUpdateWithoutShortlistedByInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2728,6 +2772,7 @@ export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2779,6 +2824,7 @@ export type InstituteCreateWithoutViewHistoryInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2832,6 +2878,7 @@ export type InstituteUncheckedCreateWithoutViewHistoryInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -2899,6 +2946,7 @@ export type InstituteUpdateWithoutViewHistoryInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2952,6 +3000,7 @@ export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3003,6 +3052,7 @@ export type InstituteCreateWithoutEnquiriesInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3056,6 +3106,7 @@ export type InstituteUncheckedCreateWithoutEnquiriesInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3123,6 +3174,7 @@ export type InstituteUpdateWithoutEnquiriesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3176,6 +3228,7 @@ export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3227,6 +3280,7 @@ export type InstituteCreateWithoutTeachersInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3280,6 +3334,7 @@ export type InstituteUncheckedCreateWithoutTeachersInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3347,6 +3402,7 @@ export type InstituteUpdateWithoutTeachersInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3400,6 +3456,7 @@ export type InstituteUncheckedUpdateWithoutTeachersInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3451,6 +3508,7 @@ export type InstituteCreateWithoutInstituteRequestInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3504,6 +3562,7 @@ export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3571,6 +3630,7 @@ export type InstituteUpdateWithoutInstituteRequestInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3624,6 +3684,7 @@ export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3675,6 +3736,7 @@ export type InstituteCreateWithoutPaymentsInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3728,6 +3790,7 @@ export type InstituteUncheckedCreateWithoutPaymentsInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3795,6 +3858,7 @@ export type InstituteUpdateWithoutPaymentsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3848,6 +3912,7 @@ export type InstituteUncheckedUpdateWithoutPaymentsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3899,6 +3964,7 @@ export type InstituteCreateWithoutSalesAssignmentsInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -3952,6 +4018,7 @@ export type InstituteUncheckedCreateWithoutSalesAssignmentsInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -4019,6 +4086,7 @@ export type InstituteUpdateWithoutSalesAssignmentsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4072,6 +4140,7 @@ export type InstituteUncheckedUpdateWithoutSalesAssignmentsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4123,6 +4192,7 @@ export type InstituteCreateManyCityInput = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   imageUrl?: string | null
@@ -4164,6 +4234,7 @@ export type InstituteUpdateWithoutCityInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4216,6 +4287,7 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4268,6 +4340,7 @@ export type InstituteUncheckedUpdateManyWithoutCityInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4422,6 +4495,7 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   imageUrl?: boolean
@@ -4477,6 +4551,7 @@ export type InstituteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   imageUrl?: boolean
@@ -4520,6 +4595,7 @@ export type InstituteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   imageUrl?: boolean
@@ -4563,6 +4639,7 @@ export type InstituteSelectScalar = {
   isVerified?: boolean
   isFeatured?: boolean
   isActive?: boolean
+  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   imageUrl?: boolean
@@ -4585,7 +4662,7 @@ export type InstituteSelectScalar = {
   whatsappUrl?: boolean
 }
 
-export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "feeInfo" | "classroomImages" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "twitterUrl" | "youtubeUrl" | "telegramUrl" | "linkedinUrl" | "whatsappUrl", ExtArgs["result"]["institute"]>
+export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "isPublished" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "feeInfo" | "classroomImages" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "twitterUrl" | "youtubeUrl" | "telegramUrl" | "linkedinUrl" | "whatsappUrl", ExtArgs["result"]["institute"]>
 export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
@@ -4644,6 +4721,7 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     isVerified: boolean
     isFeatured: boolean
     isActive: boolean
+    isPublished: boolean
     createdAt: Date
     updatedAt: Date
     imageUrl: string | null
@@ -5118,6 +5196,7 @@ export interface InstituteFieldRefs {
   readonly isVerified: Prisma.FieldRef<"Institute", 'Boolean'>
   readonly isFeatured: Prisma.FieldRef<"Institute", 'Boolean'>
   readonly isActive: Prisma.FieldRef<"Institute", 'Boolean'>
+  readonly isPublished: Prisma.FieldRef<"Institute", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Institute", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Institute", 'DateTime'>
   readonly imageUrl: Prisma.FieldRef<"Institute", 'String'>

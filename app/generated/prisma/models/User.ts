@@ -265,6 +265,7 @@ export type UserWhereInput = {
   payments?: Prisma.SubscriptionPaymentListRelationFilter
   salesAssignments?: Prisma.SalesAssignmentListRelationFilter
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentListRelationFilter
+  adminNotifications?: Prisma.AdminNotificationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -293,6 +294,7 @@ export type UserOrderByWithRelationInput = {
   payments?: Prisma.SubscriptionPaymentOrderByRelationAggregateInput
   salesAssignments?: Prisma.SalesAssignmentOrderByRelationAggregateInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentOrderByRelationAggregateInput
+  adminNotifications?: Prisma.AdminNotificationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -324,6 +326,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   payments?: Prisma.SubscriptionPaymentListRelationFilter
   salesAssignments?: Prisma.SalesAssignmentListRelationFilter
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentListRelationFilter
+  adminNotifications?: Prisma.AdminNotificationListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -392,6 +395,7 @@ export type UserCreateInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -420,6 +424,7 @@ export type UserUncheckedCreateInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -448,6 +453,7 @@ export type UserUpdateInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -476,6 +482,7 @@ export type UserUncheckedUpdateInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -770,6 +777,22 @@ export type UserUpdateOneRequiredWithoutSalesCategoryAssignmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSalesCategoryAssignmentsInput, Prisma.UserUpdateWithoutSalesCategoryAssignmentsInput>, Prisma.UserUncheckedUpdateWithoutSalesCategoryAssignmentsInput>
 }
 
+export type UserCreateNestedOneWithoutAdminNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminNotificationsInput, Prisma.UserUncheckedCreateWithoutAdminNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAdminNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminNotificationsInput, Prisma.UserUncheckedCreateWithoutAdminNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutAdminNotificationsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdminNotificationsInput, Prisma.UserUpdateWithoutAdminNotificationsInput>, Prisma.UserUncheckedUpdateWithoutAdminNotificationsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name?: string | null
@@ -795,6 +818,7 @@ export type UserCreateWithoutSessionsInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -822,6 +846,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -865,6 +890,7 @@ export type UserUpdateWithoutSessionsInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -892,6 +918,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -919,6 +946,7 @@ export type UserCreateWithoutAccountsInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -946,6 +974,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -989,6 +1018,7 @@ export type UserUpdateWithoutAccountsInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1016,6 +1046,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutManagedInstitutesInput = {
@@ -1043,6 +1074,7 @@ export type UserCreateWithoutManagedInstitutesInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedInstitutesInput = {
@@ -1070,6 +1102,7 @@ export type UserUncheckedCreateWithoutManagedInstitutesInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedInstitutesInput = {
@@ -1113,6 +1146,7 @@ export type UserUpdateWithoutManagedInstitutesInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedInstitutesInput = {
@@ -1140,6 +1174,7 @@ export type UserUncheckedUpdateWithoutManagedInstitutesInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -1167,6 +1202,7 @@ export type UserCreateWithoutReviewsInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -1194,6 +1230,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -1237,6 +1274,7 @@ export type UserUpdateWithoutReviewsInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -1264,6 +1302,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClaimsInput = {
@@ -1291,6 +1330,7 @@ export type UserCreateWithoutClaimsInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClaimsInput = {
@@ -1318,6 +1358,7 @@ export type UserUncheckedCreateWithoutClaimsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClaimsInput = {
@@ -1361,6 +1402,7 @@ export type UserUpdateWithoutClaimsInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClaimsInput = {
@@ -1388,6 +1430,7 @@ export type UserUncheckedUpdateWithoutClaimsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShortlistedInput = {
@@ -1415,6 +1458,7 @@ export type UserCreateWithoutShortlistedInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShortlistedInput = {
@@ -1442,6 +1486,7 @@ export type UserUncheckedCreateWithoutShortlistedInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShortlistedInput = {
@@ -1485,6 +1530,7 @@ export type UserUpdateWithoutShortlistedInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShortlistedInput = {
@@ -1512,6 +1558,7 @@ export type UserUncheckedUpdateWithoutShortlistedInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutViewHistoryInput = {
@@ -1539,6 +1586,7 @@ export type UserCreateWithoutViewHistoryInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutViewHistoryInput = {
@@ -1566,6 +1614,7 @@ export type UserUncheckedCreateWithoutViewHistoryInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutViewHistoryInput = {
@@ -1609,6 +1658,7 @@ export type UserUpdateWithoutViewHistoryInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutViewHistoryInput = {
@@ -1636,6 +1686,7 @@ export type UserUncheckedUpdateWithoutViewHistoryInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInstituteRequestsInput = {
@@ -1663,6 +1714,7 @@ export type UserCreateWithoutInstituteRequestsInput = {
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInstituteRequestsInput = {
@@ -1690,6 +1742,7 @@ export type UserUncheckedCreateWithoutInstituteRequestsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInstituteRequestsInput = {
@@ -1733,6 +1786,7 @@ export type UserUpdateWithoutInstituteRequestsInput = {
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInstituteRequestsInput = {
@@ -1760,6 +1814,7 @@ export type UserUncheckedUpdateWithoutInstituteRequestsInput = {
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -1787,6 +1842,7 @@ export type UserCreateWithoutPaymentsInput = {
   instituteRequests?: Prisma.InstituteRequestCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -1814,6 +1870,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   instituteRequests?: Prisma.InstituteRequestUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -1857,6 +1914,7 @@ export type UserUpdateWithoutPaymentsInput = {
   instituteRequests?: Prisma.InstituteRequestUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -1884,6 +1942,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   instituteRequests?: Prisma.InstituteRequestUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSalesAssignmentsInput = {
@@ -1911,6 +1970,7 @@ export type UserCreateWithoutSalesAssignmentsInput = {
   instituteRequests?: Prisma.InstituteRequestCreateNestedManyWithoutUserInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSalesAssignmentsInput = {
@@ -1938,6 +1998,7 @@ export type UserUncheckedCreateWithoutSalesAssignmentsInput = {
   instituteRequests?: Prisma.InstituteRequestUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSalesAssignmentsInput = {
@@ -1981,6 +2042,7 @@ export type UserUpdateWithoutSalesAssignmentsInput = {
   instituteRequests?: Prisma.InstituteRequestUpdateManyWithoutUserNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesAssignmentsInput = {
@@ -2008,6 +2070,7 @@ export type UserUncheckedUpdateWithoutSalesAssignmentsInput = {
   instituteRequests?: Prisma.InstituteRequestUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSalesCategoryAssignmentsInput = {
@@ -2035,6 +2098,7 @@ export type UserCreateWithoutSalesCategoryAssignmentsInput = {
   instituteRequests?: Prisma.InstituteRequestCreateNestedManyWithoutUserInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSalesCategoryAssignmentsInput = {
@@ -2062,6 +2126,7 @@ export type UserUncheckedCreateWithoutSalesCategoryAssignmentsInput = {
   instituteRequests?: Prisma.InstituteRequestUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSalesCategoryAssignmentsInput = {
@@ -2105,6 +2170,7 @@ export type UserUpdateWithoutSalesCategoryAssignmentsInput = {
   instituteRequests?: Prisma.InstituteRequestUpdateManyWithoutUserNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesCategoryAssignmentsInput = {
@@ -2132,6 +2198,135 @@ export type UserUncheckedUpdateWithoutSalesCategoryAssignmentsInput = {
   instituteRequests?: Prisma.InstituteRequestUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAdminNotificationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  emailVerified?: boolean
+  onboardingCompleted?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  canAddInstitute?: boolean
+  managedInstitutes?: Prisma.InstituteManagerCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
+  instituteRequests?: Prisma.InstituteRequestCreateNestedManyWithoutUserInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
+  salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
+  salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+}
+
+export type UserUncheckedCreateWithoutAdminNotificationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  emailVerified?: boolean
+  onboardingCompleted?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  canAddInstitute?: boolean
+  managedInstitutes?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
+  instituteRequests?: Prisma.InstituteRequestUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
+  salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+}
+
+export type UserCreateOrConnectWithoutAdminNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdminNotificationsInput, Prisma.UserUncheckedCreateWithoutAdminNotificationsInput>
+}
+
+export type UserUpsertWithoutAdminNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAdminNotificationsInput, Prisma.UserUncheckedUpdateWithoutAdminNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdminNotificationsInput, Prisma.UserUncheckedCreateWithoutAdminNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAdminNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAdminNotificationsInput, Prisma.UserUncheckedUpdateWithoutAdminNotificationsInput>
+}
+
+export type UserUpdateWithoutAdminNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  canAddInstitute?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  managedInstitutes?: Prisma.InstituteManagerUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
+  instituteRequests?: Prisma.InstituteRequestUpdateManyWithoutUserNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
+  salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
+  salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAdminNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  canAddInstitute?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  managedInstitutes?: Prisma.InstituteManagerUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
+  instituteRequests?: Prisma.InstituteRequestUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
+  salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
 }
 
 
@@ -2151,6 +2346,7 @@ export type UserCountOutputType = {
   payments: number
   salesAssignments: number
   salesCategoryAssignments: number
+  adminNotifications: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2165,6 +2361,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   payments?: boolean | UserCountOutputTypeCountPaymentsArgs
   salesAssignments?: boolean | UserCountOutputTypeCountSalesAssignmentsArgs
   salesCategoryAssignments?: boolean | UserCountOutputTypeCountSalesCategoryAssignmentsArgs
+  adminNotifications?: boolean | UserCountOutputTypeCountAdminNotificationsArgs
 }
 
 /**
@@ -2254,6 +2451,13 @@ export type UserCountOutputTypeCountSalesCategoryAssignmentsArgs<ExtArgs extends
   where?: Prisma.SalesCategoryAssignmentWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAdminNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdminNotificationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2281,6 +2485,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   salesAssignments?: boolean | Prisma.User$salesAssignmentsArgs<ExtArgs>
   salesCategoryAssignments?: boolean | Prisma.User$salesCategoryAssignmentsArgs<ExtArgs>
+  adminNotifications?: boolean | Prisma.User$adminNotificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2348,6 +2553,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   salesAssignments?: boolean | Prisma.User$salesAssignmentsArgs<ExtArgs>
   salesCategoryAssignments?: boolean | Prisma.User$salesCategoryAssignmentsArgs<ExtArgs>
+  adminNotifications?: boolean | Prisma.User$adminNotificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2367,6 +2573,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     payments: Prisma.$SubscriptionPaymentPayload<ExtArgs>[]
     salesAssignments: Prisma.$SalesAssignmentPayload<ExtArgs>[]
     salesCategoryAssignments: Prisma.$SalesCategoryAssignmentPayload<ExtArgs>[]
+    adminNotifications: Prisma.$AdminNotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2788,6 +2995,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salesAssignments<T extends Prisma.User$salesAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$salesAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalesAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salesCategoryAssignments<T extends Prisma.User$salesCategoryAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$salesCategoryAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalesCategoryAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  adminNotifications<T extends Prisma.User$adminNotificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adminNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3485,6 +3693,30 @@ export type User$salesCategoryAssignmentsArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.SalesCategoryAssignmentScalarFieldEnum | Prisma.SalesCategoryAssignmentScalarFieldEnum[]
+}
+
+/**
+ * User.adminNotifications
+ */
+export type User$adminNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdminNotification
+   */
+  select?: Prisma.AdminNotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdminNotification
+   */
+  omit?: Prisma.AdminNotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminNotificationInclude<ExtArgs> | null
+  where?: Prisma.AdminNotificationWhereInput
+  orderBy?: Prisma.AdminNotificationOrderByWithRelationInput | Prisma.AdminNotificationOrderByWithRelationInput[]
+  cursor?: Prisma.AdminNotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdminNotificationScalarFieldEnum | Prisma.AdminNotificationScalarFieldEnum[]
 }
 
 /**

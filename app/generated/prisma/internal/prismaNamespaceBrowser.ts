@@ -71,7 +71,8 @@ export const ModelName = {
   SubscriptionPayment: 'SubscriptionPayment',
   SalesAssignment: 'SalesAssignment',
   SalesCategoryAssignment: 'SalesCategoryAssignment',
-  LifeCoachRequest: 'LifeCoachRequest'
+  LifeCoachRequest: 'LifeCoachRequest',
+  AdminNotification: 'AdminNotification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -175,6 +176,7 @@ export const InstituteScalarFieldEnum = {
   isVerified: 'isVerified',
   isFeatured: 'isFeatured',
   isActive: 'isActive',
+  isPublished: 'isPublished',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   imageUrl: 'imageUrl',
@@ -401,6 +403,21 @@ export const LifeCoachRequestScalarFieldEnum = {
 } as const
 
 export type LifeCoachRequestScalarFieldEnum = (typeof LifeCoachRequestScalarFieldEnum)[keyof typeof LifeCoachRequestScalarFieldEnum]
+
+
+export const AdminNotificationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  isRead: 'isRead',
+  referenceId: 'referenceId',
+  actionUrl: 'actionUrl',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminNotificationScalarFieldEnum = (typeof AdminNotificationScalarFieldEnum)[keyof typeof AdminNotificationScalarFieldEnum]
 
 
 export const SortOrder = {

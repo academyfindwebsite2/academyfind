@@ -404,7 +404,8 @@ export const ModelName = {
   SubscriptionPayment: 'SubscriptionPayment',
   SalesAssignment: 'SalesAssignment',
   SalesCategoryAssignment: 'SalesCategoryAssignment',
-  LifeCoachRequest: 'LifeCoachRequest'
+  LifeCoachRequest: 'LifeCoachRequest',
+  AdminNotification: 'AdminNotification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -420,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest"
+    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1978,6 +1979,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AdminNotification: {
+      payload: Prisma.$AdminNotificationPayload<ExtArgs>
+      fields: Prisma.AdminNotificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdminNotificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdminNotificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>
+        }
+        findFirst: {
+          args: Prisma.AdminNotificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdminNotificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>
+        }
+        findMany: {
+          args: Prisma.AdminNotificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>[]
+        }
+        create: {
+          args: Prisma.AdminNotificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>
+        }
+        createMany: {
+          args: Prisma.AdminNotificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdminNotificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>[]
+        }
+        delete: {
+          args: Prisma.AdminNotificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>
+        }
+        update: {
+          args: Prisma.AdminNotificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdminNotificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdminNotificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdminNotificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdminNotificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminNotificationPayload>
+        }
+        aggregate: {
+          args: Prisma.AdminNotificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdminNotification>
+        }
+        groupBy: {
+          args: Prisma.AdminNotificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminNotificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdminNotificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminNotificationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2102,6 +2177,7 @@ export const InstituteScalarFieldEnum = {
   isVerified: 'isVerified',
   isFeatured: 'isFeatured',
   isActive: 'isActive',
+  isPublished: 'isPublished',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   imageUrl: 'imageUrl',
@@ -2328,6 +2404,21 @@ export const LifeCoachRequestScalarFieldEnum = {
 } as const
 
 export type LifeCoachRequestScalarFieldEnum = (typeof LifeCoachRequestScalarFieldEnum)[keyof typeof LifeCoachRequestScalarFieldEnum]
+
+
+export const AdminNotificationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  isRead: 'isRead',
+  referenceId: 'referenceId',
+  actionUrl: 'actionUrl',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminNotificationScalarFieldEnum = (typeof AdminNotificationScalarFieldEnum)[keyof typeof AdminNotificationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2623,6 +2714,7 @@ export type GlobalOmitConfig = {
   salesAssignment?: Prisma.SalesAssignmentOmit
   salesCategoryAssignment?: Prisma.SalesCategoryAssignmentOmit
   lifeCoachRequest?: Prisma.LifeCoachRequestOmit
+  adminNotification?: Prisma.AdminNotificationOmit
 }
 
 /* Types for Logging */

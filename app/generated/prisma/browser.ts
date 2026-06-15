@@ -122,3 +122,8 @@ export type SalesCategoryAssignment = Prisma.SalesCategoryAssignmentModel
  * 
  */
 export type LifeCoachRequest = Prisma.LifeCoachRequestModel
+/**
+ * Model AdminNotification
+ * 
+ */
+export type AdminNotification = Prisma.AdminNotificationModel
