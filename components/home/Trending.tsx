@@ -13,19 +13,19 @@ const destinations = [
     href: "/neet-coaching/greater-noida",
   },
   {
-    title: "Highest rated BasketBall Academy in Noida",
+    title: "Highest rated BasketBall Academy in Delhi",
     subtitle: "80+ Academies",
-    href: "/basketball-academy/noida",
+    href: "/basketball-academy/delhi",
   },
   {
-    title: "Best Violin Classes in Greater Noida",
+    title: "Best Violin Classes in Faridabad",
     subtitle: "70+ Classes",
-    href: "/violin-classes/greater-noida",
+    href: "/violin-classes/faridabad",
   },
   {
-    title: "Class 10 Tuition In Noida",
+    title: "Class 10 Tuition In Delhi",
     subtitle: "300+ Institutes",
-    href: "/class-10-tuition/noida",
+    href: "/class-10-tuition/delhi",
   },
 ];
 

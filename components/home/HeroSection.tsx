@@ -11,12 +11,12 @@
       slug: "dance-classes/noida"
     },
     {
-      title:"JEE Coaching in Noida",
-      slug:"jee-coaching/noida",
+      title:"JEE Coaching in Delhi",
+      slug:"jee-coaching/delhi",
     },
     {
-      title:"Swimming Classes in Noida",
-      slug:"swimming-classes/noida"
+      title:"Swimming Classes in Faridabad",
+      slug:"swimming-classes/faridabad"
     },
     {
       title:"CLAT Coaching in Noida",

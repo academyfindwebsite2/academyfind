@@ -2,6 +2,7 @@ import { ExploreByGoal } from "@/components/home/Categories";
 import { PopularComparisons } from "@/components/home/Comparsion";
 import { FAQSection } from "@/components/home/FAQ";
 import { FeaturedInstitutes } from "@/components/home/FeaturedInstitutes";
+import HeroCards from "@/components/home/HeroCards";
 import { HeroSection } from "@/components/home/HeroSection";
 import { LifeCoachCTA } from "@/components/home/LifeCoachCTA";
 import { PopularCities } from "@/components/home/PopularCities";
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <HeroCards />
       <TrendingDestinations />
       <ExploreByGoal />
       <LifeCoachCTA />
