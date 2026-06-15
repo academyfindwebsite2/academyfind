@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function CategoryCTA() {
   return (
@@ -16,9 +17,12 @@ export default function CategoryCTA() {
 
           <Button
             size="lg"
-            className="mt-8 text-amber-500 bg-white border border-amber-600 cursor-pointer hover"
+            className="mt-8 text-amber-400 bg-white border border-amber-400 cursor-pointer hover:border-amber-600 hover:bg-amber-100 hover:text-amber-600"
           >
-            Explore Institutes
+            <Link href={"/"}>
+              Explore Institutes
+            </Link>
+            
           </Button>
         </div>
       </div>

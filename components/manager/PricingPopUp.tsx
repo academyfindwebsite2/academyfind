@@ -38,9 +38,12 @@ const plans = [
       desc: "Showcase faculty, results, and track analytics.", 
       features: [
           "Everything in Verified", 
+          "Add Social Media Links",
           "Visit & Save Analytics", 
           "Teacher Profiles (Up to 4)", 
-          "Videos & Results (Up to 4)"
+          "Videos Links (Up to 4)",
+          "Result Pics (Up to 4)",
+          "Classroom Pics (Up to 4)"
       ] 
   },
   { 
@@ -121,7 +124,7 @@ export function PricingModal({ children }: { children: React.ReactNode }) {
                     >
                         {isPremium && (
                             // 🚀 FIX: Badge ko thoda chota kiya
-                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                                 Most Popular
                             </div>
                         )}
@@ -130,7 +133,7 @@ export function PricingModal({ children }: { children: React.ReactNode }) {
                         
                         {/* 🚀 FIX: Margins kam kiye (mt-4 -> mt-2) */}
                         <div className="mt-2 mb-1 flex items-baseline gap-2">
-                            <span className="text-3xl font-black text-amber-500">
+                            <span className="text-3xl font-black text-amber-400">
                                 ₹{priceData.offer.toLocaleString('en-IN')}
                             </span>
                             <span className="text-xs text-slate-500 font-medium">
@@ -152,7 +155,7 @@ export function PricingModal({ children }: { children: React.ReactNode }) {
                         <ul className="space-y-2.5 mb-5 flex-1">
                             {plan.features.map((feature: any, i: any) => (
                                 <li key={i} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
-                                    <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0" /> 
+                                    <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" /> 
                                     <span className="leading-tight">{feature}</span>
                                 </li>
                             ))}

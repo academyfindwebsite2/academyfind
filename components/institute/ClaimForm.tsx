@@ -55,7 +55,7 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
         </p>
         <button 
           onClick={() => router.push('/')}
-          className="w-full py-3.5 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 transition-all shadow-md shadow-amber-500/20"
+          className="w-full py-3.5 bg-amber-400 text-white rounded-xl font-semibold hover:bg-amber-500 transition-all shadow-md shadow-amber-500/20"
         >
           Return to Homepage
         </button>
@@ -195,7 +195,7 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
           <button 
             type="submit" 
             disabled={isSubmitting}
-            className="w-full py-4 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all shadow-lg shadow-amber-500/25 disabled:opacity-70 disabled:cursor-not-allowed mt-2 flex justify-center items-center gap-2"
+            className="w-full py-4 bg-amber-400 text-white font-bold rounded-xl hover:bg-amber-500 transition-all shadow-lg shadow-amber-500/25 disabled:opacity-70 disabled:cursor-not-allowed mt-2 flex justify-center items-center gap-2"
           >
             {isSubmitting ? (
               <>

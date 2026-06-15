@@ -4,18 +4,23 @@ import { ArrowRight, MapPin } from "lucide-react";
 const cities = [
   {
     name: "Noida",
-    institutes: "5000+ Institutes",
+    institutes: "4500+ Institutes",
     href: "/categories?city=noida",
   },
   {
     name: "Delhi",
-    institutes: "3000+ Institutes",
+    institutes: "15000+ Institutes",
     href: "/categories?city=delhi",
   },
   {
     name: "Greater Noida",
-    institutes:"1500+ Institutes",
+    institutes:"2000+ Institutes",
     href:"/categories?city=greater-noida",
+  },
+  {
+    name: "Faridabad",
+    institutes: "1800+",
+    href:"/categories?city=faridabad",
   }
 //   {
 //     name: "Jaipur",
