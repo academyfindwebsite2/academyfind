@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Mail,
@@ -14,10 +14,11 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import { authClient } from "@/lib/auth/auth-client";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { auth } from "@/lib/auth/auth";
 
-export default function LoginPage() {
+export default async function LoginPage() {
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -30,6 +31,14 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    authClient.getSession().then((res) => {
+      if(res.data?.user){
+        router.replace('/')
+      }
+    });
+  },[router])
 
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
@@ -174,11 +183,11 @@ export default function LoginPage() {
           {/* Stats */}
           <div className="mt-14 flex flex-wrap gap-4">
             <div className="rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-md">
-              <p className="text-2xl font-bold">2,400+</p>
+              <p className="text-2xl font-bold">24,000+</p>
               <p className="text-sm text-orange-100">Institutes</p>
             </div>
             <div className="rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-md">
-              <p className="text-2xl font-bold">120</p>
+              <p className="text-2xl font-bold">4</p>
               <p className="text-sm text-orange-100">Cities</p>
             </div>
             <div className="rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-md">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Mail,
@@ -17,7 +17,8 @@ import { authClient } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
 import toast from 'react-hot-toast'
 
-export default function RegisterPage() { // Component ka naam RegisterPage hona better hai
+
+export default async function RegisterPage() { // Component ka naam RegisterPage hona better hai
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -36,13 +37,22 @@ export default function RegisterPage() { // Component ka naam RegisterPage hona 
   
   const router = useRouter();
 
+    useEffect(() => {
+    authClient.getSession().then((res) => {
+      if(res.data?.user){
+        router.replace('/')
+      }
+    });
+  },[router])
+
+
+
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
       provider: "google",
       callbackURL: "/",
     });
   };
-
   // 1. Account Create & Send OTP
   async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
