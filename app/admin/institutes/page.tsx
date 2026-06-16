@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { Building2, Edit, MapPin, Plus } from "lucide-react"
-import ToggleStatusButton from "@/components/admin/ToggleButton"
-import InstituteFilters from "@/components/admin/InstituteFilters"
-import InstitutePagination from "@/components/admin/InstitutePagination"
+import ToggleStatusButton from "@/components/admin/AdminToggleButton"
+import InstituteFilters from "@/components/admin/AdminInstituteFilters"
+import InstitutePagination from "@/components/admin/AdminInstitutePagination"
 
 export default async function AdminInstitutesPage({
     searchParams

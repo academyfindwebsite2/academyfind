@@ -6,15 +6,15 @@ import RelatedCategories from "@/components/searchPage/RelatedCategories";
 import RelatedCities from "@/components/searchPage/RelatedCities";
 import RelatedBlogs from "@/components/searchPage/RelatedBlogs";
 import CompareCTA from "@/components/searchPage/CompareCTA";
-// import InstitutesMap from "@/components/maps/InstitutesMap";
-import { prisma } from "@/lib/prisma"; // 🔥 Prisma import karein
+import { prisma } from "@/lib/prisma"; 
 
 type Props = {
   searchParams: Promise<{
     q?: string;
+    type?: string;
     city?: string;
-    category?: string; // 🔥 Naya parameter
-    rating?: string;   // 🔥 Naya parameter
+    category?: string; 
+    rating?: string;   
   }>;
 };
 
@@ -27,11 +27,26 @@ export async function generateMetadata({ searchParams }: Props) {
 }
 
 export default async function SearchPage({ searchParams }: Props) {
-  const { q = "", city = "", category = "", rating = "" } = await searchParams;
+  const { q = "", type = "", city = "", category = "", rating = "" } = await searchParams;
 
-  // 🔥 Dropdowns ke liye Categories aur Cities DB se fetch karein
   const categories = await prisma.category.findMany({ select: { name: true, slug: true }, orderBy: { name: "asc" } });
-  const cities = await prisma.city.findMany({ select: { name: true, slug: true }, orderBy: { name: "asc" } });
+  const cities = await prisma.city.findMany({
+    where: {
+      institutes: {
+        some: {
+          isActive: true
+        }
+      }
+    },
+    select: { 
+      name: true, 
+      slug: true 
+    },
+    orderBy: [
+      { name: 'asc' },
+      { state: 'asc' },
+    ]
+  });
 
   return (
     <>
@@ -40,10 +55,10 @@ export default async function SearchPage({ searchParams }: Props) {
       <section className="mx-auto max-w-7xl px-4 py-10">
         <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
           
-          {/* 🔥 Filters ko data aur current selection pass karein */}
           <SearchFilters 
             categories={categories} 
             cities={cities} 
+            currentType={type} 
             currentCity={city} 
             currentCategory={category}
             currentRating={rating}
@@ -52,8 +67,8 @@ export default async function SearchPage({ searchParams }: Props) {
           <div className="space-y-14">
             <SearchResultsHeader query={q} />
 
-            {/* 🔥 InstituteResults ko naye filters pass karein */}
-            <InstituteResults query={q} city={city} category={category} rating={rating} />
+            {/* 🔥 Type parameter bhi pass kiya */}
+            <InstituteResults query={q} type={type} city={city} category={category} rating={rating} />
 
             <RelatedCategories />
             <RelatedCities />

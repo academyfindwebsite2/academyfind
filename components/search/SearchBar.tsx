@@ -193,9 +193,10 @@ export const CATEGORY_MAP = [
 ];
 
 const CITY_MAP = [
-  { keywords: ["noida", "greater noida"], slug: "noida" },
+  { keywords: ["Greater Noida"], slug: "greater-noida" },
+  { keywords: ["noida"], slug: "noida" },
   { keywords: ["delhi", "new delhi"], slug: "delhi" },
-  { keywords: ["kota"], slug: "kota" },
+  { keywords: ["Faridabad"], slug: "faridabad" },
 ];
 
 export function SearchBar() {

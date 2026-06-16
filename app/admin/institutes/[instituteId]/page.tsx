@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import MasterEditForm from "@/components/admin/MasterEditForm";
+import MasterEditForm from "@/components/admin/AdminMasterEditForm";
 import { ShieldCheck } from "lucide-react";
 
 export default async function AdminMasterInstituteEditorPage({

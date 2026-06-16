@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import SalesManagerFilters from "@/components/admin/SalesManagerFilters";
+import SalesManagerFilters from "@/components/admin/AdminSalesManagerFilters";
 import {
     Briefcase,
     ArrowRight,

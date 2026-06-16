@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronRight, ChevronDown, Folder, FolderOpen, Tag, CornerDownRight } from "lucide-react";
-import CategoryStatusToggle from "./CategoryStatusToggle"; 
+import CategoryStatusToggle from "./AdminCategoryStatusToggle"; 
 
 export default function CategoryTreeView({ category, level = 0 }: { category: any, level?: number }) {
     // Level 0 (Main Categories) ko by default open rakhenge

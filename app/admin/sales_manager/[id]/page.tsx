@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { SalesStatusBadge } from "@/components/sales/SalesStatusBadge";
 import AdminAssignInstituteForm from "@/components/admin/AdminAssignInstituteForm";
 import AdminAssignCategoryForm from "@/components/admin/AdminAssignCategoryForm";
-import RemoveAssignmentButton from "@/components/admin/RemoveAssignmentButton";
+import RemoveAssignmentButton from "@/components/admin/AdminRemoveAssignmentButton";
 import {
     User,
     Mail,

@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma"
 import { Users as UsersIcon, Mail, Phone, Calendar, ArrowRight } from "lucide-react" // ArrowRight add kiya
 import { format } from "date-fns"
-import { RoleSelect, UserStatusToggle } from "@/components/admin/UserClientControl" 
-import UserFilters from "@/components/admin/UserFilters"
-import UserPagination from "@/components/admin/UserPagination"
+import { RoleSelect, UserStatusToggle } from "@/components/admin/AdminUserClientControl" 
+import UserFilters from "@/components/admin/AdminUserFilters"
+import UserPagination from "@/components/admin/AdminUserPagination"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"

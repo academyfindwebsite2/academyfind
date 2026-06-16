@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma"
 import { FolderTree, Plus, Tag } from "lucide-react"
 import CategoryFilters from "@/components/admin/AdminCategoryFilters"
-import CategoryTreeView from "@/components/admin/CategoryTreeView"
-import CategoryStatusToggle from "@/components/admin/CategoryStatusToggle"
+import CategoryTreeView from "@/components/admin/AdminCategoryTreeView"
+import CategoryStatusToggle from "@/components/admin/AdminCategoryStatusToggle"
 import AddCategoryModal from "@/components/admin/AddCategoryModal"
 
 export default async function AdminCategoriesPage({

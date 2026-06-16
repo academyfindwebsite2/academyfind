@@ -11,12 +11,13 @@ export default function SearchHero({ query }: Props) {
     <section
       className="
         relative
-        overflow-hidden
+        overflow-visible
         border-b
         bg-gradient-to-b
         from-amber-50
         via-background
         to-background
+        z-999
       "
     >
       {/* Background Blobs */}

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Check, X, ShieldAlert, MapPin, BadgeIndianRupee, UserCheck } from "lucide-react";
 import Image from "next/image";
-import ApprovalButtons from "@/components/admin/ApprovalButtons";
+import ApprovalButtons from "@/components/admin/AdminApprovalButtons";
 
 export default async function AdminApprovalsPage() {
     const pendingRequests = await prisma.instituteRequest.findMany({
