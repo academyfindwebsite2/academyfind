@@ -26,15 +26,19 @@ const categories = [
 const cities = [
   {
     name: "Noida",
-    slug: "jee-coaching/noida",
+    slug: "categories?city=noida",
   },
   {
     name: "Delhi",
-    slug: "upsc-coaching/delhi",
+    slug: "categories?city=delhi",
   },
   {
     name: "Greater Noida",
-    slug: "greater-noida",
+    slug: "categories?city=greater-noida",
+  },
+  {
+    name: "Faridabad",
+    slug: "categories?city=faridabad",
   }
 ];
 
