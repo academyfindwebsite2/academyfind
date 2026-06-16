@@ -521,5 +521,20 @@ model JobApplication {
   @@map("job_application")
 }
 
+model GeneralResume {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  phone          String
+  linkedinUrl    String?
+  portfolioUrl   String?
+  resumeUrl      String
+  resumeFileName String
+  message        String?  @db.Text
+  createdAt      DateTime @default(now())
+
+  @@map("general_resume")
+}
+
 
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Search, MapPin, Briefcase, ArrowRight, Building2, Sparkles, ArrowDown, ArrowBigDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import DropResumeForm from "@/components/User/DropResume";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +32,7 @@ export default async function CareersPage({ searchParams }: { searchParams: { q?
                     <Sparkles className="h-3.5 w-3.5" /> Join Our Team
                 </div>
                 <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight">
-                    Build the <span className="text-amber-500">Future</span> With Us
+                    Build the <span className="text-amber-400">Future</span> With Us
                 </h1>
                 <p className="mt-4 max-w-2xl mx-auto text-slate-500 text-base md:text-lg leading-relaxed">
                     We are on a mission to democratize education discovery. Join AcademyFind and help students make the most important decisions of their lives.
@@ -47,7 +48,7 @@ export default async function CareersPage({ searchParams }: { searchParams: { q?
                             <input name="q" defaultValue={q} placeholder="Search job title or keywords..." className="w-full pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 hover:border-amber-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400 outline-none text-sm transition-all" />
                         </div>
                         <div className="relative flex-1 md:max-w-xs">
-  <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 z-10" />
+                        <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 z-10" />
 
                             <select
                                 name="dept"
@@ -85,7 +86,7 @@ export default async function CareersPage({ searchParams }: { searchParams: { q?
                             />
                             
                             </div>
-                        <button type="submit" className="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm rounded-xl transition-all shadow-md shadow-amber-600/10 whitespace-nowrap">
+                        <button type="submit" className="px-8 py-3 bg-amber-400 hover:bg-amber-500 text-white font-bold text-sm rounded-xl transition-all shadow-md shadow-amber-600/10 whitespace-nowrap">
                             Search Roles
                         </button>
                     </form>
@@ -99,8 +100,8 @@ export default async function CareersPage({ searchParams }: { searchParams: { q?
                                 <Briefcase className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-bold text-slate-800">No matching roles found</h3>
-                            <p className="text-slate-500 mt-2 text-sm">Try adjusting your search or filters.</p>
-                            <Link href="/careers"><Button variant="link" className="mt-2 text-amber-600 font-bold">Clear all filters</Button></Link>
+                            <p className="text-slate-500 mt-2 text-sm">Try adjusting your search or filters, or drop your resume below for future opportunities</p>
+                            <Link href="/careers"><Button variant="link" className="mt-2 text-amber-500 font-bold">Clear all filters</Button></Link>
                         </div>
                     ) : (
                         jobs.map((job: any) => (
@@ -128,7 +129,30 @@ export default async function CareersPage({ searchParams }: { searchParams: { q?
                         ))
                     )}
                 </div>
+
+                <div className="mt-16 bg-linear-to-r from-amber-400 to-amber-500 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden shadow-xl">
+                    <div className="absolute top-0 left-0 w-full h-full bg-[url('/noise.svg')] opacity-10 mix-blend-overlay"></div>
+                    <div className="relative z-10">
+                        <div className="w-16 h-16 bg-white/20 text-white rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
+                            <Sparkles className="w-8 h-8" />
+                        </div>
+                        <h2 className="text-3xl font-extrabold mb-4">Didn't find the perfect role?</h2>
+                        <p className="text-amber-100 mb-8 max-w-2xl mx-auto text-lg">
+                            We are always looking for passionate and talented individuals. Drop your resume, and we'll reach out when a suitable position opens up!
+                        </p>
+
+                        {/* <DropResumeForm /> */}
+                        
+                        {/* Note: Yahan aap DropResumeModal component call kar sakte ho ya naye page /careers/drop-resume par link kar sakte ho */}
+                        <Link href="/careers/drop-resume">
+                            <Button className="cursor-pointer bg-white text-amber-500 hover:bg-slate-50 font-bold px-8 py-6 rounded-xl shadow-lg hover:scale-105 transition-all">
+                                Drop Your Resume
+                            </Button>
+                        </Link>
+                    </div>
+                    </div>
             </div>
+            
         </div>
     );
 }

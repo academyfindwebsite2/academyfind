@@ -137,3 +137,8 @@ export type JobPosting = Prisma.JobPostingModel
  * 
  */
 export type JobApplication = Prisma.JobApplicationModel
+/**
+ * Model GeneralResume
+ * 
+ */
+export type GeneralResume = Prisma.GeneralResumeModel

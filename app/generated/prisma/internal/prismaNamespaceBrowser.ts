@@ -74,7 +74,8 @@ export const ModelName = {
   LifeCoachRequest: 'LifeCoachRequest',
   AdminNotification: 'AdminNotification',
   JobPosting: 'JobPosting',
-  JobApplication: 'JobApplication'
+  JobApplication: 'JobApplication',
+  GeneralResume: 'GeneralResume'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -461,6 +462,22 @@ export const JobApplicationScalarFieldEnum = {
 } as const
 
 export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
+
+
+export const GeneralResumeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  linkedinUrl: 'linkedinUrl',
+  portfolioUrl: 'portfolioUrl',
+  resumeUrl: 'resumeUrl',
+  resumeFileName: 'resumeFileName',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type GeneralResumeScalarFieldEnum = (typeof GeneralResumeScalarFieldEnum)[keyof typeof GeneralResumeScalarFieldEnum]
 
 
 export const SortOrder = {

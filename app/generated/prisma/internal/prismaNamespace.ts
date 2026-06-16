@@ -407,7 +407,8 @@ export const ModelName = {
   LifeCoachRequest: 'LifeCoachRequest',
   AdminNotification: 'AdminNotification',
   JobPosting: 'JobPosting',
-  JobApplication: 'JobApplication'
+  JobApplication: 'JobApplication',
+  GeneralResume: 'GeneralResume'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -423,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication"
+    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2203,6 +2204,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    GeneralResume: {
+      payload: Prisma.$GeneralResumePayload<ExtArgs>
+      fields: Prisma.GeneralResumeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GeneralResumeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GeneralResumeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>
+        }
+        findFirst: {
+          args: Prisma.GeneralResumeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GeneralResumeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>
+        }
+        findMany: {
+          args: Prisma.GeneralResumeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>[]
+        }
+        create: {
+          args: Prisma.GeneralResumeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>
+        }
+        createMany: {
+          args: Prisma.GeneralResumeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GeneralResumeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>[]
+        }
+        delete: {
+          args: Prisma.GeneralResumeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>
+        }
+        update: {
+          args: Prisma.GeneralResumeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>
+        }
+        deleteMany: {
+          args: Prisma.GeneralResumeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GeneralResumeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GeneralResumeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>[]
+        }
+        upsert: {
+          args: Prisma.GeneralResumeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeneralResumePayload>
+        }
+        aggregate: {
+          args: Prisma.GeneralResumeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGeneralResume>
+        }
+        groupBy: {
+          args: Prisma.GeneralResumeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GeneralResumeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GeneralResumeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GeneralResumeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2612,6 +2687,22 @@ export const JobApplicationScalarFieldEnum = {
 export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
 
 
+export const GeneralResumeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  linkedinUrl: 'linkedinUrl',
+  portfolioUrl: 'portfolioUrl',
+  resumeUrl: 'resumeUrl',
+  resumeFileName: 'resumeFileName',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type GeneralResumeScalarFieldEnum = (typeof GeneralResumeScalarFieldEnum)[keyof typeof GeneralResumeScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2936,6 +3027,7 @@ export type GlobalOmitConfig = {
   adminNotification?: Prisma.AdminNotificationOmit
   jobPosting?: Prisma.JobPostingOmit
   jobApplication?: Prisma.JobApplicationOmit
+  generalResume?: Prisma.GeneralResumeOmit
 }
 
 /* Types for Logging */

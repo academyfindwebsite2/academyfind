@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Briefcase, Users, Plus, Eye, CheckCircle2, XCircle } from "lucide-react";
+import { Briefcase, Users, Plus, Eye, CheckCircle2, XCircle, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default async function AdminCareersDashboard() {
@@ -24,6 +24,11 @@ export default async function AdminCareersDashboard() {
                     </h1>
                     <p className="text-slate-500 mt-1">Manage job postings and track incoming applications.</p>
                 </div>
+                <Link href="/admin/careers/resumes">
+                        <Button variant="outline" className="text-purple-600 border-purple-200 hover:bg-purple-50 font-bold gap-2">
+                            <FileText className="w-4 h-4" /> Talent Pool
+                        </Button>
+                    </Link>
                 <Link href="/admin/careers/new">
                     <Button className="bg-purple-600 hover:bg-purple-700 text-white font-bold gap-2">
                         <Plus className="w-4 h-4" /> Post New Job
