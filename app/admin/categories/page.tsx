@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { FolderTree, Plus, Tag } from "lucide-react"
-import CategoryFilters from "@/components/admin/CategoryFilters"
+import CategoryFilters from "@/components/admin/AdminCategoryFilters"
 import CategoryTreeView from "@/components/admin/CategoryTreeView"
 import CategoryStatusToggle from "@/components/admin/CategoryStatusToggle"
 import AddCategoryModal from "@/components/admin/AddCategoryModal"
