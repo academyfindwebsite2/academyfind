@@ -14,6 +14,7 @@ import { Analytics } from "@vercel/analytics/next";
 import NextTopLoader from 'nextjs-toploader'
 import {Toaster} from 'react-hot-toast'
 import Script from "next/script";
+import GlobalCallbackFAB from "@/components/User/GlobalCallBack";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
           {children}
         </main>
         </GoogleMapsProvider>
+        <GlobalCallbackFAB />
 
         <Toaster position="top-center" reverseOrder={false} />
         <AuthPromptModal />

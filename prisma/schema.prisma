@@ -429,7 +429,7 @@ model LifeCoachRequest {
   id        String   @id @default(cuid())
   fullName  String
   phone     String
-  email     String
+  email     String?
   message   String?
   status    LifeCoachRequestStatus  @default(PENDING) 
   createdAt DateTime @default(now())
@@ -441,7 +441,7 @@ model LifeCoachRequest {
 
 model AdminNotification {
   id          String   @id @default(cuid())
-  type        String   // e.g., "INSTITUTE_UPDATE", "NEW_CLAIM", "PAYMENT_SUCCESS"
+  type        String   
   title       String   
   message     String   @db.Text 
   isRead      Boolean  @default(false)

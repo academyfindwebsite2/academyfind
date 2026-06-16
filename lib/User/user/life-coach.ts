@@ -5,10 +5,10 @@ import { prisma } from "@/lib/prisma";
 export async function submitLifeCoachRequest(formData: FormData) {
     const fullName = formData.get("fullName") as string;
     const phone = formData.get("phone") as string;
-    const email = formData.get("email") as string;
+    const email = formData.get("email") as string || "";
     const message = formData.get("message") as string;
 
-    if (!fullName || !phone || !email) {
+    if (!fullName || !phone) {
         return { success: false, error: "Name, Phone, and Email are strictly required." };
     }
 

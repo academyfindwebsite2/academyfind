@@ -83,50 +83,33 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-1">
-          {/* 🚀 Fix: Button pe asChild lagaya aur Link ko andar rakha */}
-          <Button asChild variant="ghost" className="gap-2">
-            <Link href="/">
-              <Search className="size-4" />
-              Search
-            </Link>
-          </Button>
+        <nav className="hidden lg:flex items-center gap-7 mr-4">
+          <Link href="/" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
+            Search
+          </Link>
+          <Link href="/about" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
+            About Us
+          </Link>
+          <Link href="/careers" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
+            Careers
+          </Link>
+          <Link href="/blog" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
+            Resources
+          </Link>
+          <Link href="/contact" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
+            Contact
+          </Link>
 
-          <Button asChild variant="ghost" className="gap-2">
-            <Link href="/about">
-              <Building2 className="size-4" />
-              About Us
-            </Link>
-          </Button>
+          {/* Visual Separator */}
+          <div className="h-5 w-px bg-slate-200/80"></div>
 
-          {/* Note: Compare button currently doesn't have a Link in your code */}
-          <Button asChild variant="ghost" className="gap-2">
-            <Link href="/careers">
-              <IdCard className="size-4" />
-              Careers
-            </Link>
-          </Button>
-
-          <Button asChild variant="ghost" className="gap-2">
-            <Link href="/blog">
-              <FileText className="size-4" />
-              Resources
-            </Link>
-          </Button>
-
-          <Button asChild variant="ghost" className="gap-2">
-            <Link href="/contact">
-              <Building2 className="size-4" />
-              Contact Us
-            </Link>
-          </Button>
-
-          <Button asChild variant="ghost" className="gap-2">
-            <Link href="/user/create-institute">
-              <Building className="size-4" />
-              List your Institute?
-            </Link>
-          </Button>
+          <Link 
+            href="/user/create-institute" 
+            className="group flex items-center gap-1.5 text-sm font-bold text-amber-600 hover:text-amber-700 transition-colors"
+          >
+            <Building className="size-4 group-hover:scale-110 transition-transform" />
+            List your Institute
+          </Link>
         </nav>
 
         {/* Desktop Auth */}
