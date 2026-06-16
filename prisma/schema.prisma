@@ -82,6 +82,12 @@ model Verification {
   @@map("verification")
 }
 
+enum InstituteMode {
+  OFFLINE
+  ONLINE
+  HYBRID
+}
+
 model Institute {
   id                String              @id @default(cuid())
   name              String
@@ -139,6 +145,8 @@ model Institute {
   telegramUrl       String?
   linkedinUrl       String?
   whatsappUrl       String?
+
+  mode              InstituteMode @default(OFFLINE)
 
   @@index([cityId])
   @@index([slug])

@@ -45,7 +45,7 @@ export default function InstituteListing({
         </h2>
 
         <p className="mt-2 text-lg text-slate-600">
-          {institutes.length} institutes available to explore
+          {institutes.length} institutes listed on each page
         </p>
 
         <MapToggleSection institutes={institutes} />

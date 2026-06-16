@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const InstituteMode = {
+  OFFLINE: 'OFFLINE',
+  ONLINE: 'ONLINE',
+  HYBRID: 'HYBRID'
+} as const
+
+export type InstituteMode = (typeof InstituteMode)[keyof typeof InstituteMode]
+
+
 export const Role = {
   USER: 'USER',
   CONTENT_WRITER: 'CONTENT_WRITER',

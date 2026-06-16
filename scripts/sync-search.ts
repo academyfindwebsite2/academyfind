@@ -62,6 +62,7 @@ async function main() {
         lng: parseFloat(inst.longitude.toString())
       } : undefined,
       url: `/institute/${inst.id}-${inst.slug}`,
+      mode: inst.mode.toLowerCase()
     })),
 
     // --- CITIES ---

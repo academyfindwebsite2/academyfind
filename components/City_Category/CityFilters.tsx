@@ -9,7 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowDownUp, MapPin, Star, IndianRupee, Navigation, Loader2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { ArrowDownUp, MapPin, Star, IndianRupee, Navigation, Loader2, MonitorSmartphone } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface Props {
@@ -30,19 +32,20 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
   const currentRadius = searchParams.get("radius") || "5";
   const currentRating = searchParams.get("rating") || "all";
   const currentFee = searchParams.get("fee") || "all";
+  const currentMode= searchParams.get("mode");
+
+  const currentModes = currentMode ? currentMode.split(",") : ["offline", "online", "hybrid"];
   
-  // States for the two 'Closest' buttons
   const isClosest = searchParams.get("closest") === "true";
   const isClosestUser = searchParams.get("closestUser") === "true";
 
-  // 1. Purana filter: Closest from Selected Location
   const toggleClosest = () => {
     const params = new URLSearchParams(searchParams.toString());
     if (isClosest) {
       params.delete("closest");
     } else {
       params.delete("sort");
-      params.delete("closestUser"); // Dusra wala closest band kardo
+      params.delete("closestUser");
       params.delete("userLat");
       params.delete("userLng");
       params.set("closest", "true");
@@ -50,11 +53,9 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  // 2. Naya filter: Closest to Me (Live GPS)
   const toggleClosestToMe = () => {
     const params = new URLSearchParams(searchParams.toString());
     
-    // Agar pehle se ON hai toh OFF kardo
     if (isClosestUser) {
       params.delete("closestUser");
       params.delete("userLat");
@@ -63,13 +64,12 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
       return;
     }
 
-    // ON karna hai toh GPS fetch karo
     setIsLocating(true);
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           params.delete("sort");
-          params.delete("closest"); // Purana wala closest band kardo
+          params.delete("closest");
           params.set("closestUser", "true");
           params.set("userLat", position.coords.latitude.toString());
           params.set("userLng", position.coords.longitude.toString());
@@ -93,7 +93,6 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
   const handleFilterChange = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     
-    // Agar manual Sort change ho raha hai toh dono closest hata do
     if (key === "sort") {
       params.delete("closest");
       params.delete("closestUser");
@@ -105,6 +104,28 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
       params.set(key, value);
     } else {
       params.delete(key);
+    }
+    
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  // 🚀 NAYA: Mode Checkbox Toggle Logic
+  const toggleMode = (modeValue: string) => {
+    let newModes = [...currentModes];
+    
+    if (newModes.includes(modeValue)) {
+      newModes = newModes.filter((m) => m !== modeValue);
+    } else {
+      newModes.push(modeValue);
+    }
+
+    const params = new URLSearchParams(searchParams.toString());
+
+    // Agar teeno select kiye ya teeno unselect kiye, toh URL clear kardo (By default All dikhega)
+    if (newModes.length === 3 || newModes.length === 0) {
+      params.delete("mode");
+    } else {
+      params.set("mode", newModes.join(","));
     }
     
     router.push(`${pathname}?${params.toString()}`);
@@ -181,7 +202,37 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
         </SelectContent>
       </Select>
 
-      {/* Action Buttons Container */}
+      {/* 5. 🚀 Learning Mode Checkboxes (Premium UI) */}
+      <div className="rounded-3xl border border-amber-200 bg-white p-5 shadow-sm mt-1">
+        <div className="flex items-center gap-2 font-bold text-slate-800 mb-4 pb-3 border-b border-slate-100">
+          <MonitorSmartphone className="h-5 w-5 text-amber-500" />
+          <span>Learning Mode</span>
+        </div>
+        
+        <div className="flex flex-col gap-3.5">
+          {[
+            { id: "offline", label: "Offline / Classroom" },
+            { id: "online", label: "Online / Live Classes" },
+            { id: "hybrid", label: "Hybrid Mode" },
+          ].map((mode) => (
+            <div key={mode.id} className="flex items-center space-x-3 group">
+              <Checkbox
+                id={`mode-${mode.id}`}
+                checked={currentModes.includes(mode.id)}
+                onCheckedChange={() => toggleMode(mode.id)}
+                className="h-5 w-5 rounded-[6px] border-slate-300 data-[state=checked]:bg-amber-500 data-[state=checked]:border-amber-500 transition-all cursor-pointer"
+              />
+              <Label
+                htmlFor={`mode-${mode.id}`}
+                className="cursor-pointer text-sm font-medium text-slate-600 group-hover:text-slate-900 transition-colors flex-1"
+              >
+                {mode.label}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Action Buttons Container */}
       <div className="flex flex-col gap-3 mt-4">
         {/* Old Button: Closest from selected location */}

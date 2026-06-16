@@ -205,6 +205,13 @@ export type EnumSubscriptionPlanFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumSubscriptionPlanFilter<$PrismaModel> | $Enums.SubscriptionPlan
 }
 
+export type EnumInstituteModeFilter<$PrismaModel = never> = {
+  equals?: $Enums.InstituteMode | Prisma.EnumInstituteModeFieldRefInput<$PrismaModel>
+  in?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInstituteModeFilter<$PrismaModel> | $Enums.InstituteMode
+}
+
 export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
@@ -261,6 +268,16 @@ export type EnumSubscriptionPlanWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumSubscriptionPlanFilter<$PrismaModel>
   _max?: Prisma.NestedEnumSubscriptionPlanFilter<$PrismaModel>
+}
+
+export type EnumInstituteModeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InstituteMode | Prisma.EnumInstituteModeFieldRefInput<$PrismaModel>
+  in?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInstituteModeWithAggregatesFilter<$PrismaModel> | $Enums.InstituteMode
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInstituteModeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInstituteModeFilter<$PrismaModel>
 }
 
 export type EnumContactStatusFilter<$PrismaModel = never> = {
@@ -530,6 +547,13 @@ export type NestedEnumSubscriptionPlanFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumSubscriptionPlanFilter<$PrismaModel> | $Enums.SubscriptionPlan
 }
 
+export type NestedEnumInstituteModeFilter<$PrismaModel = never> = {
+  equals?: $Enums.InstituteMode | Prisma.EnumInstituteModeFieldRefInput<$PrismaModel>
+  in?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInstituteModeFilter<$PrismaModel> | $Enums.InstituteMode
+}
+
 export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
@@ -597,6 +621,16 @@ export type NestedEnumSubscriptionPlanWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumSubscriptionPlanFilter<$PrismaModel>
   _max?: Prisma.NestedEnumSubscriptionPlanFilter<$PrismaModel>
+}
+
+export type NestedEnumInstituteModeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InstituteMode | Prisma.EnumInstituteModeFieldRefInput<$PrismaModel>
+  in?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInstituteModeWithAggregatesFilter<$PrismaModel> | $Enums.InstituteMode
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInstituteModeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInstituteModeFilter<$PrismaModel>
 }
 
 export type NestedEnumContactStatusFilter<$PrismaModel = never> = {

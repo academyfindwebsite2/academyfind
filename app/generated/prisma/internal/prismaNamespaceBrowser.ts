@@ -198,7 +198,8 @@ export const InstituteScalarFieldEnum = {
   youtubeUrl: 'youtubeUrl',
   telegramUrl: 'telegramUrl',
   linkedinUrl: 'linkedinUrl',
-  whatsappUrl: 'whatsappUrl'
+  whatsappUrl: 'whatsappUrl',
+  mode: 'mode'
 } as const
 
 export type InstituteScalarFieldEnum = (typeof InstituteScalarFieldEnum)[keyof typeof InstituteScalarFieldEnum]

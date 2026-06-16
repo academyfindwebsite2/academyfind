@@ -2347,7 +2347,8 @@ export const InstituteScalarFieldEnum = {
   youtubeUrl: 'youtubeUrl',
   telegramUrl: 'telegramUrl',
   linkedinUrl: 'linkedinUrl',
-  whatsappUrl: 'whatsappUrl'
+  whatsappUrl: 'whatsappUrl',
+  mode: 'mode'
 } as const
 
 export type InstituteScalarFieldEnum = (typeof InstituteScalarFieldEnum)[keyof typeof InstituteScalarFieldEnum]
@@ -2729,6 +2730,20 @@ export type EnumSubscriptionPlanFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'SubscriptionPlan[]'
  */
 export type ListEnumSubscriptionPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionPlan[]'>
+    
+
+
+/**
+ * Reference to a field of type 'InstituteMode'
+ */
+export type EnumInstituteModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InstituteMode'>
+    
+
+
+/**
+ * Reference to a field of type 'InstituteMode[]'
+ */
+export type ListEnumInstituteModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InstituteMode[]'>
     
 
 

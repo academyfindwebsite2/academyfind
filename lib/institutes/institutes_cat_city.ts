@@ -18,10 +18,14 @@ export async function getInstitutesByCategoryAndCity(
   lng?: number, 
   radius?: number,    
   minRating?: number, 
+  mode?: string,       // 🚀 NAYA ADD KIYA: mode parameter
   limit: number = 12
 ) {
   const skip = (page - 1) * limit;
   const radiusInMeters = radius ? radius * 1000 : 5000; 
+
+  // 🚀 Parse mode string into array (e.g. "online,hybrid" => ["online", "hybrid"])
+  const modesArray = mode ? mode.split(",").map(m => m.trim()) : [];
 
   // ==========================================
   // 🚀 SCENARIO 1: MEILISEARCH
@@ -32,7 +36,7 @@ export async function getInstitutesByCategoryAndCity(
     let searchOptions: any = {
       filter: [
         `type = "institute"`,
-        `isActive = true`, // ✅ Meilisearch mein bhi isActive true filter
+        `isActive = true`, 
         `citySlug = "${citySlug}"`,
         `categorySlugs = "${categorySlug}"`
       ],
@@ -42,6 +46,12 @@ export async function getInstitutesByCategoryAndCity(
 
     if (minRating) {
       searchOptions.filter.push(`googleRating >= ${minRating}`);
+    }
+
+    // 🚀 NEW: Meilisearch Mode Filter using IN operator
+    if (modesArray.length > 0 && modesArray.length < 3) {
+      const meiliModes = modesArray.map(m => `"${m.toLowerCase()}"`).join(", ");
+      searchOptions.filter.push(`mode IN [${meiliModes}]`);
     }
 
     if (lat && lng) {
@@ -65,11 +75,18 @@ export async function getInstitutesByCategoryAndCity(
       // Fallback A (Radius hatao, par isActive rakho)
       searchOptions.filter = [
         `type = "institute"`,
-        `isActive = true`, // ✅ Fallback mein bhi isActive check
+        `isActive = true`, 
         `citySlug = "${citySlug}"`,
         `categorySlugs = "${categorySlug}"`
       ];
+      
       if (minRating) searchOptions.filter.push(`googleRating >= ${minRating}`);
+      
+      // 🚀 NEW: Fallback Meilisearch Mode Filter
+      if (modesArray.length > 0 && modesArray.length < 3) {
+        const meiliModes = modesArray.map(m => `"${m.toLowerCase()}"`).join(", ");
+        searchOptions.filter.push(`mode IN [${meiliModes}]`);
+      }
       
       if (sort === "rating") searchOptions.sort = ["googleRating:desc"];
       else if (sort === "reviews") searchOptions.sort = ["googleReviewCount:desc"];
@@ -92,7 +109,7 @@ export async function getInstitutesByCategoryAndCity(
     const dbInstitutes = await prisma.institute.findMany({
       where: { 
         id: { in: instituteIds },
-        isActive: true // ✅ Double security layer DB side par
+        isActive: true 
       },
       include: { city: true, reviews: true },
     });
@@ -133,15 +150,20 @@ export async function getInstitutesByCategoryAndCity(
     default: orderBy = [{ googleRating: "desc" }, { id: "asc" }];
   }
 
-  // Prisma Rating Filter
+  // Prisma Where Clause
   const prismaWhere: any = {
-    isActive: true, // ✅ Prisma fallback mein isActive check
+    isActive: true, 
     city: { slug: citySlug },
     categories: { some: { category: { slug: categorySlug } } },
   };
 
   if (minRating) {
     prismaWhere.googleRating = { gte: minRating };
+  }
+
+  // 🚀 NEW: Prisma Mode Filter using Enum values
+  if (modesArray.length > 0 && modesArray.length < 3) {
+    prismaWhere.mode = { in: modesArray.map(m => m.toUpperCase()) as any[] };
   }
 
   const [institutes, totalCount] = await Promise.all([
