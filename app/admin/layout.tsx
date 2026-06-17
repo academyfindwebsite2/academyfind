@@ -16,7 +16,8 @@ import {
     Briefcase,
     LifeBuoy,
     PhoneCall,
-    IdCard
+    IdCard,
+    BellIcon
 } from "lucide-react";
 
 export default async function AdminLayout({
@@ -66,6 +67,7 @@ export default async function AdminLayout({
 
                     <nav className="flex flex-col gap-1.5">
                         <SidebarLink href="/admin" icon={<LayoutDashboard />} label="Overview" exact />
+                        <SidebarLink href="/admin/notifications" icon={<BellIcon />} label="Notifications" />
                         <SidebarLink href="/admin/life-coach" icon={<LifeBuoy />} label="Life Coach" />
                         <SidebarLink href="/admin/claims" icon={<FileText />} label="Claim Requests" />
                         <SidebarLink href="/admin/instituteRequests" icon={<FileType2 />} label="Institute Requests" />
