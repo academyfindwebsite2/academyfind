@@ -137,3 +137,8 @@ body[data-scroll-locked] {
 :root {
   --removed-body-scroll-bar-size: 0px !important;
 }
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
