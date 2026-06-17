@@ -55,13 +55,13 @@ export default function RootLayout({
 
         <main className="flex-1">
           {children}
-        <GlobalCallbackFAB />
+        {/* <GlobalCallbackFAB /> */}
         </main>
         </GoogleMapsProvider>
 
         <Toaster position="top-center" reverseOrder={false} />
         <AuthPromptModal />
-
+        <GlobalCallbackFAB />
         <Footer />
 
         <SpeedInsights />

@@ -11,7 +11,7 @@ export default function CityHero({
   totalCount: number;
 }) {
   return (
-    <section className="relative overflow-y-visible z-999 rounded-3xl border border-amber-100 bg-linear-to-br from-amber-50 via-white to-orange-50 p-8 md:p-12 mb-12">
+    <section className="relative overflow-y-visible rounded-3xl border border-amber-100 bg-linear-to-br from-amber-50 via-white to-orange-50 p-8 md:p-12 mb-12 z-[99]">
       
       {/* Glow */}
       <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-amber-400/20 blur-3xl" />

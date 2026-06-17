@@ -141,7 +141,7 @@ export default function AdminAssignInstituteForm({
                 </div>
 
                 {searchResults.length > 0 && !selectedInstitute && (
-                    <ul className="absolute z-10 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-lg max-h-60 overflow-y-auto">
+                    <ul className="absolute z-120 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-lg max-h-60 overflow-y-auto">
                         {searchResults.map((inst) => (
                             <li
                                 key={inst.id}

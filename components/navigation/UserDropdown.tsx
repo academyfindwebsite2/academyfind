@@ -75,7 +75,7 @@ export default function UserDropdown({ user }: { user: any }) {
       
       {/* Dropdown Content */}
       <DropdownMenuContent 
-        className="w-64 mt-1 rounded-2xl p-2 shadow-xl shadow-slate-200/50 border-slate-100" 
+        className="w-64 mt-1 rounded-2xl p-2 shadow-xl shadow-slate-200/50 border-slate-100 z-120" 
         align="end" 
         sideOffset={8}
       >

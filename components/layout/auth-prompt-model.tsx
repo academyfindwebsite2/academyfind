@@ -50,7 +50,7 @@ export function AuthPromptModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-md rounded-3xl border-0 p-0 overflow-hidden z-1001">
+      <DialogContent className="max-w-md rounded-3xl border-0 p-0 overflow-hidden z-150">
         
         {/* 🚀 FIX: Isko 'sr-only' de diya taaki Accessibility Warning na aaye aur HTML invalid na ho */}
         <DialogHeader className="sr-only">

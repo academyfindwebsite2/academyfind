@@ -57,7 +57,7 @@ export default function Navbar() {
   
 
   return (
-    <header className="sticky top-0 z-[1100] border-b border-zinc-200/60 bg-white/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-110 border-b border-zinc-200/60 bg-white/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-285 items-center justify-between px-4 py-4 lg:px-8">
 
         {/* Logo */}
@@ -147,7 +147,7 @@ export default function Navbar() {
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="w-75">
+            <SheetContent side="right" className="w-75 z-110">
               <SheetHeader className="sr-only">
                 <SheetTitle>Navigation Menu</SheetTitle>
               </SheetHeader>
