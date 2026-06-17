@@ -397,7 +397,7 @@ export function SearchBar() {
       "
     >
       {/* 1. "What" Input Box */}
-      <div ref={wrapperRef} className="relative min-w-0 w-full flex-1 z-[9999]">
+      <div ref={wrapperRef} className="relative min-w-0 w-full flex-1">
         <div className="flex items-center h-12">
           <Search className="ml-2 mr-3 h-5 w-5 shrink-0 text-amber-400" />
           <Input
@@ -428,7 +428,7 @@ export function SearchBar() {
 
         {/* Suggestions Dropdown Container */}
         {(showSuggestions && (suggestions.length > 0 || loading)) && (
-          <div className="absolute left-0 top-full z-9999 mt-3 w-full max-h-96 overflow-y-auto rounded-2xl border border-slate-200 bg-white md:shadow-2xl shadow-md">
+          <div className="absolute left-0 top-full z-[120] mt-3 w-full max-h-96 overflow-y-auto rounded-2xl border border-slate-200 bg-white md:shadow-2xl shadow-md">
             {loading && (
               <div className="px-4 py-3 text-sm text-slate-500">
                 Searching...

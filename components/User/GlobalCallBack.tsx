@@ -41,7 +41,7 @@ export default function GlobalCallbackFAB() {
     };
 
     return (
-        <div className="fixed bottom-3 right-3 md:bottom-6 md:right-6 z-100">
+        <div className="fixed bottom-3 right-3 md:bottom-6 md:right-6 z-[100]">
         <Popover open={isOpen} onOpenChange={setIsOpen}>
             {/* 🚀 FAB Button acts as the trigger */}
             <PopoverTrigger asChild>
@@ -71,7 +71,7 @@ export default function GlobalCallbackFAB() {
                 align="end" 
                 sideOffset={12}
                 collisionPadding={{ left: 16, right: 16, top: 16, bottom: 16 }}
-                className="w-[320px] sm:w-[90vw] sm:max-w-[340px] z-[1000] rounded-3xl p-0 overflow-hidden shadow-2xl border border-slate-200 origin-bottom-right animate-in zoom-in-95 duration-200"            >
+                className="w-[320px] sm:w-[90vw] sm:max-w-[340px] z-[100] rounded-3xl p-0 overflow-hidden shadow-2xl border border-slate-200 origin-bottom-right animate-in zoom-in-95 duration-200"            >
                 <div className="bg-amber-400 p-5 text-white text-center relative">
                     <HeadphonesIcon className="w-8 h-8 mx-auto mb-2 opacity-90" />
                     <h3 className="text-xl font-extrabold tracking-tight">Need Help?</h3>

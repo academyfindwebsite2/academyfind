@@ -84,7 +84,7 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
   ); 
 
   return (
-    <main className="max-w-7xl mx-auto px-6 py-10">
+    <main className="max-w-7xl mx-auto px-4 md:px-6 py-10">
       <Breadcrumb
         items={[
           {

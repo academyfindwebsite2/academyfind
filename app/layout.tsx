@@ -61,7 +61,7 @@ export default function RootLayout({
 
         <Toaster position="top-center" reverseOrder={false} />
         <AuthPromptModal />
-        <GlobalCallbackFAB />
+        
         <Footer />
 
         <SpeedInsights />
