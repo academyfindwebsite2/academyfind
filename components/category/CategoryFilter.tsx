@@ -10,7 +10,9 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { ArrowDownUp, Star, IndianRupee, MonitorSmartphone } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { ArrowDownUp, Star, IndianRupee, MonitorSmartphone, Filter, Sparkles } from "lucide-react";
 
 interface Props {
   category: string;
@@ -21,7 +23,6 @@ export default function CategoryFilters({ category }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // URL se current parameters uthao
   const currentSort = searchParams.get("sort") || "relevance";
   const currentRating = searchParams.get("rating") || "all";
   const currentFee = searchParams.get("fee") || "all";
@@ -29,7 +30,6 @@ export default function CategoryFilters({ category }: Props) {
   const currentModeParam = searchParams.get("mode");
   const currentModes = currentModeParam ? currentModeParam.split(",") : ["offline", "online", "hybrid"];
 
-  // URL parameters update karne ka magic function
   const handleFilterChange = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     
@@ -38,11 +38,10 @@ export default function CategoryFilters({ category }: Props) {
     } else {
       params.delete(key);
     }
-    params.delete("page"); // Filter badalne par page hamesha 1 par reset hona chahiye
+    params.delete("page"); 
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  // Mode Checkbox toggling logic
   const toggleMode = (modeValue: string) => {
     let newModes = [...currentModes];
     if (newModes.includes(modeValue)) {
@@ -63,9 +62,9 @@ export default function CategoryFilters({ category }: Props) {
 
   const triggerClasses = "rounded-full border-amber-200 bg-white hover:bg-amber-50 focus:ring-2 focus:ring-amber-400 focus:ring-offset-0 focus:outline-none transition-all data-[state=open]:bg-amber-50 data-[state=open]:border-amber-400 h-10 shadow-sm";
 
-  return (
-    <section className="flex flex-col gap-4">
-      {/* 1. Sort By */}
+  // 🔥 Common Filters Content
+  const FiltersContent = (
+    <div className="flex flex-col gap-4">
       <Select value={currentSort} onValueChange={(val) => handleFilterChange("sort", val)}>
         <SelectTrigger className={`w-full ${triggerClasses}`}>
           <div className="flex items-center gap-2 font-medium text-slate-700">
@@ -73,14 +72,13 @@ export default function CategoryFilters({ category }: Props) {
             <SelectValue placeholder="Sort By" />
           </div>
         </SelectTrigger>
-        <SelectContent className="rounded-xl border-slate-100 shadow-xl" position="popper" side="bottom" sideOffset={5}>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[100]" position="popper" side="bottom" sideOffset={5}>
           <SelectItem value="relevance" className="cursor-pointer">Relevance</SelectItem>
           <SelectItem value="rating" className="cursor-pointer">Top Rated</SelectItem>
           <SelectItem value="reviews" className="cursor-pointer">Most Reviewed</SelectItem>
         </SelectContent>
       </Select>
 
-      {/* 2. Ratings Filter */}
       <Select value={currentRating} onValueChange={(val) => handleFilterChange("rating", val)}>
         <SelectTrigger className={`w-full ${triggerClasses}`}>
           <div className="flex items-center gap-2 font-medium text-slate-700">
@@ -88,7 +86,7 @@ export default function CategoryFilters({ category }: Props) {
             <SelectValue placeholder="Ratings" />
           </div>
         </SelectTrigger>
-        <SelectContent className="rounded-xl border-slate-100 shadow-xl" position="popper" side="bottom" sideOffset={5}>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[100]" position="popper" side="bottom" sideOffset={5}>
           <SelectItem value="all" className="cursor-pointer">Any Rating</SelectItem>
           <SelectItem value="4.5" className="cursor-pointer">4.5+ Stars</SelectItem>
           <SelectItem value="4.0" className="cursor-pointer">4.0+ Stars</SelectItem>
@@ -96,7 +94,6 @@ export default function CategoryFilters({ category }: Props) {
         </SelectContent>
       </Select>
 
-      {/* 3. Fees Filter */}
       <Select value={currentFee} onValueChange={(val) => handleFilterChange("fee", val)}>
         <SelectTrigger className={`w-full ${triggerClasses}`}>
           <div className="flex items-center gap-2 font-medium text-slate-700">
@@ -104,7 +101,7 @@ export default function CategoryFilters({ category }: Props) {
             <SelectValue placeholder="Fees" />
           </div>
         </SelectTrigger>
-        <SelectContent className="rounded-xl border-slate-100 shadow-xl" position="popper" side="bottom" sideOffset={4}>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[100]" position="popper" side="bottom" sideOffset={4}>
           <SelectItem value="all" className="cursor-pointer">Any Fee</SelectItem>
           <SelectItem value="50000" className="cursor-pointer">&lt; ₹50,000</SelectItem>
           <SelectItem value="100000" className="cursor-pointer">&lt; ₹1,00,000</SelectItem>
@@ -112,13 +109,11 @@ export default function CategoryFilters({ category }: Props) {
         </SelectContent>
       </Select>
 
-      {/* 4. Learning Mode Checkboxes Box */}
       <div className="rounded-3xl border border-amber-200 bg-white p-5 shadow-sm mt-1">
         <div className="flex items-center gap-2 font-bold text-slate-800 mb-4 pb-3 border-b border-slate-100">
           <MonitorSmartphone className="h-5 w-5 text-amber-500" />
           <span>Learning Mode</span>
         </div>
-        
         <div className="flex flex-col gap-3.5">
           {[
             { id: "offline", label: "Offline / Classroom" },
@@ -142,6 +137,38 @@ export default function CategoryFilters({ category }: Props) {
           ))}
         </div>
       </div>
-    </section>
+    </div>
+  );
+
+  return (
+    <>
+      {/* 🚀 Mobile View */}
+      <div className="lg:hidden mb-6">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" className="w-full justify-between border-slate-200 bg-white shadow-sm rounded-2xl py-6 font-bold text-slate-700 hover:bg-slate-50">
+              <span className="flex items-center gap-2">
+                <Filter className="w-5 h-5 text-amber-500" />
+                Filter Results
+              </span>
+              <span className="text-xs bg-slate-100 px-2.5 py-1 rounded-full text-slate-500">Tap to open</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="bottom" className="rounded-t-3xl h-[85vh] overflow-y-auto px-6 z-[150]">
+            <SheetHeader className="pb-4 border-b border-slate-100 mb-6 text-left">
+              <SheetTitle className="flex items-center gap-2 text-xl font-extrabold text-slate-800">
+                <Sparkles className="w-5 h-5 text-amber-500" /> Refine Search
+              </SheetTitle>
+            </SheetHeader>
+            {FiltersContent}
+          </SheetContent>
+        </Sheet>
+      </div>
+
+      {/* 💻 Desktop View */}
+      <section className="hidden lg:block mb-8">
+        {FiltersContent}
+      </section>
+    </>
   );
 }
