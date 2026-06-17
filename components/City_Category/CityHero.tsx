@@ -35,7 +35,7 @@ export default function CityHero({
         {/* Stats */}
         <div className="mt-10 grid grid-cols-3 gap-4 max-w-xl">
           {/* Stat 1: Total Institutes (Dynamic) */}
-          <div className="rounded-2xl border border-amber-100 bg-white/80 p-4 backdrop-blur">
+          <div className="rounded-2xl border border-amber-100 bg-white/80 p-6 backdrop-blur">
             <Building2 className="h-5 w-5 text-amber-600" />
             <p className="mt-2 text-2xl font-bold text-slate-900">
               {totalCount}
@@ -46,7 +46,7 @@ export default function CityHero({
           </div>
 
           {/* Stat 2: Verified Data (Logical Replacement) */}
-          <div className="rounded-2xl border border-amber-100 bg-white/80 p-4 backdrop-blur">
+          <div className="rounded-2xl border border-amber-100 bg-white/80 p-6 backdrop-blur">
             <ShieldCheck className="h-5 w-5 text-amber-600" />
             <p className="mt-2 text-2xl font-bold text-slate-900">
               100%
@@ -57,7 +57,7 @@ export default function CityHero({
           </div>
 
           {/* Stat 3: Top Rated (Based on DB Sorting) */}
-          <div className="rounded-2xl border border-amber-100 bg-white/80 p-4 backdrop-blur">
+          <div className="rounded-2xl border border-amber-100 bg-white/80 p-6 backdrop-blur">
             <Star className="h-5 w-5 text-amber-600" />
             <p className="mt-2 text-2xl font-bold text-slate-900">
               Top
