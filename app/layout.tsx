@@ -62,7 +62,7 @@ export default function RootLayout({
         <AuthPromptModal />
         
         <Footer />
-
+        <GlobalCallbackFAB />
         <SpeedInsights />
         <Analytics />
       </body>
