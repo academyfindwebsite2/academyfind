@@ -42,7 +42,7 @@ export async function createCategory(formData: FormData) {
             }
         });
 
-        revalidatePath("/admin/categories");
+        revalidatePath("/af-ass-manage/categories");
         revalidatePath("/");
         
         return { success: true, message: `Category "${name}" created successfully!` };
@@ -59,8 +59,8 @@ export async function toggleCategoryStatus(categoryId: string, currentStatus: bo
             data: { isActive: !currentStatus }
         });
         
-        // Admin page aur public category pages ko revalidate karo
-        revalidatePath("/admin/categories");
+        // af-ass-manage page aur public category pages ko revalidate karo
+        revalidatePath("/af-ass-manage/categories");
         revalidatePath("/"); // Agar navbar mein categories hain toh update ho jayengi
         
         return { success: true, message: `Category ${!currentStatus ? 'Visible' : 'Hidden'} successfully!` };

@@ -10,7 +10,7 @@ export async function toggleUserListingPermission(userId: string, newStatus: boo
             data: { canAddInstitute: newStatus }
         });
         
-        revalidatePath("/admin/users");
+        revalidatePath("/af-ass-manage/users");
         return { success: true };
     } catch (error) {
         return { success: false, error: "Failed to update permission" };
@@ -24,7 +24,7 @@ export async function updateUserRole(userId: string, newRole: "USER" | "SALES_MA
             where: { id: userId },
             data: { role: newRole }
         });
-        revalidatePath("/admin/users");
+        revalidatePath("/af-ass-manage/users");
         return { success: true, message: `User role updated to ${newRole}!` };
     } catch (error) {
         console.error(error);
@@ -39,7 +39,7 @@ export async function toggleUserStatus(userId: string, currentStatus: boolean) {
             where: { id: userId },
             data: { isActive: !currentStatus } // True hai toh False (Block)
         });
-        revalidatePath("/admin/users");
+        revalidatePath("/af-ass-manage/users");
         return { success: true, message: `User account ${!currentStatus ? 'activated' : 'blocked'} successfully!` };
     } catch (error) {
         console.error(error);

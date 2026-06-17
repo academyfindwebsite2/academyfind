@@ -11,7 +11,7 @@ export async function toggleInstituteStatus(instituteId: string, currentStatus: 
         });
 
         // Admin page aur Public page dono ko revalidate karenge
-        revalidatePath("/admin/institutes");
+        revalidatePath("/af-ass-manage/institutes");
         
         return { success: true, message: `Institute ${!currentStatus ? 'Published' : 'Hidden'} successfully!` };
     } catch (error) {

@@ -71,7 +71,7 @@ export default function AddInstituteForm({
         const result = await createInstitute(formData, selectedCategories);
         if (result.success) {
             toast.success(result.message || "Institute Created Successfully");
-            router.push(`/admin/institutes/${result.id}`); 
+            router.push(`/af-ass-manage/institutes/${result.id}`); 
         } else {
             toast.error(result.error || "Can't create institute");
             setIsLoading(false);
@@ -175,7 +175,7 @@ export default function AddInstituteForm({
 
             {/* Submit */}
             <div className="flex justify-between border-t pt-6">
-                <Link href="/admin/institutes" className="text-sm font-semibold text-slate-500 flex items-center gap-2"><ArrowLeft className="w-4 h-4"/> Cancel</Link>
+                <Link href="/af-ass-manage/institutes" className="text-sm font-semibold text-slate-500 flex items-center gap-2"><ArrowLeft className="w-4 h-4"/> Cancel</Link>
                 <Button type="submit" disabled={isLoading || isUploadingImage} className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl px-8 font-bold">
                     {isLoading ? "Creating..." : "Create Institute"}
                 </Button>

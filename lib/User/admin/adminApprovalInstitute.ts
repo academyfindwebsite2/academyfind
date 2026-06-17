@@ -56,7 +56,7 @@ export async function approveInstituteRequest(requestId: string) {
         // Saare actions ek sath DB mein daal do
         await prisma.$transaction(transactionOperations);
 
-        revalidatePath("/admin/approvals");
+        revalidatePath("/af-ass-manage/approvals");
         return { success: true, message: "Institute Approved & Manager Assigned!" };
     } catch (error) {
         console.error(error);
@@ -86,7 +86,7 @@ export async function rejectInstituteRequest(requestId: string) {
             })
         ]);
 
-        revalidatePath("/admin/approvals");
+        revalidatePath("/af-ass-manage/approvals");
         return { success: true, message: "Request rejected and data safely cleared." };
     } catch (error) {
         console.error(error);

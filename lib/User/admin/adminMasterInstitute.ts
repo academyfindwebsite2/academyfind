@@ -94,7 +94,7 @@ export async function createInstitute(formData: FormData, selectedCategoryIds: s
             return institute;
         });
 
-        revalidatePath("/admin/institutes");
+        revalidatePath("/af-ass-manage/institutes");
         return { success: true, message: "Institute created successfully!", id: newInstitute.id };
     } catch (error) {
         console.error("Create Institute Error:", error);
@@ -203,8 +203,8 @@ export async function updateInstituteByAdmin(
         ]);
 
         // Revalidate clean cascades paths
-        revalidatePath("/admin/institutes");
-        revalidatePath(`/admin/institutes/${instituteId}`);
+        revalidatePath("/af-ass-manage/institutes");
+        revalidatePath(`/af-ass-manage/institutes/${instituteId}`);
         revalidatePath(`/institute/${instituteId}-${slug}`); // Public view card update sync
 
         return { success: true, message: "Master properties sync completed!" }

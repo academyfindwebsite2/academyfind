@@ -26,7 +26,7 @@ export async function requestGlobalCallback(formData: FormData) {
                 type: "NEW_CALLBACK_REQUEST",
                 title: "New Callback Request",
                 message: `${name} (${phone}) requested a general callback.`,
-                actionUrl: "/admin/requests"
+                actionUrl: "/af-ass-manage/requests"
             }
         });
 

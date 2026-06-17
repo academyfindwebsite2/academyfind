@@ -33,8 +33,8 @@ export async function approvePayment(paymentId: string) {
             })
         ]);
 
-        revalidatePath("/admin/payments");
-        revalidatePath(`/admin/payment/${paymentId}`);
+        revalidatePath("/af-ass-manage/payments");
+        revalidatePath(`/af-ass-manage/payment/${paymentId}`);
         return { success: true, message: "Payment approved and plan activated!" };
     }catch(err){
         console.error(err);
@@ -55,8 +55,8 @@ export async function rejectPayment(paymentId: string) {
             data: { status: "REJECTED" },
         });
 
-        revalidatePath("/admin/payments");
-        revalidatePath(`/admin/payments/${paymentId}`)
+        revalidatePath("/af-ass-manage/payments");
+        revalidatePath(`/af-ass-manage/payments/${paymentId}`)
         return { success: true, message: "Payment rejected." };
     }catch(err){
         console.error(err);

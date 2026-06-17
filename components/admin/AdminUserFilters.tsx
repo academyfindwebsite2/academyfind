@@ -16,7 +16,7 @@ export default function UserFilters() {
         else params.delete(key);
         
         params.set("page", "1"); // Filter change hone pe hamesha page 1 par jao
-        router.push(`/admin/users?${params.toString()}`);
+        router.push(`/af-ass-manage/users?${params.toString()}`);
     }
 
     return (

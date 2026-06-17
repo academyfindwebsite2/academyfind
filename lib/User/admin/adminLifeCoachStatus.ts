@@ -9,8 +9,8 @@ export async function updateLifeCoachStatus(id: string, newStatus: "PENDING" | "
             data: { status: newStatus }
         });
         
-        revalidatePath("/admin/life-coach");
-        revalidatePath(`/admin/life-coach/${id}`);
+        revalidatePath("/af-ass-manage/life-coach");
+        revalidatePath(`/af-ass-manage/life-coach/${id}`);
         return { success: true, message: "Status updated successfully!" };
     } catch (error) {
         console.error("Status Update Error:", error);

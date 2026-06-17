@@ -322,7 +322,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
 
                 {/* Submit & Cancel Actions */}
                 <div className="flex items-center justify-between border-t pt-6">
-                    <Link href="/admin/institutes" className="inline-flex items-center text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">
+                    <Link href="/af-ass-manage/institutes" className="inline-flex items-center text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">
                         <ArrowLeft className="w-4 h-4 mr-1" /> Return to List
                     </Link>
                     <Button type="submit" disabled={isLoading} className="bg-purple-600 hover:bg-purple-700 text-white rounded-xl gap-2 px-8 font-bold shadow-md">

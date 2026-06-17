@@ -11,7 +11,7 @@ export default function UserPagination({ totalPages, currentPage }: { totalPages
         if (newPage < 1 || newPage > totalPages) return;
         const params = new URLSearchParams(searchParams.toString());
         params.set("page", newPage.toString());
-        router.push(`/admin/users?${params.toString()}`);
+        router.push(`/af-ass-manage/users?${params.toString()}`);
     }
 
     if (totalPages <= 1) return null;

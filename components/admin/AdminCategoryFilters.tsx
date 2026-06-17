@@ -13,7 +13,7 @@ export default function CategoryFilters() {
         if (value) params.set("search", value);
         else params.delete("search");
         
-        router.push(`/admin/categories?${params.toString()}`);
+        router.push(`/af-ass-manage/categories?${params.toString()}`);
     }
 
     return (

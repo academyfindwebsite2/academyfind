@@ -11,7 +11,7 @@ export default function InstitutePagination({ totalPages, currentPage }: { total
         if (newPage < 1 || newPage > totalPages) return;
         const params = new URLSearchParams(searchParams.toString());
         params.set("page", newPage.toString());
-        router.push(`/admin/institutes?${params.toString()}`);
+        router.push(`/af-ass-manage/institutes?${params.toString()}`);
     }
 
     if (totalPages <= 1) return null;

@@ -18,7 +18,7 @@ export default function InstituteFilters({ cities, categories }: { cities: any[]
         else params.delete(key);
         
         params.set("page", "1"); // Naya filter lagte hi hamesha Page 1 par bhej do
-        router.push(`/admin/institutes?${params.toString()}`);
+        router.push(`/af-ass-manage/institutes?${params.toString()}`);
     }
 
     return (

@@ -12,7 +12,7 @@ export async function markNotificationAsRead(notificationId: string) {
         });
         
         // Page ko refresh karne ke liye taaki UI turant update ho jaye
-        revalidatePath("/admin/notifications");
+        revalidatePath("/af-ass-manage/notifications");
         return { success: true };
     } catch (error) {
         console.error("Failed to mark notification as read:", error);
@@ -28,7 +28,7 @@ export async function markAllAsRead(formData?: FormData) {
             data: { isRead: true }
         });
         
-        revalidatePath("/admin/notifications");
+        revalidatePath("/af-ass-manage/notifications");
     } catch (error) {
         console.error("Failed to mark all as read:", error);
     }

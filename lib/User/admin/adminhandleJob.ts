@@ -40,7 +40,7 @@ export async function createJobPosting(formData: FormData) {
             }
         });
 
-        revalidatePath("/admin/careers");
+        revalidatePath("/af-ass-manage/careers");
         revalidatePath("/careers");
         return { success: true };
     } catch (error) {
@@ -48,7 +48,7 @@ export async function createJobPosting(formData: FormData) {
         return { success: false, error: "Failed to create job posting." };
     }
 }
-// Admin: Edit an existing job opening
+// af-ass-manage: Edit an existing job opening
 export async function updateJobPosting(jobId: string, formData: FormData) {
     try {
         const applicationDeadlineStr = formData.get("applicationDeadline") as string;
@@ -70,7 +70,7 @@ export async function updateJobPosting(jobId: string, formData: FormData) {
             }
         });
 
-        revalidatePath("/admin/careers");
+        revalidatePath("/af-ass-manage/careers");
         revalidatePath("/careers");
         return { success: true };
     } catch (error) {
@@ -79,7 +79,7 @@ export async function updateJobPosting(jobId: string, formData: FormData) {
     }
 }
 
-// Admin: Update Candidate Application Status (ATS System Desk)
+// af-ass-manage: Update Candidate Application Status (ATS System Desk)
 export async function updateApplicationStatus(applicationId: string, status: JobApplicationStatus, notes?: string) {
     try {
         await prisma.jobApplication.update({
@@ -90,9 +90,9 @@ export async function updateApplicationStatus(applicationId: string, status: Job
             }
         });
 
-        revalidatePath("/admin/careers");
-        revalidatePath(`/admin/careers/[jobid]`);
-        revalidatePath(`/admin/careers/[jobid]/[applicationid]`);
+        revalidatePath("/af-ass-manage/careers");
+        revalidatePath(`/af-ass-manage/careers/[jobid]`);
+        revalidatePath(`/af-ass-manage/careers/[jobid]/[applicationid]`);
         return { success: true, message: `Status synchronized to ${status} successfully.` };
     } catch (error) {
         console.error(error);

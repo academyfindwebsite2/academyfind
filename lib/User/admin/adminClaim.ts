@@ -63,7 +63,7 @@ export async function updateClaimStatus(claimId: string, status: "APPROVED" | "R
                 })
             ])
         }
-        revalidatePath("/admin/claims")
+        revalidatePath("/af-ass-manage/claims")
         return { success: true, message: `Claim ${status.toLowerCase()} successfully!` }
     }catch(err){
         console.error("Error fetching claims:", err)

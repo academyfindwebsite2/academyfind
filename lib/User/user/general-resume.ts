@@ -60,11 +60,11 @@ export async function submitGeneralResume(formData: FormData) {
                 type: "NEW_GENERAL_RESUME",
                 title: "New Talent Pool Resume",
                 message: `${formData.get("name")} dropped their resume for future roles.`,
-                actionUrl: "/admin/careers/resumes"
+                actionUrl: "/af-ass-manage/careers/resumes"
             }
         });
 
-        revalidatePath("/admin/careers/resumes");
+        revalidatePath("/af-ass-manage/careers/resumes");
         return { success: true };
 
     } catch (error) {

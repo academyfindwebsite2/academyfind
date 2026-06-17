@@ -22,8 +22,8 @@ export async function updateAdminUser(userId: string, formData: FormData) {
             }
         });
 
-        revalidatePath(`/admin/users/${userId}`);
-        revalidatePath(`/admin/users`);
+        revalidatePath(`/af-ass-manage/users/${userId}`);
+        revalidatePath(`/af-ass-manage/users`);
 
         return { success: true, message: "User profile updated successfully!" };
     } catch (error) {
@@ -50,7 +50,7 @@ export async function addManagerRelation(userId: string, instituteId: string) {
             });
         }
 
-        revalidatePath(`/admin/users/${userId}`);
+        revalidatePath(`/af-ass-manage/users/${userId}`);
         return { success: true, message: "Institute assigned successfully!" };
     } catch (error) {
         return { success: false, error: "Relation already exists or failed to assign." };
@@ -65,7 +65,7 @@ export async function removeManagerRelation(userId: string, instituteId: string)
             }
         });
 
-        revalidatePath(`/admin/users/${userId}`);
+        revalidatePath(`/af-ass-manage/users/${userId}`);
         return { success: true, message: "Manager access removed." };
     } catch (error) {
         return { success: false, error: "Failed to remove access." };

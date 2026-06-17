@@ -66,11 +66,11 @@ export async function applyForJob(formData: FormData) {
                 title: "New Job Application",
                 message: `${formData.get("name")} applied for a Job.`,
                 referenceId: formData.get("jobId") as string,
-                actionUrl: "/admin/careers/applications"
+                actionUrl: "/af-ass-manage/careers/applications"
             }
         });
 
-        revalidatePath("/admin/careers/applications");
+        revalidatePath("/af-ass-manage/careers/applications");
         return { success: true };
 
     } catch (error) {
