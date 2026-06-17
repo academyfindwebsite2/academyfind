@@ -383,23 +383,22 @@ export function SearchBar() {
       className="
         flex
         flex-col
-        gap-2
         w-full
-        rounded-2xl
-        border
-        border-slate-200
+        rounded-2xl sm:rounded-[2rem]
+        border border-slate-200 sm:border-slate-200
         bg-white
-        p-2
-        shadow-lg
+        shadow-xl shadow-amber-500/5
         sm:h-16
         sm:flex-row
         sm:items-center
+        sm:p-2
+        overflow-hidden sm:overflow-visible
       "
     >
       {/* 1. "What" Input Box */}
-      <div ref={wrapperRef} className="relative min-w-0 w-full flex-1">
-        <div className="flex items-center h-12">
-          <Search className="ml-2 mr-3 h-5 w-5 shrink-0 text-amber-400" />
+      <div ref={wrapperRef} className="relative min-w-0 w-full flex-1 bg-white p-2 sm:p-0">
+        <div className="flex items-center h-12 px-2 sm:px-0">
+          <Search className="mr-3 h-5 w-5 shrink-0 text-slate-400 sm:text-amber-500 sm:ml-2" />
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -412,26 +411,28 @@ export function SearchBar() {
                 handleSearch();
               } 
             }}
-            placeholder="Search 'JEE Coaching' or 'Aakash'..."
+            placeholder="What? (e.g. JEE Coaching, Aakash)"
             className="
               min-w-0
               flex-1
               border-0
               p-0
-              text-sm
+              text-base
               shadow-none
               focus-visible:ring-0
-              sm:text-base
+              placeholder:text-slate-400
+              font-medium text-slate-800
             "
           />
         </div>
 
         {/* Suggestions Dropdown Container */}
         {(showSuggestions && (suggestions.length > 0 || loading)) && (
-          <div className="absolute left-0 top-full z-[120] mt-3 w-full max-h-96 overflow-y-auto rounded-2xl border border-slate-200 bg-white md:shadow-2xl shadow-md">
+          <div className="absolute left-0 top-full z-[120] mt-1 sm:mt-3 w-full max-h-80 overflow-y-auto rounded-xl sm:rounded-2xl border border-slate-200 bg-white shadow-2xl">
             {loading && (
-              <div className="px-4 py-3 text-sm text-slate-500">
-                Searching...
+              <div className="px-4 py-4 text-sm text-slate-500 flex items-center gap-2">
+                <span className="w-4 h-4 rounded-full border-2 border-slate-200 border-t-amber-500 animate-spin"></span>
+                Searching databases...
               </div>
             )}
 
@@ -441,18 +442,18 @@ export function SearchBar() {
                   key={item.id}
                   type="button"
                   onClick={() => handleSuggestionClick(item.url)}
-                  className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-amber-50"
+                  className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-amber-50 border-b border-slate-50 last:border-0"
                 >
-                  <span className="text-lg shrink-0">
+                  <span className="text-lg shrink-0 bg-slate-50 p-2 rounded-lg">
                     {item.type === "institute" && "🏫"}
                     {item.type === "city" && "📍"}
                     {item.type === "category" && "📚"}
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate font-medium text-slate-900">
+                    <p className="truncate font-bold text-slate-800">
                       {item.name}
                     </p>
-                    <p className="truncate text-xs text-slate-500 capitalize">
+                    <p className="truncate text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-0.5">
                       {item.type}
                     </p>
                   </div>
@@ -462,11 +463,15 @@ export function SearchBar() {
         )}
       </div>
 
+      {/* 🚀 MOBILE FIX: Clear Visual Divider */}
+      <div className="h-px w-full bg-slate-200 sm:hidden"></div>
+      
       {/* Desktop Divider */}
-      <div className="hidden h-8 w-px bg-slate-200 sm:block"></div>
+      <div className="hidden h-8 w-px bg-slate-200 sm:block mx-1"></div>
 
       {/* 2. "Where" Location Autocomplete Box */}
-      <div className="w-full sm:w-72">
+      {/* 🚀 MOBILE FIX: Added gray background so it looks like a distinct input box */}
+      <div className="w-full sm:w-72 bg-slate-50/50 sm:bg-transparent p-2 sm:p-0">
         <LocationAutocomplete
           onLocationSelect={(lat, lng, address) => {
             setSelectedLocation({ lat, lng, address });
@@ -474,23 +479,29 @@ export function SearchBar() {
         />
       </div>
 
-      {/* Search Button */}
-      <Button
-        onClick={handleSearch}
-        className="
-          h-12
-          w-full
-          sm:w-auto
-          sm:shrink-0
-          rounded-xl
-          bg-amber-400
-          px-6
-          text-black
-          hover:bg-amber-500
-        "
-      >
-        Search
-      </Button>
+      {/* 🚀 MOBILE FIX: Separated Search Button */}
+      <div className="p-2 sm:p-0 w-full sm:w-auto mt-1 sm:mt-0 bg-white sm:bg-transparent">
+        <Button
+          onClick={handleSearch}
+          className="
+            h-12
+            w-full
+            sm:w-auto
+            sm:shrink-0
+            rounded-xl sm:rounded-[1.2rem]
+            bg-amber-400
+            px-8
+            text-white
+            font-bold
+            text-base
+            hover:bg-amber-500 hover:shadow-lg hover:-translate-y-0.5
+            transition-all duration-200
+            md:ml-1
+          "
+        >
+          Search
+        </Button>
+      </div>
     </div>
   );
 }
