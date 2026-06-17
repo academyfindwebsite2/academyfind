@@ -62,9 +62,9 @@ export default function CategoryFilters({ category }: Props) {
 
   const triggerClasses = "rounded-full border-amber-200 bg-white hover:bg-amber-50 focus:ring-2 focus:ring-amber-400 focus:ring-offset-0 focus:outline-none transition-all data-[state=open]:bg-amber-50 data-[state=open]:border-amber-400 h-10 shadow-sm";
 
-  // 🔥 Common Filters Content
+  // 🔥 Added pb-24 so content isn't chopped at the bottom
   const FiltersContent = (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pb-24">
       <Select value={currentSort} onValueChange={(val) => handleFilterChange("sort", val)}>
         <SelectTrigger className={`w-full ${triggerClasses}`}>
           <div className="flex items-center gap-2 font-medium text-slate-700">
@@ -72,7 +72,7 @@ export default function CategoryFilters({ category }: Props) {
             <SelectValue placeholder="Sort By" />
           </div>
         </SelectTrigger>
-        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[100]" position="popper" side="bottom" sideOffset={5}>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[200]" position="popper" side="bottom" sideOffset={5}>
           <SelectItem value="relevance" className="cursor-pointer">Relevance</SelectItem>
           <SelectItem value="rating" className="cursor-pointer">Top Rated</SelectItem>
           <SelectItem value="reviews" className="cursor-pointer">Most Reviewed</SelectItem>
@@ -86,7 +86,7 @@ export default function CategoryFilters({ category }: Props) {
             <SelectValue placeholder="Ratings" />
           </div>
         </SelectTrigger>
-        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[100]" position="popper" side="bottom" sideOffset={5}>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[200]" position="popper" side="bottom" sideOffset={5}>
           <SelectItem value="all" className="cursor-pointer">Any Rating</SelectItem>
           <SelectItem value="4.5" className="cursor-pointer">4.5+ Stars</SelectItem>
           <SelectItem value="4.0" className="cursor-pointer">4.0+ Stars</SelectItem>
@@ -101,7 +101,7 @@ export default function CategoryFilters({ category }: Props) {
             <SelectValue placeholder="Fees" />
           </div>
         </SelectTrigger>
-        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[100]" position="popper" side="bottom" sideOffset={4}>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[200]" position="popper" side="bottom" sideOffset={4}>
           <SelectItem value="all" className="cursor-pointer">Any Fee</SelectItem>
           <SelectItem value="50000" className="cursor-pointer">&lt; ₹50,000</SelectItem>
           <SelectItem value="100000" className="cursor-pointer">&lt; ₹1,00,000</SelectItem>
@@ -154,7 +154,8 @@ export default function CategoryFilters({ category }: Props) {
               <span className="text-xs bg-slate-100 px-2.5 py-1 rounded-full text-slate-500">Tap to open</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="bottom" className="rounded-t-3xl h-[85vh] overflow-y-auto px-6 z-[150]">
+          {/* 🔥 Fixed Width: w-full and max-w-none forces it to take full screen width cleanly */}
+          <SheetContent side="bottom" className="rounded-t-3xl h-[85vh] w-full max-w-none overflow-y-auto px-6 z-[150]">
             <SheetHeader className="pb-4 border-b border-slate-100 mb-6 text-left">
               <SheetTitle className="flex items-center gap-2 text-xl font-extrabold text-slate-800">
                 <Sparkles className="w-5 h-5 text-amber-500" /> Refine Search
