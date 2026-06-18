@@ -1,5 +1,22 @@
+import { prisma } from '@/lib/prisma';
+
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.academyfind.com';
+
+  const totalInstitutes = await prisma.institute.count({
+    where: { isActive: true } 
+  });
+  
+  const limit = 6000; 
+  const totalPages = Math.ceil(totalInstitutes / limit);
+
+  let instituteSitemaps = '';
+  for (let i = 0; i < totalPages; i++) {
+    instituteSitemaps += `
+  <sitemap>
+    <loc>${baseUrl}/sitemap-institutes/${i}</loc>
+  </sitemap>`;
+  }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -9,9 +26,7 @@ export async function GET() {
   <sitemap>
     <loc>${baseUrl}/sitemap-categories-city.xml</loc>
   </sitemap>
-  <sitemap>
-    <loc>${baseUrl}/sitemap-institutes.xml</loc>
-  </sitemap>
+  ${instituteSitemaps}
   <sitemap>
     <loc>${baseUrl}/sitemap-jobs.xml</loc>
   </sitemap>
