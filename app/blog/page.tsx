@@ -4,6 +4,21 @@ import BlogCategories from "@/components/blog/BlogCategories";
 import BlogGrid from "@/components/blog/BlogGrid";
 import NewsletterCTA from "@/components/blog/NewsLetterCTA";
 import { Sparkles, PenTool } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog & Educational Resources | AcademyFind",
+  description: "Read the latest insights, expert interviews, exam tips, and study hacks on the AcademyFind blog. Our editorial space is launching soon!",
+  alternates: {
+    canonical: "https://www.academyfind.com/blog",
+  },
+  openGraph: {
+    title: "AcademyFind Blog - Coming Soon",
+    description: "Expert educational insights and study hacks are brewing. Stay tuned!",
+    url: "https://www.academyfind.com/blog",
+    type: "website",
+  },
+};
 
 export default function BlogPage() {
   return (

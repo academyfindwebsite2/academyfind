@@ -7,6 +7,7 @@ import RelatedCities from "@/components/searchPage/RelatedCities";
 import RelatedBlogs from "@/components/searchPage/RelatedBlogs";
 import CompareCTA from "@/components/searchPage/CompareCTA";
 import { prisma } from "@/lib/prisma"; 
+import { Metadata } from "next"; // 👈 Don't forget to import Metadata
 
 type Props = {
   searchParams: Promise<{
@@ -18,14 +19,44 @@ type Props = {
   }>;
 };
 
-export async function generateMetadata({ searchParams }: Props) {
-  const { q = "" } = await searchParams;
+// ─── 1. DYNAMIC METADATA FOR SEARCH UX & CRAWLER CONTROL ───
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const { q = "", city = "", category = "" } = await searchParams;
+
+  // Browser tab ke liye ek smart dynamic title banate hain
+  let titleStr = "Search Institutes & Coaching";
+  
+  if (q) {
+    titleStr = `Results for "${q}"`;
+  } else if (category && city) {
+    // Format slashes or hyphens if needed, e.g., "JEE Coaching in Delhi"
+    titleStr = `${category.replace(/-/g, ' ')} in ${city.replace(/-/g, ' ')}`;
+  } else if (city) {
+    titleStr = `Top Institutes in ${city.replace(/-/g, ' ')}`;
+  } else if (category) {
+    titleStr = `${category.replace(/-/g, ' ')} Institutes`;
+  }
+
+  const title = `${titleStr} | AcademyFind`;
+  const description = "Search, filter, and compare the best coaching institutes and schools on AcademyFind.";
+
   return {
-    title: q ? `${q} Search Results | AcademyFind` : "Search | AcademyFind",
-    robots: { index: false, follow: true },
+    title: title,
+    description: description,
+    robots: { 
+      index: false, 
+      follow: true 
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: "https://www.academyfind.com/search",
+      type: "website",
+    },
   };
 }
 
+// ─── 2. PAGE COMPONENT ───────────────────────────────────────
 export default async function SearchPage({ searchParams }: Props) {
   const { q = "", type = "", city = "", category = "", rating = "" } = await searchParams;
 
@@ -63,14 +94,15 @@ export default async function SearchPage({ searchParams }: Props) {
             currentCategory={category}
             currentRating={rating}
           />
-          
 
           <div className="space-y-14">
-            <SearchResultsHeader query={q} 
+            <SearchResultsHeader 
+               query={q} 
                type={type} 
                city={city} 
                category={category} 
-               rating={rating}/>
+               rating={rating}
+            />
 
             <InstituteResults query={q} type={type} city={city} category={category} rating={rating} />
 

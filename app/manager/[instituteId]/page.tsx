@@ -12,7 +12,14 @@ import {
     ArrowRight, 
     Sparkles 
 } from "lucide-react";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Manager Control Panel | AcademyFind",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 export default async function InstituteDashboardOverview({
     params
 }: {

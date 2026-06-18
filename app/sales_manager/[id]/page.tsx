@@ -4,6 +4,15 @@ import { SalesStatusBadge } from "@/components/sales/SalesStatusBadge";
 import { Clock, AlertTriangle, ArrowRight, Building2, CalendarDays } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sales Manager Control Panel | AcademyFind",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function SalesManagerDashboardPage({
     params,

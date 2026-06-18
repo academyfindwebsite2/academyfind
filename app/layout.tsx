@@ -1,3 +1,7 @@
+// ============================================================
+// OPTIMIZED GLOBAL ROOT LAYOUT — AcademyFind
+// ============================================================
+
 import type { Metadata } from "next";
 import GoogleMapsProvider from "@/components/providers/GoogleMapsProvider";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
@@ -12,25 +16,77 @@ import { AuthPromptModal } from "@/components/layout/auth-prompt-model";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import NextTopLoader from 'nextjs-toploader'
-import {Toaster} from 'react-hot-toast'
-import Script from "next/script";
+import { Toaster } from 'react-hot-toast'
 import GlobalCallbackFAB from "@/components/User/GlobalCallBack";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter", // Variable definition helps in Tailwind if needed
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
+  variable: "--font-plus-jakarta",
 });
 
+// ─── GLOBAL METADATA & FALLBACKS ─────────────────────────────
 export const metadata: Metadata = {
-  title: "AcademyFind",
-  description: "Academy Search Simplified",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://www.academyfind.com"),
+  
+  title: {
+    template: "%s | AcademyFind", 
+    default: "AcademyFind | India's Most Trusted Education and Non Academic Coaching Directory",
+  },
+  
+  description: "Discover top-rated coaching centers, schools, and hostels across India. Compare fees, read verified reviews, and book free strategy calls on AcademyFind.",
+  
+  keywords: [
+    "education directory India",
+    "find coaching institutes",
+    "AcademyFind",
+    "student mentorship",
+    "compare coaching fees"
+  ],
+  
+  authors: [{ name: "AcademyFind Team" }],
+  creator: "AcademyFind",
+  publisher: "AcademyFind",
+
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://www.academyfind.com",
+    title: "AcademyFind | Find the Best Coaching & Institutes",
+    description: "Discover top-rated coaching centers, schools, and hostels.",
+    siteName: "AcademyFind",
+    images: [
+      {
+        url: "/new-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "AcademyFind - Education Directory",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "AcademyFind | Education Directory",
+    description: "Discover top-rated coaching centers, schools, and hostels across India.",
+    creator: "@academyfind",
+    images: ["/new-logo.png"],
+  },
+
   icons: {
     icon: "/new-logo.png",
     shortcut: "/new-logo.png",
     apple: "/new-logo.png",
+  },
+
+  // 🚀 GOOGLE SEARCH CONSOLE VERIFICATION
+  verification: {
+    // google: "YOUR_SEARCH_CONSOLE_VERIFICATION_CODE_HERE", // 🔥 YAHAN APNA GSC CODE DAALNA JAB MILEGA
   },
 };
 
@@ -43,6 +99,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${plusJakartaSans.className} h-full antialiased`}
+      suppressHydrationWarning // Prevents hydration warnings from browser extensions
     >
       <body
         className={`min-h-full flex flex-col ${inter.className}`}
@@ -50,12 +107,12 @@ export default function RootLayout({
         <Navbar />
 
         <CursorGlow />
-        <GoogleMapsProvider >
-        <NextTopLoader color="#f59e0b" showSpinner={false} />
+        <GoogleMapsProvider>
+          <NextTopLoader color="#f59e0b" showSpinner={false} />
 
-        <main className="flex-1">
-          {children}
-        </main>
+          <main className="flex-1">
+            {children}
+          </main>
         </GoogleMapsProvider>
 
         <Toaster position="top-center" reverseOrder={false} />
@@ -65,6 +122,20 @@ export default function RootLayout({
         <GlobalCallbackFAB />
         <SpeedInsights />
         <Analytics />
+        <Script 
+          strategy="afterInteractive" 
+          src={`https://www.googletagmanager.com/gtag/js?id=G-DE480Y479E`} 
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DE480Y479E', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
       </body>
     </html>
   );

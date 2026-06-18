@@ -17,6 +17,15 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "User Profile Page | AcademyFind",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function ProfilePage() {
     const session = await auth.api.getSession({

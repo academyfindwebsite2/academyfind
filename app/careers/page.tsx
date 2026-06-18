@@ -1,15 +1,32 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Search, MapPin, Briefcase, ArrowRight, Building2, Sparkles, ArrowDown, ArrowBigDown } from "lucide-react";
+import { Metadata } from "next";
+import { Search, MapPin, Briefcase, ArrowRight, Building2, Sparkles, ArrowBigDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import DropResumeForm from "@/components/User/DropResume";
 
 export const dynamic = "force-dynamic";
 
-export default async function CareersPage({ searchParams }: { searchParams: { q?: string, dept?: string } }) {
-    const q = searchParams.q || "";
-    const dept = searchParams.dept || "";
+// ─── 1. METADATA ─────────────────────────────────────────────
+export const metadata: Metadata = {
+  title: "Careers at AcademyFind | Join Our Mission",
+  description: "Explore exciting career opportunities at AcademyFind. Join our team and help millions of students discover the best education across India.",
+  alternates: {
+    canonical: "https://www.academyfind.com/careers",
+  },
+  openGraph: {
+    title: "Careers at AcademyFind",
+    description: "Join us in our mission to democratize education discovery.",
+    url: "https://www.academyfind.com/careers",
+    siteName: "AcademyFind",
+    type: "website",
+  }
+};
+
+export default async function CareersPage({ searchParams }: { searchParams: Promise<{ q?: string, dept?: string }> }) {
+    // Next.js 15 requires searchParams to be awaited
+    const sp = await searchParams;
+    const q = sp.q || "";
+    const dept = sp.dept || "";
 
     const jobs = await prisma.jobPosting.findMany({
         where: {
@@ -26,7 +43,7 @@ export default async function CareersPage({ searchParams }: { searchParams: { q?
     return (
         <div className="min-h-screen bg-slate-50/40 font-sans pb-16">
             
-            {/* Hero Header (Life Coach Theme) */}
+            {/* Hero Header */}
             <header className="bg-linear-to-b from-amber-50 via-background to-transparent dark:from-amber-950/10 py-16 text-center px-4">
                 <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-4 py-1.5 text-xs font-bold text-amber-700 shadow-sm uppercase tracking-wider mb-6">
                     <Sparkles className="h-3.5 w-3.5" /> Join Our Team
@@ -53,25 +70,7 @@ export default async function CareersPage({ searchParams }: { searchParams: { q?
                             <select
                                 name="dept"
                                 defaultValue={dept}
-                                className="
-                                w-full
-                                h-12
-                                pl-10
-                                pr-10
-                                rounded-xl
-                                border border-slate-200
-                                bg-white
-                                text-sm font-medium text-slate-700
-                                shadow-sm
-                                outline-none
-                                appearance-none
-                                cursor-pointer
-                                transition-all duration-200
-                                hover:border-amber-300
-                                hover:bg-amber-50/30
-                                focus:border-amber-400
-                                focus:ring-4 focus:ring-amber-500/10
-                                "
+                                className="w-full h-12 pl-10 pr-10 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-700 shadow-sm outline-none appearance-none cursor-pointer transition-all duration-200 hover:border-amber-300 hover:bg-amber-50/30 focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10"
                             >
                                 <option value="">All Departments</option>
                                 <option value="Engineering">Engineering</option>
@@ -141,9 +140,6 @@ export default async function CareersPage({ searchParams }: { searchParams: { q?
                             We are always looking for passionate and talented individuals. Drop your resume, and we'll reach out when a suitable position opens up!
                         </p>
 
-                        {/* <DropResumeForm /> */}
-                        
-                        {/* Note: Yahan aap DropResumeModal component call kar sakte ho ya naye page /careers/drop-resume par link kar sakte ho */}
                         <Link href="/careers/drop-resume">
                             <Button className="cursor-pointer bg-white text-amber-500 hover:bg-slate-50 font-bold px-8 py-6 rounded-xl shadow-lg hover:scale-105 transition-all">
                                 Drop Your Resume

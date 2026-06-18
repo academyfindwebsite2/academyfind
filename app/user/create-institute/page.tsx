@@ -4,6 +4,15 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "List Your Institute | AcademyFind",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function UserCreateInstitutePage() {
     // 1. Session check karo

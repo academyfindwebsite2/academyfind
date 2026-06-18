@@ -1,48 +1,42 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Script from "next/script";
+import Image from "next/image";
+import Link from "next/link";
+import { headers } from "next/headers";
+import { Star, Phone, MapPin, Mail, Globe, CheckCircle, Users, Trophy, PlayCircle, User, Presentation } from "lucide-react"; 
+import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
 
 import extractId from "@/lib/extractId";
 import { getInstituteById } from "@/lib/institutes/institutes_id";
-import Breadcrumb from "@/components/navigation/BreadCrumbs";
-import Link from "next/link";
-import InstituteMap from "@/components/maps/InstituteMap";
-import ReviewForm from "@/components/reviews/ReviewForm";
-import { Star, Phone, MapPin, Mail, Globe, CheckCircle, Users, Trophy, PlayCircle, User, Presentation, IndianRupee } from "lucide-react"; 
-import Image from "next/image";
-import SmartButton from "@/components/ui/SmartButton";
-import { Button } from "@/components/ui/button";
-import { headers } from "next/headers";
+import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth/auth";
 import { trackVisitHistory } from "@/lib/User/user/user-activity";
-import { prisma } from "@/lib/prisma";
+
+import Breadcrumb from "@/components/navigation/BreadCrumbs";
+import InstituteMap from "@/components/maps/InstituteMap";
+import ReviewForm from "@/components/reviews/ReviewForm";
+import SmartButton from "@/components/ui/SmartButton";
+import { Button } from "@/components/ui/button";
 import SaveButton from "@/components/ui/SaveButton"; 
-import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import InstituteEnquiryForm from "@/components/manager/InstituteEnquiryForm";
 
 export const revalidate = 86400;
 
 interface PageProps {
-  params: Promise<{
-    idSlug: string;
-  }>;
+  params: Promise<{ idSlug: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { idSlug } = await params;
-  const id = extractId(idSlug);
-  const institute = await getInstituteById(id);
+// 🚀 Helper Functions moved to top so both Metadata and Page can use them safely
+function isCloudinaryImage(url?: string | null) {
+  if (!url) return false;
+  return url.includes("cloudinary.com");
+}
 
-  if (!institute) {
-    return { title: "Institute Not Found" };
-  }
-
-  return {
-    title: `${institute.name} | AcademyFind`,
-    description: institute.description ?? `Learn more about ${institute.name}.`,
-    alternates: {
-      canonical: `${process.env.BASE_URL}/institute/${idSlug}`,
-    },
-  };
+function getSafeImageUrl(logo?: string | null, imageUrl?: string | null) {
+  if (isCloudinaryImage(logo)) return logo!;
+  if (isCloudinaryImage(imageUrl)) return imageUrl!;
+  return "https://www.academyfind.com/inst.jpg"; // Default safe fallback
 }
 
 function getYouTubeId(url: string) {
@@ -51,93 +45,113 @@ function getYouTubeId(url: string) {
   return (match && match[2].length === 11) ? match[2] : null;
 }
 
-// 🚀 Helper Function: Check if the URL is a valid Cloudinary URL
-function isCloudinaryImage(url?: string | null) {
-  if (!url) return false;
-  return url.includes("cloudinary.com");
+// ─── 1. METADATA ─────────────────────────────────────────────
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { idSlug } = await params;
+  const id = extractId(idSlug);
+  const institute = await getInstituteById(id);
+
+  if (!institute) return { title: "Institute Not Found | AcademyFind" };
+
+  const title = `${institute.name} in ${institute.city.name} - Fees, Reviews, Admission | AcademyFind`;
+  const description = institute.description?.substring(0, 155) || `Get complete details about ${institute.name} in ${institute.city.name}. Check fee structure, read genuine student reviews, and get admission guidance on AcademyFind.`;
+
+  // 🛡️ API Key Leak Prevention: Using Safe Image Generator
+  const safeOgImage = getSafeImageUrl(institute.logo, institute.imageUrl);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `https://www.academyfind.com/institute/${idSlug}` },
+    keywords: [
+      `${institute.name} ${institute.city.name}`,
+      `${institute.name} fees`,
+      `${institute.name} reviews`,
+      `${institute.name} admission`,
+      `best coaching in ${institute.city.name}`,
+      `${institute.categories[0]?.category.name} in ${institute.city.name}`
+    ],
+    openGraph: {
+      title,
+      description,
+      images: [safeOgImage],
+      type: 'website',
+    }
+  };
 }
 
+// ─── 2. PAGE COMPONENT ───────────────────────────────────────
 export default async function InstitutePage({ params }: PageProps) {
   const { idSlug } = await params;
   const id = extractId(idSlug);
   const institute = await getInstituteById(id);
 
-  if (!institute) {
-    notFound();
-  }
+  if (!institute) notFound();
 
-  const session = await auth.api.getSession({
-    headers: await headers()
-  });
-
+  const session = await auth.api.getSession({ headers: await headers() });
+  
+  // Track activity & saved state
   let alreadySaved = false;
-
   if (session?.user) {
-    await trackVisitHistory(session.user.id, institute.id).catch(console.error)
-
+    await trackVisitHistory(session.user.id, institute.id).catch(console.error);
     const savedEntry = await prisma.userShortlist.findUnique({
-      where: {
-        userId_instituteId: {
-          userId: session.user.id,
-          instituteId: institute.id
-        }
-      }
+      where: { userId_instituteId: { userId: session.user.id, instituteId: institute.id } }
     });
-    alreadySaved = !!savedEntry
+    alreadySaved = !!savedEntry;
   }
 
   const displayRating = institute.googleRating ?? institute.averageRating ?? 0;
   const displayReviewCount = institute.googleReviewCount ?? institute.reviewCount ?? 0;
-
   const isAlreadyClaimed = institute.managers && institute.managers.length > 0;
-
-  const primaryCategoryId = institute.categories[0]?.categoryId;
   
+  // Similar Institutes
   let similarInstitutes: any[] = [];
-  if (primaryCategoryId && institute.cityId) {
+  if (institute.categories[0]?.categoryId && institute.cityId) {
     similarInstitutes = await prisma.institute.findMany({
-      where: {
-        cityId: institute.cityId,
-        isActive: true,
-        id: { not: institute.id },
-        categories: {
-          some: { categoryId: primaryCategoryId }
-        }
-      },
+      where: { cityId: institute.cityId, isActive: true, id: { not: institute.id }, categories: { some: { categoryId: institute.categories[0].categoryId } } },
       take: 3,
       orderBy: { averageRating: 'desc' },
-      include: {
-        city: true,
-        categories: { include: { category: true } }
-      }
+      include: { city: true, categories: { include: { category: true } } }
     });
   }
 
+  // 🛡️ API Key Leak Prevention for Schema and Display
+  const safeSchemaImage = getSafeImageUrl(institute.logo, institute.imageUrl);
+  const mainLogo = safeSchemaImage.replace("https://www.academyfind.com", ""); // for next/image relative path fallback
+
+  // 🛡️ API Key Leak Prevention for Google Maps Link
+  const safeMapsUrl = institute.googleMapsUrl && !institute.googleMapsUrl.includes("key=") 
+    ? institute.googleMapsUrl 
+    : `https://www.google.com/maps/search/?api=1&query=$?q=${encodeURIComponent(`${institute.name}, ${institute.address || institute.city.name}`)}`;
+
+  // ── 3. JSON-LD (LocalBusiness Schema for Rich Snippets) ──
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    name: institute.name,
-    description: institute.description ?? "No description available",
-    address: {
+    "@type": "LocalBusiness",
+    "name": institute.name,
+    "image": safeSchemaImage, // ✅ Completely safe now
+    "address": {
       "@type": "PostalAddress",
-      addressLocality: institute.city.name,
+      "streetAddress": institute.address || "",
+      "addressLocality": institute.city.name,
+      "addressCountry": "IN"
     },
-    telephone: institute.phone ?? undefined,
-    url: institute.website ?? undefined,
+    "telephone": institute.phone || "",
+    "url": institute.website || `https://www.academyfind.com/institute/${idSlug}`,
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": displayRating > 0 ? displayRating : 4.5,
+      "reviewCount": displayReviewCount > 0 ? displayReviewCount : 1
+    }
   };
 
-  // 🚀 Filter valid Cloudinary images only
   const validClassroomImages = institute.classroomImages?.filter(isCloudinaryImage) || [];
   const validGalleryImages = institute.gallery?.filter(isCloudinaryImage) || [];
-  
-  // 🚀 Determine Main Logo
-  const mainLogo = isCloudinaryImage(institute.logo) 
-    ? institute.logo 
-    : (isCloudinaryImage(institute.imageUrl) ? institute.imageUrl : "/inst.jpg");
 
   return (
     <main className="min-h-screen bg-slate-50">
-      <script
+      <Script
+        id="schema-institute"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
@@ -148,14 +162,8 @@ export default async function InstitutePage({ params }: PageProps) {
         <div className="mx-auto max-w-7xl px-4 py-10">
           <Breadcrumb
             items={[
-              {
-                label: institute.categories[0]?.category.name,
-                href: `/${institute.categories[0]?.category.slug}`,
-              },
-              {
-                label: institute.city.name,
-                href: `/${institute.categories[0]?.category.slug}/${institute.city.slug}`,
-              },
+              { label: institute.categories[0]?.category.name || "Institute", href: `/${institute.categories[0]?.category.slug}` },
+              { label: institute.city.name, href: `/${institute.categories[0]?.category.slug}/${institute.city.slug}` },
               { label: institute.name, href: "#" },
             ]}
           />
@@ -164,43 +172,29 @@ export default async function InstitutePage({ params }: PageProps) {
             <div>
               <div className="rounded-3xl border bg-white p-6 md:p-8 shadow-sm">
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  
                   <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-3xl border shadow-sm mx-auto md:mx-0">
-                    <Image 
-                      src={mainLogo!} 
-                      alt={institute.name} 
-                      width={128}
-                      height={128}
-                      className="h-full w-full object-cover"
-                    />
+                    <Image src={mainLogo} alt={institute.name} width={128} height={128} className="h-full w-full object-cover" />
                   </div>
 
                   <div className="flex-1 text-center md:text-left">
                     <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
                       <div>
                         <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-                            {institute.name}
-                          </h1>
+                          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">{institute.name}</h1>
                           {institute.isVerified && (
                             <p className="text-[0.65rem] font-bold text-blue-600 flex items-center gap-1 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100 mt-1">
                               <CheckCircle className="h-3.5 w-3.5"/> Verified
                             </p>
                           )}
                         </div>
-
                         <div className="mt-3 flex flex-wrap items-center justify-center md:justify-start gap-3">
                           <div className="flex flex-wrap justify-center gap-2">
                             {institute.categories.map((item: any) => (
-                              <span
-                                key={item.category.id}
-                                className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800 tracking-wide uppercase"
-                              >
+                              <span key={item.category.id} className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800 tracking-wide uppercase">
                                 {item.category.name}
                               </span>
                             ))}
                           </div>
-                          
                           {displayRating > 0 && (
                             <div className="flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700">
                               <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
@@ -209,95 +203,47 @@ export default async function InstitutePage({ params }: PageProps) {
                           )}
                         </div>
                       </div>
-                      
-                      <div className="shrink-0 flex flex-col items-center justify-center gap-1.5 pt-1 relative z-20">
-                        <SaveButton 
-                          userId={session?.user?.id} 
-                          instituteId={institute.id} 
-                          isInitiallySaved={alreadySaved} 
-                        />
+                      <div className="shrink-0 relative z-20">
+                        <SaveButton userId={session?.user?.id} instituteId={institute.id} isInitiallySaved={alreadySaved} />
                       </div>
                     </div>
 
                     <div className="mt-6 flex flex-col gap-3 rounded-2xl bg-slate-50 p-4 border border-slate-100 text-left">
-                      {/* <div className="flex items-start gap-2.5 text-slate-600">
-                        <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
-                        <span className="text-sm leading-relaxed">{institute.address || institute.city.name}</span>
-                      </div> */}
-                      <Link 
-                        href={institute.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${institute.name} ${institute.address || institute.city.name}`)}`}
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-start gap-2.5 text-slate-600 hover:text-amber-600 transition-colors group"
-                        title="View on Google Maps"
-                      >
+                      {/* ✅ Safe Google Maps URL */}
+                      <Link href={safeMapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2.5 text-slate-600 hover:text-amber-600 transition group">
                         <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 group-hover:scale-110 transition-transform" />
-                        <span className="text-sm leading-relaxed underline-offset-4 group-hover:underline">
-                          {institute.address || institute.city.name}
-                        </span>
+                        <span className="text-sm leading-relaxed underline-offset-4 group-hover:underline">{institute.address || institute.city.name}</span>
                       </Link>  
-
-                      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6 pt-2 border-t border-slate-200/60 mt-1">
-                        {institute.phone && (
-                          <a href={`tel:${institute.phone}`} className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600 transition">
-                            <Phone className="h-4 w-4 text-amber-500" />
-                            {institute.phone}
-                          </a>
-                        )}
-
-                        {institute.email && (
-                          <a href={`mailto:${institute.email}`} className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600 transition">
-                            <Mail className="h-4 w-4 text-amber-500" />
-                            {institute.email}
-                          </a>
-                        )}
-
-                        {institute.website && (
-                          <a href={institute.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600 transition">
-                            <Globe className="h-4 w-4 text-amber-500" />
-                            Visit Website
-                          </a>
-                        )}
+                      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 pt-2 border-t border-slate-200/60 mt-1">
+                        {institute.phone && <a href={`tel:${institute.phone}`} className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600"><Phone className="h-4 w-4 text-amber-500" /> {institute.phone}</a>}
+                        {institute.email && <a href={`mailto:${institute.email}`} className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600"><Mail className="h-4 w-4 text-amber-500" /> {institute.email}</a>}
+                        {institute.website && <a href={institute.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-amber-600"><Globe className="h-4 w-4 text-amber-500" /> Visit Website</a>}
                       </div>
-
-
+                      
+                      {/* Social Media Section */}
                       {(institute.facebookUrl || institute.instagramUrl || institute.twitterUrl || institute.youtubeUrl || institute.telegramUrl) && (
                         <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200/60 mt-1">
                           <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mr-1">Follow Us:</span>
                           {institute.whatsappUrl && (
-                            <a href={institute.whatsappUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-green-500 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs">
-                              <FaWhatsapp className="h-4 w-4" />
-                            </a>
+                            <a href={institute.whatsappUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-green-500 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs"><FaWhatsapp className="h-4 w-4" /></a>
                           )}
                           {institute.instagramUrl && (
-                            <a href={institute.instagramUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-pink-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs">
-                              <FaInstagram className="h-4 w-4" />
-                            </a>
+                            <a href={institute.instagramUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-pink-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs"><FaInstagram className="h-4 w-4" /></a>
                           )}
                           {institute.facebookUrl && (
-                            <a href={institute.facebookUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-blue-600 hover:bg-blue-50 hover:scale-105 transition-all shadow-xs">
-                              <FaFacebook className="h-4 w-4" />
-                            </a>
+                            <a href={institute.facebookUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-blue-600 hover:bg-blue-50 hover:scale-105 transition-all shadow-xs"><FaFacebook className="h-4 w-4" /></a>
                           )}
                           {institute.youtubeUrl && (
-                            <a href={institute.youtubeUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-red-600 hover:bg-red-50 hover:scale-105 transition-all shadow-xs">
-                              <FaYoutube className="h-4 w-4" />
-                            </a>
+                            <a href={institute.youtubeUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-red-600 hover:bg-red-50 hover:scale-105 transition-all shadow-xs"><FaYoutube className="h-4 w-4" /></a>
                           )}
                           {institute.linkedinUrl && (
-                            <a href={institute.linkedinUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-blue-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs">
-                              <FaLinkedin className="h-4 w-4" />
-                            </a>
+                            <a href={institute.linkedinUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-blue-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs"><FaLinkedin className="h-4 w-4" /></a>
                           )}
                           {institute.twitterUrl && (
-                            <a href={institute.twitterUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-slate-800 hover:bg-slate-100 hover:scale-105 transition-all shadow-xs">
-                              <FaTwitter className="h-4 w-4" />
-                            </a>
+                            <a href={institute.twitterUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-slate-800 hover:bg-slate-100 hover:scale-105 transition-all shadow-xs"><FaTwitter className="h-4 w-4" /></a>
                           )}
                           {institute.telegramUrl && (
-                            <a href={institute.telegramUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-slate-800 hover:bg-slate-100 hover:scale-105 transition-all shadow-xs">
-                              <FaTelegram className="h-4 w-4" />
-                            </a>
+                            <a href={institute.telegramUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-slate-800 hover:bg-slate-100 hover:scale-105 transition-all shadow-xs"><FaTelegram className="h-4 w-4" /></a>
                           )}
                         </div>
                       )}
@@ -341,14 +287,8 @@ export default async function InstitutePage({ params }: PageProps) {
 
             {/* Sticky CTA */}
             <div>
-              {/* InstitutePage.tsx me jahan Sticky CTA tha usko isse replace karo */}
-              <div>
-                <InstituteEnquiryForm 
-                    instituteId={institute.id} 
-                    feeInfo={institute.feeInfo} 
-                    mapsUrl={institute.googleMapsUrl} 
-                />
-              </div>
+              {/* ✅ Safe Google Maps URL passed to component */}
+              <InstituteEnquiryForm instituteId={institute.id} feeInfo={institute.feeInfo} mapsUrl={safeMapsUrl} />
             </div>
           </div>
         </div>
@@ -394,7 +334,6 @@ export default async function InstitutePage({ params }: PageProps) {
               {institute.teachers.map((teacher: any) => (
                 <div key={teacher.id} className="rounded-3xl border border-slate-200 bg-white p-6 flex items-center gap-5 shadow-sm hover:shadow-md transition">
                   <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center">
-                    {/* 🚀 Filter Teacher Image as well */}
                     {isCloudinaryImage(teacher.imageUrl) ? (
                       <Image src={teacher.imageUrl} alt={teacher.name} width={60} height={60} className="h-full w-full object-cover" />
                     ) : (
@@ -412,7 +351,7 @@ export default async function InstitutePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* 🚀 ONLY SHOW IF VALID CLOUDINARY IMAGES EXIST */}
+        {/* 🚀 CLASSROOM IMAGES */}
         {validClassroomImages.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -424,12 +363,11 @@ export default async function InstitutePage({ params }: PageProps) {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {/* 🚀 MAP OVER FILTERED ARRAY */}
               {validClassroomImages.map((url: string, idx: number) => (
                 <div key={idx} className="relative aspect-4/3 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
                   <img 
                     src={url} 
-                    alt={`Classroom Infrastructure ${idx + 1}`} 
+                    alt={`${institute.name} Classroom Infrastructure ${idx + 1}`} 
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
                   />
                   <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
@@ -439,7 +377,7 @@ export default async function InstitutePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* 🚀 ONLY SHOW IF VALID CLOUDINARY IMAGES EXIST */}
+        {/* 🚀 GALLERY IMAGES */}
         {validGalleryImages.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -451,12 +389,11 @@ export default async function InstitutePage({ params }: PageProps) {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {/* 🚀 MAP OVER FILTERED ARRAY */}
               {validGalleryImages.map((url: string, idx: number) => (
                 <div key={idx} className="relative aspect-4/3 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
                   <img 
                     src={url} 
-                    alt={`Result banner ${idx + 1}`} 
+                    alt={`${institute.name} Student Achievement ${idx + 1}`} 
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
                   />
                   <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
@@ -550,8 +487,6 @@ export default async function InstitutePage({ params }: PageProps) {
             
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {similarInstitutes.map((simInst: any) => {
-                
-                // 🚀 Determine Similar Institute Logo
                 const simDisplayLogo = isCloudinaryImage(simInst.imageUrl) 
                   ? simInst.imageUrl 
                   : (isCloudinaryImage(simInst.logo) ? simInst.logo : "/no_image/coaching_inst.PNG");

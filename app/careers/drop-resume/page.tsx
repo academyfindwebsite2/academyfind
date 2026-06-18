@@ -5,7 +5,16 @@ import DropResumeForm from "@/components/User/DropResume";
 
 export const metadata: Metadata = {
     title: "Drop Your Resume | AcademyFind Careers",
-    description: "Submit your resume to the AcademyFind Talent Pool for future opportunities."
+    description: "Submit your resume to the AcademyFind Talent Pool. We are always on the lookout for passionate individuals to join our mission.",
+    alternates: {
+        canonical: "https://www.academyfind.com/careers/drop-resume"
+    },
+    openGraph: {
+        title: "Join the AcademyFind Talent Pool",
+        description: "Submit your resume for future opportunities at AcademyFind.",
+        url: "https://www.academyfind.com/careers/drop-resume",
+        type: "website"
+    }
 };
 
 export default function DropResumePage() {

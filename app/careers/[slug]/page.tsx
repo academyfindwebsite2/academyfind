@@ -1,8 +1,34 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import Script from "next/script";
 import { MapPin, Briefcase, Star, IndianRupee, ArrowLeft, Target, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import ApplyJobForm from "@/components/User/ApplyJobForm";
+
+// ─── 1. METADATA GENERATION ──────────────────────────────────
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const job = await prisma.jobPosting.findUnique({
+        where: { slug: slug, isActive: true }
+    });
+
+    if (!job) return { title: "Job Not Found | AcademyFind" };
+
+    return {
+        title: `${job.title} Job Opening | AcademyFind Careers`,
+        description: `Apply for the ${job.title} role at AcademyFind. Location: ${job.location}. Experience required: ${job.experience || 'Not specified'}. Join our growing team!`,
+        alternates: {
+            canonical: `https://www.academyfind.com/careers/${slug}`
+        },
+        openGraph: {
+            title: `${job.title} - AcademyFind Careers`,
+            description: `We are hiring a ${job.title}. Click to view details and apply!`,
+            url: `https://www.academyfind.com/careers/${slug}`,
+            type: "website"
+        }
+    };
+}
 
 export default async function JobDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const {slug} = await params;
@@ -12,8 +38,44 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
 
     if (!job) return notFound();
 
+    // ─── 2. GOOGLE JOBS SCHEMA (Rich Snippet) ────────────────
+    const jobSchema = {
+      "@context": "https://schema.org/",
+      "@type": "JobPosting",
+      "title": job.title,
+      "description": `
+        <p>${job.description}</p>
+        <h3>Responsibilities:</h3><p>${job.responsibilities}</p>
+        <h3>Requirements:</h3><p>${job.requirements}</p>
+        ${job.benefits ? `<h3>Benefits:</h3><p>${job.benefits}</p>` : ''}
+      `,
+      "datePosted": job.createdAt.toISOString(),
+      "employmentType": job.type.toUpperCase().replace("-", "_"), // e.g., "FULL_TIME"
+      "hiringOrganization": {
+        "@type": "Organization",
+        "name": "AcademyFind",
+        "sameAs": "https://www.academyfind.com",
+        "logo": "https://www.academyfind.com/new-logo.png"
+      },
+      "jobLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": job.location,
+          "addressCountry": "IN"
+        }
+      }
+    };
+
     return (
         <div className="min-h-screen bg-slate-50/40 font-sans pb-16">
+            {/* INJECT SCHEMA */}
+            <Script
+                id="schema-job-posting"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jobSchema) }}
+            />
+
             <header className="bg-linear-to-b from-amber-50 via-background to-transparent dark:from-amber-950/10 pt-10 pb-8 px-4">
                 <div className="max-w-6xl mx-auto">
                     <Link href="/careers" className="inline-flex items-center text-sm font-bold text-amber-600 hover:text-amber-800 transition-colors mb-6 bg-white/50 px-3 py-1.5 rounded-lg border border-amber-200 shadow-sm">

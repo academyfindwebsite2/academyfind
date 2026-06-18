@@ -39,6 +39,14 @@ const cities = [
   {
     name: "Faridabad",
     slug: "categories?city=faridabad",
+  },
+  {
+    name: "Meerut",
+    slug: "categories?city=meerut",
+  },
+  {
+    name: "Ghaziabad",
+    slug: "categories?city=ghaziabad",
   }
 ];
 
@@ -239,14 +247,14 @@ export function Footer() {
               </Link>
 
               <Link
-                href={""}
+                href={"/privacy-policy"}
                 className="transition-colors hover:text-foreground"
               >
                 Privacy
               </Link>
 
               <Link
-                  href={""}
+                  href={"/terms-condition"}
                 className="transition-colors hover:text-foreground"
               >
                 Terms

@@ -81,7 +81,7 @@ const CITY_HUBS_GREATER_NOIDA=[
 
 ]
 
-const CITY_HUBS = [
+const CITY_HUBS_DELHI = [
 
   // 🎓 MAIN COACHING CORRIDOR (Highway belt — PCS, UGC-NET, nursing, pro courses)
   { name: "Old Faridabad & Sector 8-12", lat: 28.4082, lng: 77.3156, radius: 2000 },
@@ -111,4 +111,40 @@ const CITY_HUBS = [
 
   // 🏭 BALLABGARH (Sub-city — sizeable standalone population)
   { name: "Ballabgarh Town", lat: 28.3410, lng: 77.3210, radius: 2500 },
+];
+
+const CITY_HUBS_GHAZIABAD = [
+  { name: "Old Ghaziabad (Ghantaghar & Delhi Gate)", lat: 28.6702, lng: 77.4446, radius: 2500 },
+  { name: "Kavi Nagar & Nehru Nagar", lat: 28.6660, lng: 77.4330, radius: 2000 },
+  { name: "Raj Nagar", lat: 28.7041, lng: 77.4306, radius: 2000 },
+  { name: "Raj Nagar Extension", lat: 28.7034, lng: 77.4145, radius: 3000 },
+  { name: "Sanjay Nagar & Shastri Nagar", lat: 28.6850, lng: 77.4300, radius: 2000 },
+  { name: "Vijay Nagar", lat: 28.6445, lng: 77.4257, radius: 2000 },
+  { name: "Mohan Nagar & GT Road", lat: 28.6725, lng: 77.3590, radius: 2500 },
+  { name: "Sahibabad", lat: 28.6629, lng: 77.3434, radius: 2500 },
+  { name: "Vaishali", lat: 28.6434, lng: 77.3401, radius: 2000 },
+  { name: "Kaushambi", lat: 28.6435, lng: 77.3230, radius: 1500 },
+  { name: "Indirapuram Core (Shakti Khand & Ahinsa Khand)", lat: 28.6460, lng: 77.3590, radius: 2500 },
+  { name: "Indirapuram East (Niti Khand & Vaibhav Khand)", lat: 28.6360, lng: 77.3790, radius: 2500 },
+  { name: "Vasundhara", lat: 28.6628, lng: 77.3734, radius: 2500 },
+  { name: "Crossing Republik", lat: 28.6303, lng: 77.4349, radius: 2500 },
+  { name: "Govindpuram & Lal Kuan (Meerut Road)", lat: 28.6975, lng: 77.4180, radius: 3000 },
+  { name: "Loni", lat: 28.7505, lng: 77.2890, radius: 3500 },
+  { name: "Muradnagar", lat: 28.7809, lng: 77.4987, radius: 3500 },
+  { name: "Modinagar", lat: 28.8383, lng: 77.5811, radius: 3000 },
+];
+
+const CITY_HUBS_MEERUT = [
+  { name: "Central Meerut & Abu Lane", lat: 28.9730, lng: 77.7120, radius: 3000 },
+  { name: "Shastri Nagar & CCS University", lat: 28.9660, lng: 77.7470, radius: 3500 },
+  { name: "Modipuram & Pallavpuram", lat: 29.0620, lng: 77.7100, radius: 4000 },
+  { name: "Ganga Nagar & IIMT University", lat: 29.0000, lng: 77.7620, radius: 3000 },
+  { name: "Garh Road Highway", lat: 28.9480, lng: 77.7660, radius: 3500 },
+  { name: "Meerut Cantt & Sadar", lat: 29.0060, lng: 77.7020, radius: 3000 },
+  { name: "Kankar Khera & Shradhapuri", lat: 29.0090, lng: 77.6780, radius: 3000 },
+  { name: "Delhi Road & Partapur", lat: 28.9320, lng: 77.6740, radius: 4000 },
+  { name: "Old City & Brahmpuri", lat: 28.9620, lng: 77.6980, radius: 3000 },
+  { name: "Subharti & West Bypass", lat: 28.9600, lng: 77.6380, radius: 3500 },
+  { name: "Mawana Road Corridor", lat: 29.0250, lng: 77.7800, radius: 4000 },
+  { name: "Hapur Road South", lat: 28.9250, lng: 77.7300, radius: 3500 },
 ];

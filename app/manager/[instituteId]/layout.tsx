@@ -1,10 +1,19 @@
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
 import { ArrowLeft, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound } from "lucide-react";
+import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
+
+export const metadata: Metadata = {
+  title: "Manager Control Panel | AcademyFind",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function ManagerDashBoardLayout({
     children,params
