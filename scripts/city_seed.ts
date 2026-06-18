@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
 const cities = [
-  { name: "Meerut", slug: "meerut", state: "Uttar Pradesh" },
+  { name: "Ghaziabad", slug: "ghaziabad", state: "Uttar Pradesh" },
 
 ];
 
