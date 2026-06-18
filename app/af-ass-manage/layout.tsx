@@ -19,6 +19,15 @@ import {
     IdCard,
     BellIcon
 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin Control Panel | AcademyFind",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function AdminLayout({
     children,
