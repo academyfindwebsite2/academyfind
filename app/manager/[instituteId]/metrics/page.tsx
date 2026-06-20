@@ -4,11 +4,16 @@ import { prisma } from '@/lib/prisma';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export default async function InstituteAnalyticsPage({ params }: { params: { id: string } }) {
-  const session = await auth.api.getSession({ headers: await headers() });
+export default async function InstituteAnalyticsPage({ 
+  params 
+}: { 
+  params: Promise<{ id: string }> 
+}) {
+const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect('/login');
 
-  const instituteId = params.id;
+  const resolvedParams = await params;
+  const instituteId = resolvedParams.id;
 
   // 1. Fetch Institute with counts to verify ownership and tier
   const institute = await prisma.institute.findUnique({
