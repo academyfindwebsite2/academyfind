@@ -14,6 +14,10 @@ import {
   User,
   Building,
   IdCard,
+  GitCompare,
+  GitCompareArrows,
+  Diff,
+  Scale,
 } from "lucide-react";
 // 👇 Hooks import kiye hain auto-close logic ke liye
 import { useState, useEffect } from "react";
@@ -93,15 +97,23 @@ export default function Navbar() {
           <Link href="/careers" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
             Careers
           </Link>
-          <Link href="/blog" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
+          {/* <Link href="/blog" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
             Resources
-          </Link>
+          </Link> */}
           <Link href="/contact" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
             Contact
           </Link>
 
           {/* Visual Separator */}
           <div className="h-5 w-px bg-slate-200/80"></div>
+
+          <Link 
+            href="/compare" 
+            className="group flex items-center gap-1.5 text-sm font-bold text-amber-600 hover:text-amber-700 transition-colors"
+          >
+            <Scale className="size-4 group-hover:scale-110 transition-transform" />
+            Compare Institutes
+          </Link>
 
           <Link 
             href="/user/create-institute" 
@@ -190,7 +202,14 @@ export default function Navbar() {
                 </Button>
 
                 <Button asChild variant="ghost" className="justify-start gap-3">
-                  <Link href="/contact">
+                  <Link href="/compare">
+                    <Building className="size-4" />
+                    Compare Institutes
+                  </Link>
+                </Button>
+
+                <Button asChild variant="ghost" className="justify-start gap-3">
+                  <Link href="/user/create-institute">
                     <Building className="size-4" />
                     List Your Institute?
                   </Link>

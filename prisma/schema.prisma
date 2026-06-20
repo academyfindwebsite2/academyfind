@@ -34,6 +34,9 @@ model User {
   salesAssignments           SalesAssignment[]          @relation("SalesAssignments")
   salesCategoryAssignments   SalesCategoryAssignment[]  @relation("SalesCategoryAssignments")
   adminNotifications         AdminNotification[]
+  compareLists               UserCompareList[]
+  communityQuestions  CommunityQuestion[]   // 🆕
+  communityAnswers    CommunityAnswer[] 
 
   @@map("user")
 }
@@ -86,6 +89,16 @@ enum InstituteMode {
   OFFLINE
   ONLINE
   HYBRID
+}
+
+enum CategoryDomain {
+  ACADEMIC          // UPSC, NEET, JEE, School tuitions, Coding
+  PERFORMING_ARTS   // Dance, Music, Drama, Singing, Theatre
+  SPORTS            // Cricket, Football, Swimming, Martial Arts, Athletics
+  VISUAL_ARTS       // Painting, Sketching, Pottery, Photography
+  FITNESS           // Gym, Yoga, Zumba, Aerobics
+  LANGUAGE          // Spoken English, French, German, Sanskrit
+  OTHER
 }
 
 model Institute {
@@ -149,6 +162,46 @@ model Institute {
   dailyViews       InstituteDailyView[]
 
   mode              InstituteMode @default(OFFLINE)
+  brochureUrl   String?
+  affiliations  String[]  @default([]) // e.g., ["CBSE", "ISO Certified", "NSDC"]
+  awards        String[]  @default([])
+
+  establishedYear    Int?
+  totalStudents       Int?      // approx strength shown as "5000+ students"
+  totalBranches        Int?     // multi-branch chains ke liye, e.g. "12 branches in Noida"
+
+  // Fees snapshot (auto-computed from InstituteBatch min/max, but cached here for fast compare queries)
+  feeMin              Int?
+  feeMax              Int?
+
+  mediumOfInstruction String[]  @default(["English", "Hindi"]) // Language: ["English", "Hindi", "Bilingual"]
+  pros                String[]  @default([])
+  cons                String[]  @default([])
+  refundPolicy        String?
+
+  // Quick toggles — compare page checkbox/icon rows ke liye, sabse common cheezein
+  hasOnlineClasses    Boolean   @default(false)
+  hasHostelFacility   Boolean   @default(false)
+  hasDemoClasses      Boolean   @default(false)
+  hasScholarship      Boolean   @default(false)
+  hasCertification    Boolean   @default(false)   // course completion certificate deta hai ya nahi
+
+  // Relations to new compare-data models
+  facilities          InstituteFacility[]
+  batches             InstituteBatch[]
+  highlightStats       InstituteHighlightStat[]
+  achievements          InstituteAchievement[]
+  faqs                  InstituteFAQ[]
+  operatingHours        InstituteOperatingHour[]
+  compareListItems     CompareListInstitute[]
+  notablepersons       NotablePersons[]
+  communityQuestions   CommunityQuestion[]
+
+  metaTitle        String?   // override default auto-generated title
+  metaDescription  String?
+  compareCount         Int       @default(0) // Kitni baar logo ne isko compare list me daala
+  comparisonsAsFirst   InstituteComparisonCache[] @relation("ComparisonAsFirst")
+  comparisonsAsSecond  InstituteComparisonCache[] @relation("ComparisonAsSecond")
 
   @@index([cityId])
   @@index([slug])
@@ -163,6 +216,14 @@ model City {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   institutes Institute[]
+  description     String?  @db.Text   // "Noida mein coaching scene kaisa hai" type content
+  metaTitle       String?
+  metaDescription String?
+  latitude        Float?
+  longitude       Float?
+  population      Int?
+  bannerImage     String?
+  categoryContents  CategoryCityContent[]
 
   @@index([state])
 }
@@ -180,8 +241,37 @@ model Category {
   children                  Category[]                @relation("CategoryHierarchy")
   institutes                InstituteCategory[]
   salesCategoryAssignments  SalesCategoryAssignment[]
+  shortDescription   String?              // 1-2 line, listing cards mein use ho
+  description        String?  @db.Text    // long-form content, page ke top/bottom mein
+  metaTitle          String?
+  metaDescription    String?
+  icon                String?             // category icon/emoji
+  bannerImage         String?
+  cityContents  CategoryCityContent[]
 
   @@index([parentId])
+}
+
+model CategoryCityContent {
+  id          String    @id @default(cuid())
+  categoryId  String
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  cityId      String
+  city        City      @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  // Unique long-form content for this exact combo, e.g. "UPSC Coaching in Noida"
+  introContent     String?  @db.Text   // "Noida mein UPSC coaching ki demand badh rahi hai kyunki..."
+  whyChooseContent String?  @db.Text   // "Yahan kaise choose karein" guidance content
+  metaTitle        String?
+  metaDescription  String?
+  h1Override       String?             // custom H1 agar default se alag chahiye
+
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([categoryId, cityId])
+  @@index([categoryId])
+  @@index([cityId])
+  @@map("category_city_content")
 }
 
 model InstituteCategory {
@@ -311,7 +401,7 @@ model TeacherProfile {
   subject     String?
   experience  String?
   imageUrl    String?
-  
+  qualification String?
   instituteId String
   institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
@@ -557,4 +647,211 @@ model InstituteDailyView {
   @@unique([instituteId, date])
   @@index([instituteId])
   @@map("institute_daily_view")
+}
+
+model InstituteFacility {
+  id          String    @id @default(cuid())
+  instituteId String
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  name        String    // "Library", "AC Classrooms", "Practice Nets", "Mirror Studio", "Sound System", "Locker Room"
+  available   Boolean   @default(true)
+  order       Int       @default(0)
+
+  @@index([instituteId])
+  @@map("institute_facility")
+}
+
+model InstituteBatch {
+  id            String        @id @default(cuid())
+  instituteId   String
+  institute     Institute     @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  name          String        // "UPSC Foundation Batch" / "U-14 Cricket Batch" / "Bharatanatyam Beginners"
+  duration      String?       // "12 months", "2 years", "8 weeks"
+  fee           Int?
+  batchType     String?       // "Weekday", "Weekend", "Crash Course", "Regular"
+  mode          InstituteMode @default(OFFLINE)
+  timing        String?       // "Mon-Sat, 6AM-9AM"
+  seatsTotal    Int?
+  seatsLeft     Int?
+  ageGroupMin   Int?          // sports/dance/music mein zaroori — academic ke liye null chhod do
+  ageGroupMax   Int?
+  originalFee   Int?
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([instituteId])
+  @@map("institute_batch")
+}
+
+model InstituteHighlightStat {
+  id          String    @id @default(cuid())
+  instituteId String
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  label       String
+  value       String
+  icon        String?   // lucide-react icon name for UI, e.g. "trophy", "users", "target"
+  order       Int       @default(0)
+
+  @@index([instituteId])
+  @@map("institute_highlight_stat")
+}
+
+model InstituteAchievement {
+  id              String    @id @default(cuid())
+  instituteId     String
+  institute       Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  year            Int
+  title           String    // "AIR 45 - UPSC CSE" / "Zonal Cricket Champions" / "Trinity Grade 8 Distinction"
+  studentName     String?
+  achievementType String?   // "Exam Rank", "Tournament Win", "Certification", "Performance Award"
+  imageUrl        String?
+
+  @@index([instituteId])
+  @@index([year])
+  @@map("institute_achievement")
+}
+
+model InstituteFAQ {
+  id          String    @id @default(cuid())
+  instituteId String
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  question    String
+  answer      String    @db.Text
+  order       Int       @default(0)
+
+  @@index([instituteId])
+  @@map("institute_faq")
+}
+
+model InstituteOperatingHour {
+  id          String    @id @default(cuid())
+  instituteId String
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  dayOfWeek   Int       // 0 = Sunday ... 6 = Saturday
+  openTime    String?   // "06:00"
+  closeTime   String?   // "21:00"
+  isClosed    Boolean   @default(false)
+
+  @@index([instituteId])
+  @@unique([instituteId, dayOfWeek])
+  @@map("institute_operating_hour")
+}
+
+model UserCompareList {
+  id          String                 @id @default(cuid())
+  userId      String?                // nullable — guest users bhi compare kar sakein, session se track ho
+  user        User?                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionId   String?                // anonymous/guest tracking ke liye
+  shareSlug   String?                @unique  // "compare-allen-vs-physics-wallah" jaisa shareable link
+
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
+
+  items       CompareListInstitute[]
+
+  @@index([userId])
+  @@index([shareSlug])
+  @@map("user_compare_list")
+}
+
+model CompareListInstitute {
+  id              String          @id @default(cuid())
+  compareListId   String
+  compareList     UserCompareList @relation(fields: [compareListId], references: [id], onDelete: Cascade)
+  instituteId     String
+  institute       Institute       @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  order           Int             @default(0)
+
+  @@unique([compareListId, instituteId])
+  @@index([instituteId])
+  @@map("compare_list_institute")
+}
+
+model CommunityQuestion {
+  id          String    @id @default(cuid())
+  instituteId String
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  userId      String    // Kis student ne poocha
+  user        User      @relation(fields: [userId], references: [id])
+
+  question    String    @db.Text
+  upvotes     Int       @default(0)
+  createdAt   DateTime  @default(now())
+
+  answers     CommunityAnswer[]
+
+  @@index([instituteId])
+  @@map("community_question")
+}
+
+model CommunityAnswer {
+  id          String    @id @default(cuid())
+  questionId  String
+  question    CommunityQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  userId      String    // Kisne jawab diya (Alumni, Institute Manager, ya User)
+  user        User      @relation(fields: [userId], references: [id])
+
+  answer      String    @db.Text
+  upvotes     Int       @default(0)
+  isVerified  Boolean   @default(false) // Agar institute owner ne khud reply kiya toh ✅ Verified badge
+  createdAt   DateTime  @default(now())
+
+  @@index([questionId])
+  @@map("community_answer")
+}
+
+model NotablePersons {
+  id          String    @id @default(cuid())
+  instituteId String
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  name        String
+  batchYear   Int?      // e.g., 2023
+  placedAt    String?   // "IIT Delhi" / "Google" / "NDA"
+  package     String?   // "40 LPA" / "AIR 15"
+  imageUrl    String?   // Student ki photo
+
+  createdAt   DateTime  @default(now())
+
+  @@index([instituteId])
+  @@map("notable_alumni")
+}
+
+model InstituteComparisonCache {
+  id              String    @id @default(cuid())
+  
+  institute1Id    String    
+  institute1      Institute @relation("ComparisonAsFirst", fields: [institute1Id], references: [id], onDelete: Cascade)
+  
+  institute2Id    String
+  institute2      Institute @relation("ComparisonAsSecond", fields: [institute2Id], references: [id], onDelete: Cascade)
+  
+  slug            String    @unique   // e.g., "allen-vs-physics-wallah-noida"
+  
+  // AI/Editorial generated content — static & crawlable
+  summary         String?   @db.Text  // "Both are top UPSC coachings, but..."
+  verdict         String?             // "Allen" / "Physics Wallah" / "Tie"
+  verdictReason   String?   @db.Text  
+  
+  metaTitle       String?
+  metaDescription String?
+  
+  viewCount       Int       @default(0)
+  
+  generatedAt     DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Dono ID mila kar ek unique entry banegi taaki duplicate cache na ho
+  @@unique([institute1Id, institute2Id])
+  @@index([slug])
+  @@map("institute_comparison_cache")
 }

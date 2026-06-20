@@ -58,6 +58,7 @@ export const ModelName = {
   Institute: 'Institute',
   City: 'City',
   Category: 'Category',
+  CategoryCityContent: 'CategoryCityContent',
   InstituteCategory: 'InstituteCategory',
   InstituteManager: 'InstituteManager',
   Review: 'Review',
@@ -76,7 +77,19 @@ export const ModelName = {
   JobPosting: 'JobPosting',
   JobApplication: 'JobApplication',
   GeneralResume: 'GeneralResume',
-  InstituteDailyView: 'InstituteDailyView'
+  InstituteDailyView: 'InstituteDailyView',
+  InstituteFacility: 'InstituteFacility',
+  InstituteBatch: 'InstituteBatch',
+  InstituteHighlightStat: 'InstituteHighlightStat',
+  InstituteAchievement: 'InstituteAchievement',
+  InstituteFAQ: 'InstituteFAQ',
+  InstituteOperatingHour: 'InstituteOperatingHour',
+  UserCompareList: 'UserCompareList',
+  CompareListInstitute: 'CompareListInstitute',
+  CommunityQuestion: 'CommunityQuestion',
+  CommunityAnswer: 'CommunityAnswer',
+  NotablePersons: 'NotablePersons',
+  InstituteComparisonCache: 'InstituteComparisonCache'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -202,7 +215,27 @@ export const InstituteScalarFieldEnum = {
   linkedinUrl: 'linkedinUrl',
   whatsappUrl: 'whatsappUrl',
   viewCount: 'viewCount',
-  mode: 'mode'
+  mode: 'mode',
+  brochureUrl: 'brochureUrl',
+  affiliations: 'affiliations',
+  awards: 'awards',
+  establishedYear: 'establishedYear',
+  totalStudents: 'totalStudents',
+  totalBranches: 'totalBranches',
+  feeMin: 'feeMin',
+  feeMax: 'feeMax',
+  mediumOfInstruction: 'mediumOfInstruction',
+  pros: 'pros',
+  cons: 'cons',
+  refundPolicy: 'refundPolicy',
+  hasOnlineClasses: 'hasOnlineClasses',
+  hasHostelFacility: 'hasHostelFacility',
+  hasDemoClasses: 'hasDemoClasses',
+  hasScholarship: 'hasScholarship',
+  hasCertification: 'hasCertification',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  compareCount: 'compareCount'
 } as const
 
 export type InstituteScalarFieldEnum = (typeof InstituteScalarFieldEnum)[keyof typeof InstituteScalarFieldEnum]
@@ -215,7 +248,14 @@ export const CityScalarFieldEnum = {
   state: 'state',
   country: 'country',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  description: 'description',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  population: 'population',
+  bannerImage: 'bannerImage'
 } as const
 
 export type CityScalarFieldEnum = (typeof CityScalarFieldEnum)[keyof typeof CityScalarFieldEnum]
@@ -229,10 +269,31 @@ export const CategoryScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isActive: 'isActive',
-  level: 'level'
+  level: 'level',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  icon: 'icon',
+  bannerImage: 'bannerImage'
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const CategoryCityContentScalarFieldEnum = {
+  id: 'id',
+  categoryId: 'categoryId',
+  cityId: 'cityId',
+  introContent: 'introContent',
+  whyChooseContent: 'whyChooseContent',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  h1Override: 'h1Override',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CategoryCityContentScalarFieldEnum = (typeof CategoryCityContentScalarFieldEnum)[keyof typeof CategoryCityContentScalarFieldEnum]
 
 
 export const InstituteCategoryScalarFieldEnum = {
@@ -322,6 +383,7 @@ export const TeacherProfileScalarFieldEnum = {
   subject: 'subject',
   experience: 'experience',
   imageUrl: 'imageUrl',
+  qualification: 'qualification',
   instituteId: 'instituteId'
 } as const
 
@@ -491,6 +553,165 @@ export const InstituteDailyViewScalarFieldEnum = {
 } as const
 
 export type InstituteDailyViewScalarFieldEnum = (typeof InstituteDailyViewScalarFieldEnum)[keyof typeof InstituteDailyViewScalarFieldEnum]
+
+
+export const InstituteFacilityScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  name: 'name',
+  available: 'available',
+  order: 'order'
+} as const
+
+export type InstituteFacilityScalarFieldEnum = (typeof InstituteFacilityScalarFieldEnum)[keyof typeof InstituteFacilityScalarFieldEnum]
+
+
+export const InstituteBatchScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  name: 'name',
+  duration: 'duration',
+  fee: 'fee',
+  batchType: 'batchType',
+  mode: 'mode',
+  timing: 'timing',
+  seatsTotal: 'seatsTotal',
+  seatsLeft: 'seatsLeft',
+  ageGroupMin: 'ageGroupMin',
+  ageGroupMax: 'ageGroupMax',
+  originalFee: 'originalFee',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InstituteBatchScalarFieldEnum = (typeof InstituteBatchScalarFieldEnum)[keyof typeof InstituteBatchScalarFieldEnum]
+
+
+export const InstituteHighlightStatScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  label: 'label',
+  value: 'value',
+  icon: 'icon',
+  order: 'order'
+} as const
+
+export type InstituteHighlightStatScalarFieldEnum = (typeof InstituteHighlightStatScalarFieldEnum)[keyof typeof InstituteHighlightStatScalarFieldEnum]
+
+
+export const InstituteAchievementScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  year: 'year',
+  title: 'title',
+  studentName: 'studentName',
+  achievementType: 'achievementType',
+  imageUrl: 'imageUrl'
+} as const
+
+export type InstituteAchievementScalarFieldEnum = (typeof InstituteAchievementScalarFieldEnum)[keyof typeof InstituteAchievementScalarFieldEnum]
+
+
+export const InstituteFAQScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  question: 'question',
+  answer: 'answer',
+  order: 'order'
+} as const
+
+export type InstituteFAQScalarFieldEnum = (typeof InstituteFAQScalarFieldEnum)[keyof typeof InstituteFAQScalarFieldEnum]
+
+
+export const InstituteOperatingHourScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  dayOfWeek: 'dayOfWeek',
+  openTime: 'openTime',
+  closeTime: 'closeTime',
+  isClosed: 'isClosed'
+} as const
+
+export type InstituteOperatingHourScalarFieldEnum = (typeof InstituteOperatingHourScalarFieldEnum)[keyof typeof InstituteOperatingHourScalarFieldEnum]
+
+
+export const UserCompareListScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  sessionId: 'sessionId',
+  shareSlug: 'shareSlug',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserCompareListScalarFieldEnum = (typeof UserCompareListScalarFieldEnum)[keyof typeof UserCompareListScalarFieldEnum]
+
+
+export const CompareListInstituteScalarFieldEnum = {
+  id: 'id',
+  compareListId: 'compareListId',
+  instituteId: 'instituteId',
+  order: 'order'
+} as const
+
+export type CompareListInstituteScalarFieldEnum = (typeof CompareListInstituteScalarFieldEnum)[keyof typeof CompareListInstituteScalarFieldEnum]
+
+
+export const CommunityQuestionScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  userId: 'userId',
+  question: 'question',
+  upvotes: 'upvotes',
+  createdAt: 'createdAt'
+} as const
+
+export type CommunityQuestionScalarFieldEnum = (typeof CommunityQuestionScalarFieldEnum)[keyof typeof CommunityQuestionScalarFieldEnum]
+
+
+export const CommunityAnswerScalarFieldEnum = {
+  id: 'id',
+  questionId: 'questionId',
+  userId: 'userId',
+  answer: 'answer',
+  upvotes: 'upvotes',
+  isVerified: 'isVerified',
+  createdAt: 'createdAt'
+} as const
+
+export type CommunityAnswerScalarFieldEnum = (typeof CommunityAnswerScalarFieldEnum)[keyof typeof CommunityAnswerScalarFieldEnum]
+
+
+export const NotablePersonsScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  name: 'name',
+  batchYear: 'batchYear',
+  placedAt: 'placedAt',
+  package: 'package',
+  imageUrl: 'imageUrl',
+  createdAt: 'createdAt'
+} as const
+
+export type NotablePersonsScalarFieldEnum = (typeof NotablePersonsScalarFieldEnum)[keyof typeof NotablePersonsScalarFieldEnum]
+
+
+export const InstituteComparisonCacheScalarFieldEnum = {
+  id: 'id',
+  institute1Id: 'institute1Id',
+  institute2Id: 'institute2Id',
+  slug: 'slug',
+  summary: 'summary',
+  verdict: 'verdict',
+  verdictReason: 'verdictReason',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  viewCount: 'viewCount',
+  generatedAt: 'generatedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InstituteComparisonCacheScalarFieldEnum = (typeof InstituteComparisonCacheScalarFieldEnum)[keyof typeof InstituteComparisonCacheScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -77,6 +77,11 @@ export type City = Prisma.CityModel
  */
 export type Category = Prisma.CategoryModel
 /**
+ * Model CategoryCityContent
+ * 
+ */
+export type CategoryCityContent = Prisma.CategoryCityContentModel
+/**
  * Model InstituteCategory
  * 
  */
@@ -171,3 +176,63 @@ export type GeneralResume = Prisma.GeneralResumeModel
  * 
  */
 export type InstituteDailyView = Prisma.InstituteDailyViewModel
+/**
+ * Model InstituteFacility
+ * 
+ */
+export type InstituteFacility = Prisma.InstituteFacilityModel
+/**
+ * Model InstituteBatch
+ * 
+ */
+export type InstituteBatch = Prisma.InstituteBatchModel
+/**
+ * Model InstituteHighlightStat
+ * 
+ */
+export type InstituteHighlightStat = Prisma.InstituteHighlightStatModel
+/**
+ * Model InstituteAchievement
+ * 
+ */
+export type InstituteAchievement = Prisma.InstituteAchievementModel
+/**
+ * Model InstituteFAQ
+ * 
+ */
+export type InstituteFAQ = Prisma.InstituteFAQModel
+/**
+ * Model InstituteOperatingHour
+ * 
+ */
+export type InstituteOperatingHour = Prisma.InstituteOperatingHourModel
+/**
+ * Model UserCompareList
+ * 
+ */
+export type UserCompareList = Prisma.UserCompareListModel
+/**
+ * Model CompareListInstitute
+ * 
+ */
+export type CompareListInstitute = Prisma.CompareListInstituteModel
+/**
+ * Model CommunityQuestion
+ * 
+ */
+export type CommunityQuestion = Prisma.CommunityQuestionModel
+/**
+ * Model CommunityAnswer
+ * 
+ */
+export type CommunityAnswer = Prisma.CommunityAnswerModel
+/**
+ * Model NotablePersons
+ * 
+ */
+export type NotablePersons = Prisma.NotablePersonsModel
+/**
+ * Model InstituteComparisonCache
+ * 
+ */
+export type InstituteComparisonCache = Prisma.InstituteComparisonCacheModel

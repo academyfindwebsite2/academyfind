@@ -18,6 +18,19 @@ export const InstituteMode = {
 export type InstituteMode = (typeof InstituteMode)[keyof typeof InstituteMode]
 
 
+export const CategoryDomain = {
+  ACADEMIC: 'ACADEMIC',
+  PERFORMING_ARTS: 'PERFORMING_ARTS',
+  SPORTS: 'SPORTS',
+  VISUAL_ARTS: 'VISUAL_ARTS',
+  FITNESS: 'FITNESS',
+  LANGUAGE: 'LANGUAGE',
+  OTHER: 'OTHER'
+} as const
+
+export type CategoryDomain = (typeof CategoryDomain)[keyof typeof CategoryDomain]
+
+
 export const Role = {
   USER: 'USER',
   CONTENT_WRITER: 'CONTENT_WRITER',
