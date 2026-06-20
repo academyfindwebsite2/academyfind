@@ -98,7 +98,7 @@ export default async function ManagerDashBoardLayout({
                         <SidebarLink 
                             href={`/manager/${instituteId}/metrics`} 
                             icon={<BarChart2 />} 
-                            label="Dashboard"  
+                            label="Metrics"  
                             locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
                         
