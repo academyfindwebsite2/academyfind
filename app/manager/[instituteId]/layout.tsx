@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
-import { ArrowLeft, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound } from "lucide-react";
+import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound } from "lucide-react";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
@@ -93,6 +93,13 @@ export default async function ManagerDashBoardLayout({
                             icon={<MessageSquare />} 
                             label="Student Leads" 
                             locked={plan === "BASIC" || plan == "VERIFIED"} 
+                        />
+
+                        <SidebarLink 
+                            href={`/manager/${instituteId}/metrics`} 
+                            icon={<BarChart2 />} 
+                            label="Dashboard"  
+                            locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
                         
                         <SidebarLink 
