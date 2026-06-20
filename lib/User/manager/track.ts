@@ -1,3 +1,4 @@
+"use server"
 import { headers } from 'next/headers';
 import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
