@@ -1,5 +1,5 @@
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.academyfind.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://academyfind.com';
   
   const staticPages = ['', '/about', '/categories', '/cities', '/blog', '/contact', '/careers', '/user/life-coach','/privacy-policy','/terms-condition'];
   

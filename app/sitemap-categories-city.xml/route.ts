@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.academyfind.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://academyfind.com';
   
   const categories = await prisma.category.findMany({ select: { slug: true } });
   const cities = await prisma.city.findMany({ select: { slug: true } });

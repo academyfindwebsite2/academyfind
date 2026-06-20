@@ -142,3 +142,8 @@ export type JobApplication = Prisma.JobApplicationModel
  * 
  */
 export type GeneralResume = Prisma.GeneralResumeModel
+/**
+ * Model InstituteDailyView
+ * 
+ */
+export type InstituteDailyView = Prisma.InstituteDailyViewModel

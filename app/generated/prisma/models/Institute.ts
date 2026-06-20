@@ -33,6 +33,7 @@ export type InstituteAvgAggregateOutputType = {
   googleReviewCount: number | null
   averageRating: number | null
   reviewCount: number | null
+  viewCount: number | null
 }
 
 export type InstituteSumAggregateOutputType = {
@@ -42,6 +43,7 @@ export type InstituteSumAggregateOutputType = {
   googleReviewCount: number | null
   averageRating: number | null
   reviewCount: number | null
+  viewCount: number | null
 }
 
 export type InstituteMinAggregateOutputType = {
@@ -81,6 +83,7 @@ export type InstituteMinAggregateOutputType = {
   telegramUrl: string | null
   linkedinUrl: string | null
   whatsappUrl: string | null
+  viewCount: number | null
   mode: $Enums.InstituteMode | null
 }
 
@@ -121,6 +124,7 @@ export type InstituteMaxAggregateOutputType = {
   telegramUrl: string | null
   linkedinUrl: string | null
   whatsappUrl: string | null
+  viewCount: number | null
   mode: $Enums.InstituteMode | null
 }
 
@@ -165,6 +169,7 @@ export type InstituteCountAggregateOutputType = {
   telegramUrl: number
   linkedinUrl: number
   whatsappUrl: number
+  viewCount: number
   mode: number
   _all: number
 }
@@ -177,6 +182,7 @@ export type InstituteAvgAggregateInputType = {
   googleReviewCount?: true
   averageRating?: true
   reviewCount?: true
+  viewCount?: true
 }
 
 export type InstituteSumAggregateInputType = {
@@ -186,6 +192,7 @@ export type InstituteSumAggregateInputType = {
   googleReviewCount?: true
   averageRating?: true
   reviewCount?: true
+  viewCount?: true
 }
 
 export type InstituteMinAggregateInputType = {
@@ -225,6 +232,7 @@ export type InstituteMinAggregateInputType = {
   telegramUrl?: true
   linkedinUrl?: true
   whatsappUrl?: true
+  viewCount?: true
   mode?: true
 }
 
@@ -265,6 +273,7 @@ export type InstituteMaxAggregateInputType = {
   telegramUrl?: true
   linkedinUrl?: true
   whatsappUrl?: true
+  viewCount?: true
   mode?: true
 }
 
@@ -309,6 +318,7 @@ export type InstituteCountAggregateInputType = {
   telegramUrl?: true
   linkedinUrl?: true
   whatsappUrl?: true
+  viewCount?: true
   mode?: true
   _all?: true
 }
@@ -440,6 +450,7 @@ export type InstituteGroupByOutputType = {
   telegramUrl: string | null
   linkedinUrl: string | null
   whatsappUrl: string | null
+  viewCount: number
   mode: $Enums.InstituteMode
   _count: InstituteCountAggregateOutputType | null
   _avg: InstituteAvgAggregateOutputType | null
@@ -507,6 +518,7 @@ export type InstituteWhereInput = {
   telegramUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   whatsappUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  viewCount?: Prisma.IntFilter<"Institute"> | number
   mode?: Prisma.EnumInstituteModeFilter<"Institute"> | $Enums.InstituteMode
   city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
   categories?: Prisma.InstituteCategoryListRelationFilter
@@ -520,6 +532,7 @@ export type InstituteWhereInput = {
   instituteRequest?: Prisma.XOR<Prisma.InstituteRequestNullableScalarRelationFilter, Prisma.InstituteRequestWhereInput> | null
   payments?: Prisma.SubscriptionPaymentListRelationFilter
   salesAssignments?: Prisma.SalesAssignmentListRelationFilter
+  dailyViews?: Prisma.InstituteDailyViewListRelationFilter
 }
 
 export type InstituteOrderByWithRelationInput = {
@@ -563,6 +576,7 @@ export type InstituteOrderByWithRelationInput = {
   telegramUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   whatsappUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   mode?: Prisma.SortOrder
   city?: Prisma.CityOrderByWithRelationInput
   categories?: Prisma.InstituteCategoryOrderByRelationAggregateInput
@@ -576,6 +590,7 @@ export type InstituteOrderByWithRelationInput = {
   instituteRequest?: Prisma.InstituteRequestOrderByWithRelationInput
   payments?: Prisma.SubscriptionPaymentOrderByRelationAggregateInput
   salesAssignments?: Prisma.SalesAssignmentOrderByRelationAggregateInput
+  dailyViews?: Prisma.InstituteDailyViewOrderByRelationAggregateInput
 }
 
 export type InstituteWhereUniqueInput = Prisma.AtLeast<{
@@ -622,6 +637,7 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   telegramUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   whatsappUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  viewCount?: Prisma.IntFilter<"Institute"> | number
   mode?: Prisma.EnumInstituteModeFilter<"Institute"> | $Enums.InstituteMode
   city?: Prisma.XOR<Prisma.CityScalarRelationFilter, Prisma.CityWhereInput>
   categories?: Prisma.InstituteCategoryListRelationFilter
@@ -635,6 +651,7 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   instituteRequest?: Prisma.XOR<Prisma.InstituteRequestNullableScalarRelationFilter, Prisma.InstituteRequestWhereInput> | null
   payments?: Prisma.SubscriptionPaymentListRelationFilter
   salesAssignments?: Prisma.SalesAssignmentListRelationFilter
+  dailyViews?: Prisma.InstituteDailyViewListRelationFilter
 }, "id" | "googlePlaceId">
 
 export type InstituteOrderByWithAggregationInput = {
@@ -678,6 +695,7 @@ export type InstituteOrderByWithAggregationInput = {
   telegramUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   whatsappUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   mode?: Prisma.SortOrder
   _count?: Prisma.InstituteCountOrderByAggregateInput
   _avg?: Prisma.InstituteAvgOrderByAggregateInput
@@ -730,6 +748,7 @@ export type InstituteScalarWhereWithAggregatesInput = {
   telegramUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
   linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
   whatsappUrl?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
+  viewCount?: Prisma.IntWithAggregatesFilter<"Institute"> | number
   mode?: Prisma.EnumInstituteModeWithAggregatesFilter<"Institute"> | $Enums.InstituteMode
 }
 
@@ -773,6 +792,7 @@ export type InstituteCreateInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -786,6 +806,7 @@ export type InstituteCreateInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateInput = {
@@ -829,6 +850,7 @@ export type InstituteUncheckedCreateInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -841,6 +863,7 @@ export type InstituteUncheckedCreateInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUpdateInput = {
@@ -883,6 +906,7 @@ export type InstituteUpdateInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -896,6 +920,7 @@ export type InstituteUpdateInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateInput = {
@@ -939,6 +964,7 @@ export type InstituteUncheckedUpdateInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -951,6 +977,7 @@ export type InstituteUncheckedUpdateInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateManyInput = {
@@ -994,6 +1021,7 @@ export type InstituteCreateManyInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
 }
 
@@ -1037,6 +1065,7 @@ export type InstituteUpdateManyMutationInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
 }
 
@@ -1081,6 +1110,7 @@ export type InstituteUncheckedUpdateManyInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
 }
 
@@ -1133,6 +1163,7 @@ export type InstituteCountOrderByAggregateInput = {
   telegramUrl?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   whatsappUrl?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   mode?: Prisma.SortOrder
 }
 
@@ -1143,6 +1174,7 @@ export type InstituteAvgOrderByAggregateInput = {
   googleReviewCount?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   reviewCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
 }
 
 export type InstituteMaxOrderByAggregateInput = {
@@ -1182,6 +1214,7 @@ export type InstituteMaxOrderByAggregateInput = {
   telegramUrl?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   whatsappUrl?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   mode?: Prisma.SortOrder
 }
 
@@ -1222,6 +1255,7 @@ export type InstituteMinOrderByAggregateInput = {
   telegramUrl?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   whatsappUrl?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   mode?: Prisma.SortOrder
 }
 
@@ -1232,6 +1266,7 @@ export type InstituteSumOrderByAggregateInput = {
   googleReviewCount?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   reviewCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
 }
 
 export type InstituteListRelationFilter = {
@@ -1513,6 +1548,20 @@ export type InstituteUpdateOneRequiredWithoutSalesAssignmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InstituteUpdateToOneWithWhereWithoutSalesAssignmentsInput, Prisma.InstituteUpdateWithoutSalesAssignmentsInput>, Prisma.InstituteUncheckedUpdateWithoutSalesAssignmentsInput>
 }
 
+export type InstituteCreateNestedOneWithoutDailyViewsInput = {
+  create?: Prisma.XOR<Prisma.InstituteCreateWithoutDailyViewsInput, Prisma.InstituteUncheckedCreateWithoutDailyViewsInput>
+  connectOrCreate?: Prisma.InstituteCreateOrConnectWithoutDailyViewsInput
+  connect?: Prisma.InstituteWhereUniqueInput
+}
+
+export type InstituteUpdateOneRequiredWithoutDailyViewsNestedInput = {
+  create?: Prisma.XOR<Prisma.InstituteCreateWithoutDailyViewsInput, Prisma.InstituteUncheckedCreateWithoutDailyViewsInput>
+  connectOrCreate?: Prisma.InstituteCreateOrConnectWithoutDailyViewsInput
+  upsert?: Prisma.InstituteUpsertWithoutDailyViewsInput
+  connect?: Prisma.InstituteWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstituteUpdateToOneWithWhereWithoutDailyViewsInput, Prisma.InstituteUpdateWithoutDailyViewsInput>, Prisma.InstituteUncheckedUpdateWithoutDailyViewsInput>
+}
+
 export type InstituteCreateWithoutCityInput = {
   id?: string
   name: string
@@ -1553,6 +1602,7 @@ export type InstituteCreateWithoutCityInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -1565,6 +1615,7 @@ export type InstituteCreateWithoutCityInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutCityInput = {
@@ -1607,6 +1658,7 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -1619,6 +1671,7 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutCityInput = {
@@ -1691,6 +1744,7 @@ export type InstituteScalarWhereInput = {
   telegramUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
   whatsappUrl?: Prisma.StringNullableFilter<"Institute"> | string | null
+  viewCount?: Prisma.IntFilter<"Institute"> | number
   mode?: Prisma.EnumInstituteModeFilter<"Institute"> | $Enums.InstituteMode
 }
 
@@ -1734,6 +1788,7 @@ export type InstituteCreateWithoutCategoriesInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
@@ -1746,6 +1801,7 @@ export type InstituteCreateWithoutCategoriesInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutCategoriesInput = {
@@ -1789,6 +1845,7 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -1800,6 +1857,7 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutCategoriesInput = {
@@ -1858,6 +1916,7 @@ export type InstituteUpdateWithoutCategoriesInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -1870,6 +1929,7 @@ export type InstituteUpdateWithoutCategoriesInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutCategoriesInput = {
@@ -1913,6 +1973,7 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -1924,6 +1985,7 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutManagersInput = {
@@ -1966,6 +2028,7 @@ export type InstituteCreateWithoutManagersInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -1978,6 +2041,7 @@ export type InstituteCreateWithoutManagersInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutManagersInput = {
@@ -2021,6 +2085,7 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
@@ -2032,6 +2097,7 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutManagersInput = {
@@ -2090,6 +2156,7 @@ export type InstituteUpdateWithoutManagersInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -2102,6 +2169,7 @@ export type InstituteUpdateWithoutManagersInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutManagersInput = {
@@ -2145,6 +2213,7 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2156,6 +2225,7 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutReviewsInput = {
@@ -2198,6 +2268,7 @@ export type InstituteCreateWithoutReviewsInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -2210,6 +2281,7 @@ export type InstituteCreateWithoutReviewsInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutReviewsInput = {
@@ -2253,6 +2325,7 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -2264,6 +2337,7 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutReviewsInput = {
@@ -2322,6 +2396,7 @@ export type InstituteUpdateWithoutReviewsInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -2334,6 +2409,7 @@ export type InstituteUpdateWithoutReviewsInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutReviewsInput = {
@@ -2377,6 +2453,7 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2388,6 +2465,7 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutClaimsInput = {
@@ -2430,6 +2508,7 @@ export type InstituteCreateWithoutClaimsInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -2442,6 +2521,7 @@ export type InstituteCreateWithoutClaimsInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutClaimsInput = {
@@ -2485,6 +2565,7 @@ export type InstituteUncheckedCreateWithoutClaimsInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -2496,6 +2577,7 @@ export type InstituteUncheckedCreateWithoutClaimsInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutClaimsInput = {
@@ -2554,6 +2636,7 @@ export type InstituteUpdateWithoutClaimsInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -2566,6 +2649,7 @@ export type InstituteUpdateWithoutClaimsInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutClaimsInput = {
@@ -2609,6 +2693,7 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2620,6 +2705,7 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutShortlistedByInput = {
@@ -2662,6 +2748,7 @@ export type InstituteCreateWithoutShortlistedByInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -2674,6 +2761,7 @@ export type InstituteCreateWithoutShortlistedByInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutShortlistedByInput = {
@@ -2717,6 +2805,7 @@ export type InstituteUncheckedCreateWithoutShortlistedByInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -2728,6 +2817,7 @@ export type InstituteUncheckedCreateWithoutShortlistedByInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutShortlistedByInput = {
@@ -2786,6 +2876,7 @@ export type InstituteUpdateWithoutShortlistedByInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -2798,6 +2889,7 @@ export type InstituteUpdateWithoutShortlistedByInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
@@ -2841,6 +2933,7 @@ export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -2852,6 +2945,7 @@ export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutViewHistoryInput = {
@@ -2894,6 +2988,7 @@ export type InstituteCreateWithoutViewHistoryInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -2906,6 +3001,7 @@ export type InstituteCreateWithoutViewHistoryInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutViewHistoryInput = {
@@ -2949,6 +3045,7 @@ export type InstituteUncheckedCreateWithoutViewHistoryInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -2960,6 +3057,7 @@ export type InstituteUncheckedCreateWithoutViewHistoryInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutViewHistoryInput = {
@@ -3018,6 +3116,7 @@ export type InstituteUpdateWithoutViewHistoryInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -3030,6 +3129,7 @@ export type InstituteUpdateWithoutViewHistoryInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
@@ -3073,6 +3173,7 @@ export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3084,6 +3185,7 @@ export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutEnquiriesInput = {
@@ -3126,6 +3228,7 @@ export type InstituteCreateWithoutEnquiriesInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -3138,6 +3241,7 @@ export type InstituteCreateWithoutEnquiriesInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutEnquiriesInput = {
@@ -3181,6 +3285,7 @@ export type InstituteUncheckedCreateWithoutEnquiriesInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -3192,6 +3297,7 @@ export type InstituteUncheckedCreateWithoutEnquiriesInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutEnquiriesInput = {
@@ -3250,6 +3356,7 @@ export type InstituteUpdateWithoutEnquiriesInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -3262,6 +3369,7 @@ export type InstituteUpdateWithoutEnquiriesInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
@@ -3305,6 +3413,7 @@ export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3316,6 +3425,7 @@ export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutTeachersInput = {
@@ -3358,6 +3468,7 @@ export type InstituteCreateWithoutTeachersInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -3370,6 +3481,7 @@ export type InstituteCreateWithoutTeachersInput = {
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutTeachersInput = {
@@ -3413,6 +3525,7 @@ export type InstituteUncheckedCreateWithoutTeachersInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -3424,6 +3537,7 @@ export type InstituteUncheckedCreateWithoutTeachersInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutTeachersInput = {
@@ -3482,6 +3596,7 @@ export type InstituteUpdateWithoutTeachersInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -3494,6 +3609,7 @@ export type InstituteUpdateWithoutTeachersInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutTeachersInput = {
@@ -3537,6 +3653,7 @@ export type InstituteUncheckedUpdateWithoutTeachersInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3548,6 +3665,7 @@ export type InstituteUncheckedUpdateWithoutTeachersInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutInstituteRequestInput = {
@@ -3590,6 +3708,7 @@ export type InstituteCreateWithoutInstituteRequestInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -3602,6 +3721,7 @@ export type InstituteCreateWithoutInstituteRequestInput = {
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
@@ -3645,6 +3765,7 @@ export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -3656,6 +3777,7 @@ export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutInstituteRequestInput = {
@@ -3714,6 +3836,7 @@ export type InstituteUpdateWithoutInstituteRequestInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -3726,6 +3849,7 @@ export type InstituteUpdateWithoutInstituteRequestInput = {
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
@@ -3769,6 +3893,7 @@ export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -3780,6 +3905,7 @@ export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutPaymentsInput = {
@@ -3822,6 +3948,7 @@ export type InstituteCreateWithoutPaymentsInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -3834,6 +3961,7 @@ export type InstituteCreateWithoutPaymentsInput = {
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutPaymentsInput = {
@@ -3877,6 +4005,7 @@ export type InstituteUncheckedCreateWithoutPaymentsInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -3888,6 +4017,7 @@ export type InstituteUncheckedCreateWithoutPaymentsInput = {
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutPaymentsInput = {
@@ -3946,6 +4076,7 @@ export type InstituteUpdateWithoutPaymentsInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -3958,6 +4089,7 @@ export type InstituteUpdateWithoutPaymentsInput = {
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutPaymentsInput = {
@@ -4001,6 +4133,7 @@ export type InstituteUncheckedUpdateWithoutPaymentsInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -4012,6 +4145,7 @@ export type InstituteUncheckedUpdateWithoutPaymentsInput = {
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateWithoutSalesAssignmentsInput = {
@@ -4054,6 +4188,7 @@ export type InstituteCreateWithoutSalesAssignmentsInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   city: Prisma.CityCreateNestedOneWithoutInstitutesInput
   categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
@@ -4066,6 +4201,7 @@ export type InstituteCreateWithoutSalesAssignmentsInput = {
   teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteUncheckedCreateWithoutSalesAssignmentsInput = {
@@ -4109,6 +4245,7 @@ export type InstituteUncheckedCreateWithoutSalesAssignmentsInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
   managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
@@ -4120,6 +4257,7 @@ export type InstituteUncheckedCreateWithoutSalesAssignmentsInput = {
   teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
   instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
   payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedCreateNestedManyWithoutInstituteInput
 }
 
 export type InstituteCreateOrConnectWithoutSalesAssignmentsInput = {
@@ -4178,6 +4316,7 @@ export type InstituteUpdateWithoutSalesAssignmentsInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
@@ -4190,6 +4329,7 @@ export type InstituteUpdateWithoutSalesAssignmentsInput = {
   teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutSalesAssignmentsInput = {
@@ -4233,6 +4373,7 @@ export type InstituteUncheckedUpdateWithoutSalesAssignmentsInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -4244,6 +4385,247 @@ export type InstituteUncheckedUpdateWithoutSalesAssignmentsInput = {
   teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
+}
+
+export type InstituteCreateWithoutDailyViewsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  phone?: string | null
+  email?: string | null
+  website?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  logo?: string | null
+  coverImage?: string | null
+  googlePlaceId?: string | null
+  googleRating?: number | null
+  googleReviewCount?: number | null
+  isVerified?: boolean
+  isFeatured?: boolean
+  isActive?: boolean
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  gallery?: Prisma.InstituteCreategalleryInput | string[]
+  subscriptionPlan?: $Enums.SubscriptionPlan
+  youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
+  feeInfo?: string | null
+  classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
+  facebookUrl?: string | null
+  instagramUrl?: string | null
+  twitterUrl?: string | null
+  youtubeUrl?: string | null
+  telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
+  viewCount?: number
+  mode?: $Enums.InstituteMode
+  city: Prisma.CityCreateNestedOneWithoutInstitutesInput
+  categories?: Prisma.InstituteCategoryCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutInstituteInput
+  claims?: Prisma.InstituteClaimCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutInstituteInput
+  enquiries?: Prisma.InstituteEnquiryCreateNestedManyWithoutInstituteInput
+  teachers?: Prisma.TeacherProfileCreateNestedManyWithoutInstituteInput
+  instituteRequest?: Prisma.InstituteRequestCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutInstituteInput
+  salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutInstituteInput
+}
+
+export type InstituteUncheckedCreateWithoutDailyViewsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  phone?: string | null
+  email?: string | null
+  website?: string | null
+  address: string
+  latitude?: number | null
+  longitude?: number | null
+  logo?: string | null
+  coverImage?: string | null
+  googlePlaceId?: string | null
+  googleRating?: number | null
+  googleReviewCount?: number | null
+  cityId: string
+  isVerified?: boolean
+  isFeatured?: boolean
+  isActive?: boolean
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  imageUrl?: string | null
+  averageRating?: number | null
+  reviewCount?: number
+  googleMapsUrl?: string | null
+  placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
+  gallery?: Prisma.InstituteCreategalleryInput | string[]
+  subscriptionPlan?: $Enums.SubscriptionPlan
+  youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
+  feeInfo?: string | null
+  classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
+  planExpiresAt?: Date | string | null
+  facebookUrl?: string | null
+  instagramUrl?: string | null
+  twitterUrl?: string | null
+  youtubeUrl?: string | null
+  telegramUrl?: string | null
+  linkedinUrl?: string | null
+  whatsappUrl?: string | null
+  viewCount?: number
+  mode?: $Enums.InstituteMode
+  categories?: Prisma.InstituteCategoryUncheckedCreateNestedManyWithoutInstituteInput
+  managers?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutInstituteInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutInstituteInput
+  claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutInstituteInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutInstituteInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutInstituteInput
+  enquiries?: Prisma.InstituteEnquiryUncheckedCreateNestedManyWithoutInstituteInput
+  teachers?: Prisma.TeacherProfileUncheckedCreateNestedManyWithoutInstituteInput
+  instituteRequest?: Prisma.InstituteRequestUncheckedCreateNestedOneWithoutInstituteInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutInstituteInput
+  salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutInstituteInput
+}
+
+export type InstituteCreateOrConnectWithoutDailyViewsInput = {
+  where: Prisma.InstituteWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstituteCreateWithoutDailyViewsInput, Prisma.InstituteUncheckedCreateWithoutDailyViewsInput>
+}
+
+export type InstituteUpsertWithoutDailyViewsInput = {
+  update: Prisma.XOR<Prisma.InstituteUpdateWithoutDailyViewsInput, Prisma.InstituteUncheckedUpdateWithoutDailyViewsInput>
+  create: Prisma.XOR<Prisma.InstituteCreateWithoutDailyViewsInput, Prisma.InstituteUncheckedCreateWithoutDailyViewsInput>
+  where?: Prisma.InstituteWhereInput
+}
+
+export type InstituteUpdateToOneWithWhereWithoutDailyViewsInput = {
+  where?: Prisma.InstituteWhereInput
+  data: Prisma.XOR<Prisma.InstituteUpdateWithoutDailyViewsInput, Prisma.InstituteUncheckedUpdateWithoutDailyViewsInput>
+}
+
+export type InstituteUpdateWithoutDailyViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  gallery?: Prisma.InstituteUpdategalleryInput | string[]
+  subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
+  feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instagramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
+  city?: Prisma.CityUpdateOneRequiredWithoutInstitutesNestedInput
+  categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutInstituteNestedInput
+  claims?: Prisma.InstituteClaimUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutInstituteNestedInput
+  enquiries?: Prisma.InstituteEnquiryUpdateManyWithoutInstituteNestedInput
+  teachers?: Prisma.TeacherProfileUpdateManyWithoutInstituteNestedInput
+  instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
+  salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+}
+
+export type InstituteUncheckedUpdateWithoutDailyViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  googleReviewCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cityId?: Prisma.StringFieldUpdateOperationsInput | string
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageRating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  googleMapsUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
+  gallery?: Prisma.InstituteUpdategalleryInput | string[]
+  subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
+  feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
+  planExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  facebookUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  instagramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  youtubeUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
+  categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
+  managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutInstituteNestedInput
+  claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutInstituteNestedInput
+  shortlistedBy?: Prisma.UserShortlistUncheckedUpdateManyWithoutInstituteNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutInstituteNestedInput
+  enquiries?: Prisma.InstituteEnquiryUncheckedUpdateManyWithoutInstituteNestedInput
+  teachers?: Prisma.TeacherProfileUncheckedUpdateManyWithoutInstituteNestedInput
+  instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
+  salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteCreateManyCityInput = {
@@ -4286,6 +4668,7 @@ export type InstituteCreateManyCityInput = {
   telegramUrl?: string | null
   linkedinUrl?: string | null
   whatsappUrl?: string | null
+  viewCount?: number
   mode?: $Enums.InstituteMode
 }
 
@@ -4329,6 +4712,7 @@ export type InstituteUpdateWithoutCityInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUpdateManyWithoutInstituteNestedInput
@@ -4341,6 +4725,7 @@ export type InstituteUpdateWithoutCityInput = {
   instituteRequest?: Prisma.InstituteRequestUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateWithoutCityInput = {
@@ -4383,6 +4768,7 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
   categories?: Prisma.InstituteCategoryUncheckedUpdateManyWithoutInstituteNestedInput
   managers?: Prisma.InstituteManagerUncheckedUpdateManyWithoutInstituteNestedInput
@@ -4395,6 +4781,7 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   instituteRequest?: Prisma.InstituteRequestUncheckedUpdateOneWithoutInstituteNestedInput
   payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutInstituteNestedInput
   salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutInstituteNestedInput
+  dailyViews?: Prisma.InstituteDailyViewUncheckedUpdateManyWithoutInstituteNestedInput
 }
 
 export type InstituteUncheckedUpdateManyWithoutCityInput = {
@@ -4437,6 +4824,7 @@ export type InstituteUncheckedUpdateManyWithoutCityInput = {
   telegramUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   mode?: Prisma.EnumInstituteModeFieldUpdateOperationsInput | $Enums.InstituteMode
 }
 
@@ -4456,6 +4844,7 @@ export type InstituteCountOutputType = {
   teachers: number
   payments: number
   salesAssignments: number
+  dailyViews: number
 }
 
 export type InstituteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4469,6 +4858,7 @@ export type InstituteCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensi
   teachers?: boolean | InstituteCountOutputTypeCountTeachersArgs
   payments?: boolean | InstituteCountOutputTypeCountPaymentsArgs
   salesAssignments?: boolean | InstituteCountOutputTypeCountSalesAssignmentsArgs
+  dailyViews?: boolean | InstituteCountOutputTypeCountDailyViewsArgs
 }
 
 /**
@@ -4551,6 +4941,13 @@ export type InstituteCountOutputTypeCountSalesAssignmentsArgs<ExtArgs extends ru
   where?: Prisma.SalesAssignmentWhereInput
 }
 
+/**
+ * InstituteCountOutputType without action
+ */
+export type InstituteCountOutputTypeCountDailyViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InstituteDailyViewWhereInput
+}
+
 
 export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4593,6 +4990,7 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   telegramUrl?: boolean
   linkedinUrl?: boolean
   whatsappUrl?: boolean
+  viewCount?: boolean
   mode?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
@@ -4606,6 +5004,7 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   instituteRequest?: boolean | Prisma.Institute$instituteRequestArgs<ExtArgs>
   payments?: boolean | Prisma.Institute$paymentsArgs<ExtArgs>
   salesAssignments?: boolean | Prisma.Institute$salesAssignmentsArgs<ExtArgs>
+  dailyViews?: boolean | Prisma.Institute$dailyViewsArgs<ExtArgs>
   _count?: boolean | Prisma.InstituteCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
 
@@ -4650,6 +5049,7 @@ export type InstituteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   telegramUrl?: boolean
   linkedinUrl?: boolean
   whatsappUrl?: boolean
+  viewCount?: boolean
   mode?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
@@ -4695,6 +5095,7 @@ export type InstituteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   telegramUrl?: boolean
   linkedinUrl?: boolean
   whatsappUrl?: boolean
+  viewCount?: boolean
   mode?: boolean
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institute"]>
@@ -4740,10 +5141,11 @@ export type InstituteSelectScalar = {
   telegramUrl?: boolean
   linkedinUrl?: boolean
   whatsappUrl?: boolean
+  viewCount?: boolean
   mode?: boolean
 }
 
-export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "isPublished" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "feeInfo" | "classroomImages" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "twitterUrl" | "youtubeUrl" | "telegramUrl" | "linkedinUrl" | "whatsappUrl" | "mode", ExtArgs["result"]["institute"]>
+export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "isPublished" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "feeInfo" | "classroomImages" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "twitterUrl" | "youtubeUrl" | "telegramUrl" | "linkedinUrl" | "whatsappUrl" | "viewCount" | "mode", ExtArgs["result"]["institute"]>
 export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
@@ -4757,6 +5159,7 @@ export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   instituteRequest?: boolean | Prisma.Institute$instituteRequestArgs<ExtArgs>
   payments?: boolean | Prisma.Institute$paymentsArgs<ExtArgs>
   salesAssignments?: boolean | Prisma.Institute$salesAssignmentsArgs<ExtArgs>
+  dailyViews?: boolean | Prisma.Institute$dailyViewsArgs<ExtArgs>
   _count?: boolean | Prisma.InstituteCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InstituteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4781,6 +5184,7 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     instituteRequest: Prisma.$InstituteRequestPayload<ExtArgs> | null
     payments: Prisma.$SubscriptionPaymentPayload<ExtArgs>[]
     salesAssignments: Prisma.$SalesAssignmentPayload<ExtArgs>[]
+    dailyViews: Prisma.$InstituteDailyViewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4823,6 +5227,7 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     telegramUrl: string | null
     linkedinUrl: string | null
     whatsappUrl: string | null
+    viewCount: number
     mode: $Enums.InstituteMode
   }, ExtArgs["result"]["institute"]>
   composites: {}
@@ -5230,6 +5635,7 @@ export interface Prisma__InstituteClient<T, Null = never, ExtArgs extends runtim
   instituteRequest<T extends Prisma.Institute$instituteRequestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$instituteRequestArgs<ExtArgs>>): Prisma.Prisma__InstituteRequestClient<runtime.Types.Result.GetResult<Prisma.$InstituteRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   payments<T extends Prisma.Institute$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salesAssignments<T extends Prisma.Institute$salesAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$salesAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalesAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dailyViews<T extends Prisma.Institute$dailyViewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institute$dailyViewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstituteDailyViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5299,6 +5705,7 @@ export interface InstituteFieldRefs {
   readonly telegramUrl: Prisma.FieldRef<"Institute", 'String'>
   readonly linkedinUrl: Prisma.FieldRef<"Institute", 'String'>
   readonly whatsappUrl: Prisma.FieldRef<"Institute", 'String'>
+  readonly viewCount: Prisma.FieldRef<"Institute", 'Int'>
   readonly mode: Prisma.FieldRef<"Institute", 'InstituteMode'>
 }
     
@@ -5957,6 +6364,30 @@ export type Institute$salesAssignmentsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.SalesAssignmentScalarFieldEnum | Prisma.SalesAssignmentScalarFieldEnum[]
+}
+
+/**
+ * Institute.dailyViews
+ */
+export type Institute$dailyViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InstituteDailyView
+   */
+  select?: Prisma.InstituteDailyViewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InstituteDailyView
+   */
+  omit?: Prisma.InstituteDailyViewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InstituteDailyViewInclude<ExtArgs> | null
+  where?: Prisma.InstituteDailyViewWhereInput
+  orderBy?: Prisma.InstituteDailyViewOrderByWithRelationInput | Prisma.InstituteDailyViewOrderByWithRelationInput[]
+  cursor?: Prisma.InstituteDailyViewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InstituteDailyViewScalarFieldEnum | Prisma.InstituteDailyViewScalarFieldEnum[]
 }
 
 /**

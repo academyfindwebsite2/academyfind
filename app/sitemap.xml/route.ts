@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.academyfind.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://academyfind.com';
 
   const totalInstitutes = await prisma.institute.count({
     where: { isActive: true } 
@@ -27,9 +27,6 @@ export async function GET() {
     <loc>${baseUrl}/sitemap-categories-city.xml</loc>
   </sitemap>
   ${instituteSitemaps}
-  <sitemap>
-    <loc>${baseUrl}/sitemap-jobs.xml</loc>
-  </sitemap>
 </sitemapindex>`;
 
   return new Response(xml, {

@@ -408,7 +408,8 @@ export const ModelName = {
   AdminNotification: 'AdminNotification',
   JobPosting: 'JobPosting',
   JobApplication: 'JobApplication',
-  GeneralResume: 'GeneralResume'
+  GeneralResume: 'GeneralResume',
+  InstituteDailyView: 'InstituteDailyView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -424,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume"
+    modelProps: "user" | "session" | "account" | "verification" | "institute" | "city" | "category" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume" | "instituteDailyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2278,6 +2279,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    InstituteDailyView: {
+      payload: Prisma.$InstituteDailyViewPayload<ExtArgs>
+      fields: Prisma.InstituteDailyViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InstituteDailyViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InstituteDailyViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>
+        }
+        findFirst: {
+          args: Prisma.InstituteDailyViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InstituteDailyViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>
+        }
+        findMany: {
+          args: Prisma.InstituteDailyViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>[]
+        }
+        create: {
+          args: Prisma.InstituteDailyViewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>
+        }
+        createMany: {
+          args: Prisma.InstituteDailyViewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InstituteDailyViewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>[]
+        }
+        delete: {
+          args: Prisma.InstituteDailyViewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>
+        }
+        update: {
+          args: Prisma.InstituteDailyViewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>
+        }
+        deleteMany: {
+          args: Prisma.InstituteDailyViewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InstituteDailyViewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InstituteDailyViewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>[]
+        }
+        upsert: {
+          args: Prisma.InstituteDailyViewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstituteDailyViewPayload>
+        }
+        aggregate: {
+          args: Prisma.InstituteDailyViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInstituteDailyView>
+        }
+        groupBy: {
+          args: Prisma.InstituteDailyViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InstituteDailyViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InstituteDailyViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InstituteDailyViewCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2423,6 +2498,7 @@ export const InstituteScalarFieldEnum = {
   telegramUrl: 'telegramUrl',
   linkedinUrl: 'linkedinUrl',
   whatsappUrl: 'whatsappUrl',
+  viewCount: 'viewCount',
   mode: 'mode'
 } as const
 
@@ -2702,6 +2778,16 @@ export const GeneralResumeScalarFieldEnum = {
 } as const
 
 export type GeneralResumeScalarFieldEnum = (typeof GeneralResumeScalarFieldEnum)[keyof typeof GeneralResumeScalarFieldEnum]
+
+
+export const InstituteDailyViewScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  date: 'date',
+  viewCount: 'viewCount'
+} as const
+
+export type InstituteDailyViewScalarFieldEnum = (typeof InstituteDailyViewScalarFieldEnum)[keyof typeof InstituteDailyViewScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3043,6 +3129,7 @@ export type GlobalOmitConfig = {
   jobPosting?: Prisma.JobPostingOmit
   jobApplication?: Prisma.JobApplicationOmit
   generalResume?: Prisma.GeneralResumeOmit
+  instituteDailyView?: Prisma.InstituteDailyViewOmit
 }
 
 /* Types for Logging */

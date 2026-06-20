@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.academyfind.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://academyfind.com';
   
   // Sirf active jobs fetch karo
   const jobs = await prisma.jobPosting.findMany({

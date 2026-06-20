@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 
 // Type constraint theek ho gaya kyunki folder ka naam exactly [id] hai
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.academyfind.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://academyfind.com';
   
   const { id } = await params;
   const pageId = parseInt(id) || 0;

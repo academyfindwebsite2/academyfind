@@ -75,7 +75,8 @@ export const ModelName = {
   AdminNotification: 'AdminNotification',
   JobPosting: 'JobPosting',
   JobApplication: 'JobApplication',
-  GeneralResume: 'GeneralResume'
+  GeneralResume: 'GeneralResume',
+  InstituteDailyView: 'InstituteDailyView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -200,6 +201,7 @@ export const InstituteScalarFieldEnum = {
   telegramUrl: 'telegramUrl',
   linkedinUrl: 'linkedinUrl',
   whatsappUrl: 'whatsappUrl',
+  viewCount: 'viewCount',
   mode: 'mode'
 } as const
 
@@ -479,6 +481,16 @@ export const GeneralResumeScalarFieldEnum = {
 } as const
 
 export type GeneralResumeScalarFieldEnum = (typeof GeneralResumeScalarFieldEnum)[keyof typeof GeneralResumeScalarFieldEnum]
+
+
+export const InstituteDailyViewScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  date: 'date',
+  viewCount: 'viewCount'
+} as const
+
+export type InstituteDailyViewScalarFieldEnum = (typeof InstituteDailyViewScalarFieldEnum)[keyof typeof InstituteDailyViewScalarFieldEnum]
 
 
 export const SortOrder = {

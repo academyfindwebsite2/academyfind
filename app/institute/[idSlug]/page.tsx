@@ -19,6 +19,7 @@ import ReviewForm from "@/components/reviews/ReviewForm";
 import { Button } from "@/components/ui/button";
 import SaveButton from "@/components/ui/SaveButton"; 
 import InstituteEnquiryForm from "@/components/manager/InstituteEnquiryForm";
+import ViewTracker from "@/components/manager/ViewTracker";
 
 export const revalidate = 86400;
 
@@ -154,6 +155,7 @@ export default async function InstitutePage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <ViewTracker instituteId={institute.id} />
 
       <section className="relative overflow-hidden border-b bg-linear-to-b from-amber-50 via-white to-white">
         <div className="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-amber-300/20 blur-3xl pointer-events-none" />
