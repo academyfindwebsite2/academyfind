@@ -7,14 +7,16 @@ import { redirect } from 'next/navigation';
 export default async function InstituteAnalyticsPage({ 
   params 
 }: { 
-  params: Promise<{ id: string }> 
+  params: Promise<{ instituteId: string }> 
 }) {
 const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect('/login');
 
-  const resolvedParams = await params;
-  const instituteId = resolvedParams.id;
+  const { instituteId } = await params;
 
+    if (!instituteId) {
+        return <div className="p-8 font-bold text-red-500">Error: Invalid URL, ID is missing!</div>;
+      }
   // 1. Fetch Institute with counts to verify ownership and tier
   const institute = await prisma.institute.findUnique({
     where: { id: instituteId },
