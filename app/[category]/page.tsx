@@ -26,6 +26,7 @@ import PopularSearches from "@/components/category/PopularSearches";
 import WhyChoose from "@/components/category/WhyChoose";
 import Pagination from "@/components/navigation/Pagination";
 import CategoryFilters from "@/components/category/CategoryFilter";
+import { getCachedInstitutesByCategory, getUncachedInstitutesByCategory } from "@/lib/cachedQueries";
 
 export const revalidate = 86400;
 
@@ -295,22 +296,33 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
   }
 
   const cities = await getCitiesForCategory(category);
-  const currentPage = page ? parseInt(page, 10) : 1;
+  const rawPage = page ? parseInt(page, 10) : 1;
+  const currentPage = Number.isFinite(rawPage) && rawPage > 0 ? rawPage : 1;
 
   const isClosestActive = closestUser === "true";
   const parsedLat = isClosestActive && userLat ? parseFloat(userLat) : undefined;
   const parsedLng = isClosestActive && userLng ? parseFloat(userLng) : undefined;
 
-  const { institutes, totalPages, totalCount } = await getInstitutesByCategory(
-    category,
-    currentPage,
-    q,
-    sort,
-    rating,
-    mode,
-    parsedLat,
-    parsedLng
-  );
+  const hasUniqueParams = !!(q || parsedLat || parsedLng);
+
+  const { institutes, totalPages, totalCount } = hasUniqueParams
+    ? await getUncachedInstitutesByCategory(
+        category,
+        currentPage,
+        q,
+        sort,
+        rating,
+        mode,
+        parsedLat,
+        parsedLng,
+      )
+    : await getCachedInstitutesByCategory(
+        category,
+        currentPage,
+        sort,
+        rating,
+        mode,
+      );
 
   return (
     <main className="max-w-7xl mx-auto px-4 md:px-6 py-10">

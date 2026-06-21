@@ -30,6 +30,7 @@ import CityFAQ from "@/components/City_Category/CityFAQ";
 import CityCTA from "@/components/City_Category/CityCTA";
 import Pagination from "@/components/navigation/Pagination";
 import MapToggleSection from "@/components/maps/MapToggleSection";
+import { getCachedInstitutesByCategoryAndCity, getUncachedInstitutesByCategoryAndCity } from "@/lib/cachedQueries";
 
 export const revalidate = 86400;
 
@@ -368,7 +369,8 @@ export default async function CategoryCityPage({ params, searchParams }: PagePro
   const categoryName = formatSlug(category);
   const cityName = formatSlug(city);
 
-  const currentPage = page ? parseInt(page, 10) : 1;
+  const rawPage = page ? parseInt(page, 10) : 1;
+  const currentPage = Number.isFinite(rawPage) && rawPage > 0 ? rawPage : 1;
 
   const isClosestToMeActive = closestUser === "true";
   const finalLat = isClosestToMeActive ? userLat : lat;
@@ -379,18 +381,27 @@ export default async function CategoryCityPage({ params, searchParams }: PagePro
   const parsedRadius = radius ? parseInt(radius, 10) : undefined;
   const minRating = rating ? parseFloat(rating) : undefined;
 
-  const { institutes, totalPages, totalCount, exactAreaMatch } =
-    await getInstitutesByCategoryAndCity(
-      category,
-      city,
-      sort,
-      currentPage,
-      q,
-      parsedLat,
-      parsedLng,
-      parsedRadius,
-      minRating,
-    );
+  const hasUniqueParams = !!(q || parsedLat || parsedLng);
+
+  const { institutes, totalPages, totalCount, exactAreaMatch } = hasUniqueParams
+    ? await getUncachedInstitutesByCategoryAndCity(
+        category,
+        city,
+        sort,
+        currentPage,
+        q,
+        parsedLat,
+        parsedLng,
+        parsedRadius,
+        minRating,
+      )
+    : await getCachedInstitutesByCategoryAndCity(
+        category,
+        city,
+        sort,
+        currentPage,
+        minRating,
+      );
 
   const displayLocationText = address || q || cityName;
 
