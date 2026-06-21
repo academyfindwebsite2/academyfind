@@ -60,6 +60,7 @@ export default function CategoryGrid({ childrenCategories, citySlug }: CategoryG
                   <Link
                     key={leaf.slug}
                     href={targetUrl}
+                    prefetch={false}
                     className="group flex items-center justify-between rounded-xl px-4 py-3 transition-colors hover:bg-slate-50 border border-transparent hover:border-slate-100"
                   >
                     <span className="text-sm font-medium text-slate-600 group-hover:text-amber-600 flex items-center gap-2">

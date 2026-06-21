@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// ✅ SEO & Social Media Bots (Google, Bing, Facebook, Twitter, WhatsApp, etc.)
-// Inhe allow karna zaroori hai for ranking and rich link previews
 const GOOD_BOTS = /Googlebot|Googlebot-Image|Googlebot-Video|Googlebot-News|Storebot-Google|Google-InspectionTool|GoogleOther|Google-CloudVertexBot|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|facebookexternalhit|Twitterbot|Applebot|LinkedInBot|WhatsApp|TelegramBot|Discordbot/i;
 
-// ❌ Aggressive Scrapers, AI Bots & Scripting Tools
 const BAD_BOTS = /bot|crawl|spider|fetch|scrape|http|wget|curl|python-requests|axios|node-fetch|java\/|libwww|ClaudeBot|GPTBot|AhrefsBot|SemrushBot|MJ12bot|DotBot|PetalBot|BLEXBot|CCBot|Bytespider/i;
 
 export function middleware(req: NextRequest) {
