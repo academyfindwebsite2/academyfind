@@ -491,7 +491,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                     <h3 className="font-bold text-emerald-900 text-lg mb-1">Portfolio & Media Management</h3>
                     <p className="text-sm text-emerald-700">Actions below save instantly directly to DB.</p>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     <EditTeachers instituteId={institute.id} currentTeachers={institute.teachers || []} maxLimit={999} />
                     <EditResultImages instituteId={institute.id} currentImages={institute.gallery || []} maxLimit={999} />
                     <EditVideoLinks instituteId={institute.id} currentVideos={institute.youtubeVideos || []} maxLimit={999} />

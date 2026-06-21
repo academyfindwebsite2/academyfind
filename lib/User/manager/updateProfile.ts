@@ -5,9 +5,9 @@ import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 async function uploadImageToCloudinary(file: File, folderName: string, idPrefix: string) {
@@ -50,11 +50,15 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
         const whatsappUrl = formData.get("whatsappUrl") as string;
         const linkedinUrl = formData.get("linkedinUrl") as string;
 
-        // 3. Image
-        const imageFile = formData.get("imageFile") as File | null;
+        // 3. SEO 
+        const metaTitle = formData.get("metaTitle") as string;
+        const metaDescription = formData.get("metaDescription") as string;
 
-        // 4. NEW SCHEMA FIELDS (Numbers & Strings)
-        // 🔥 FIX: Casted explicitly to the Prisma Enum Type
+        // 4. Image
+        const imageFile = formData.get("imageFile") as File | null;
+        const coverFile = formData.get("coverFile") as File | null;
+
+        // 5. NEW SCHEMA FIELDS (Numbers & Strings)
         const mode = formData.get("mode") as "OFFLINE" | "ONLINE" | "HYBRID"; 
         
         const establishedYear = formData.get("establishedYear") ? parseInt(formData.get("establishedYear") as string) : null;
@@ -63,7 +67,7 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
         const refundPolicy = formData.get("refundPolicy") as string;
         const brochureUrl = formData.get("brochureUrl") as string;
 
-        // 5. Toggles (Booleans)
+        // 6. Toggles (Booleans)
         const isPublished = formData.get("isPublished") === "true";
         const hasOnlineClasses = formData.get("hasOnlineClasses") === "true";
         const hasHostelFacility = formData.get("hasHostelFacility") === "true";
@@ -71,86 +75,133 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
         const hasScholarship = formData.get("hasScholarship") === "true";
         const hasCertification = formData.get("hasCertification") === "true";
 
-        // 6. JSON Arrays (Parsed)
+        // 7. JSON Arrays (Parsed)
         const pros = JSON.parse((formData.get("pros") as string) || "[]");
         const cons = JSON.parse((formData.get("cons") as string) || "[]");
         const affiliations = JSON.parse((formData.get("affiliations") as string) || "[]");
         const awards = JSON.parse((formData.get("awards") as string) || "[]");
         const mediumOfInstruction = JSON.parse((formData.get("mediumOfInstruction") as string) || "[]");
 
-        // 7. Categories Update Logic
+        // Facilities & Highlight Stats JSON
+        const facilitiesRaw = formData.get("facilities") as string;
+        const facilities = facilitiesRaw ? JSON.parse(facilitiesRaw) : [];
+
+        const statsRaw = formData.get("highlightStats") as string;
+        const highlightStats = statsRaw ? JSON.parse(statsRaw) : [];
+
+        // 8. Categories Update Logic
         const categoriesString = formData.get("categories") as string;
-        let categoryUpdates = {};
+        const categoryIds = categoriesString ? JSON.parse(categoriesString) : [];
 
-        if (categoriesString) {
-            const categoryIds = JSON.parse(categoriesString);
-            categoryUpdates = {
-                categories: {
-                    deleteMany: {},
-                    create: categoryIds.map((id: string) => ({
-                        category: { connect: { id } }
-                    })) 
-                }
-            };
-        }
-
-        // 8. Image Upload Logic
+        // 9. Image Upload Logic
         let secureUrl: string | undefined = undefined;
         if (imageFile && imageFile.size > 0 && imageFile.name !== "undefined") {
             secureUrl = await uploadImageToCloudinary(imageFile, "institutes", `inst-${instituteId}-${Date.now()}`);
         }
 
-        // 9. DATABASE UPDATE CALL (Added all the missing variables here)
-        await prisma.institute.update({
-            where:{ id: instituteId },
-            data:{
-                name,
-                description,
-                email,
-                phone,
-                website,
-                address,
-                feeInfo,
-                googleMapsUrl,
-                latitude,
-                longitude,
-                facebookUrl,
-                instagramUrl,
-                twitterUrl,
-                youtubeUrl,
-                telegramUrl,
-                whatsappUrl,
-                linkedinUrl,
-                mode, // Typo fixed!
-                establishedYear,
-                totalStudents,
-                totalBranches,
-                refundPolicy,
-                brochureUrl,
-                isPublished,
-                hasOnlineClasses,
-                hasHostelFacility,
-                hasDemoClasses,
-                hasScholarship,
-                hasCertification,
-                pros,
-                cons,
-                affiliations,
-                awards,
-                mediumOfInstruction,
-                ...(secureUrl ? { imageUrl: secureUrl } : {}), // Update image only if newly uploaded
-                ...categoryUpdates
+        let newCoverUrl: string | undefined = undefined;
+        if (coverFile && coverFile.size > 0 && coverFile.name !== "undefined") {
+            newCoverUrl = await uploadImageToCloudinary(coverFile, "institutes-covers", `cover-${instituteId}-${Date.now()}`);
+        }
+
+        // 10. DATABASE UPDATE CALL (IN TRANSACTION)
+        await prisma.$transaction(async (tx) => {
+            // A. Update Main Institute Table
+            await tx.institute.update({
+                where:{ id: instituteId },
+                data:{
+                    name,
+                    description,
+                    email,
+                    phone,
+                    website,
+                    address,
+                    feeInfo,
+                    googleMapsUrl,
+                    latitude,
+                    longitude,
+                    facebookUrl,
+                    instagramUrl,
+                    twitterUrl,
+                    youtubeUrl,
+                    telegramUrl,
+                    whatsappUrl,
+                    linkedinUrl,
+                    mode, 
+                    establishedYear,
+                    totalStudents,
+                    totalBranches,
+                    refundPolicy,
+                    brochureUrl,
+                    isPublished,
+                    hasOnlineClasses,
+                    hasHostelFacility,
+                    hasDemoClasses,
+                    hasScholarship,
+                    hasCertification,
+                    pros,
+                    cons,
+                    affiliations,
+                    awards,
+                    mediumOfInstruction,
+                    metaTitle,
+                    metaDescription,
+                    ...(secureUrl && { imageUrl: secureUrl }),
+                    ...(newCoverUrl && { coverImage: newCoverUrl }),
+                }
+            });
+
+            // B. Manage Categories
+            await tx.instituteCategory.deleteMany({ where: { instituteId } });
+            if (categoryIds.length > 0) {
+                await tx.instituteCategory.createMany({
+                    data: categoryIds.map((id: string) => ({
+                        instituteId,
+                        categoryId: id
+                    })) 
+                });
+            }
+
+            // C. Manage Facilities
+            if (facilitiesRaw) {
+                await tx.instituteFacility.deleteMany({ where: { instituteId } });
+                if (facilities.length > 0) {
+                    await tx.instituteFacility.createMany({
+                        data: facilities.map((f: any, i: number) => ({
+                            instituteId,
+                            name: f.name,
+                            available: f.available,
+                            order: i
+                        }))
+                    });
+                }
+            }
+
+            // D. Manage Highlight Stats
+            if (statsRaw) {
+                await tx.instituteHighlightStat.deleteMany({ where: { instituteId } });
+                if (highlightStats.length > 0) {
+                    await tx.instituteHighlightStat.createMany({
+                        data: highlightStats.map((s: any, i: number) => ({
+                            instituteId,
+                            label: s.label,
+                            value: s.value,
+                            icon: s.icon || null,
+                            order: i
+                        }))
+                    });
+                }
             }
         });
 
         // Revalidate Paths
         revalidatePath(`/manager/${instituteId}/profile`);
         revalidatePath(`/institute/[idslug]`, 'page');
-        revalidatePath(`/compare/[slug]`, 'page'); // Good idea to clear compare page cache too!
+        revalidatePath(`/compare/[slug]`, 'page');
 
         return { success: true, message: "Profile updated successfully!" }
-    } catch (error) {
+    } catch (error: any) {
         console.error("Update Error:", error);
-        return { success: false, error: "Failed to update profile." }
+        return { success: false, error: error.message || "Failed to update profile." }
     }
 }

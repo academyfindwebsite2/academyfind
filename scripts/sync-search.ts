@@ -8,7 +8,6 @@ dotenv.config()
 async function main() {
   console.log("Fetching data from database...");
 
-  // 1. Fetch Institutes
   const institutes = await prisma.institute.findMany({
     where: { isActive: true },
     include: {
@@ -17,24 +16,11 @@ async function main() {
     },
   });
 
-  // 2. Fetch Cities
   const cities = await prisma.city.findMany();
+  const categories = await prisma.category.findMany({ where: { isActive: true } });
+  const jobs = await prisma.jobPosting.findMany({ where: { isActive: true } });
 
-  // 3. Fetch Categories
-  const categories = await prisma.category.findMany({
-    where: { isActive: true },
-  });
-
-  // 4. 🚀 NEW: Fetch Job Postings
-  const jobs = await prisma.jobPosting.findMany({
-    where: { isActive: true },
-  });
-
-  console.log(`Found:
-  - ${institutes.length} Institutes
-  - ${cities.length} Cities
-  - ${categories.length} Categories
-  - ${jobs.length} Jobs (Careers)`);
+  console.log(`Found: ${institutes.length} Institutes, ${cities.length} Cities, ${categories.length} Categories, ${jobs.length} Jobs`);
 
   const docs = [
     // --- INSTITUTES ---
@@ -62,7 +48,16 @@ async function main() {
         lng: parseFloat(inst.longitude.toString())
       } : undefined,
       url: `/institute/${inst.id}-${inst.slug}`,
-      mode: inst.mode.toLowerCase()
+      mode: inst.mode.toLowerCase(),
+
+      // 🚀 NEW FIELDS ADDED HERE FOR SEARCH & FILTERS
+      viewCount: inst.viewCount,
+      compareCount: inst.compareCount,
+      feeMin: inst.feeMin,
+      feeMax: inst.feeMax,
+      hasOnlineClasses: inst.hasOnlineClasses,
+      hasHostelFacility: inst.hasHostelFacility,
+      hasDemoClasses: inst.hasDemoClasses
     })),
 
     // --- CITIES ---
@@ -85,17 +80,17 @@ async function main() {
       url: `/${category.slug}`,
     })),
 
-    // --- 🚀 NEW: JOB POSTINGS ---
+    // --- JOB POSTINGS ---
     ...jobs.map((job: JobPosting) => ({
       id: `job-${job.id}`,
       type: "job",
-      name: job.title, // 'title' ko 'name' me map kiya hai taaki search easily dhund le
+      name: job.title,
       slug: job.slug,
       department: job.department,
       location: job.location,
       jobType: job.type,
       description: job.description,
-      url: `/careers/${job.slug}`, // Direct job detail page ka URL
+      url: `/careers/${job.slug}`,
     })),
   ];
 
@@ -104,18 +99,11 @@ async function main() {
 
   console.log(`\nSyncing ${docs.length} total documents to Meilisearch...`);
 
-  // 🚀 FIXED: Batching Logic (To prevent 20MB Payload Too Large Error)
   const BATCH_SIZE = 2000; 
-
   for (let i = 0; i < docs.length; i += BATCH_SIZE) {
     const chunk = docs.slice(i, i + BATCH_SIZE);
-    
-    // Chunk add karo
     const response = await index.addDocuments(chunk);
-    
     console.log(`✅ Pushed batch ${Math.floor(i / BATCH_SIZE) + 1} (${chunk.length} docs) - Task: ${response.taskUid}`);
-    
-    // Server ko zyada overload hone se bachane ke liye ek task complete hone ka wait karenge
     await meili.tasks.waitForTask(response.taskUid,{ timeout: 60000 });
   }
 
@@ -123,9 +111,5 @@ async function main() {
 }
 
 main()
-  .catch((error) => {
-    console.error(error);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .catch((error) => console.error(error))
+  .finally(async () => await prisma.$disconnect());

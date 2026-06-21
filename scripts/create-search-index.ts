@@ -20,14 +20,25 @@ async function main() {
     "categorySlugs",
     "_geo",
     "googleRating",
-    "isActive"
+    "isActive",
+    // 🚀 NAYE FILTERABLE ATTRIBUTES
+    "mode",
+    "hasOnlineClasses",
+    "hasHostelFacility",
+    "hasDemoClasses",
+    "feeMin",
+    "feeMax"
   ]);
 
   const sortableTask = await index.updateSortableAttributes([
     "name",
     "_geo",
     "googleRating",
-    "googleReviewCount"
+    "googleReviewCount",
+    // 🚀 NAYE SORTABLE ATTRIBUTES (For "Sort By" Dropdown)
+    "viewCount",
+    "compareCount",
+    "feeMin"
   ]);
 
   const typoTask = await index.updateTypoTolerance({

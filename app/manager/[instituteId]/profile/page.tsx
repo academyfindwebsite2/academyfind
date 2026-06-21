@@ -17,7 +17,14 @@ export default async function ManagerProfilePage({
         where: { id: instituteId },
         include:{
             teachers: true,
-            categories: true
+            categories: true,
+            facilities: true,
+            highlightStats: true,
+            faqs: true,
+            batches: true,
+            achievements: true,
+            notablepersons: true,
+            operatingHours: true
         }
     });
 

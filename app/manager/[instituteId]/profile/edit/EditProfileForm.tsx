@@ -655,7 +655,7 @@ export default function EditProfileForm({
                     <Sparkles className="w-5 h-5 text-amber-500" /> Premium Profile Sections
                 </h2>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     {/* YouTube Videos Component */}
                     {isPremiumOrUltra ? (
                         <VideoSettings instituteId={institute.id} currentVideos={institute.youtubeVideos || []} maxLimit={limits.maxVideos} />

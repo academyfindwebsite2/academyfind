@@ -25,36 +25,48 @@ async function uploadImageToCloudinary(file: File, folderName: string, idPrefix:
     return uploadResult.secure_url;
 }
 
+// 🔥 Helper function to safely parse numbers (Fixes NaN Prisma Crashing)
+const parseNum = (val: any) => {
+    if (val === null || val === undefined || val === "") return null;
+    const num = Number(val);
+    return isNaN(num) ? null : num;
+};
+
 // ==========================================
 // 1. UPDATE BATCHES
 // ==========================================
 export async function updateInstituteBatches(instituteId: string, batches: any[]) {
     try {
-        await prisma.instituteBatch.deleteMany({ where: { instituteId } });
+        await prisma.$transaction(async (tx) => {
+            await tx.instituteBatch.deleteMany({ where: { instituteId } });
 
-        if (batches.length > 0) {
-            await prisma.instituteBatch.createMany({
-                data: batches.map(b => ({
-                    instituteId,
-                    name: b.name,
-                    duration: b.duration || null,
-                    fee: b.fee ? parseInt(b.fee) : null,
-                    originalFee: b.originalFee ? parseInt(b.originalFee) : null,
-                    batchType: b.batchType || null,
-                    mode: b.mode || "OFFLINE",
-                    timing: b.timing || null,
-                    seatsTotal: b.seatsTotal ? parseInt(b.seatsTotal) : null,
-                    seatsLeft: b.seatsLeft ? parseInt(b.seatsLeft) : null,
-                    ageGroupMin: b.ageGroupMin ? parseInt(b.ageGroupMin) : null,
-                    ageGroupMax: b.ageGroupMax ? parseInt(b.ageGroupMax) : null,
-                }))
-            });
-        }
+            if (batches.length > 0) {
+                await tx.instituteBatch.createMany({
+                    data: batches.map(b => ({
+                        instituteId,
+                        name: b.name,
+                        duration: b.duration || null,
+                        fee: parseNum(b.fee),
+                        originalFee: parseNum(b.originalFee),
+                        batchType: b.batchType || null,
+                        // Fix for Enum Types
+                        mode: (b.mode as "OFFLINE" | "ONLINE" | "HYBRID") || "OFFLINE",
+                        timing: b.timing || null,
+                        seatsTotal: parseNum(b.seatsTotal),
+                        seatsLeft: parseNum(b.seatsLeft),
+                        ageGroupMin: parseNum(b.ageGroupMin),
+                        ageGroupMax: parseNum(b.ageGroupMax),
+                    }))
+                });
+            }
+        });
+        
         revalidatePath(`/manager/${instituteId}/profile`);
         return { success: true };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Batch Update Error:", error);
-        return { success: false, error: "Failed to update batches" };
+        // 🔥 Send exact error to the toast popup
+        return { success: false, error: error.message || "Failed to update batches in DB" };
     }
 }
 
@@ -63,22 +75,26 @@ export async function updateInstituteBatches(instituteId: string, batches: any[]
 // ==========================================
 export async function updateInstituteFAQs(instituteId: string, faqs: any[]) {
     try {
-        await prisma.instituteFAQ.deleteMany({ where: { instituteId } });
+        await prisma.$transaction(async (tx) => {
+            await tx.instituteFAQ.deleteMany({ where: { instituteId } });
 
-        if (faqs.length > 0) {
-            await prisma.instituteFAQ.createMany({
-                data: faqs.map((f, idx) => ({
-                    instituteId,
-                    question: f.question,
-                    answer: f.answer,
-                    order: idx
-                }))
-            });
-        }
+            if (faqs.length > 0) {
+                await tx.instituteFAQ.createMany({
+                    data: faqs.map((f, idx) => ({
+                        instituteId,
+                        question: f.question,
+                        answer: f.answer,
+                        order: idx
+                    }))
+                });
+            }
+        });
+        
         revalidatePath(`/manager/${instituteId}/profile`);
         return { success: true };
-    } catch (error) {
-        return { success: false, error: "Failed to update FAQs" };
+    } catch (error: any) {
+        console.error("FAQ Update Error:", error);
+        return { success: false, error: error.message || "Failed to update FAQs in DB" };
     }
 }
 
@@ -87,21 +103,29 @@ export async function updateInstituteFAQs(instituteId: string, faqs: any[]) {
 // ==========================================
 export async function updateOperatingHours(instituteId: string, hours: any[]) {
     try {
-        await prisma.instituteOperatingHour.deleteMany({ where: { instituteId } });
+        await prisma.$transaction(async (tx) => {
+            // Delete old hours safely
+            await tx.instituteOperatingHour.deleteMany({ where: { instituteId } });
 
-        await prisma.instituteOperatingHour.createMany({
-            data: hours.map(h => ({
-                instituteId,
-                dayOfWeek: h.dayOfWeek,
-                openTime: h.openTime || null,
-                closeTime: h.closeTime || null,
-                isClosed: h.isClosed
-            }))
+            if (hours.length > 0) {
+                // Insert new hours
+                await tx.instituteOperatingHour.createMany({
+                    data: hours.map(h => ({
+                        instituteId,
+                        dayOfWeek: parseInt(h.dayOfWeek), // 🔥 Force integer
+                        openTime: h.openTime || null,
+                        closeTime: h.closeTime || null,
+                        isClosed: Boolean(h.isClosed)     // 🔥 Force boolean
+                    }))
+                });
+            }
         });
+        
         revalidatePath(`/manager/${instituteId}/profile`);
         return { success: true };
-    } catch (error) {
-        return { success: false, error: "Failed to update operating hours" };
+    } catch (error: any) {
+        console.error("Operating Hours Error:", error);
+        return { success: false, error: error.message || "Failed to update hours in DB" };
     }
 }
 
@@ -113,35 +137,43 @@ export async function updateAchievements(instituteId: string, formData: FormData
         const rawData = formData.get("data") as string;
         const achievements = JSON.parse(rawData || "[]");
 
-        // Delete Old
-        await prisma.instituteAchievement.deleteMany({ where: { instituteId } });
-
-        for (let i = 0; i < achievements.length; i++) {
-            const ach = achievements[i];
-            const file = formData.get(`image_${i}`) as File | null;
-            let secureUrl = ach.imageUrl;
-
-            if (file && file.size > 0) {
-                secureUrl = await uploadImageToCloudinary(file, "achievements", `ach-${instituteId}`);
-            }
-
-            await prisma.instituteAchievement.create({
-                data: {
+        // 1. Upload new images first to avoid blocking DB transactions
+        const processedAchievements = await Promise.all(
+            achievements.map(async (ach: any, i: number) => {
+                let secureUrl = ach.imageUrl;
+                const file = formData.get(`image_${i}`) as File | null;
+                
+                if (file && file.size > 0) {
+                    secureUrl = await uploadImageToCloudinary(file, "achievements", `ach-${instituteId}`);
+                }
+                
+                return {
                     instituteId,
-                    year: parseInt(ach.year) || new Date().getFullYear(),
+                    year: parseNum(ach.year) || new Date().getFullYear(),
                     title: ach.title,
                     studentName: ach.studentName || null,
                     achievementType: ach.achievementType || null,
                     imageUrl: secureUrl || null
-                }
-            });
-        }
+                };
+            })
+        );
+
+        // 2. Perform DB Replace inside a transaction
+        await prisma.$transaction(async (tx) => {
+            await tx.instituteAchievement.deleteMany({ where: { instituteId } });
+            
+            if (processedAchievements.length > 0) {
+                await tx.instituteAchievement.createMany({
+                    data: processedAchievements
+                });
+            }
+        });
 
         revalidatePath(`/manager/${instituteId}/profile`);
         return { success: true };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Achievement Error:", error);
-        return { success: false, error: "Failed to update achievements" };
+        return { success: false, error: error.message || "Failed to update achievements in DB" };
     }
 }
 
@@ -153,33 +185,42 @@ export async function updateNotablePersons(instituteId: string, formData: FormDa
         const rawData = formData.get("data") as string;
         const persons = JSON.parse(rawData || "[]");
 
-        await prisma.notablePersons.deleteMany({ where: { instituteId } });
-
-        for (let i = 0; i < persons.length; i++) {
-            const p = persons[i];
-            const file = formData.get(`image_${i}`) as File | null;
-            let secureUrl = p.imageUrl;
-
-            if (file && file.size > 0) {
-                secureUrl = await uploadImageToCloudinary(file, "alumni", `alum-${instituteId}`);
-            }
-
-            await prisma.notablePersons.create({
-                data: {
+        // 1. Upload files first
+        const processedPersons = await Promise.all(
+            persons.map(async (p: any, i: number) => {
+                let secureUrl = p.imageUrl;
+                const file = formData.get(`image_${i}`) as File | null;
+                
+                if (file && file.size > 0) {
+                    secureUrl = await uploadImageToCloudinary(file, "alumni", `alum-${instituteId}`);
+                }
+                
+                return {
                     instituteId,
                     name: p.name,
-                    batchYear: p.batchYear ? parseInt(p.batchYear) : null,
+                    batchYear: parseNum(p.batchYear),
                     placedAt: p.placedAt || null,
                     package: p.package || null,
                     imageUrl: secureUrl || null
-                }
-            });
-        }
+                };
+            })
+        );
+
+        // 2. Transact DB Update
+        await prisma.$transaction(async (tx) => {
+            await tx.notablePersons.deleteMany({ where: { instituteId } });
+            
+            if (processedPersons.length > 0) {
+                await tx.notablePersons.createMany({
+                    data: processedPersons
+                });
+            }
+        });
 
         revalidatePath(`/manager/${instituteId}/profile`);
         return { success: true };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Notable Alumni Error:", error);
-        return { success: false, error: "Failed to update alumni" };
+        return { success: false, error: error.message || "Failed to update alumni in DB" };
     }
 }
