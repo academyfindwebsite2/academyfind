@@ -14,7 +14,8 @@ export default async function AdminMasterInstituteEditorPage({
     const [institute, allCities, allCategories] = await Promise.all([
         prisma.institute.findUnique({
             where: { id: instituteId },
-            include: { categories: { select: { categoryId: true } }, teachers: true, managers: true }
+            include: { categories: { select: { categoryId: true } }, teachers: true, managers: true,facilities: true,       // 🔥 ZAROORI HAI
+                highlightStats: true }
         }),
         prisma.city.findMany({ orderBy: { name: 'asc' } }),
         prisma.category.findMany({ where: { isActive: true }, orderBy: { name: 'asc' } })

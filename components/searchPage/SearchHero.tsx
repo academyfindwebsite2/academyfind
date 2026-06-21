@@ -17,7 +17,7 @@ export default function SearchHero({ query }: Props) {
         from-amber-50
         via-background
         to-background
-        z-999
+        z-[101]
       "
     >
       {/* Background Blobs */}

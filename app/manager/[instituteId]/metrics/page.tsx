@@ -1,7 +1,9 @@
 import AnalyticsDashboardClient from '@/components/manager/MetricsDashBoard';
 import { auth } from '@/lib/auth/auth';
 import { prisma } from '@/lib/prisma';
+import { Lock } from 'lucide-react';
 import { headers } from 'next/headers';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function InstituteAnalyticsPage({ 
@@ -36,6 +38,23 @@ const session = await auth.api.getSession({ headers: await headers() });
   });
 
   if (!institute) return <div className="p-8 text-center font-bold">Institute not found!</div>;
+
+  if (institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED") {
+        return (
+            <div className="min-h-[500px] flex flex-col items-center justify-center text-center p-8 bg-slate-50/50 rounded-3xl border border-dashed border-slate-200">
+                <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-6">
+                    <Lock className="w-8 h-8" />
+                </div>
+                <h2 className="text-2xl font-bold text-slate-800 mb-2">Audience Analytics Locked</h2>
+                <p className="text-slate-500 max-w-md mb-6">
+                    Want to see exactly how many students view and save your academy profile? Upgrade to the <b>Ultra Plan</b> for deep insights.
+                </p>
+                <Link href={`/manager/${instituteId}/subscription`} className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl font-medium transition">
+                    Get Ultra Plan
+                </Link>
+            </div>
+        );
+    }
 
   // 2. Load past 30 days raw daily view data
   const rawDailyViews = await prisma.instituteDailyView.findMany({
