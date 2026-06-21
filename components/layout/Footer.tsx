@@ -143,6 +143,7 @@ export function Footer() {
               {categories.map((item) => (
                 <li key={item.slug}>
                   <Link
+                    prefetch={false}
                     href={`/${item.slug}`}
                     className="transition-colors hover:text-foreground"
                   >
@@ -163,6 +164,7 @@ export function Footer() {
               {cities.map((item) => (
                 <li key={item.slug}>
                   <Link
+                    prefetch={false}
                     href={`/${item.slug}`}
                     className="transition-colors hover:text-foreground"
                   >
@@ -270,6 +272,7 @@ export function Footer() {
 function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
   return (
     <Link 
+      prefetch={false}
       href={href} 
       target="_blank" 
       rel="noopener noreferrer" 
