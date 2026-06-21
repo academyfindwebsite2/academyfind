@@ -19,6 +19,7 @@ import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from 'react-hot-toast'
 import GlobalCallbackFAB from "@/components/User/GlobalCallBack";
 import Script from "next/script";
+import { getCachedSession } from "@/lib/auth/session";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -90,11 +91,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getCachedSession()
   return (
     <html
       lang="en"
@@ -104,7 +106,7 @@ export default function RootLayout({
       <body
         className={`min-h-full flex flex-col ${inter.className}`}
       >
-        <Navbar />
+        <Navbar session={session}/>
 
         <CursorGlow />
         <GoogleMapsProvider>

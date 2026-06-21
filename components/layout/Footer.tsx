@@ -2,8 +2,6 @@ import Link from "next/link";
 import { GraduationCap, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedinIn, FaTelegram, FaWhatsapp, FaYoutube } from "react-icons/fa";
-import { Button } from "../ui/button";
-
 const categories = [
   {
     name: "JEE",

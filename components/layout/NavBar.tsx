@@ -3,20 +3,14 @@
 import Link from "next/link";
 import { authClient } from "@/lib/auth/auth-client";
 import {
-  BookOpen,
   Search,
-  BarChart3,
   FileText,
   Building2,
   LogIn,
   UserPlus,
   Menu,
-  User,
   Building,
   IdCard,
-  GitCompare,
-  GitCompareArrows,
-  Diff,
   Scale,
 } from "lucide-react";
 // 👇 Hooks import kiye hain auto-close logic ke liye
@@ -35,9 +29,7 @@ import {
 import Image from "next/image";
 import UserDropdown from "@/components/navigation/UserDropdown";
 
-export default function Navbar() {
-  const { data: session, isPending } = authClient.useSession();
-  const router = useRouter();
+export default function Navbar({ session }: { session: any }) {
   const pathname = usePathname(); 
 
   // 👇 Mobile Menu ko control karne ke liye state
@@ -48,15 +40,6 @@ export default function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
-  const handleLogOut = async () => {
-    try {
-      await authClient.signOut();
-      setIsOpen(false); // Logout par bhi menu close karein
-      router.push("/");
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   
 
