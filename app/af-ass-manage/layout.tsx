@@ -58,18 +58,25 @@ export default async function AdminLayout({
         );
     }
 
+    // 2. Fetch all counts (Added Life Coach, Payments, and Job Applications)
     const [
         claimCount,
         reviewCount,
         notificationCount,
         contactCount,
-        instituteReqCount
+        instituteReqCount,
+        lifeCoachCount,
+        paymentCount,
+        jobAppCount
     ] = await Promise.all([
         prisma.instituteClaim.count({ where: { status: "PENDING" } }),
         prisma.review.count({ where: { status: "PENDING" } }),
         prisma.adminNotification.count({ where: { isRead: false } }),
         prisma.contactMessage.count({ where: { isRead: false } }),
         prisma.instituteRequest.count({ where: { status: "PENDING" } }),
+        prisma.lifeCoachRequest.count({ where: { status: "PENDING" } }),
+        prisma.subscriptionPayment.count({ where: { status: "PENDING" } }),
+        prisma.jobApplication.count({ where: { status: "NEW" } }), // Job postings ke new applications
     ]);
 
     return (
@@ -93,17 +100,23 @@ export default async function AdminLayout({
                     <nav className="flex flex-col gap-1.5">
                         <SidebarLink href="/af-ass-manage" icon={<LayoutDashboard />} label="Overview" exact />
                         <SidebarLink href="/af-ass-manage/notifications" icon={<BellIcon />} label="Notifications" count={notificationCount}/>
-                        <SidebarLink href="/af-ass-manage/life-coach" icon={<LifeBuoy />} label="Life Coach" />
+                        
+                        {/* 👇 Yahan naye counts pass kiye hain */}
+                        <SidebarLink href="/af-ass-manage/life-coach" icon={<LifeBuoy />} label="Life Coach" count={lifeCoachCount} />
                         <SidebarLink href="/af-ass-manage/claims" icon={<FileText />} label="Claim Requests" count={claimCount}/>
                         <SidebarLink href="/af-ass-manage/reviews" icon={<Star />} label="Review Requests" count={reviewCount}/>
                         <SidebarLink href="/af-ass-manage/instituteRequests" icon={<FileType2 />} label="Institute Requests" count={instituteReqCount}/>
                         <SidebarLink href="/af-ass-manage/instituteCallbacks" icon={<PhoneCall />} label="Institute Callbacks" count={contactCount}/>                        
                         <SidebarLink href="/af-ass-manage/contactmessages" icon={<Contact />} label="Contact Messages" />
-                        <SidebarLink href="/af-ass-manage/payments" icon={<Pyramid />} label="Payment Approvals" />
+                        <SidebarLink href="/af-ass-manage/payments" icon={<Pyramid />} label="Payment Approvals" count={paymentCount} />
+                        
                         <SidebarLink href="/af-ass-manage/institutes" icon={<Building2 />} label="All Institutes" />
                         <SidebarLink href="/af-ass-manage/users" icon={<Users />} label="User Management" />
                         <SidebarLink href="/af-ass-manage/sales_manager" icon={<Briefcase />} label="Sales Managers" />
-                        <SidebarLink href="/af-ass-manage/careers" icon={<IdCard />} label="Careers" />
+                        
+                        {/* 👇 Careers me jobAppCount pass kiya hai */}
+                        <SidebarLink href="/af-ass-manage/careers" icon={<IdCard />} label="Careers" count={jobAppCount} />
+                        
                         <div className="my-2 border-t border-slate-200"></div>
                         <SidebarLink href="/af-ass-manage/categories" icon={<FolderTree />} label="Categories" />
                         <SidebarLink href="/af-ass-manage/cities" icon={<MapPin />} label="Cities & Regions" />
@@ -120,20 +133,25 @@ export default async function AdminLayout({
     );
 }
 
-// Sidebar Link Helper Component
-function SidebarLink({ href, icon, label, exact = false }: any) {
-    // Note: Agar aap active route highlight karna chahte hain, toh yahan 'usePathname' client hook 
-    // ka use karke active class laga sakte hain (jaisa humne manager panel me sikhaya tha).
-    // Abhi ke liye ye simple and clean hai.
-    
+// 👇 UPDATED: Sidebar Link Helper Component with Badge UI
+function SidebarLink({ href, icon, label, count, exact = false }: any) {
     return (
         <Link 
             href={href} 
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all
+            className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all
             hover:bg-purple-50 hover:text-purple-700 text-slate-600`}
         >
-            <span className="[&>svg]:w-4 [&>svg]:h-4">{icon}</span>
-            {label}
+            <div className="flex items-center gap-3">
+                <span className="[&>svg]:w-4 [&>svg]:h-4">{icon}</span>
+                {label}
+            </div>
+            
+            {/* 🔥 Agar count pass hua hai aur > 0 hai, toh badge dikhao */}
+            {count > 0 && (
+                <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                    {count}
+                </span>
+            )}
         </Link>
     );
 }
