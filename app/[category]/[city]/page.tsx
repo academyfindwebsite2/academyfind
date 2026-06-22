@@ -237,6 +237,7 @@ function JsonLdSchemas({
   // ── b) BreadcrumbList Schema ──
   const breadcrumbSchema = {
     "@context": "https://schema.org",
+    "@id": `${pageUrl}#breadcrumb`,
     "@type": "BreadcrumbList",
     itemListElement: [
       {

@@ -206,6 +206,7 @@ function JsonLdSchemas({ institutes, cities, categoryData, category, totalCount 
   // ── b) BreadcrumbList Schema (Unchanged) ──
   const breadcrumbSchema = {
     "@context": "https://schema.org",
+    "@id": `${pageUrl}#breadcrumb`,
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
