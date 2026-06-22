@@ -202,6 +202,7 @@ export default function InstituteCard({
       <div className="relative h-52 overflow-hidden">
         {image && isCloudinaryImage ? (
           <CldImage
+            unoptimized
             src={image}
             alt={name}
             fill
