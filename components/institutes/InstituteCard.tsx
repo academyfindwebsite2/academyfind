@@ -184,7 +184,6 @@ export default function InstituteCard({
   return (
     <Link
       href={`/institute/${id}-${slug}`}
-      prefetch={false}
       className="
         group
         block
