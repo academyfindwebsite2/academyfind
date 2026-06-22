@@ -12,6 +12,11 @@ export async function getInstituteById(
       city: true,
       teachers: true,
       managers: true,
+      facilities:true,
+      faqs:true,
+      batches:true,
+      notablepersons:true,
+      achievements:true,
 
       categories: {
         include: {
@@ -31,6 +36,8 @@ export async function getInstituteById(
             },
           },
         },
+
+        
 
         orderBy: {
           createdAt: "desc",

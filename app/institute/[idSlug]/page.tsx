@@ -4,7 +4,11 @@ import Script from "next/script";
 import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
-import { Star, Phone, MapPin, Mail, Globe, CheckCircle, Users, Trophy, PlayCircle, User, Presentation } from "lucide-react"; 
+import { 
+  Star, Phone, MapPin, Mail, Globe, CheckCircle, Users, Trophy, 
+  PlayCircle, User, Presentation, BookOpen, IndianRupee, Clock, 
+  Home, Award, Calendar, Building, ThumbsUp, ThumbsDown, HelpCircle, Check 
+} from "lucide-react"; 
 import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
 
 import extractId from "@/lib/extractId";
@@ -28,7 +32,7 @@ interface PageProps {
   params: Promise<{ idSlug: string }>;
 }
 
-// 🚀 Helper Functions moved to top so both Metadata and Page can use them safely
+// 🚀 Helper Functions
 function isCloudinaryImage(url?: string | null) {
   if (!url) return false;
   return url.includes("cloudinary.com");
@@ -37,7 +41,7 @@ function isCloudinaryImage(url?: string | null) {
 function getSafeImageUrl(logo?: string | null, imageUrl?: string | null) {
   if (isCloudinaryImage(logo)) return logo!;
   if (isCloudinaryImage(imageUrl)) return imageUrl!;
-  return "https://www.academyfind.com/inst.jpg"; // Default safe fallback
+  return "https://www.academyfind.com/inst.jpg"; 
 }
 
 function getYouTubeId(url: string) {
@@ -45,6 +49,11 @@ function getYouTubeId(url: string) {
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
 }
+
+const formatCurrency = (amount?: number | null) => {
+  if (!amount) return "N/A";
+  return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
+};
 
 // ─── 1. METADATA ─────────────────────────────────────────────
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -57,7 +66,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = `${institute.name} in ${institute.city.name} - Fees, Reviews, Admission | AcademyFind`;
   const description = institute.description?.substring(0, 155) || `Get complete details about ${institute.name} in ${institute.city.name}. Check fee structure, read genuine student reviews, and get admission guidance on AcademyFind.`;
 
-  // 🛡️ API Key Leak Prevention: Using Safe Image Generator
   const safeOgImage = getSafeImageUrl(institute.logo, institute.imageUrl);
 
   return {
@@ -85,21 +93,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function InstitutePage({ params }: PageProps) {
   const { idSlug } = await params;
   const id = extractId(idSlug);
+  
+  // NOTE: Make sure getCachedInstituteById fetches all the new relations 
+  // like batches, faqs, notablepersons, facilities, achievements etc.
   const institute = await getCachedInstituteById(id);
 
   if (!institute) notFound();
-
-  // const session = await auth.api.getSession({ headers: await headers() });
-  
-  // // Track activity & saved state
-  // let alreadySaved = false;
-  // if (session?.user) {
-  //   await trackVisitHistory(session.user.id, institute.id).catch(console.error);
-  //   const savedEntry = await prisma.userShortlist.findUnique({
-  //     where: { userId_instituteId: { userId: session.user.id, instituteId: institute.id } }
-  //   });
-  //   alreadySaved = !!savedEntry;
-  // }
 
   const displayRating = institute.googleRating ?? institute.averageRating ?? 0;
   const displayReviewCount = institute.googleReviewCount ?? institute.reviewCount ?? 0;
@@ -116,21 +115,19 @@ export default async function InstitutePage({ params }: PageProps) {
     });
   }
 
-  // 🛡️ API Key Leak Prevention for Schema and Display
   const safeSchemaImage = getSafeImageUrl(institute.logo, institute.imageUrl);
-  const mainLogo = safeSchemaImage.replace("https://www.academyfind.com", ""); // for next/image relative path fallback
+  const mainLogo = safeSchemaImage.replace("https://www.academyfind.com", ""); 
 
-  // 🛡️ API Key Leak Prevention for Google Maps Link
   const safeMapsUrl = institute.googleMapsUrl && !institute.googleMapsUrl.includes("key=") 
     ? institute.googleMapsUrl 
     : `https://www.google.com/maps/search/?api=1&query=$?q=${encodeURIComponent(`${institute.name}, ${institute.address || institute.city.name}`)}`;
 
-  // ── 3. JSON-LD (LocalBusiness Schema for Rich Snippets) ──
+  // ── 3. JSON-LD ──
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": institute.name,
-    "image": safeSchemaImage, // ✅ Completely safe now
+    "image": safeSchemaImage,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": institute.address || "",
@@ -174,8 +171,8 @@ export default async function InstitutePage({ params }: PageProps) {
             <div>
               <div className="rounded-3xl border bg-white p-6 md:p-8 shadow-sm">
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-3xl border shadow-sm mx-auto md:mx-0">
-                    <Image src={mainLogo} alt={institute.name} width={128} height={128} className="h-full w-full object-cover" />
+                  <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-3xl border shadow-sm mx-auto md:mx-0 bg-white">
+                    <Image src={mainLogo} alt={institute.name} width={128} height={128} className="h-full w-full object-contain p-2" />
                   </div>
 
                   <div className="flex-1 text-center md:text-left">
@@ -191,6 +188,12 @@ export default async function InstitutePage({ params }: PageProps) {
                         </div>
                         <div className="mt-3 flex flex-wrap items-center justify-center md:justify-start gap-3">
                           <div className="flex flex-wrap justify-center gap-2">
+                            {/* Mode Badge */}
+                            {institute.mode && (
+                                <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-bold text-purple-800 tracking-wide uppercase">
+                                  {institute.mode}
+                                </span>
+                            )}
                             {institute.categories.map((item: any) => (
                               <span key={item.category.id} className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800 tracking-wide uppercase">
                                 {item.category.name}
@@ -211,7 +214,6 @@ export default async function InstitutePage({ params }: PageProps) {
                     </div>
 
                     <div className="mt-6 flex flex-col gap-3 rounded-2xl bg-slate-50 p-4 border border-slate-100 text-left">
-                      {/* ✅ Safe Google Maps URL */}
                       <Link href={safeMapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2.5 text-slate-600 hover:text-amber-600 transition group">
                         <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 group-hover:scale-110 transition-transform" />
                         <span className="text-sm leading-relaxed underline-offset-4 group-hover:underline">{institute.address || institute.city.name}</span>
@@ -223,47 +225,34 @@ export default async function InstitutePage({ params }: PageProps) {
                       </div>
                       
                       {/* Social Media Section */}
-                      {(institute.facebookUrl || institute.instagramUrl || institute.twitterUrl || institute.youtubeUrl || institute.telegramUrl) && (
+                      {(institute.facebookUrl || institute.instagramUrl || institute.twitterUrl || institute.youtubeUrl || institute.telegramUrl || institute.whatsappUrl) && (
                         <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200/60 mt-1">
-                          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mr-1">Follow Us:</span>
-                          {institute.whatsappUrl && (
-                            <a href={institute.whatsappUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-green-500 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs"><FaWhatsapp className="h-4 w-4" /></a>
-                          )}
-                          {institute.instagramUrl && (
-                            <a href={institute.instagramUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-pink-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs"><FaInstagram className="h-4 w-4" /></a>
-                          )}
-                          {institute.facebookUrl && (
-                            <a href={institute.facebookUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-blue-600 hover:bg-blue-50 hover:scale-105 transition-all shadow-xs"><FaFacebook className="h-4 w-4" /></a>
-                          )}
-                          {institute.youtubeUrl && (
-                            <a href={institute.youtubeUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-red-600 hover:bg-red-50 hover:scale-105 transition-all shadow-xs"><FaYoutube className="h-4 w-4" /></a>
-                          )}
-                          {institute.linkedinUrl && (
-                            <a href={institute.linkedinUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-blue-600 hover:bg-pink-50 hover:scale-105 transition-all shadow-xs"><FaLinkedin className="h-4 w-4" /></a>
-                          )}
-                          {institute.twitterUrl && (
-                            <a href={institute.twitterUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-slate-800 hover:bg-slate-100 hover:scale-105 transition-all shadow-xs"><FaTwitter className="h-4 w-4" /></a>
-                          )}
-                          {institute.telegramUrl && (
-                            <a href={institute.telegramUrl} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white border border-slate-200 text-slate-800 hover:bg-slate-100 hover:scale-105 transition-all shadow-xs"><FaTelegram className="h-4 w-4" /></a>
-                          )}
+                          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mr-1">Follow:</span>
+                          {institute.whatsappUrl && <a href={institute.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:scale-110 transition-transform"><FaWhatsapp className="h-5 w-5" /></a>}
+                          {institute.instagramUrl && <a href={institute.instagramUrl} target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:scale-110 transition-transform"><FaInstagram className="h-5 w-5" /></a>}
+                          {institute.facebookUrl && <a href={institute.facebookUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:scale-110 transition-transform"><FaFacebook className="h-5 w-5" /></a>}
+                          {institute.youtubeUrl && <a href={institute.youtubeUrl} target="_blank" rel="noopener noreferrer" className="text-red-600 hover:scale-110 transition-transform"><FaYoutube className="h-5 w-5" /></a>}
+                          {institute.linkedinUrl && <a href={institute.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:scale-110 transition-transform"><FaLinkedin className="h-5 w-5" /></a>}
                         </div>
                       )}
                     </div>
                   </div>
                 </div>
 
+                {/* Quick Amenities Toggles */}
+                <div className="mt-6 flex flex-wrap gap-2">
+                    {institute.hasOnlineClasses && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-700 text-xs font-bold"><Check className="w-3.5 h-3.5"/> Online Classes</span>}
+                    {institute.hasHostelFacility && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-700 text-xs font-bold"><Home className="w-3.5 h-3.5"/> Hostel Available</span>}
+                    {institute.hasDemoClasses && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-700 text-xs font-bold"><Check className="w-3.5 h-3.5"/> Demo Classes</span>}
+                    {institute.hasScholarship && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-700 text-xs font-bold"><Award className="w-3.5 h-3.5"/> Scholarships</span>}
+                    {institute.hasCertification && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-700 text-xs font-bold"><Check className="w-3.5 h-3.5"/> Certification</span>}
+                </div>
+
                 {/* About Section */}
-                {institute.description ? (
-                  <p className="mt-8 leading-8 text-amber-700 bg-amber-50/50 p-5 border border-amber-100 rounded-2xl text-sm md:text-base">
+                {institute.description && (
+                  <p className="mt-6 leading-8 text-amber-900 bg-amber-50/50 p-5 border border-amber-100 rounded-2xl text-sm md:text-base">
                     {institute.description}
                   </p>
-                ) : (
-                  <div className="mt-8 text-amber-700 bg-amber-50/50 p-5 border border-amber-100 rounded-2xl text-sm leading-7">
-                    <p>
-                      <strong>{institute.name}</strong> located in {institute.city.name} is listed on AcademyFind to help students and parents discover educational and learning opportunities. Information displayed on this page has been compiled from publicly available sources and may be updated over time. For the latest details regarding courses, fees, schedules, admissions, and facilities, please contact the institute directly.
-                    </p>
-                  </div>
                 )}
 
                 {!isAlreadyClaimed && (
@@ -272,8 +261,8 @@ export default async function InstitutePage({ params }: PageProps) {
                       <p className="text-amber-900 font-bold flex items-center gap-1.5 text-sm md:text-base">
                         <CheckCircle className="w-4 h-4 text-amber-500" /> Are you the owner or representative?
                       </p>
-                      <p className="text-amber-600 text-xs md:text-sm leading-relaxed">
-                        Claim this profile to update listing information, manage classroom images, add faculty details, and respond to direct student leads.
+                      <p className="text-amber-700 text-xs md:text-sm leading-relaxed">
+                        Claim this profile to update courses, fees, faculty details, and manage student enquiries.
                       </p>
                     </div>
 
@@ -289,7 +278,6 @@ export default async function InstitutePage({ params }: PageProps) {
 
             {/* Sticky CTA */}
             <div>
-              {/* ✅ Safe Google Maps URL passed to component */}
               <InstituteEnquiryForm instituteId={institute.id} feeInfo={institute.feeInfo} mapsUrl={safeMapsUrl} />
             </div>
           </div>
@@ -298,31 +286,101 @@ export default async function InstitutePage({ params }: PageProps) {
 
       <div className="mx-auto max-w-7xl px-4 py-12 space-y-16 relative z-10">
         
-        {/* Quick Facts */}
+        {/* 🚀 QUICK FACTS & STATS */}
         <section>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-3xl border bg-white p-6 shadow-sm">
-              <p className="text-sm text-slate-500">City</p>
-              <h3 className="mt-2 text-2xl font-bold text-slate-800">{institute.city.name}</h3>
+          <div className="grid gap-5 grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-3xl border bg-white p-5 shadow-sm flex flex-col justify-center items-center text-center">
+              <Calendar className="w-6 h-6 text-amber-500 mb-2"/>
+              <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Established</p>
+              <h3 className="mt-1 text-lg font-extrabold text-slate-800">{institute.establishedYear || "N/A"}</h3>
             </div>
-            <div className="rounded-3xl border bg-white p-6 shadow-sm">
-              <p className="text-sm text-slate-500">Categories Listed</p>
-              <h3 className="mt-2 text-2xl font-bold text-slate-800">{institute.categories.length}</h3>
+            <div className="rounded-3xl border bg-white p-5 shadow-sm flex flex-col justify-center items-center text-center">
+              <Users className="w-6 h-6 text-blue-500 mb-2"/>
+              <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Total Students</p>
+              <h3 className="mt-1 text-lg font-extrabold text-slate-800">{institute.totalStudents ? `${institute.totalStudents}+` : "N/A"}</h3>
             </div>
-            <div className="rounded-3xl border bg-white p-6 shadow-sm">
-              <p className="text-sm text-slate-500">Google Rating</p>
-              <h3 className="mt-2 flex items-center gap-2 text-2xl font-bold text-slate-800">
-                {displayRating > 0 ? (
-                  <>{displayRating} <Star className="h-5 w-5 fill-amber-400 text-amber-400" /></>
-                ) : ("New")}
+            <div className="rounded-3xl border bg-white p-5 shadow-sm flex flex-col justify-center items-center text-center">
+              <Building className="w-6 h-6 text-purple-500 mb-2"/>
+              <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Branches</p>
+              <h3 className="mt-1 text-lg font-extrabold text-slate-800">{institute.totalBranches || 1}</h3>
+            </div>
+            <div className="rounded-3xl border bg-white p-5 shadow-sm flex flex-col justify-center items-center text-center">
+              <IndianRupee className="w-6 h-6 text-emerald-500 mb-2"/>
+              <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Estimated Fees</p>
+              <h3 className="mt-1 text-lg font-extrabold text-slate-800">
+                  {institute.feeMin || institute.feeMax 
+                    ? `${formatCurrency(institute.feeMin)} - ${formatCurrency(institute.feeMax)}` 
+                    : "On Request"}
               </h3>
-              <p className="mt-1 text-xs text-slate-500">{displayReviewCount} total reviews</p>
             </div>
           </div>
         </section>
 
-        {/* TEACHERS / FACULTY */}
-        {institute && institute.teachers && institute.teachers.length > 0 && (
+        {/* 🚀 PROS & CONS */}
+        {(institute.pros?.length > 0 || institute.cons?.length > 0) && (
+            <section className="grid md:grid-cols-2 gap-6">
+                {institute.pros?.length > 0 && (
+                    <div className="bg-emerald-50/50 border border-emerald-100 rounded-3xl p-6">
+                        <h3 className="text-lg font-bold text-emerald-900 flex items-center gap-2 mb-4">
+                            <ThumbsUp className="w-5 h-5 text-emerald-600"/> Why Choose Us (Pros)
+                        </h3>
+                        <ul className="space-y-3">
+                            {institute.pros.map((pro: string, idx: number) => (
+                                <li key={idx} className="flex items-start gap-2.5 text-emerald-800 text-sm">
+                                    <CheckCircle className="w-4 h-4 shrink-0 text-emerald-500 mt-0.5"/> {pro}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                {institute.cons?.length > 0 && (
+                    <div className="bg-red-50/30 border border-red-100 rounded-3xl p-6">
+                        <h3 className="text-lg font-bold text-red-900 flex items-center gap-2 mb-4">
+                            <ThumbsDown className="w-5 h-5 text-red-500"/> Things to Consider (Cons)
+                        </h3>
+                        <ul className="space-y-3">
+                            {institute.cons.map((con: string, idx: number) => (
+                                <li key={idx} className="flex items-start gap-2.5 text-red-800 text-sm">
+                                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-red-400 mt-2"/> {con}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </section>
+        )}
+
+        {/* 🚀 COURSES & BATCHES */}
+        {institute.batches && institute.batches.length > 0 && (
+            <section>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-indigo-100 text-indigo-600 rounded-xl"><BookOpen className="w-6 h-6" /></div>
+                  <div>
+                    <h2 className="text-3xl font-bold text-slate-900">Courses & Batches</h2>
+                    <p className="text-slate-500 text-sm mt-1">Explore available programs and fee structures.</p>
+                  </div>
+                </div>
+                
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {institute.batches.map((batch: any) => (
+                        <div key={batch.id} className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition">
+                            <div className="flex justify-between items-start mb-4">
+                                <h3 className="font-bold text-lg text-slate-900 leading-tight">{batch.name}</h3>
+                                {batch.mode && <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-md uppercase">{batch.mode}</span>}
+                            </div>
+                            <div className="space-y-2.5 text-sm text-slate-600">
+                                {batch.duration && <p className="flex items-center gap-2"><Clock className="w-4 h-4 text-slate-400"/> {batch.duration}</p>}
+                                {batch.fee && <p className="flex items-center gap-2 font-bold text-slate-800"><IndianRupee className="w-4 h-4 text-emerald-500"/> {formatCurrency(batch.fee)}</p>}
+                                {batch.timing && <p className="flex items-center gap-2"><Calendar className="w-4 h-4 text-slate-400"/> {batch.timing}</p>}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        )}
+
+        {/* 🚀 TEACHERS / FACULTY */}
+        {institute.teachers && institute.teachers.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-emerald-100 text-emerald-600 rounded-xl"><Users className="w-6 h-6" /></div>
@@ -353,7 +411,37 @@ export default async function InstitutePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* 🚀 CLASSROOM IMAGES */}
+        {/* 🚀 NOTABLE ALUMNI */}
+        {institute.notablepersons && institute.notablepersons.length > 0 && (
+            <section>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-pink-100 text-pink-600 rounded-xl"><Award className="w-6 h-6" /></div>
+                  <div>
+                    <h2 className="text-3xl font-bold text-slate-900">Notable Alumni</h2>
+                    <p className="text-slate-500 text-sm mt-1">Meet the successful students of this academy.</p>
+                  </div>
+                </div>
+                
+                <div className="flex overflow-x-auto gap-5 pb-4 snap-x">
+                    {institute.notablepersons.map((person: any) => (
+                        <div key={person.id} className="min-w-[220px] bg-white border border-slate-200 rounded-3xl p-5 shadow-sm snap-start flex flex-col items-center text-center">
+                            <div className="w-20 h-20 rounded-full overflow-hidden bg-slate-100 border-2 border-pink-100 mb-3">
+                                {isCloudinaryImage(person.imageUrl) ? (
+                                    <Image src={person.imageUrl} alt={person.name} width={80} height={80} className="w-full h-full object-cover"/>
+                                ) : (
+                                    <User className="w-10 h-10 text-slate-300 m-auto mt-5"/>
+                                )}
+                            </div>
+                            <h4 className="font-bold text-slate-900">{person.name}</h4>
+                            {person.placedAt && <p className="text-sm text-pink-600 font-semibold mt-1">{person.placedAt}</p>}
+                            {person.package && <p className="text-xs text-slate-500 mt-1 bg-slate-100 px-2 py-1 rounded-md">{person.package}</p>}
+                        </div>
+                    ))}
+                </div>
+            </section>
+        )}
+
+        {/* CLASSROOM IMAGES */}
         {validClassroomImages.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -366,7 +454,7 @@ export default async function InstitutePage({ params }: PageProps) {
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {validClassroomImages.map((url: string, idx: number) => (
-                <div key={idx} className="relative aspect-4/3 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
+                <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
                   <img 
                     src={url} 
                     alt={`${institute.name} Classroom Infrastructure ${idx + 1}`} 
@@ -379,23 +467,23 @@ export default async function InstitutePage({ params }: PageProps) {
           </section>
         )}
 
-        {/* 🚀 GALLERY IMAGES */}
+        {/* GALLERY IMAGES */}
         {validGalleryImages.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-amber-100 text-amber-600 rounded-xl"><Trophy className="w-6 h-6" /></div>
               <div>
-                <h2 className="text-3xl font-bold text-slate-900">Student Achievements</h2>
-                <p className="text-slate-500 text-sm mt-1">Glimpses of past results and milestones.</p>
+                <h2 className="text-3xl font-bold text-slate-900">Gallery</h2>
+                <p className="text-slate-500 text-sm mt-1">Glimpses of events, results, and milestones.</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {validGalleryImages.map((url: string, idx: number) => (
-                <div key={idx} className="relative aspect-4/3 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
+                <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
                   <img 
                     src={url} 
-                    alt={`${institute.name} Student Achievement ${idx + 1}`} 
+                    alt={`${institute.name} Image ${idx + 1}`} 
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
                   />
                   <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
@@ -434,6 +522,24 @@ export default async function InstitutePage({ params }: PageProps) {
               })}
             </div>
           </section>
+        )}
+
+        {/* 🚀 FAQs */}
+        {institute.faqs && institute.faqs.length > 0 && (
+            <section className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+                <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
+                  <HelpCircle className="w-6 h-6 text-slate-700" />
+                  <h2 className="text-2xl font-bold text-slate-900">Frequently Asked Questions</h2>
+                </div>
+                <div className="space-y-6">
+                    {institute.faqs.map((faq: any) => (
+                        <div key={faq.id}>
+                            <h3 className="text-lg font-bold text-slate-800 mb-2">Q. {faq.question}</h3>
+                            <p className="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
         )}
 
         {/* Location Map */}
