@@ -26,11 +26,23 @@ export function middleware(req: NextRequest) {
 
   // ✅ 2. Allow Good Bots (SEO & Social Media)
   if (GOOD_BOTS.test(ua)) {
+    console.log("INCOMING HEADERS:", JSON.stringify({
+      ip: req.headers.get('x-forwarded-for'), // Client IP
+      ua: req.headers.get('user-agent'),       // User Agent
+      host: req.headers.get('host'),           // Target Host
+      allHeaders: headersObj                       // Every header sent
+    }));
     return NextResponse.next();
   }
 
   // ❌ 3. Block all other patterns matching bad bots/scripts
   if (BAD_BOTS.test(ua)) {
+    console.log("⚠️ INCOMING HEADERS:", JSON.stringify({
+      ip: req.headers.get('x-forwarded-for'), // Client IP
+      ua: req.headers.get('user-agent'),       // User Agent
+      host: req.headers.get('host'),           // Target Host
+      allHeaders: headersObj                       // Every header sent
+    }));
     return new NextResponse("Access Denied: Blocked Bot", { status: 403 });
   }
 
