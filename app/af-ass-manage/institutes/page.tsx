@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
-import { Building2, Edit, MapPin, Plus } from "lucide-react"
+import { Building2, Edit, MapPin, Plus, Eye } from "lucide-react"
 import ToggleStatusButton from "@/components/admin/AdminToggleButton"
 import InstituteFilters from "@/components/admin/AdminInstituteFilters"
 import InstitutePagination from "@/components/admin/AdminInstitutePagination"
@@ -14,10 +14,14 @@ export default async function AdminInstitutesPage({
     const params = await searchParams;
     
     const page = Number(params.page) || 1;
-    const limit = 50; // Ek baar me sirf 50 load honge
+    const limit = 50; 
     const search = typeof params.search === 'string' ? params.search : '';
     const cityId = typeof params.cityId === 'string' ? params.cityId : '';
     const categoryId = typeof params.categoryId === 'string' ? params.categoryId : '';
+    
+    // 🆕 Naye params sort aur status ke liye
+    const status = typeof params.status === 'string' ? params.status : 'all';
+    const sortBy = typeof params.sortBy === 'string' ? params.sortBy : 'newest';
 
     // 2. Dynamic Prisma Filters Build Karna
     const whereCondition: any = {};
@@ -29,18 +33,26 @@ export default async function AdminInstitutesPage({
         whereCondition.cityId = cityId;
     }
     if (categoryId) {
-        // Relation table filter for Categories
         whereCondition.categories = {
             some: { categoryId: categoryId }
         };
     }
 
-    // 3. Parallel Database Queries (Boht Fast 🚀)
+    // 🆕 Status Filtering Logic
+    if (status === 'active') whereCondition.isActive = true;
+    else if (status === 'inactive') whereCondition.isActive = false;
+    else if (status === 'published') whereCondition.isPublished = true;
+    else if (status === 'hidden') whereCondition.isPublished = false;
+
+    // 🆕 Sorting Logic
+    let orderByCondition: any = { createdAt: 'desc' }; // Default
+    if (sortBy === 'views') orderByCondition = { viewCount: 'desc' }; // Sabse zyada views wale upar
+    else if (sortBy === 'oldest') orderByCondition = { createdAt: 'asc' };
+
+    // 3. Parallel Database Queries
     const [totalInstitutes, institutes, cities, categories] = await Promise.all([
-        // Count for pagination
         prisma.institute.count({ where: whereCondition }),
         
-        // Fetch strictly 50 records based on page
         prisma.institute.findMany({
             where: whereCondition,
             take: limit,
@@ -49,10 +61,9 @@ export default async function AdminInstitutesPage({
                 city: true,
                 _count: { select: { managers: true } }
             },
-            orderBy: { createdAt: 'desc' }
+            orderBy: orderByCondition // 👈 Yahan dynamically sort pass kiya hai
         }),
 
-        // Fetch Dropdown lists
         prisma.city.findMany({ orderBy: { name: 'asc' } }),
         prisma.category.findMany({ orderBy: { name: 'asc' } })
     ]);
@@ -81,6 +92,7 @@ export default async function AdminInstitutesPage({
             </div>
 
             {/* 🚀 Filter Component Inserted Here */}
+            {/* Aap apne InstituteFilters component me status aur sortBy UI add kar sakte hain */}
             <InstituteFilters cities={cities} categories={categories} />
 
             {/* Data Table */}
@@ -92,7 +104,7 @@ export default async function AdminInstitutesPage({
                                 <th className="p-4">Academy Details</th>
                                 <th className="p-4">Location</th>
                                 <th className="p-4 text-center">Plan & Managers</th>
-                                <th className="p-4">Status</th>
+                                <th className="p-4">Status & Visibility</th>
                                 <th className="p-4 text-right">Actions</th>
                             </tr>
                         </thead>
@@ -103,10 +115,15 @@ export default async function AdminInstitutesPage({
                                 </tr>
                             ) : (
                                 institutes.map((institute: any) => (
-                                    <tr key={institute.id} className={`hover:bg-slate-50/50 transition-colors ${!institute.isActive ? 'opacity-60 grayscale-[0.5]' : ''}`}>
+                                    <tr key={institute.id} className={`hover:bg-slate-50/50 transition-colors ${!institute.isActive ? 'opacity-70' : ''}`}>
                                         <td className="p-4">
                                             <div className="font-bold text-slate-800 text-base">{institute.name}</div>
                                             <div className="text-xs text-slate-500 mt-0.5">{institute.email || "No Email"}</div>
+                                            
+                                            <div className="flex items-center gap-1.5 mt-2 text-xs font-semibold text-slate-600 bg-slate-100 w-fit px-2 py-1 rounded-md">
+                                                <Eye className="w-3.5 h-3.5 text-slate-500" />
+                                                <span>{institute.viewCount} <span className="font-normal text-slate-500">total visits</span></span>
+                                            </div>
                                         </td>
                                         <td className="p-4">
                                             <div className="flex items-center gap-1.5 text-slate-700 font-medium">
@@ -119,7 +136,21 @@ export default async function AdminInstitutesPage({
                                             </span>
                                         </td>
                                         <td className="p-4">
-                                            <ToggleStatusButton instituteId={institute.id} isActive={institute.isActive} />
+                                            <div className="flex flex-col gap-2">
+                                                <div className="flex items-center gap-2">
+                                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${institute.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                                        {institute.isActive ? 'Active' : 'Inactive'}
+                                                    </span>
+                                                    
+                                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${institute.isPublished ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'}`}>
+                                                        {institute.isPublished ? 'Published' : 'Hidden'}
+                                                    </span>
+                                                </div>
+                                                
+                                                <div className="mt-1">
+                                                    <ToggleStatusButton instituteId={institute.id} isActive={institute.isActive} />
+                                                </div>
+                                            </div>
                                         </td>
                                         <td className="p-4 text-right">
                                             <Link 
@@ -137,9 +168,7 @@ export default async function AdminInstitutesPage({
                 </div>
             </div>
 
-            {/* 🚀 Pagination Component Inserted Here */}
             <InstitutePagination totalPages={totalPages} currentPage={page} />
-
         </div>
     )
 }
