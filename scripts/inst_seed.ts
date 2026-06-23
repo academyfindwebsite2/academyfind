@@ -13,24 +13,57 @@ function sleep(ms: number) {
 
 
 const CITY_HUBS = [
-  { name: "Old Ghaziabad (Ghantaghar & Delhi Gate)", lat: 28.6702, lng: 77.4446, radius: 2500 },
-  { name: "Kavi Nagar & Nehru Nagar", lat: 28.6660, lng: 77.4330, radius: 2000 },
-  { name: "Raj Nagar", lat: 28.7041, lng: 77.4306, radius: 2000 },
-  { name: "Raj Nagar Extension", lat: 28.7034, lng: 77.4145, radius: 3000 },
-  { name: "Sanjay Nagar & Shastri Nagar", lat: 28.6850, lng: 77.4300, radius: 2000 },
-  { name: "Vijay Nagar", lat: 28.6445, lng: 77.4257, radius: 2000 },
-  { name: "Mohan Nagar & GT Road", lat: 28.6725, lng: 77.3590, radius: 2500 },
-  { name: "Sahibabad", lat: 28.6629, lng: 77.3434, radius: 2500 },
-  { name: "Vaishali", lat: 28.6434, lng: 77.3401, radius: 2000 },
-  { name: "Kaushambi", lat: 28.6435, lng: 77.3230, radius: 1500 },
-  { name: "Indirapuram Core (Shakti Khand & Ahinsa Khand)", lat: 28.6460, lng: 77.3590, radius: 2500 },
-  { name: "Indirapuram East (Niti Khand & Vaibhav Khand)", lat: 28.6360, lng: 77.3790, radius: 2500 },
-  { name: "Vasundhara", lat: 28.6628, lng: 77.3734, radius: 2500 },
-  { name: "Crossing Republik", lat: 28.6303, lng: 77.4349, radius: 2500 },
-  { name: "Govindpuram & Lal Kuan (Meerut Road)", lat: 28.6975, lng: 77.4180, radius: 3000 },
-  { name: "Loni", lat: 28.7505, lng: 77.2890, radius: 3500 },
-  { name: "Muradnagar", lat: 28.7809, lng: 77.4987, radius: 3500 },
-  { name: "Modinagar", lat: 28.8383, lng: 77.5811, radius: 3000 },
+  { name: "Old Gurgaon (Sadar Bazar & Railway Station)", lat: 28.4595, lng: 77.0266, radius: 2000 },
+  { name: "Sector 14 & 15 (Atul Kataria Chowk Hub)", lat: 28.4648, lng: 77.0296, radius: 1800 },
+  { name: "Sector 17, 18 & 22 (New Colony Belt)", lat: 28.4805, lng: 77.0220, radius: 2000 },
+  { name: "Sector 31, 32 & 34 (Huda City Centre)", lat: 28.4625, lng: 77.0427, radius: 2000 },
+
+  // 2. MG ROAD / SUSHANT LOK CORRIDOR
+  { name: "MG Road & Sector 27-28", lat: 28.4726, lng: 77.0626, radius: 2000 },
+  { name: "Sushant Lok 1 & 2 / Sector 43", lat: 28.4614, lng: 77.0726, radius: 2000 },
+
+  // 3. DLF PHASES / CYBER CITY BELT
+  { name: "DLF Phase 1 & Sikanderpur", lat: 28.4817, lng: 77.0875, radius: 2000 },
+  { name: "DLF Phase 2 & 3 / Cyber Hub", lat: 28.4949, lng: 77.0891, radius: 2000 },
+  { name: "DLF Phase 4 & 5 / Nirvana Country", lat: 28.5055, lng: 77.0950, radius: 2000 },
+
+  // 4. SOHNA ROAD BELT
+  { name: "Sector 48, 49 & 50 (Sohna Road Mid)", lat: 28.4230, lng: 77.0670, radius: 2500 },
+  { name: "Sector 56, 57 & South City 2", lat: 28.4094, lng: 77.0823, radius: 2500 },
+  { name: "Badshahpur / Sector 65-68", lat: 28.3980, lng: 77.1050, radius: 2500 },
+
+  // 5. GOLF COURSE EXTENSION ROAD
+  { name: "Sector 55, 58 & 59 (Golf Course Ext)", lat: 28.4300, lng: 77.1050, radius: 2000 },
+  { name: "Sector 62, 63 & 66", lat: 28.4150, lng: 77.1100, radius: 2000 },
+
+  // 6. DWARKA EXPRESSWAY / NORTH GURGAON
+  { name: "Sector 80, 81 & 82 (Dwarka Exp South)", lat: 28.4490, lng: 77.0380, radius: 2000 },
+  { name: "Sector 88, 90 & 92 (Pataudi Road Node)", lat: 28.4600, lng: 77.0200, radius: 2000 },
+  { name: "Sector 102-105 (Dwarka Exp North)", lat: 28.4866, lng: 76.9882, radius: 3000 }, // FIXED — was 6.1km off
+  { name: "Sector 108-110 (Dwarka Exp Far North)", lat: 28.5180, lng: 76.9850, radius: 3000 }, // FIXED — was 5.6km off
+
+  // 7. PALAM VIHAR / SECTOR 22-23
+  { name: "Palam Vihar & Sector 23A", lat: 28.5107, lng: 77.0370, radius: 2500 },
+  { name: "Sector 22-23A (Near Delhi Border)", lat: 28.5072, lng: 77.0640, radius: 2000 },
+
+  // 8. SOUTH-WEST / HERO HONDA CORRIDOR
+  { name: "Hero Honda Chowk & Sector 37C-40", lat: 28.4480, lng: 77.0200, radius: 2000 },
+  { name: "Sector 9, 10 & 10A (Basai Road)", lat: 28.4720, lng: 76.9950, radius: 2000 },
+
+  // 9. MANESAR / IMT
+  { name: "Manesar Town & IMT Manesar", lat: 28.3515, lng: 76.9428, radius: 3500 },
+  // 10. SOHNA (standalone sub-city)
+  { name: "Sohna Town", lat: 28.2486, lng: 77.0730, radius: 3000 },
+
+  { name: "Sector 82-83 (NH8 / Vatika Belt)", lat: 28.3930, lng: 76.9680, radius: 2500 },
+  { name: "Sector 95-99 (SPR / New Gurgaon West)", lat: 28.4406, lng: 76.9350, radius: 4000 },
+  { name: "IMT Manesar Industrial (Sector 1-11)", lat: 28.3650, lng: 76.9000, radius: 3000 },
+
+  { name: "Golf Course Road (Sector 42-54 Belt)", lat: 28.4510, lng: 77.0900, radius: 2000 },
+
+  { name: "Udyog Vihar (Phase 1-6)", lat: 28.4970, lng: 77.0720, radius: 2000 },
+
+  { name: "SPR / Sector 69-75 (South Gurgaon)", lat: 28.4020, lng: 77.0880, radius: 2500 },
 ];
 
 // Helper function to calculate a strict bounding box (rectangle) from center lat/lng & radius
@@ -146,7 +179,7 @@ function getImageUrl(photoName: string) {
 async function importCategoryCity(category: any, city: any) {
   const cityKey = city.slug.toLowerCase().trim();
 
-  const hubs = cityKey === "ghaziabad" ? CITY_HUBS : [{ name: city.name, lat: null, lng: null, radius: null }];
+  const hubs = cityKey === "gurugram" ? CITY_HUBS : [{ name: city.name, lat: null, lng: null, radius: null }];
 
   console.log(`\n🚀 Processing: ${category.name} -> ${city.name}`);
   const Keywords = ["coaching", "classes", "academy", "tuition", "institute"];
@@ -359,7 +392,7 @@ async function main() {
 
   const selectedCities = cities.filter((c) =>
     [
-      "ghaziabad",
+      "gurugram",
     ].includes(c.slug)
   );
 

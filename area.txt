@@ -148,3 +148,23 @@ const CITY_HUBS_MEERUT = [
   { name: "Mawana Road Corridor", lat: 29.0250, lng: 77.7800, radius: 4000 },
   { name: "Hapur Road South", lat: 28.9250, lng: 77.7300, radius: 3500 },
 ];
+
+const CITY_HUBS_MODINAGAR = [
+  { name: "Modinagar Core (NH-58 Main Market)", lat: 28.8383, lng: 77.5811, radius: 2000 },
+  { name: "Modinagar North (Muradpur & GI Colony)", lat: 28.8600, lng: 77.5780, radius: 2000 },
+  { name: "Modinagar South (Mohiuddinpur / NH-58 Bypass)", lat: 28.8150, lng: 77.5830, radius: 2000 },
+];
+
+const CITY_HUBS_SONIPAT = [
+  { name: "Main City (Civil Lines & Subedar Chowk)", lat: 28.9954, lng: 77.0175, radius: 2500 },
+  { name: "Atlas Chowk & Sector 14-15", lat: 29.0034 + 0.1, lng: 77.0100, radius: 2000 }, // unchanged, within radius — leave as-is
+  { name: "Rohtak Road & Sector 23 Belt", lat: 28.9700, lng: 77.0000, radius: 2000 },
+  { name: "Gohana Road & Old GT Road Node", lat: 29.0200, lng: 77.0280, radius: 2000 },
+
+  { name: "Kundli (NH-1 / KMP Industrial & Education Belt)", lat: 28.8676, lng: 77.1180, radius: 2500 }, // FIXED — was 5.6km off, now split from Rai
+  { name: "Rai (Industrial Estate & Rai Town)", lat: 28.9280, lng: 77.1010, radius: 2500 }, // NEW — separated from Kundli
+
+  { name: "Murthal & NH-44 Corridor", lat: 29.0316, lng: 77.0724, radius: 2500 }, // FIXED — was 9km off
+  { name: "Kharkhoda Town", lat: 28.8746, lng: 76.9125, radius: 3000 }, // FIXED — was 4.7km off
+  { name: "Gohana Town", lat: 29.1393, lng: 76.6945, radius: 3000 },
+];

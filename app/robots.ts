@@ -20,7 +20,6 @@ export default function robots(): MetadataRoute.Robots {
         '/register',
         '/*/claim',
         '/*?sort=',        // 🆕
-        '/*?page=',        // 🆕 — pagination already in canonical via page 1 only
         '/*?rating=',      // 🆕
         '/*?q=',
       ],

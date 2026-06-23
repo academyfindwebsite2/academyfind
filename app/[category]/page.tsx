@@ -47,15 +47,22 @@ interface PageProps {
 }
 
 // ─── 1. METADATA ─────────────────────────────────────────────
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params,searchParams  }: PageProps): Promise<Metadata> {
   const { category } = await params;
+  const {page} = await searchParams;
   const categoryName = formatSlug(category); // e.g. "IIT JEE Coaching"
 
   const currentYear = new Date().getFullYear();
-  const canonicalUrl = `https://academyfind.com/${category}`;
+  const currentPage = page && parseInt(page, 10) > 1 ? parseInt(page, 10) : null;
+  const canonicalUrl = currentPage
+    ? `https://academyfind.com/${category}?page=${currentPage}`
+    : `https://academyfind.com/${category}`;
 
   // Under 60 chars for desktop SERP
-  const seoTitle = `Best ${categoryName} Institutes ${currentYear} | Fees, Reviews & Admissions`;
+  const seoTitle = currentPage
+    ? `Best ${categoryName} Institutes - Page ${currentPage} | AcademyFind`
+    : `Best ${categoryName} Institutes ${currentYear} | Fees, Reviews & Admissions`;
+
 
   // 150–160 chars ideal
   const seoDescription = `Compare the best ${categoryName} institutes across India. Read genuine student reviews, check fees, batch timings, and get direct admission guidance. Updated ${currentYear}.`;
@@ -71,17 +78,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
 
     // ── Robots ──
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-snippet": -1,
-        "max-image-preview": "large",
-        "max-video-preview": -1,
-      },
-    },
+    robots: currentPage
+      ? { index: false, follow: true }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-snippet": -1,
+            "max-image-preview": "large",
+            "max-video-preview": -1,
+          },
+        },
 
     // ── Open Graph ──
     openGraph: {
@@ -111,21 +120,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
 
     // ── Keywords ──
-    keywords: [
-      `best ${categoryName} in India`,
-      `top 10 ${categoryName} institutes`,
-      `list of ${categoryName} classes`,
-      `${categoryName} fees in India`,
-      `${categoryName} fee structure`,
-      `${categoryName} near me`,
-      `compare ${categoryName} institutes`,
-      `${categoryName} reviews and ratings`,
-      `${categoryName} admission ${currentYear}`,
-      `affordable ${categoryName} coaching`,
-      `online ${categoryName} classes`,
-      `best coaching for ${categoryName}`,
-      `top rated ${categoryName} centers`,
-    ],
+    ...(currentPage === null && {
+      keywords: [
+        `best ${categoryName} in India`,
+        `top 10 ${categoryName} institutes`,
+        `list of ${categoryName} classes`,
+        `${categoryName} fees in India`,
+        `${categoryName} fee structure`,
+        `${categoryName} near me`,
+        `compare ${categoryName} institutes`,
+        `${categoryName} reviews and ratings`,
+        `${categoryName} admission ${currentYear}`,
+        `affordable ${categoryName} coaching`,
+        `online ${categoryName} classes`,
+        `best coaching for ${categoryName}`,
+        `top rated ${categoryName} centers`,
+      ],
+    }),
   };
 }
 

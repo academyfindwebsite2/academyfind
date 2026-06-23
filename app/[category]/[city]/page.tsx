@@ -66,48 +66,49 @@ function estimateCount(count: number): string {
 }
 
 // ─── 1. METADATA ─────────────────────────────────────────────
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { category, city } = await params;
+  const { page } = await searchParams;  // ← was missing entirely
 
-  const categoryName = formatSlug(category); // e.g. "JEE Coaching"
-  const cityName = formatSlug(city);         // e.g. "Meerut"
-
-  const canonicalUrl = `https://academyfind.com/${category}/${city}`;
-
-  // ── Title formulas (A/B test by adding variants here later) ──
-  // Keep under 60 chars for Google to not truncate.
-  // Formula: "Best {Category} in {City} {Year} - AcademyFind"
+  const categoryName = formatSlug(category);
+  const cityName = formatSlug(city);
   const currentYear = new Date().getFullYear();
-  const seoTitle = `Best ${categoryName} in ${cityName} ${currentYear} | Fees, Reviews & Admissions`;
+  const currentPage = page && parseInt(page, 10) > 1 ? parseInt(page, 10) : null;
 
-  // ── Description: 150–160 chars ideal for SERP snippet ──
-  // Include primary keyword naturally, add a CTA, mention key features.
+  // Page 1 → clean URL, page 2+ → self-referential with ?page=
+  const canonicalUrl = currentPage
+    ? `https://academyfind.com/${category}/${city}?page=${currentPage}`
+    : `https://academyfind.com/${category}/${city}`;
+
+  const seoTitle = currentPage
+    ? `Best ${categoryName} in ${cityName} - Page ${currentPage} | AcademyFind`
+    : `Best ${categoryName} in ${cityName} ${currentYear} | Fees, Reviews & Admissions`;
+
   const seoDescription = `Find the best ${categoryName} in ${cityName}. Compare fees, read student reviews, check batch timings, and get directions. Updated ${currentYear} listings on AcademyFind.`;
 
   return {
-    // ── Core ──
     title: seoTitle,
     description: seoDescription,
 
-    // ── Canonical (VERY important — prevents /page=2, ?sort= from being indexed separately) ──
     alternates: {
-      canonical: canonicalUrl,
+      canonical: canonicalUrl,  // ← self-referential now
     },
 
-    // ── Robots (default is index,follow but being explicit helps) ──
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-snippet": -1,           // Allow full snippet
-        "max-image-preview": "large",
-        "max-video-preview": -1,
-      },
-    },
+    // Page 2+ = noindex but follow
+    robots: currentPage
+      ? { index: false, follow: true }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-snippet": -1,
+            "max-image-preview": "large",
+            "max-video-preview": -1,
+          },
+        },
 
-    // ── Open Graph ──
     openGraph: {
       title: seoTitle,
       description: seoDescription,
@@ -125,37 +126,33 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       ],
     },
 
-    // ── Twitter / X ──
     twitter: {
       card: "summary_large_image",
       title: seoTitle,
       description: seoDescription,
-      site: "@academyfind",   // apna Twitter handle daal
+      site: "@academyfind",
       images: ["https://www.academyfind.com/new-logo.png"],
     },
 
-    // ── Extra meta tags ──
-    keywords: [
-      `${categoryName} in ${cityName}`,
-      `best ${categoryName} ${cityName}`,
-      `top 10 ${categoryName} in ${cityName}`,
-      `${categoryName} classes in ${cityName}`,
-      `${categoryName} coaching centers ${cityName}`,
-      `${categoryName} fees in ${cityName}`,
-      `${categoryName} near me`,
-      `${categoryName} reviews ${cityName}`,
-      `${categoryName} admission ${cityName}`,
-      `${categoryName} contact number ${cityName}`,
-      `affordable ${categoryName} ${cityName}`,
-      `top rated ${categoryName} in ${cityName}`,
-      `list of ${categoryName} in ${cityName}`,
-      `where to study ${categoryName} in ${cityName}`,
-    ],
-
-    // ── Verification tags (agar Search Console mein manually nahi add kiya) ──
-    // verification: {
-    //   google: "YOUR_GOOGLE_SITE_VERIFICATION_TOKEN",
-    // },
+    // Only emit keywords on page 1
+    ...(currentPage === null && {
+      keywords: [
+        `${categoryName} in ${cityName}`,
+        `best ${categoryName} ${cityName}`,
+        `top 10 ${categoryName} in ${cityName}`,
+        `${categoryName} classes in ${cityName}`,
+        `${categoryName} coaching centers ${cityName}`,
+        `${categoryName} fees in ${cityName}`,
+        `${categoryName} near me`,
+        `${categoryName} reviews ${cityName}`,
+        `${categoryName} admission ${cityName}`,
+        `${categoryName} contact number ${cityName}`,
+        `affordable ${categoryName} ${cityName}`,
+        `top rated ${categoryName} in ${cityName}`,
+        `list of ${categoryName} in ${cityName}`,
+        `where to study ${categoryName} in ${cityName}`,
+      ],
+    }),
   };
 }
 
