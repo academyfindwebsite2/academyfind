@@ -32,6 +32,10 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'ClaudeBot',
         disallow: '/',
       },
+      {
+        userAgent: 'MJ12bot',
+        crawlDelay: 10
+      }
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   }
