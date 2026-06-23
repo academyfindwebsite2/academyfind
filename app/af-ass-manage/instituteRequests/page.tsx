@@ -1,18 +1,33 @@
 import { prisma } from "@/lib/prisma";
-import { Check, X, ShieldAlert, MapPin, BadgeIndianRupee, UserCheck } from "lucide-react";
+import { Check, X, ShieldAlert, MapPin, BadgeIndianRupee, UserCheck, Filter } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import ApprovalButtons from "@/components/admin/AdminApprovalButtons";
 
-export default async function AdminApprovalsPage() {
-    const pendingRequests = await prisma.instituteRequest.findMany({
-        where: { status: "PENDING" },
+export default async function AdminApprovalsPage({
+    searchParams
+}: {
+    searchParams: Promise<{ [key: string]: string | undefined }>
+}) {
+    const params = await searchParams;
+    // 🚀 Default filter is PENDING so admin sees action items first
+    const currentFilter = params.status || 'PENDING';
+
+    // Build filter condition
+    const whereCondition: any = {};
+    if (currentFilter !== 'ALL') {
+        whereCondition.status = currentFilter;
+    }
+
+    const requests = await prisma.instituteRequest.findMany({
+        where: whereCondition,
         include: {
             user: true,
             institute: {
                 include: {
                     city: true,
                     categories: { include: { category: true } },
-                    // 🚀 Fetch Pending claims to display in the card
+                    // Fetch Pending claims to display in the card
                     claims: { where: { status: "PENDING" } } 
                 }
             }
@@ -20,23 +35,59 @@ export default async function AdminApprovalsPage() {
         orderBy: { createdAt: "desc" }
     });
 
+    const filterOptions = [
+        { label: "All", value: "ALL" },
+        { label: "Pending", value: "PENDING" },
+        { label: "Approved", value: "APPROVED" },
+        { label: "Rejected", value: "REJECTED" },
+    ];
+
     return (
         <div className="p-8 max-w-5xl mx-auto space-y-8 font-sans">
-            <div className="flex items-center gap-3 border-b pb-4">
-                <div className="p-2.5 bg-purple-100 text-purple-700 rounded-xl"><ShieldAlert className="w-6 h-6" /></div>
-                <div>
-                    <h1 className="text-2xl font-extrabold text-slate-900">Pending Listing Approvals</h1>
-                    <p className="text-sm text-slate-500">Review user-submitted setups and their claim requests.</p>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b pb-4">
+                <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-purple-100 text-purple-700 rounded-xl">
+                        <ShieldAlert className="w-6 h-6" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-extrabold text-slate-900">Listing Approvals</h1>
+                        <p className="text-sm text-slate-500">Review user-submitted setups and their claim requests. (Showing: {currentFilter})</p>
+                    </div>
+                </div>
+                <div className="bg-purple-100 text-purple-800 px-4 py-2 rounded-xl font-bold text-sm shrink-0">
+                    Total Requests: {requests.length}
                 </div>
             </div>
 
-            {pendingRequests.length === 0 ? (
-                <div className="p-12 text-center border-2 border-dashed rounded-3xl text-slate-400 font-medium">
-                    Great job! No pending verification requests in the queue.
+            {/* 🚀 Filter Bar */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                <div className="text-sm font-bold text-slate-400 flex items-center gap-1.5 mr-2">
+                    <Filter className="w-4 h-4" /> Filter:
+                </div>
+                {filterOptions.map((opt: any) => (
+                    <Link 
+                        key={opt.value}
+                        href={`/af-ass-manage/instituteRequests?status=${opt.value}`}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${
+                            currentFilter === opt.value 
+                            ? "bg-slate-800 text-white shadow-sm" 
+                            : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                        }`}
+                    >
+                        {opt.label}
+                    </Link>
+                ))}
+            </div>
+
+            {requests.length === 0 ? (
+                <div className="p-12 text-center border-2 border-dashed rounded-3xl text-slate-400 font-medium bg-slate-50/50">
+                    {currentFilter === 'PENDING' 
+                        ? "Great job! No pending verification requests in the queue." 
+                        : `No listing requests found for "${currentFilter}".`}
                 </div>
             ) : (
                 <div className="space-y-6">
-                    {pendingRequests.map((req: any) => {
+                    {requests.map((req: any) => {
                         const claim = req.institute.claims[0]; // Get the attached claim
 
                         return (
@@ -44,7 +95,17 @@ export default async function AdminApprovalsPage() {
                             
                             <div className="p-4 bg-slate-50 border-b flex flex-wrap justify-between items-center gap-2 text-xs text-slate-500">
                                 <div>Submitted by: <span className="font-bold text-slate-800">{req.user.name}</span> ({req.user.email})</div>
-                                <div className="font-mono">{new Date(req.createdAt).toLocaleString()}</div>
+                                <div className="flex items-center gap-3">
+                                    <div className="font-mono">{new Date(req.createdAt).toLocaleString()}</div>
+                                    {/* 🚀 Status Badge */}
+                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                        req.status === 'APPROVED' ? 'bg-green-100 text-green-700 border border-green-200' :
+                                        req.status === 'REJECTED' ? 'bg-red-100 text-red-700 border border-red-200' :
+                                        'bg-amber-100 text-amber-700 border border-amber-200'
+                                    }`}>
+                                        {req.status}
+                                    </span>
+                                </div>
                             </div>
 
                             <div className="p-6 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6">
@@ -59,7 +120,9 @@ export default async function AdminApprovalsPage() {
 
                                 <div className="space-y-4">
                                     <div>
-                                        <h2 className="text-xl font-bold text-slate-900">{req.institute.name}</h2>
+                                        <Link href={`/af-ass-manage/institutes/${req.institute.id}`} className="hover:text-purple-600 transition-colors">
+                                            <h2 className="text-xl font-bold text-slate-900">{req.institute.name}</h2>
+                                        </Link>
                                         <p className="text-xs text-slate-400 font-mono mt-0.5">slug: {req.institute.slug}</p>
                                     </div>
 
@@ -96,9 +159,12 @@ export default async function AdminApprovalsPage() {
                                         <div className="flex items-center gap-1.5"><BadgeIndianRupee className="w-4 h-4 text-amber-500" /> Fees: {req.institute.feeInfo || "N/A"}</div>
                                     </div>
 
-                                    <div className="pt-2 flex justify-end">
-                                        <ApprovalButtons requestId={req.id} />
-                                    </div>
+                                    {/* Only show approval buttons if the request is still PENDING */}
+                                    {req.status === "PENDING" && (
+                                        <div className="pt-2 flex justify-end">
+                                            <ApprovalButtons requestId={req.id} />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

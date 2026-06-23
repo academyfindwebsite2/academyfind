@@ -453,9 +453,6 @@ model SubscriptionPayment {
   @@map("subscription_payment")
 }
 
-// ==========================================
-// SALES MANAGER MODELS
-// ==========================================
 
 enum ContactStatus {
   NOT_CONTACTED
@@ -529,9 +526,6 @@ model LifeCoachRequest {
   createdAt DateTime @default(now())
 }
 
-// ==========================================
-// ADMIN NOTIFICATIONS (Generic & Scalable)
-// ==========================================
 
 model AdminNotification {
   id          String   @id @default(cuid())

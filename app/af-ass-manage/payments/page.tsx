@@ -1,35 +1,84 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { format } from "date-fns";
-import { Clock, CheckCircle2, XCircle, Eye, IndianRupee } from "lucide-react";
+import { Clock, CheckCircle2, XCircle, Eye, IndianRupee, Filter } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
-export default async function AdminPaymentListPage() {
+export default async function AdminPaymentListPage({
+    searchParams
+}: {
+    searchParams: Promise<{ [key: string]: string | undefined }>
+}) {
+    const params = await searchParams;
+    const currentFilter = params.status || 'PENDING';
+
+    // Build filter condition
+    const whereCondition: any = {};
+    if (currentFilter !== 'ALL') {
+        whereCondition.status = currentFilter;
+    }
+
     const payments = await prisma.subscriptionPayment.findMany({
+        where: whereCondition,
         orderBy: { createdAt: 'desc' },
         include: { institute: { select: { name: true } } }
     });
 
-    const pendingCount = payments.filter((p: any) => p.status === "PENDING").length;
+    // 🚀 We still might want to know total pending overall for the alert text
+    const totalPendingCount = await prisma.subscriptionPayment.count({
+        where: { status: "PENDING" }
+    });
+
+    const filterOptions = [
+        { label: "All", value: "ALL" },
+        { label: "Pending", value: "PENDING" },
+        { label: "Approved", value: "APPROVED" },
+        { label: "Rejected", value: "REJECTED" },
+    ];
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 pb-12">
+        <div className="max-w-6xl mx-auto space-y-6 pb-12 p-8 font-sans">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b">
-                <div>
-                    <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-2">
-                        <IndianRupee className="w-8 h-8 text-emerald-600" /> Payment Approvals
-                    </h1>
-                    <p className="text-slate-500 mt-1">
-                        You have <span className="font-bold text-amber-600">{pendingCount} pending</span> verification requests.
-                    </p>
+                <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-emerald-100 text-emerald-700 rounded-xl">
+                        <IndianRupee className="w-6 h-6" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-extrabold text-slate-900">
+                            Payment Approvals
+                        </h1>
+                        <p className="text-slate-500 mt-1 text-sm">
+                            You have <span className="font-bold text-amber-600">{totalPendingCount} pending</span> verification requests in total.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            {/* 🚀 Filter Bar */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                <div className="text-sm font-bold text-slate-400 flex items-center gap-1.5 mr-2">
+                    <Filter className="w-4 h-4" /> Filter:
+                </div>
+                {filterOptions.map((opt: any) => (
+                    <Link 
+                        key={opt.value}
+                        href={`/af-ass-manage/payments?status=${opt.value}`}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${
+                            currentFilter === opt.value 
+                            ? "bg-slate-800 text-white shadow-sm" 
+                            : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                        }`}
+                    >
+                        {opt.label}
+                    </Link>
+                ))}
+            </div>
+
+            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden mt-4">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left">
-                        <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+                        <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 uppercase tracking-wider text-xs">
                             <tr>
                                 <th className="p-4 w-12 text-center">Status</th>
                                 <th className="p-4">Academy</th>
@@ -40,7 +89,11 @@ export default async function AdminPaymentListPage() {
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {payments.length === 0 ? (
-                                <tr><td colSpan={5} className="p-8 text-center text-slate-400">No payment requests found.</td></tr>
+                                <tr>
+                                    <td colSpan={5} className="p-10 text-center text-slate-400 font-medium">
+                                        No payment requests found for "{currentFilter}".
+                                    </td>
+                                </tr>
                             ) : (
                                 payments.map((payment: any) => (
                                     <tr key={payment.id} className="hover:bg-slate-50 transition-colors">
@@ -58,21 +111,25 @@ export default async function AdminPaymentListPage() {
                                         </td>
 
                                         <td className="p-4">
-                                            <span className="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider">
+                                            <span className="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border border-blue-100">
                                                 {payment.planRequested}
                                             </span>
-                                            <span className="ml-2 text-xs text-slate-500 font-medium">({payment.billingCycle})</span>
+                                            <span className="ml-2 text-xs text-slate-500 font-medium tracking-wide">
+                                                ({payment.billingCycle})
+                                            </span>
                                         </td>
 
                                         <td className="p-4">
                                             <div className="font-bold text-slate-800">₹{payment.amountPaid.toLocaleString('en-IN')}</div>
-                                            <div className="font-mono text-xs text-slate-500 mt-0.5 tracking-wider">UTR: {payment.utrNumber}</div>
+                                            <div className="font-mono text-[10px] text-slate-500 mt-0.5 tracking-wider bg-slate-100 px-1.5 py-0.5 rounded w-fit border border-slate-200">
+                                                UTR: {payment.utrNumber}
+                                            </div>
                                         </td>
 
                                         <td className="p-4 text-right">
                                             <Link 
                                                 href={`/af-ass-manage/payments/${payment.id}`}
-                                                className="inline-flex items-center px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100 transition-all"
+                                                className="inline-flex items-center px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-200 transition-all shadow-xs"
                                             >
                                                 Review <Eye className="w-3.5 h-3.5 ml-1.5" />
                                             </Link>

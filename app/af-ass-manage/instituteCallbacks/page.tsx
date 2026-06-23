@@ -1,11 +1,31 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { format } from "date-fns";
-import { MessageSquare, Building2, Eye, Calendar, User, Phone } from "lucide-react";
+import { MessageSquare, Building2, Eye, Calendar, User, Phone, Filter } from "lucide-react";
 
-export default async function AdminCallbacksPage() {
-  // Fetch all enquiries with the related institute details
+export default async function AdminCallbacksPage({
+  searchParams
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>
+}) {
+  const params = await searchParams;
+  const currentFilter = params.status || 'ALL';
+
+  // Build filter condition
+  const whereCondition: any = {};
+  
+  if (currentFilter !== 'ALL') {
+    if (currentFilter.startsWith('ASSIGNED_TO_')) {
+       // Optional: Agar future me Assigned to logic implement karna hai 
+       // toh yahan ayega. Abhi basic statuses chalate hain.
+    } else {
+      whereCondition.status = currentFilter;
+    }
+  }
+
+  // Fetch callbacks based on filter
   const callbacks = await prisma.instituteEnquiry.findMany({
+    where: whereCondition,
     include: {
       institute: {
         select: {
@@ -19,21 +39,51 @@ export default async function AdminCallbacksPage() {
     }
   });
 
+  // Filter options array
+  const filterOptions = [
+    { label: "All", value: "ALL" },
+    { label: "New", value: "NEW" },
+    { label: "Messaged", value: "MESSAGED" },
+    { label: "Called", value: "CALLED" },
+    { label: "DNP (Did Not Pick)", value: "DNP" },
+    { label: "Junk", value: "JUNK" },
+  ];
+
   return (
     <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-3">
             <MessageSquare className="w-8 h-8 text-amber-500" /> All Institute Callbacks
           </h1>
-          <p className="text-slate-500 mt-1">Manage and monitor all student enquiries across all institutes.</p>
+          <p className="text-slate-500 mt-1">Manage and monitor student enquiries. (Showing: {currentFilter})</p>
         </div>
-        <div className="bg-amber-100 text-amber-800 px-4 py-2 rounded-xl font-bold text-sm">
+        <div className="bg-amber-100 text-amber-800 px-4 py-2 rounded-xl font-bold text-sm shrink-0">
           Total Leads: {callbacks.length}
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+      {/* 🚀 Simple Filter Bar */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="text-sm font-bold text-slate-400 flex items-center gap-1.5 mr-2">
+          <Filter className="w-4 h-4" /> Filter:
+        </div>
+        {filterOptions.map((opt: any) => (
+          <Link 
+            key={opt.value}
+            href={`/af-ass-manage/instituteCallbacks?status=${opt.value}`}
+            className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${
+              currentFilter === opt.value 
+              ? "bg-slate-800 text-white shadow-sm" 
+              : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+            }`}
+          >
+            {opt.label}
+          </Link>
+        ))}
+      </div>
+
+      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden mt-4">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider text-xs font-bold">
@@ -49,7 +99,7 @@ export default async function AdminCallbacksPage() {
               {callbacks.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="p-10 text-center text-slate-400 font-medium">
-                    No callbacks found in the system yet.
+                    No callbacks found for "{currentFilter}".
                   </td>
                 </tr>
               ) : (
@@ -66,7 +116,6 @@ export default async function AdminCallbacksPage() {
                       <div className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-slate-400"/>{callback.phone}</div>
                     </td>
                     <td className="p-5">
-                      {/* 🚀 Clickable Institute Link */}
                       {callback.institute ? (
                         <Link 
                           href={`/af-ass-manage/institutes/${callback.institute.id}`}
@@ -80,12 +129,18 @@ export default async function AdminCallbacksPage() {
                       )}
                     </td>
                     <td className="p-5">
-                      <span className="bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider">
+                      <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider
+                        ${callback.status === 'NEW' ? 'bg-blue-100 text-blue-700' : ''}
+                        ${callback.status === 'MESSAGED' ? 'bg-purple-100 text-purple-700' : ''}
+                        ${callback.status === 'CALLED' ? 'bg-emerald-100 text-emerald-700' : ''}
+                        ${callback.status === 'DNP' ? 'bg-orange-100 text-orange-700' : ''}
+                        ${callback.status === 'JUNK' ? 'bg-red-100 text-red-700' : ''}
+                        ${!['NEW', 'MESSAGED', 'CALLED', 'DNP', 'JUNK'].includes(callback.status) ? 'bg-slate-100 text-slate-700' : ''}
+                      `}>
                         {callback.status || "NEW"}
                       </span>
                     </td>
                     <td className="p-5 text-right">
-                      {/* 🚀 Detail Page Link */}
                       <Link href={`/af-ass-manage/instituteCallbacks/${callback.id}`}>
                         <button className="p-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-amber-600 hover:border-amber-200 hover:bg-amber-50 transition-all shadow-xs cursor-pointer">
                           <Eye className="w-4 h-4" />

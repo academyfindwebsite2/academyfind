@@ -2,7 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
-import { ArrowLeft, Building2, Calendar, Mail, MessageSquare, Phone, User } from "lucide-react";
+import { ArrowLeft, Building2, Calendar, MessageSquare, Phone, User } from "lucide-react";
+import CallbackControls from "@/components/admin/AdminCallbackControls";
 
 export default async function AdminCallbackDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -10,7 +11,7 @@ export default async function AdminCallbackDetailPage({ params }: { params: Prom
   const callback = await prisma.instituteEnquiry.findUnique({
     where: { id },
     include: {
-      institute: true, // Need institute details
+      institute: true, 
     }
   });
 
@@ -18,7 +19,6 @@ export default async function AdminCallbackDetailPage({ params }: { params: Prom
 
   return (
     <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-6">
-      {/* 🚀 Back Button */}
       <Link href="/af-ass-manage/instituteCallbacks" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back to Callbacks
       </Link>
@@ -26,17 +26,19 @@ export default async function AdminCallbackDetailPage({ params }: { params: Prom
       <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
         
         {/* Header Section */}
-        <div className="flex justify-between items-start pb-6 border-b border-slate-100 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start pb-6 border-b border-slate-100 mb-6 gap-4">
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
               <User className="w-6 h-6 text-slate-400" /> {callback.name}
             </h1>
-            <span className="inline-block mt-2 bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-              Status: {callback.status || "NEW"}
-            </span>
+            <div className="text-sm font-medium text-slate-500 flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 mt-3 rounded-xl border border-slate-100 w-fit">
+              <Calendar className="w-4 h-4" /> {format(new Date(callback.createdAt), "PPP 'at' p")}
+            </div>
           </div>
-          <div className="text-sm font-medium text-slate-500 flex items-center gap-1.5 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
-            <Calendar className="w-4 h-4" /> {format(new Date(callback.createdAt), "PPP 'at' p")}
+          
+          {/* 🚀 Naya Controls Component Lagaya */}
+          <div className="shrink-0">
+             <CallbackControls id={callback.id} currentStatus={callback.status} />
           </div>
         </div>
 
