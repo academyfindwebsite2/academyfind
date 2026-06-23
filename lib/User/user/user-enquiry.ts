@@ -20,6 +20,14 @@ export async function submitStudentEnquiry(formData: FormData) {
       },
     });
 
+    await prisma.adminNotification.create({
+      data: {
+        type: "NEW_INSTITUTE_ENQUIRY",
+        title: "New Institute Enquiry",
+        message: `${name} (${phone}) sent an enquiry for institute ID: ${instituteId}.`,
+      },
+    });
+
     return { success: true };
   } catch (error) {
     console.error("Enquiry Error:", error);

@@ -21,6 +21,13 @@ export async function submitLifeCoachRequest(formData: FormData) {
                 message: message || null
             }
         });
+        await prisma.adminNotification.create({
+            data: {
+                type: "NEW_LIFE_COACH_REQUEST",
+                title: "New Life Coach Request",
+                message: `${fullName} (${phone}) requested a life coach.`,
+            }
+        });
 
         return { success: true, message: "Request logged inside admin queue!" };
     } catch (error) {

@@ -151,6 +151,25 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
                 }
             });
 
+            if(isPublished == true){
+                await tx.adminNotification.create({
+                    data: {
+                        type: "INSTITUTE_PUBLISHED",
+                        title: "Institute Published",
+                        message: `${name} has been published and is now visible to users.`,
+                    }
+                });
+            }
+
+            if(isPublished == false){
+                await tx.adminNotification.create({
+                    data: {
+                        type: "INSTITUTE_UNPUBLISHED",
+                        title: "Institute Unpublished",
+                        message: `${name} has been unpublished and is no longer visible to users.`,
+                    }
+                });
+            }
             // B. Manage Categories
             await tx.instituteCategory.deleteMany({ where: { instituteId } });
             if (categoryIds.length > 0) {

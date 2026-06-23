@@ -104,7 +104,7 @@ async function main() {
     const chunk = docs.slice(i, i + BATCH_SIZE);
     const response = await index.addDocuments(chunk);
     console.log(`✅ Pushed batch ${Math.floor(i / BATCH_SIZE) + 1} (${chunk.length} docs) - Task: ${response.taskUid}`);
-    await meili.tasks.waitForTask(response.taskUid,{ timeout: 60000 });
+    await meili.tasks.waitForTask(response.taskUid,{ timeout: 100000 });
   }
 
   console.log(`\n🎉 ALL DONE! Successfully indexed ${docs.length} documents.`);

@@ -84,6 +84,14 @@ export async function addInstitute(userId: string, formData: FormData,selectedCa
                 });
             }
 
+            await tx.adminNotification.create({
+                data: {
+                    type: "NEW_INSTITUTE_REQUEST",
+                    title: "New Institute Request",
+                    message: `${name} has been requested to be added as a new institute.`,
+                }
+            });
+
             // await tx.instituteManager.create({
             //     data: { userId, instituteId: institute.id }
             // });
@@ -100,6 +108,7 @@ export async function addInstitute(userId: string, formData: FormData,selectedCa
                 where: { id: userId },
                 data: { canAddInstitute: false }
             });
+
             return institute;
         });
 

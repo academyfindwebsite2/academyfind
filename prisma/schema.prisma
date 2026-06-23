@@ -8,35 +8,35 @@ datasource db {
 }
 
 model User {
-  id                  String             @id @default(cuid())
-  name                String?
-  email               String             @unique
-  phone               String?
-  passwordHash        String?
-  image               String?
-  role                Role               @default(USER)
-  isActive            Boolean            @default(true)
-  emailVerified       Boolean            @default(false)
-  onboardingCompleted Boolean            @default(false)
-  lastLoginAt         DateTime?
-  createdAt           DateTime           @default(now())
-  updatedAt           DateTime           @updatedAt
-  managedInstitutes   InstituteManager[]
-  reviews             Review[]
-  accounts            Account[]
-  sessions            Session[]
-  claims              InstituteClaim[]
-  shortlisted         UserShortlist[]
-  viewHistory         UserHistory[]
-  canAddInstitute     Boolean            @default(true)
-  instituteRequests          InstituteRequest[]
-  payments                   SubscriptionPayment[]
-  salesAssignments           SalesAssignment[]          @relation("SalesAssignments")
-  salesCategoryAssignments   SalesCategoryAssignment[]  @relation("SalesCategoryAssignments")
-  adminNotifications         AdminNotification[]
-  compareLists               UserCompareList[]
-  communityQuestions  CommunityQuestion[]   // 🆕
-  communityAnswers    CommunityAnswer[] 
+  id                       String                    @id @default(cuid())
+  name                     String?
+  email                    String                    @unique
+  phone                    String?
+  passwordHash             String?
+  image                    String?
+  role                     Role                      @default(USER)
+  isActive                 Boolean                   @default(true)
+  emailVerified            Boolean                   @default(false)
+  onboardingCompleted      Boolean                   @default(false)
+  lastLoginAt              DateTime?
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+  canAddInstitute          Boolean                   @default(true)
+  managedInstitutes        InstituteManager[]
+  reviews                  Review[]
+  accounts                 Account[]
+  adminNotifications       AdminNotification[]
+  communityAnswers         CommunityAnswer[]
+  communityQuestions       CommunityQuestion[]
+  claims                   InstituteClaim[]
+  instituteRequests        InstituteRequest[]
+  salesAssignments         SalesAssignment[]         @relation("SalesAssignments")
+  salesCategoryAssignments SalesCategoryAssignment[] @relation("SalesCategoryAssignments")
+  sessions                 Session[]
+  payments                 SubscriptionPayment[]
+  compareLists             UserCompareList[]
+  viewHistory              UserHistory[]
+  shortlisted              UserShortlist[]
 
   @@map("user")
 }
@@ -85,188 +85,155 @@ model Verification {
   @@map("verification")
 }
 
-enum InstituteMode {
-  OFFLINE
-  ONLINE
-  HYBRID
-}
-
-enum CategoryDomain {
-  ACADEMIC          // UPSC, NEET, JEE, School tuitions, Coding
-  PERFORMING_ARTS   // Dance, Music, Drama, Singing, Theatre
-  SPORTS            // Cricket, Football, Swimming, Martial Arts, Athletics
-  VISUAL_ARTS       // Painting, Sketching, Pottery, Photography
-  FITNESS           // Gym, Yoga, Zumba, Aerobics
-  LANGUAGE          // Spoken English, French, German, Sanskrit
-  OTHER
-}
-
 model Institute {
-  id                String              @id @default(cuid())
-  name              String
-  slug              String
-  description       String?
-  phone             String?
-  email             String?
-  website           String?
-  address           String
-  latitude          Float?
-  longitude         Float?
-  logo              String?
-  coverImage        String?
-  googlePlaceId     String?             @unique
-  googleRating      Float?
-  googleReviewCount Int?
-  cityId            String
-  isVerified        Boolean             @default(false)
-  isFeatured        Boolean             @default(false)
-  isActive          Boolean             @default(true)
-  isPublished       Boolean             @default(true)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  imageUrl          String?
-  averageRating     Float?              @default(0)
-  reviewCount       Int                 @default(0)
-  googleMapsUrl     String?
-  placeTypes        String[]
-  city              City                @relation(fields: [cityId], references: [id])
-  categories        InstituteCategory[]
-  managers          InstituteManager[]
-  reviews           Review[]
-  claims            InstituteClaim[]
-  shortlistedBy     UserShortlist[]
-  viewHistory       UserHistory[]
-  gallery          String[]          // Basic Plan feature
-  subscriptionPlan SubscriptionPlan  @default(BASIC) // Admin set karega
-  
-  enquiries        InstituteEnquiry[]           
-  youtubeVideos     String[]           
-  teachers          TeacherProfile[]
-
-  feeInfo           String?            
-  classroomImages   String[]
-
-  instituteRequest  InstituteRequest?
-  planExpiresAt     DateTime?
-  payments          SubscriptionPayment[]
-  salesAssignments  SalesAssignment[]
-
-  facebookUrl       String?
-  instagramUrl      String?
-  twitterUrl        String?
-  youtubeUrl        String?
-  telegramUrl       String?
-  linkedinUrl       String?
-  whatsappUrl       String?
-  viewCount        Int       @default(0)
-  dailyViews       InstituteDailyView[]
-
-  mode              InstituteMode @default(OFFLINE)
-  brochureUrl   String?
-  affiliations  String[]  @default([]) // e.g., ["CBSE", "ISO Certified", "NSDC"]
-  awards        String[]  @default([])
-
-  establishedYear    Int?
-  totalStudents       Int?      // approx strength shown as "5000+ students"
-  totalBranches        Int?     // multi-branch chains ke liye, e.g. "12 branches in Noida"
-
-  // Fees snapshot (auto-computed from InstituteBatch min/max, but cached here for fast compare queries)
-  feeMin              Int?
+  id                  String                     @id @default(cuid())
+  name                String
+  slug                String
+  description         String?
+  phone               String?
+  email               String?
+  website             String?
+  address             String
+  latitude            Float?
+  longitude           Float?
+  logo                String?
+  coverImage          String?
+  googlePlaceId       String?                    @unique
+  googleRating        Float?
+  googleReviewCount   Int?
+  cityId              String
+  isVerified          Boolean                    @default(false)
+  isFeatured          Boolean                    @default(false)
+  isActive            Boolean                    @default(true)
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+  imageUrl            String?
+  averageRating       Float?                     @default(0)
+  reviewCount         Int                        @default(0)
+  googleMapsUrl       String?
+  placeTypes          String[]
+  gallery             String[]
+  subscriptionPlan    SubscriptionPlan           @default(BASIC)
+  youtubeVideos       String[]
+  classroomImages     String[]
+  feeInfo             String?
+  planExpiresAt       DateTime?
+  facebookUrl         String?
+  instagramUrl        String?
+  telegramUrl         String?
+  twitterUrl          String?
+  youtubeUrl          String?
+  linkedinUrl         String?
+  whatsappUrl         String?
+  isPublished         Boolean                    @default(true)
+  mode                InstituteMode              @default(OFFLINE)
+  viewCount           Int                        @default(0)
+  affiliations        String[]                   @default([])
+  awards              String[]                   @default([])
+  brochureUrl         String?
+  compareCount        Int                        @default(0)
+  cons                String[]                   @default([])
+  establishedYear     Int?
   feeMax              Int?
-
-  mediumOfInstruction String[]  @default(["English", "Hindi"]) // Language: ["English", "Hindi", "Bilingual"]
-  pros                String[]  @default([])
-  cons                String[]  @default([])
+  feeMin              Int?
+  hasCertification    Boolean                    @default(false)
+  hasDemoClasses      Boolean                    @default(false)
+  hasHostelFacility   Boolean                    @default(false)
+  hasOnlineClasses    Boolean                    @default(false)
+  hasScholarship      Boolean                    @default(false)
+  mediumOfInstruction String[]                   @default(["English", "Hindi"])
+  metaDescription     String?
+  metaTitle           String?
+  pros                String[]                   @default([])
   refundPolicy        String?
-
-  // Quick toggles — compare page checkbox/icon rows ke liye, sabse common cheezein
-  hasOnlineClasses    Boolean   @default(false)
-  hasHostelFacility   Boolean   @default(false)
-  hasDemoClasses      Boolean   @default(false)
-  hasScholarship      Boolean   @default(false)
-  hasCertification    Boolean   @default(false)   // course completion certificate deta hai ya nahi
-
-  // Relations to new compare-data models
-  facilities          InstituteFacility[]
+  totalBranches       Int?
+  totalStudents       Int?
+  city                City                       @relation(fields: [cityId], references: [id])
+  categories          InstituteCategory[]
+  managers            InstituteManager[]
+  reviews             Review[]
+  communityQuestions  CommunityQuestion[]
+  compareListItems    CompareListInstitute[]
+  achievements        InstituteAchievement[]
   batches             InstituteBatch[]
-  highlightStats       InstituteHighlightStat[]
-  achievements          InstituteAchievement[]
-  faqs                  InstituteFAQ[]
-  operatingHours        InstituteOperatingHour[]
-  compareListItems     CompareListInstitute[]
-  notablepersons       NotablePersons[]
-  communityQuestions   CommunityQuestion[]
-
-  metaTitle        String?   // override default auto-generated title
-  metaDescription  String?
-  compareCount         Int       @default(0) // Kitni baar logo ne isko compare list me daala
-  comparisonsAsFirst   InstituteComparisonCache[] @relation("ComparisonAsFirst")
-  comparisonsAsSecond  InstituteComparisonCache[] @relation("ComparisonAsSecond")
+  claims              InstituteClaim[]
+  comparisonsAsFirst  InstituteComparisonCache[] @relation("ComparisonAsFirst")
+  comparisonsAsSecond InstituteComparisonCache[] @relation("ComparisonAsSecond")
+  dailyViews          InstituteDailyView[]
+  enquiries           InstituteEnquiry[]
+  facilities          InstituteFacility[]
+  faqs                InstituteFAQ[]
+  highlightStats      InstituteHighlightStat[]
+  operatingHours      InstituteOperatingHour[]
+  instituteRequest    InstituteRequest?
+  notablepersons      NotablePersons[]
+  salesAssignments    SalesAssignment?
+  payments            SubscriptionPayment[]
+  teachers            TeacherProfile[]
+  viewHistory         UserHistory[]
+  shortlistedBy       UserShortlist[]
 
   @@index([cityId])
   @@index([slug])
 }
 
 model City {
-  id         String      @id @default(cuid())
-  name       String
-  slug       String      @unique
-  state      String
-  country    String      @default("India")
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  institutes Institute[]
-  description     String?  @db.Text   // "Noida mein coaching scene kaisa hai" type content
-  metaTitle       String?
-  metaDescription String?
-  latitude        Float?
-  longitude       Float?
-  population      Int?
-  bannerImage     String?
-  categoryContents  CategoryCityContent[]
+  id               String                @id @default(cuid())
+  name             String
+  slug             String                @unique
+  state            String
+  country          String                @default("India")
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+  bannerImage      String?
+  description      String?
+  latitude         Float?
+  longitude        Float?
+  metaDescription  String?
+  metaTitle        String?
+  population       Int?
+  institutes       Institute[]
+  categoryContents CategoryCityContent[]
 
   @@index([state])
 }
 
 model Category {
-  id                        String                    @id @default(cuid())
-  name                      String
-  slug                      String                    @unique
-  parentId                  String?
-  createdAt                 DateTime                  @default(now())
-  updatedAt                 DateTime                  @updatedAt
-  isActive                  Boolean                   @default(true)
-  level                     Int                       @default(0)
-  parent                    Category?                 @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  children                  Category[]                @relation("CategoryHierarchy")
-  institutes                InstituteCategory[]
-  salesCategoryAssignments  SalesCategoryAssignment[]
-  shortDescription   String?              // 1-2 line, listing cards mein use ho
-  description        String?  @db.Text    // long-form content, page ke top/bottom mein
-  metaTitle          String?
-  metaDescription    String?
-  icon                String?             // category icon/emoji
-  bannerImage         String?
-  cityContents  CategoryCityContent[]
+  id                       String                    @id @default(cuid())
+  name                     String
+  slug                     String                    @unique
+  parentId                 String?
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+  isActive                 Boolean                   @default(true)
+  level                    Int                       @default(0)
+  bannerImage              String?
+  description              String?
+  icon                     String?
+  metaDescription          String?
+  metaTitle                String?
+  shortDescription         String?
+  parent                   Category?                 @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children                 Category[]                @relation("CategoryHierarchy")
+  institutes               InstituteCategory[]
+  cityContents             CategoryCityContent[]
+  salesCategoryAssignments SalesCategoryAssignment[]
 
   @@index([parentId])
 }
 
 model CategoryCityContent {
-  id          String    @id @default(cuid())
-  categoryId  String
-  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  cityId      String
-  city        City      @relation(fields: [cityId], references: [id], onDelete: Cascade)
-
-  // Unique long-form content for this exact combo, e.g. "UPSC Coaching in Noida"
-  introContent     String?  @db.Text   // "Noida mein UPSC coaching ki demand badh rahi hai kyunki..."
-  whyChooseContent String?  @db.Text   // "Yahan kaise choose karein" guidance content
+  id               String   @id @default(cuid())
+  categoryId       String
+  cityId           String
+  introContent     String?
+  whyChooseContent String?
   metaTitle        String?
   metaDescription  String?
-  h1Override       String?             // custom H1 agar default se alag chahiye
-
-  updatedAt   DateTime  @updatedAt
+  h1Override       String?
+  updatedAt        DateTime @updatedAt
+  category         Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  city             City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
 
   @@unique([categoryId, cityId])
   @@index([categoryId])
@@ -296,49 +263,36 @@ model InstituteManager {
 }
 
 model Review {
-  id          String    @id @default(cuid())
+  id          String       @id @default(cuid())
   rating      Int
   comment     String?
   userId      String
-  status      ReviewStatus @default(PENDING)
   instituteId String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  status      ReviewStatus @default(PENDING)
+  institute   Institute    @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, instituteId])
   @@index([userId])
   @@index([instituteId])
 }
 
-enum Role {
-  USER
-  CONTENT_WRITER
-  INSTITUTE_MANAGER
-  SALES_MANAGER
-  ADMIN
-}
-
 model InstituteClaim {
-  id String @id @default(cuid())
-
+  id          String    @id @default(cuid())
   instituteId String
+  userId      String
+  fullName    String
+  email       String
+  phone       String
+  role        String
+  message     String?
+  status      String    @default("PENDING")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  fullName String
-  email    String
-  phone    String
-  role     String
-  message  String? @db.Text
-
-  status String @default("PENDING") 
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@index([userId])
@@ -349,61 +303,51 @@ model InstituteClaim {
 model UserShortlist {
   userId      String
   instituteId String
-  createdAt   DateTime @default(now())
-
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, instituteId])
   @@map("user_shortlist")
 }
 
 model UserHistory {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   userId      String
   instituteId String
-  viewedAt    DateTime @default(now()) @updatedAt
-
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  viewedAt    DateTime  @default(now()) @updatedAt
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, instituteId])
   @@index([userId])
   @@map("user_history")
 }
 
-enum SubscriptionPlan {
-  BASIC
-  PREMIUM
-  ULTRA
-  VERIFIED
-}
-
 model InstituteEnquiry {
   id          String    @id @default(cuid())
   instituteId String
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-  
   name        String
   phone       String
-  message     String?   @db.Text
-  status      String    @default("NEW") 
+  message     String?
+  status      String    @default("NEW")
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@map("institute_enquiry")
 }
 
 model TeacherProfile {
-  id          String    @id @default(cuid())
-  name        String
-  subject     String?
-  experience  String?
-  imageUrl    String?
+  id            String    @id @default(cuid())
+  name          String
+  subject       String?
+  experience    String?
+  imageUrl      String?
+  instituteId   String
   qualification String?
-  instituteId String
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  institute     Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@map("teacher_profile")
@@ -415,8 +359,8 @@ model ContactMessage {
   phone     String?
   email     String
   subject   String?
-  message   String   @db.Text
-  isRead    Boolean  @default(false) 
+  message   String
+  isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
 
   @@map("contact_message")
@@ -425,67 +369,48 @@ model ContactMessage {
 model InstituteRequest {
   id          String    @id @default(cuid())
   userId      String
-  user        User      @relation(fields: [userId], references: [id])
-  instituteId String    @unique // 🚀 Binding direct Relation
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-  status      String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  instituteId String    @unique
+  status      String    @default("PENDING")
   createdAt   DateTime  @default(now())
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id])
 
   @@map("institute_request")
 }
 
 model SubscriptionPayment {
-  id              String           @id @default(cuid())
-  instituteId     String
-  institute       Institute        @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-  userId          String?
-  user            User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
-  planRequested   SubscriptionPlan // VERIFIED, PREMIUM, ULTRA
-  billingCycle    String           // MONTHLY, ANNUAL
-  amountPaid      Int
-  utrNumber       String           @unique 
-  proofImageUrl   String?          
-  status          String           @default("PENDING") // PENDING, APPROVED, REJECTED
-  
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  id            String           @id @default(cuid())
+  instituteId   String
+  userId        String?
+  planRequested SubscriptionPlan
+  billingCycle  String
+  amountPaid    Int
+  utrNumber     String           @unique
+  proofImageUrl String?
+  status        String           @default("PENDING")
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  institute     Institute        @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  user          User?            @relation(fields: [userId], references: [id])
 
   @@map("subscription_payment")
 }
 
-
-enum ContactStatus {
-  NOT_CONTACTED
-  CONTACTED
-  ONBOARDED
-}
-
-enum InterestStatus {
-  INTERESTED
-  NOT_INTERESTED
-}
-
 model SalesAssignment {
-  id              String            @id @default(cuid())
-
-  salesManagerId  String
-  salesManager    User              @relation("SalesAssignments", fields: [salesManagerId], references: [id], onDelete: Cascade)
-
-  instituteId     String            @unique
-  institute       Institute         @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
-  // Tracking
-  contactStatus   ContactStatus     @default(NOT_CONTACTED)
-  interest        InterestStatus?
-  remark          String?           @db.Text
-  onboardedPlan   SubscriptionPlan?
-
-  deadline        DateTime?
-  contactedAt     DateTime?
-  onboardedAt     DateTime?
-
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  id             String            @id @default(cuid())
+  salesManagerId String
+  instituteId    String            @unique
+  contactStatus  ContactStatus     @default(NOT_CONTACTED)
+  interest       InterestStatus?
+  remark         String?
+  onboardedPlan  SubscriptionPlan?
+  deadline       DateTime?
+  contactedAt    DateTime?
+  onboardedAt    DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  institute      Institute         @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  salesManager   User              @relation("SalesAssignments", fields: [salesManagerId], references: [id], onDelete: Cascade)
 
   @@index([salesManagerId])
   @@index([instituteId])
@@ -494,53 +419,40 @@ model SalesAssignment {
 }
 
 model SalesCategoryAssignment {
-  id              String    @id @default(cuid())
-
-  salesManagerId  String
-  salesManager    User      @relation("SalesCategoryAssignments", fields: [salesManagerId], references: [id], onDelete: Cascade)
-
-  categoryId      String
-  category        Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  deadline        DateTime?
-  createdAt       DateTime  @default(now())
+  id             String    @id @default(cuid())
+  salesManagerId String
+  categoryId     String
+  deadline       DateTime?
+  createdAt      DateTime  @default(now())
+  category       Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  salesManager   User      @relation("SalesCategoryAssignments", fields: [salesManagerId], references: [id], onDelete: Cascade)
 
   @@unique([salesManagerId, categoryId])
   @@index([salesManagerId])
   @@map("sales_category_assignment")
 }
 
-enum LifeCoachRequestStatus {
-  PENDING
-  CONTACTED
-  RESOLVED
-}
-
 model LifeCoachRequest {
-  id        String   @id @default(cuid())
+  id        String                 @id @default(cuid())
   fullName  String
   phone     String
   email     String?
   message   String?
-  status    LifeCoachRequestStatus  @default(PENDING) 
-  createdAt DateTime @default(now())
+  status    LifeCoachRequestStatus @default(PENDING)
+  createdAt DateTime               @default(now())
 }
-
 
 model AdminNotification {
   id          String   @id @default(cuid())
-  type        String   
-  title       String   
-  message     String   @db.Text 
+  type        String
+  title       String
+  message     String
   isRead      Boolean  @default(false)
-
   referenceId String?
-  actionUrl   String?  // Admin click karke kahan jaye?
-
-  userId      String?  
-  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-
+  actionUrl   String?
+  userId      String?
   createdAt   DateTime @default(now())
+  user        User?    @relation(fields: [userId], references: [id])
 
   @@index([isRead])
   @@index([type])
@@ -548,61 +460,44 @@ model AdminNotification {
   @@map("admin_notification")
 }
 
-enum JobApplicationStatus {
-
-NEW
-
-REVIEWING
-
-SHORTLISTED
-
-REJECTED
-
-HIRED
-
-}
-
 model JobPosting {
-  id            String   @id @default(cuid())
-  title         String   
-  slug          String   @unique
-  department    String   
-  location      String
-  type          String   
-  experience    String?
-  description   String   @db.Text
-  responsibilities  String @db.Text
-  requirements  String   @db.Text
-  benefits      String?   @db.Text
-  isActive      Boolean  @default(true)
-  Salary        String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id               String           @id @default(cuid())
+  title            String
+  slug             String           @unique
+  department       String
+  location         String
+  type             String
+  experience       String?
+  description      String
+  responsibilities String
+  requirements     String
+  benefits         String?
+  isActive         Boolean          @default(true)
+  Salary           String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  applications     JobApplication[]
 
-  applications  JobApplication[]
-
-  @@map("job_posting")
   @@index([isActive])
   @@index([department])
+  @@map("job_posting")
 }
 
 model JobApplication {
-  id          String     @id @default(cuid())
-  jobId       String
-  job         JobPosting @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  
-  name        String
-  email       String
-  phone       String
-  linkedinUrl String?
-  portfolioUrl String?
-  resumeUrl   String     
-  resumeFileName  String
-  coverLetter String?    @db.Text
-  status      JobApplicationStatus  @default(NEW)
-  notes           String? @db.Text
-  
-  createdAt   DateTime   @default(now())
+  id             String               @id @default(cuid())
+  jobId          String
+  name           String
+  email          String
+  phone          String
+  linkedinUrl    String?
+  portfolioUrl   String?
+  resumeUrl      String
+  coverLetter    String?
+  status         JobApplicationStatus @default(NEW)
+  notes          String?
+  createdAt      DateTime             @default(now())
+  resumeFileName String
+  job            JobPosting           @relation(fields: [jobId], references: [id], onDelete: Cascade)
 
   @@index([jobId])
   @@index([status])
@@ -618,25 +513,18 @@ model GeneralResume {
   portfolioUrl   String?
   resumeUrl      String
   resumeFileName String
-  message        String?  @db.Text
+  message        String?
   createdAt      DateTime @default(now())
 
   @@map("general_resume")
 }
 
-enum ReviewStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
 model InstituteDailyView {
   id          String    @id @default(cuid())
   instituteId String
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
-  date        DateTime  @db.Date   // sirf date, time nahi — ek din ka ek row
+  date        DateTime  @db.Date
   viewCount   Int       @default(0)
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@unique([instituteId, date])
   @@index([instituteId])
@@ -646,35 +534,32 @@ model InstituteDailyView {
 model InstituteFacility {
   id          String    @id @default(cuid())
   instituteId String
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
-  name        String    // "Library", "AC Classrooms", "Practice Nets", "Mirror Studio", "Sound System", "Locker Room"
+  name        String
   available   Boolean   @default(true)
   order       Int       @default(0)
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@map("institute_facility")
 }
 
 model InstituteBatch {
-  id            String        @id @default(cuid())
-  instituteId   String
-  institute     Institute     @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
-  name          String        // "UPSC Foundation Batch" / "U-14 Cricket Batch" / "Bharatanatyam Beginners"
-  duration      String?       // "12 months", "2 years", "8 weeks"
-  fee           Int?
-  batchType     String?       // "Weekday", "Weekend", "Crash Course", "Regular"
-  mode          InstituteMode @default(OFFLINE)
-  timing        String?       // "Mon-Sat, 6AM-9AM"
-  seatsTotal    Int?
-  seatsLeft     Int?
-  ageGroupMin   Int?          // sports/dance/music mein zaroori — academic ke liye null chhod do
-  ageGroupMax   Int?
-  originalFee   Int?
-
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id          String        @id @default(cuid())
+  instituteId String
+  name        String
+  duration    String?
+  fee         Int?
+  batchType   String?
+  mode        InstituteMode @default(OFFLINE)
+  timing      String?
+  seatsTotal  Int?
+  seatsLeft   Int?
+  ageGroupMin Int?
+  ageGroupMax Int?
+  originalFee Int?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  institute   Institute     @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@map("institute_batch")
@@ -683,12 +568,11 @@ model InstituteBatch {
 model InstituteHighlightStat {
   id          String    @id @default(cuid())
   instituteId String
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
   label       String
   value       String
-  icon        String?   // lucide-react icon name for UI, e.g. "trophy", "users", "target"
+  icon        String?
   order       Int       @default(0)
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@map("institute_highlight_stat")
@@ -697,13 +581,12 @@ model InstituteHighlightStat {
 model InstituteAchievement {
   id              String    @id @default(cuid())
   instituteId     String
-  institute       Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
   year            Int
-  title           String    // "AIR 45 - UPSC CSE" / "Zonal Cricket Champions" / "Trinity Grade 8 Distinction"
+  title           String
   studentName     String?
-  achievementType String?   // "Exam Rank", "Tournament Win", "Certification", "Performance Award"
+  achievementType String?
   imageUrl        String?
+  institute       Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@index([year])
@@ -713,11 +596,10 @@ model InstituteAchievement {
 model InstituteFAQ {
   id          String    @id @default(cuid())
   instituteId String
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
   question    String
-  answer      String    @db.Text
+  answer      String
   order       Int       @default(0)
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@map("institute_faq")
@@ -726,29 +608,26 @@ model InstituteFAQ {
 model InstituteOperatingHour {
   id          String    @id @default(cuid())
   instituteId String
+  dayOfWeek   Int
+  openTime    String?
+  closeTime   String?
+  isClosed    Boolean   @default(false)
   institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
-  dayOfWeek   Int       // 0 = Sunday ... 6 = Saturday
-  openTime    String?   // "06:00"
-  closeTime   String?   // "21:00"
-  isClosed    Boolean   @default(false)
-
-  @@index([instituteId])
   @@unique([instituteId, dayOfWeek])
+  @@index([instituteId])
   @@map("institute_operating_hour")
 }
 
 model UserCompareList {
-  id          String                 @id @default(cuid())
-  userId      String?                // nullable — guest users bhi compare kar sakein, session se track ho
-  user        User?                  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sessionId   String?                // anonymous/guest tracking ke liye
-  shareSlug   String?                @unique  // "compare-allen-vs-physics-wallah" jaisa shareable link
-
-  createdAt   DateTime               @default(now())
-  updatedAt   DateTime               @updatedAt
-
-  items       CompareListInstitute[]
+  id        String                 @id @default(cuid())
+  userId    String?
+  sessionId String?
+  shareSlug String?                @unique
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  items     CompareListInstitute[]
+  user      User?                  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([shareSlug])
@@ -756,12 +635,12 @@ model UserCompareList {
 }
 
 model CompareListInstitute {
-  id              String          @id @default(cuid())
-  compareListId   String
-  compareList     UserCompareList @relation(fields: [compareListId], references: [id], onDelete: Cascade)
-  instituteId     String
-  institute       Institute       @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-  order           Int             @default(0)
+  id            String          @id @default(cuid())
+  compareListId String
+  instituteId   String
+  order         Int             @default(0)
+  compareList   UserCompareList @relation(fields: [compareListId], references: [id], onDelete: Cascade)
+  institute     Institute       @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@unique([compareListId, instituteId])
   @@index([instituteId])
@@ -769,35 +648,30 @@ model CompareListInstitute {
 }
 
 model CommunityQuestion {
-  id          String    @id @default(cuid())
+  id          String            @id @default(cuid())
   instituteId String
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
-  userId      String    // Kis student ne poocha
-  user        User      @relation(fields: [userId], references: [id])
-
-  question    String    @db.Text
-  upvotes     Int       @default(0)
-  createdAt   DateTime  @default(now())
-
+  userId      String
+  question    String
+  upvotes     Int               @default(0)
+  createdAt   DateTime          @default(now())
   answers     CommunityAnswer[]
+  institute   Institute         @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+  user        User              @relation(fields: [userId], references: [id])
 
   @@index([instituteId])
   @@map("community_question")
 }
 
 model CommunityAnswer {
-  id          String    @id @default(cuid())
-  questionId  String
-  question    CommunityQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  userId      String    // Kisne jawab diya (Alumni, Institute Manager, ya User)
-  user        User      @relation(fields: [userId], references: [id])
-
-  answer      String    @db.Text
-  upvotes     Int       @default(0)
-  isVerified  Boolean   @default(false) // Agar institute owner ne khud reply kiya toh ✅ Verified badge
-  createdAt   DateTime  @default(now())
+  id         String            @id @default(cuid())
+  questionId String
+  userId     String
+  answer     String
+  upvotes    Int               @default(0)
+  isVerified Boolean           @default(false)
+  createdAt  DateTime          @default(now())
+  question   CommunityQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  user       User              @relation(fields: [userId], references: [id])
 
   @@index([questionId])
   @@map("community_answer")
@@ -806,15 +680,13 @@ model CommunityAnswer {
 model NotablePersons {
   id          String    @id @default(cuid())
   instituteId String
-  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
-
   name        String
-  batchYear   Int?      // e.g., 2023
-  placedAt    String?   // "IIT Delhi" / "Google" / "NDA"
-  package     String?   // "40 LPA" / "AIR 15"
-  imageUrl    String?   // Student ki photo
-
+  batchYear   Int?
+  placedAt    String?
+  package     String?
+  imageUrl    String?
   createdAt   DateTime  @default(now())
+  institute   Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
   @@index([instituteId])
   @@map("notable_alumni")
@@ -822,30 +694,83 @@ model NotablePersons {
 
 model InstituteComparisonCache {
   id              String    @id @default(cuid())
-  
-  institute1Id    String    
-  institute1      Institute @relation("ComparisonAsFirst", fields: [institute1Id], references: [id], onDelete: Cascade)
-  
+  institute1Id    String
   institute2Id    String
-  institute2      Institute @relation("ComparisonAsSecond", fields: [institute2Id], references: [id], onDelete: Cascade)
-  
-  slug            String    @unique   // e.g., "allen-vs-physics-wallah-noida"
-  
-  // AI/Editorial generated content — static & crawlable
-  summary         String?   @db.Text  // "Both are top UPSC coachings, but..."
-  verdict         String?             // "Allen" / "Physics Wallah" / "Tie"
-  verdictReason   String?   @db.Text  
-  
+  slug            String    @unique
+  summary         String?
+  verdict         String?
+  verdictReason   String?
   metaTitle       String?
   metaDescription String?
-  
   viewCount       Int       @default(0)
-  
   generatedAt     DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+  institute1      Institute @relation("ComparisonAsFirst", fields: [institute1Id], references: [id], onDelete: Cascade)
+  institute2      Institute @relation("ComparisonAsSecond", fields: [institute2Id], references: [id], onDelete: Cascade)
 
-  // Dono ID mila kar ek unique entry banegi taaki duplicate cache na ho
   @@unique([institute1Id, institute2Id])
   @@index([slug])
   @@map("institute_comparison_cache")
+}
+
+enum InstituteMode {
+  OFFLINE
+  ONLINE
+  HYBRID
+}
+
+enum CategoryDomain {
+  ACADEMIC
+  PERFORMING_ARTS
+  SPORTS
+  VISUAL_ARTS
+  FITNESS
+  LANGUAGE
+  OTHER
+}
+
+enum Role {
+  USER
+  CONTENT_WRITER
+  INSTITUTE_MANAGER
+  ADMIN
+  SALES_MANAGER
+}
+
+enum SubscriptionPlan {
+  BASIC
+  PREMIUM
+  ULTRA
+  VERIFIED
+}
+
+enum ContactStatus {
+  NOT_CONTACTED
+  CONTACTED
+  ONBOARDED
+}
+
+enum InterestStatus {
+  INTERESTED
+  NOT_INTERESTED
+}
+
+enum LifeCoachRequestStatus {
+  PENDING
+  CONTACTED
+  RESOLVED
+}
+
+enum JobApplicationStatus {
+  NEW
+  REVIEWING
+  SHORTLISTED
+  REJECTED
+  HIRED
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
