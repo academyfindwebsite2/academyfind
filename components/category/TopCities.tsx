@@ -1,4 +1,3 @@
-import Link from "next/link";
 import CityCard from "./CityCard";
 
 interface City {

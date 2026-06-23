@@ -362,6 +362,15 @@ export function SearchBar() {
     else if(selectedLocation?.lat === 28.4089123 && selectedLocation?.lng === 77.3177894){
       if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/faridabad`);
       else router.push(`/categories?city=faridabad`);
+    }else if(selectedLocation?.lat === 28.8344396 && selectedLocation?.lng === 77.5698527){
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/modinagar`);
+      else router.push(`/categories?city=modinagar`);
+    }else if(selectedLocation?.lat === 28.4594965 && selectedLocation?.lng === 77.0266383){
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/gurugram`);
+      else router.push(`/categories?city=gurugram`);
+    }else if(selectedLocation?.lat === 28.99308229999999 && selectedLocation?.lng === 77.0150735){
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/sonipat`);
+      else router.push(`/categories?city=sonipat`);
     }
     else if (matchedCategorySlug && matchedCitySlug) {
       router.push(`/${matchedCategorySlug}/${matchedCitySlug}?${params.toString()}`);
