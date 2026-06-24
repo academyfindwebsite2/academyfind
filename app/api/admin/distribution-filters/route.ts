@@ -19,8 +19,8 @@ export async function GET() {
     });
 
     return NextResponse.json({
-      cities: cities.map(c => ({ id: c.id, name: c.name })),
-      categories: categories.map(c => ({ id: c.id, name: c.name })),
+      cities: cities.map((c: { id: string; name: string }) => ({ id: c.id, name: c.name })),
+      categories: categories.map((c: { id: string; name: string }) => ({ id: c.id, name: c.name })),
     });
   } catch (error) {
     console.error("Error fetching filters:", error);

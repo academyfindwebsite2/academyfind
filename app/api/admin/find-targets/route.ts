@@ -24,12 +24,12 @@ export async function GET(req: Request) {
     const filter: string[] = [];
     filter.push(`type = "institute"`);
     if (exclude) filter.push(`prismaId != "${exclude}"`);
-    if (!plansAll && plans.length > 0) filter.push(`(${plans.map(p => `subscriptionPlan = "${p}"`).join(" OR ")})`);
+    if (!plansAll && plans.length > 0) filter.push(`(${plans.map((p: string) => `subscriptionPlan = "${p}"`).join(" OR ")})`);
     if (!citiesAll && cityIds.length > 0) {
-      filter.push(`(${cityIds.map(id => `cityId = "${id}"`).join(" OR ")})`);
+      filter.push(`(${cityIds.map((id: string) => `cityId = "${id}"`).join(" OR ")})`);
     }
     if (!categoriesAll && categoryIds.length > 0) {
-      filter.push(`(${categoryIds.map(id => `categoryIds = "${id}"`).join(" OR ")})`);
+      filter.push(`(${categoryIds.map((id: string) => `categoryIds = "${id}"`).join(" OR ")})`);
     }
     filter.push("isActive = true");
     filter.push("isPublished = true");
@@ -89,12 +89,12 @@ export async function GET(req: Request) {
         where: { parentId: enquiryId, instituteId: { in: instituteIds } },
         select: { instituteId: true },
       });
-      existingLeadSet = new Set(existing.map(e => e.instituteId));
+      existingLeadSet = new Set(existing.map((e: { instituteId: string }) => e.instituteId));
     }
 
     const withFlags = institutes
-      .map(inst => ({ ...inst, hasExistingLead: existingLeadSet.has(inst.id) }))
-      .sort((a, b) => {
+      .map((inst: { id: string; name: string; subscriptionPlan: string; city: { name: string } }) => ({ ...inst, hasExistingLead: existingLeadSet.has(inst.id) }))
+      .sort((a: { hasExistingLead: boolean; subscriptionPlan: string }, b: { hasExistingLead: boolean; subscriptionPlan: string }) => {
         // Sort: leads without existing lead first, then by plan priority
         if (a.hasExistingLead !== b.hasExistingLead) {
           return a.hasExistingLead ? 1 : -1;

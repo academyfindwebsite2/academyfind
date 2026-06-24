@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Search, Send, MapPin, CheckCircle2, X, CheckSquare, Square, AlertCircle, Zap, Star, BadgeCheck, Building2, Layers } from "lucide-react";
 import toast from "react-hot-toast";
+import { AnyARecord } from "node:dns";
 
 interface SearchResult {
     id: string;
@@ -125,10 +126,10 @@ export default function LeadDistributionForm({
                 if (!plansAll) params.append('plans', selectedPlans.join(','));
 
                 params.append('citiesAll', String(citiesAll));
-                if (!citiesAll) params.append('cities', selectedCities.map(c => c.id).join(','));
+                if (!citiesAll) params.append('cities', selectedCities.map((c: { id: string }) => c.id).join(','));
 
                 params.append('categoriesAll', String(categoriesAll));
-                if (!categoriesAll) params.append('categories', selectedCategories.map(c => c.id).join(','));
+                if (!categoriesAll) params.append('categories', selectedCategories.map((c: { id: string }) => c.id).join(','));
 
                 if (bulkSearch.trim()) params.append('search', bulkSearch.trim());
 
@@ -163,7 +164,7 @@ export default function LeadDistributionForm({
             setPlansAll(false);
             setSelectedPlans([plan]);
         } else {
-            setSelectedPlans(prev => prev.includes(plan) ? prev.filter(p => p !== plan) : [...prev, plan]);
+            setSelectedPlans(prev => prev.includes(plan) ? prev.filter((p: string) => p !== plan) : [...prev, plan]);
         }
     };
     const selectAllPlans = () => {
@@ -176,13 +177,13 @@ export default function LeadDistributionForm({
         const id = e.target.value;
         if (!id) return;
         const city = cities.find(c => c.id === id);
-        if (city && !selectedCities.find(c => c.id === id)) {
+        if (city && !selectedCities.find((c: { id: string }) => c.id === id)) {
             setCitiesAll(false);
             setSelectedCities(prev => [...prev, city]);
         }
         e.target.value = "";
     };
-    const removeCity = (id: string) => setSelectedCities(prev => prev.filter(c => c.id !== id));
+    const removeCity = (id: string) => setSelectedCities((prev: any) => prev.filter((c: { id: string }) => c.id !== id));
     const selectAllCities = () => {
         setCitiesAll(true);
         setSelectedCities([]);
@@ -193,13 +194,13 @@ export default function LeadDistributionForm({
         const id = e.target.value;
         if (!id) return;
         const cat = categories.find(c => c.id === id);
-        if (cat && !selectedCategories.find(c => c.id === id)) {
+        if (cat && !selectedCategories.find((c: { id: string }) => c.id === id)) {
             setCategoriesAll(false);
             setSelectedCategories(prev => [...prev, cat]);
         }
         e.target.value = "";
     };
-    const removeCategory = (id: string) => setSelectedCategories(prev => prev.filter(c => c.id !== id));
+    const removeCategory = (id: string) => setSelectedCategories(prev => prev.filter((c: { id: string }) => c.id !== id));
     const selectAllCategories = () => {
         setCategoriesAll(true);
         setSelectedCategories([]);
@@ -207,13 +208,13 @@ export default function LeadDistributionForm({
 
     // ---- Individual selection ----
     const toggleIndividual = (id: string) => {
-        setIndividualSelected(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+        setIndividualSelected(prev => prev.includes(id) ? prev.filter((i: string) => i !== id) : [...prev, id]);
     };
     const toggleSelectAllIndividual = () => {
         if (individualSelected.length === filteredIndividual.length && filteredIndividual.length > 0) {
             setIndividualSelected([]);
         } else {
-            setIndividualSelected(filteredIndividual.map(r => r.id));
+            setIndividualSelected(filteredIndividual.map((r: { id: string }) => r.id));
         }
     };
 
@@ -262,8 +263,8 @@ export default function LeadDistributionForm({
                     originalEnquiryId: enquiryId,
                     originalInstituteId,
                     plansAll, plans: selectedPlans,
-                    citiesAll, cityIds: selectedCities.map(c => c.id),
-                    categoriesAll, categoryIds: selectedCategories.map(c => c.id),
+                    citiesAll, cityIds: selectedCities.map((c: { id: string }) => c.id),
+                    categoriesAll, categoryIds: selectedCategories.map((c: { id: string }) => c.id),
                     search: bulkSearch.trim(),
                     adminNote,
                 }),
@@ -420,7 +421,7 @@ export default function LeadDistributionForm({
                             >
                                 <Layers className="w-3.5 h-3.5" /> All Plans
                             </button>
-                            {ALL_PLANS.map(plan => (
+                            {ALL_PLANS.map((plan: string) => (
                                 <button
                                     key={plan}
                                     onClick={() => togglePlan(plan)}
@@ -459,14 +460,14 @@ export default function LeadDistributionForm({
                                 <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-400" />
                                 <select onChange={handleAddCity} className="w-full pl-9 pr-4 py-2.5 bg-white border border-amber-200 text-slate-700 text-sm rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
                                     <option value="">+ Add City...</option>
-                                    {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                                    {cities.map((c: { id: string; name: string }) => <option key={c.id} value={c.id}>{c.name}</option>)}
                                 </select>
                             </div>
                             {!citiesAll && (
                                 <div className="flex flex-wrap gap-1.5">
                                     {selectedCities.length === 0 ? (
                                         <span className="text-[11px] text-red-500">No cities selected — pick one or use "All Cities".</span>
-                                    ) : selectedCities.map(c => (
+                                    ) : selectedCities.map((c: { id: string; name: string }) => (
                                         <span key={c.id} className="inline-flex items-center gap-1 bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded-md">
                                             {c.name} <X className="w-3 h-3 cursor-pointer hover:text-red-500" onClick={() => removeCity(c.id)} />
                                         </span>
@@ -497,14 +498,14 @@ export default function LeadDistributionForm({
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-400" />
                                 <select onChange={handleAddCategory} className="w-full pl-9 pr-4 py-2.5 bg-white border border-amber-200 text-slate-700 text-sm rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
                                     <option value="">+ Add Category...</option>
-                                    {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                                    {categories.map((c: { id: string; name: string }) => <option key={c.id} value={c.id}>{c.name}</option>)}
                                 </select>
                             </div>
                             {!categoriesAll && (
                                 <div className="flex flex-wrap gap-1.5">
                                     {selectedCategories.length === 0 ? (
                                         <span className="text-[11px] text-red-500">No categories selected — pick one or use "All Categories".</span>
-                                    ) : selectedCategories.map(c => (
+                                    ) : selectedCategories.map((c: { id: string; name: string }) => (
                                         <span key={c.id} className="inline-flex items-center gap-1 bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded-md">
                                             {c.name} <X className="w-3 h-3 cursor-pointer hover:text-red-500" onClick={() => removeCategory(c.id)} />
                                         </span>

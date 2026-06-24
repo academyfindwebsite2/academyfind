@@ -57,7 +57,7 @@ export async function POST(req: Request) {
         offset,
         attributesToRetrieve: ["id"],
       });
-      const ids = (page.hits as any[]).map(h => h.id);
+      const ids = (page.hits as { id: string }[]).map((h: { id: string }) => h.id);
       allIds.push(...ids);
       if (ids.length < PAGE_SIZE || offset > SAFETY_CAP) break;
       offset += PAGE_SIZE;
@@ -72,8 +72,8 @@ export async function POST(req: Request) {
       where: { parentId: originalEnquiryId, instituteId: { in: allIds } },
       select: { instituteId: true },
     });
-    const existingSet = new Set(existing.map(e => e.instituteId));
-    const targetIds = allIds.filter(id => !existingSet.has(id));
+    const existingSet = new Set(existing.map((e: { instituteId: string }) => e.instituteId));
+    const targetIds = allIds.filter((id: string) => !existingSet.has(id));
 
     if (targetIds.length === 0) {
       return NextResponse.json({
@@ -89,7 +89,7 @@ export async function POST(req: Request) {
     });
 
     const result = await prisma.instituteEnquiry.createMany({
-      data: targetIds.map(instituteId => ({
+      data: targetIds.map((instituteId: string) => ({
         instituteId,
         name: originalEnquiry.name,
         phone: originalEnquiry.phone,
