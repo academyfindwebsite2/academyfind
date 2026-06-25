@@ -72,7 +72,7 @@ export default async function EnquiriesPage({ params }: { params: Promise<{ inst
                                         <Calendar className="w-3 h-3" /> {format(new Date(enquiry.createdAt), "PPp")}
                                     </div>
                                     <Link
-                                        href={`/manager/leads/${enquiry.id}`}
+                                        href={`/manager/leads/${instituteId}/${enquiry.id}`}
                                         className="text-sm text-blue-600 hover:text-blue-800 font-bold flex items-center gap-1 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors"
                                     >
                                         View Details <ArrowRight className="w-4 h-4" />

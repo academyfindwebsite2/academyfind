@@ -19,8 +19,8 @@ export default function robots(): MetadataRoute.Robots {
         '/login',
         '/register',
         '/*/claim',
-        '/*?sort=',        // 🆕
-        '/*?rating=',      // 🆕
+        '/*?sort=',       
+        '/*?rating=',      
         '/*?q=',
       ],
     },
