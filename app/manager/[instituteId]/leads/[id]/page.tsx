@@ -4,8 +4,8 @@ import { Mail, Phone, Calendar, ArrowLeft, User, MessageSquare } from "lucide-re
 import Link from "next/link";
 import { format } from "date-fns";
 
-export default async function LeadDetailedPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = await params;
+export default async function LeadDetailedPage({ params }: { params: Promise<{ id: string; instituteId: string }> }) {
+    const { id, instituteId } = await params;
 
     const enquiry = await prisma.instituteEnquiry.findUnique({
         where: { id }
@@ -16,7 +16,7 @@ export default async function LeadDetailedPage({ params }: { params: Promise<{ i
     return (
         <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in duration-500">
             {/* 🚀 Back Button */}
-            <Link href="/manager/leads" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+            <Link href={`/manager/${instituteId}/leads`} className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
                 <ArrowLeft className="w-4 h-4" /> Back to Leads
             </Link>
 
