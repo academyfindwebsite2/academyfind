@@ -38,10 +38,14 @@ function isCloudinaryImage(url?: string | null) {
   return url.includes("cloudinary.com");
 }
 
+const getFallbackImage = () => {
+   return "/no_image/coaching_inst.PNG";
+};
+
 function getSafeImageUrl(logo?: string | null, imageUrl?: string | null) {
   if (isCloudinaryImage(logo)) return logo!;
   if (isCloudinaryImage(imageUrl)) return imageUrl!;
-  return `${process.env.NEXT_PUBLIC_BASE_URL}/no_image/coaching_inst.PNG`; 
+  return getFallbackImage(); 
 }
 
 function getYouTubeId(url: string) {
@@ -116,7 +120,7 @@ export default async function InstitutePage({ params }: PageProps) {
   }
 
   const safeSchemaImage = getSafeImageUrl(institute.logo, institute.imageUrl);
-  const mainLogo = safeSchemaImage.replace("https://www.academyfind.com", ""); 
+  const mainLogo = safeSchemaImage.replace("https://academyfind.com", ""); 
 
   const safeMapsUrl = institute.googleMapsUrl && !institute.googleMapsUrl.includes("key=") 
     ? institute.googleMapsUrl 
@@ -135,7 +139,7 @@ export default async function InstitutePage({ params }: PageProps) {
       "addressCountry": "IN"
     },
     "telephone": institute.phone || "",
-    "url": institute.website || `https://www.academyfind.com/institute/${idSlug}`,
+    "url": institute.website || `https://academyfind.com/institute/${idSlug}`,
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": displayRating > 0 ? displayRating : 4.5,
