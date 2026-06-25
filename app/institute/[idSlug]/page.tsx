@@ -200,11 +200,19 @@ export default async function InstitutePage({ params }: PageProps) {
                               </span>
                             ))}
                           </div>
-                          {displayRating > 0 && (
-                            <div className="flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700">
+                          {displayRating > 0 && institute.googlePlaceId && (
+                            <Link
+                              href={`${process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL}${institute.googlePlaceId}`}
+                              prefetch={false}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-200"
+                            >
                               <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                              {displayRating} ({displayReviewCount} Reviews)
-                            </div>
+                              <span>
+                                {displayRating} ({displayReviewCount} Reviews)
+                              </span>
+                            </Link>
                           )}
                         </div>
                       </div>
