@@ -51,7 +51,7 @@ export default async function SalesAllInstitutesPage({
                     include: { category: { select: { id: true, name: true } } },
                     take: 2,
                 },
-                salesAssignments: {
+                salesAssignment: {
                     select: {
                         id: true,
                         salesManagerId: true,
@@ -119,8 +119,8 @@ export default async function SalesAllInstitutesPage({
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {institutes.map((inst: any) => {
-                        const myAssignment = inst.salesAssignments.find((a:any) => a.salesManagerId === id);
-                        const otherAssignments = inst.salesAssignments.filter((a: any) => a.salesManagerId !== id);
+                        const myAssignment = inst.salesAssignment?.salesManagerId === id ? inst.salesAssignment : null;
+                        const otherAssignment = inst.salesAssignment?.salesManagerId !== id ? inst.salesAssignment : null;
 
                         return (
                             <div
@@ -128,7 +128,7 @@ export default async function SalesAllInstitutesPage({
                                 className={`p-4 rounded-2xl border transition-all hover:shadow-sm ${
                                     myAssignment
                                         ? "border-teal-200 bg-teal-50/30"
-                                        : otherAssignments.length > 0
+                                        : otherAssignment
                                         ? "border-slate-200 bg-slate-50/50"
                                         : "border-slate-200 bg-white"
                                 }`}
@@ -166,12 +166,11 @@ export default async function SalesAllInstitutesPage({
                                                 </span>
                                                 <SalesStatusBadge status={myAssignment.contactStatus} />
                                             </>
-                                        ) : otherAssignments.length > 0 ? (
-                                            otherAssignments.map((a: any, i:any) => (
-                                                <span key={i} className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full flex items-center gap-1">
-                                                    <User className="w-2.5 h-2.5" /> {a.salesManager.name}
+                                        ) : otherAssignment ? (
+                                                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                                    <User className="w-2.5 h-2.5" /> {otherAssignment.salesManager.name}
                                                 </span>
-                                            ))
+                                            
                                         ) : (
                                             <span className="text-[10px] font-medium text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full border border-dashed border-slate-200">
                                                 Unassigned

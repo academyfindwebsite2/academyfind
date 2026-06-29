@@ -81,11 +81,7 @@ export default async function AdminSalesManagerDetailPage({
         // All institutes for assignment form (exclude already assigned)
         prisma.institute.findMany({
             where: {
-                NOT: {
-                    salesAssignments: {
-                        some: { salesManagerId: id }
-                    }
-                }
+                salesAssignments: null
             },
             select: {
                 id: true,

@@ -29,22 +29,16 @@ export default async function SalesAssignmentsPage({
         whereCondition.contactStatus = statusFilter;
     }
 
-    if (categoryFilter) {
-        whereCondition.institute = {
-            categories: {
-                some: { categoryId: categoryFilter }
-            }
-        };
-    }
+    const instituteFilter: any = {};
+    if (categoryFilter) 
+        instituteFilter.categories = { some: { categoryId: categoryFilter } };
 
-    if (searchFilter) {
-        whereCondition.institute = {
-            ...whereCondition.institute,
-            name: { contains: searchFilter, mode: "insensitive" },
-        };
-    }
+    if (searchFilter) 
+        instituteFilter.name = { contains: searchFilter, mode: "insensitive" };
+    
+    if (Object.keys(instituteFilter).length > 0) whereCondition.institute = instituteFilter;
 
-    const [assignments, categories, allAssignmentsForOwnership] = await Promise.all([
+    const [assignments, categories] = await Promise.all([
         prisma.salesAssignment.findMany({
             where: whereCondition,
             include: {
@@ -75,33 +69,7 @@ export default async function SalesAssignmentsPage({
             orderBy: { name: "asc" },
         }),
 
-        // Get all assignments for these institutes to show who else has them
-        prisma.salesAssignment.findMany({
-            where: {
-                institute: {
-                    salesAssignments: {
-                        some: { salesManagerId: id }
-                    }
-                }
-            },
-            select: {
-                instituteId: true,
-                salesManagerId: true,
-                salesManager: { select: { name: true } }
-            }
-        }),
     ]);
-
-    // Build ownership map: instituteId -> other sales managers assigned
-    const ownershipMap = new Map<string, { name: string; isYou: boolean }[]>();
-    allAssignmentsForOwnership.forEach((a:any) => {
-        const existing = ownershipMap.get(a.instituteId) || [];
-        existing.push({
-            name: a.salesManager.name || "Unknown",
-            isYou: a.salesManagerId === id,
-        });
-        ownershipMap.set(a.instituteId, existing);
-    });
 
     const now = new Date();
 
@@ -132,9 +100,6 @@ export default async function SalesAssignmentsPage({
                         const isOverdue = assignment.deadline && new Date(assignment.deadline) < now && assignment.contactStatus !== "ONBOARDED";
                         const isExpanded = expandedId === assignment.id;
 
-                        // Get all managers assigned to this institute
-                        const managers = ownershipMap.get(assignment.instituteId) || [];
-                        const otherManagers = managers.filter(m => !m.isYou);
 
                         return (
                             <div
@@ -199,11 +164,6 @@ export default async function SalesAssignmentsPage({
                                                 <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-100">
                                                     <User className="w-2.5 h-2.5" /> Assigned to you
                                                 </span>
-                                                {otherManagers.map((m:any, i:any) => (
-                                                    <span key={i} className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
-                                                        <User className="w-2.5 h-2.5" /> Also: {m.name}
-                                                    </span>
-                                                ))}
                                             </div>
 
                                             {/* Remark Preview */}
