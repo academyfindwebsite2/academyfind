@@ -51,7 +51,7 @@ export default async function SalesAllInstitutesPage({
                     include: { category: { select: { id: true, name: true } } },
                     take: 2,
                 },
-                salesAssignment: {
+                salesAssignments: {
                     select: {
                         id: true,
                         salesManagerId: true,
