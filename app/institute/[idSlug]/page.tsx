@@ -25,6 +25,7 @@ import SaveButton from "@/components/ui/SaveButton";
 import InstituteEnquiryForm from "@/components/manager/InstituteEnquiryForm";
 import ViewTracker from "@/components/manager/ViewTracker";
 import { getCachedInstituteById } from "@/lib/cachedQueries";
+import { LockedOverlay } from "@/components/institutes/LockedOverlay";
 
 export const revalidate = 86400;
 
@@ -107,6 +108,10 @@ export default async function InstitutePage({ params }: PageProps) {
   const displayRating = institute.googleRating ?? institute.averageRating ?? 0;
   const displayReviewCount = institute.googleReviewCount ?? institute.reviewCount ?? 0;
   const isAlreadyClaimed = institute.managers && institute.managers.length > 0;
+  const plan = institute.subscriptionPlan || "BASIC";
+
+  const hasPremiumAccess = ["PREMIUM", "ULTRA", "VERIFIED"].includes(plan);
+  const hasUltraAccess = ["ULTRA", "VERIFIED"].includes(plan);
   
   // Similar Institutes
   let similarInstitutes: any[] = [];
@@ -363,7 +368,7 @@ export default async function InstitutePage({ params }: PageProps) {
         )}
 
         {/* 🚀 COURSES & BATCHES */}
-        {institute.batches && institute.batches.length > 0 && (
+        {(!hasUltraAccess || (institute.batches && institute.batches.length > 0)) && (
             <section>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-3 bg-indigo-100 text-indigo-600 rounded-xl"><BookOpen className="w-6 h-6" /></div>
@@ -373,26 +378,41 @@ export default async function InstitutePage({ params }: PageProps) {
                   </div>
                 </div>
                 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {institute.batches.map((batch: any) => (
-                        <div key={batch.id} className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition">
-                            <div className="flex justify-between items-start mb-4">
-                                <h3 className="font-bold text-lg text-slate-900 leading-tight">{batch.name}</h3>
-                                {batch.mode && <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-md uppercase">{batch.mode}</span>}
-                            </div>
-                            <div className="space-y-2.5 text-sm text-slate-600">
-                                {batch.duration && <p className="flex items-center gap-2"><Clock className="w-4 h-4 text-slate-400"/> {batch.duration}</p>}
-                                {batch.fee && <p className="flex items-center gap-2 font-bold text-slate-800"><IndianRupee className="w-4 h-4 text-emerald-500"/> {formatCurrency(batch.fee)}</p>}
-                                {batch.timing && <p className="flex items-center gap-2"><Calendar className="w-4 h-4 text-slate-400"/> {batch.timing}</p>}
-                            </div>
-                        </div>
-                    ))}
+                <div className={`relative rounded-3xl overflow-hidden ${!hasUltraAccess ? 'min-h-[350px]' : ''}`}>
+                    {!hasUltraAccess && <LockedOverlay title="Courses" instituteId={institute.id} slug={institute.slug} />}
+                    
+                    <div className={`grid sm:grid-cols-2 lg:grid-cols-3 gap-5 ${!hasUltraAccess ? 'opacity-40 blur-[4px] pointer-events-none select-none grayscale-[50%]' : ''}`}>
+                        {hasUltraAccess ? (
+                            institute.batches.map((batch: any) => (
+                                <div key={batch.id} className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <h3 className="font-bold text-lg text-slate-900 leading-tight">{batch.name}</h3>
+                                        {batch.mode && <span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-md uppercase">{batch.mode}</span>}
+                                    </div>
+                                    <div className="space-y-2.5 text-sm text-slate-600">
+                                        {batch.duration && <p className="flex items-center gap-2"><Clock className="w-4 h-4 text-slate-400"/> {batch.duration}</p>}
+                                        {batch.fee && <p className="flex items-center gap-2 font-bold text-slate-800"><IndianRupee className="w-4 h-4 text-emerald-500"/> {formatCurrency(batch.fee)}</p>}
+                                        {batch.timing && <p className="flex items-center gap-2"><Calendar className="w-4 h-4 text-slate-400"/> {batch.timing}</p>}
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                             // Placeholders
+                            [1, 2, 3].map((i: number) => (
+                                <div key={i} className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm h-40 flex flex-col gap-3">
+                                    <div className="h-6 w-1/2 bg-amber-200 rounded"></div>
+                                    <div className="h-4 w-1/3 bg-amber-200 rounded"></div>
+                                    <div className="h-4 w-2/3 bg-amber-200 rounded"></div>
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
             </section>
         )}
 
         {/* 🚀 TEACHERS / FACULTY */}
-        {institute.teachers && institute.teachers.length > 0 && (
+        {(!hasUltraAccess || (institute.teachers && institute.teachers.length > 0)) && (
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-emerald-100 text-emerald-600 rounded-xl"><Users className="w-6 h-6" /></div>
@@ -402,29 +422,47 @@ export default async function InstitutePage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {institute.teachers.map((teacher: any) => (
-                <div key={teacher.id} className="rounded-3xl border border-slate-200 bg-white p-6 flex items-center gap-5 shadow-sm hover:shadow-md transition">
-                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center">
-                    {isCloudinaryImage(teacher.imageUrl) ? (
-                      <Image src={teacher.imageUrl} alt={teacher.name} width={60} height={60} className="h-full w-full object-cover" />
-                    ) : (
-                      <User className="h-8 w-8 text-slate-300" />
-                    )}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-lg">{teacher.name}</h4>
-                    {teacher.subject && <p className="text-sm font-semibold text-emerald-600">{teacher.subject}</p>}
-                    {teacher.experience && <p className="text-xs text-slate-500 mt-1">{teacher.experience}</p>}
-                  </div>
+            {/* 🔥 FIX: min-h-[350px] added */}
+            <div className={`relative rounded-3xl overflow-hidden ${!hasUltraAccess ? 'min-h-[350px]' : ''}`}>
+                {!hasUltraAccess && <LockedOverlay title="Faculty Profiles" instituteId={institute.id} slug={institute.slug} />}
+
+                <div className={`grid gap-5 sm:grid-cols-2 lg:grid-cols-3 ${!hasUltraAccess ? 'opacity-40 blur-[4px] pointer-events-none select-none grayscale-[50%]' : ''}`}>
+                  {hasUltraAccess ? (
+                      institute.teachers.map((teacher: any) => (
+                        <div key={teacher.id} className="rounded-3xl border border-slate-200 bg-white p-6 flex items-center gap-5 shadow-sm hover:shadow-md transition">
+                          <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center">
+                            {isCloudinaryImage(teacher.imageUrl) ? (
+                              <Image src={teacher.imageUrl} alt={teacher.name} width={60} height={60} className="h-full w-full object-cover" />
+                            ) : (
+                              <User className="h-8 w-8 text-slate-300" />
+                            )}
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-slate-900 text-lg">{teacher.name}</h4>
+                            {teacher.subject && <p className="text-sm font-semibold text-emerald-600">{teacher.subject}</p>}
+                            {teacher.experience && <p className="text-xs text-slate-500 mt-1">{teacher.experience}</p>}
+                          </div>
+                        </div>
+                      ))
+                  ) : (
+                      // Placeholders
+                      [1, 2, 3].map((i: number) => (
+                         <div key={i} className="rounded-3xl border border-slate-200 bg-white p-6 flex items-center gap-5">
+                             <div className="h-16 w-16 rounded-full bg-amber-200"></div>
+                             <div className="flex-1 space-y-2">
+                                 <div className="h-5 w-3/4 bg-amber-200 rounded"></div>
+                                 <div className="h-4 w-1/2 bg-amber-200 rounded"></div>
+                             </div>
+                         </div>
+                      ))
+                  )}
                 </div>
-              ))}
             </div>
           </section>
         )}
 
         {/* 🚀 NOTABLE ALUMNI */}
-        {institute.notablepersons && institute.notablepersons.length > 0 && (
+        {(!hasUltraAccess || (institute.notablepersons && institute.notablepersons.length > 0)) && (
             <section>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-3 bg-pink-100 text-pink-600 rounded-xl"><Award className="w-6 h-6" /></div>
@@ -434,27 +472,43 @@ export default async function InstitutePage({ params }: PageProps) {
                   </div>
                 </div>
                 
-                <div className="flex overflow-x-auto gap-5 pb-4 snap-x">
-                    {institute.notablepersons.map((person: any) => (
-                        <div key={person.id} className="min-w-[220px] bg-white border border-slate-200 rounded-3xl p-5 shadow-sm snap-start flex flex-col items-center text-center">
-                            <div className="w-20 h-20 rounded-full overflow-hidden bg-slate-100 border-2 border-pink-100 mb-3">
-                                {isCloudinaryImage(person.imageUrl) ? (
-                                    <Image src={person.imageUrl} alt={person.name} width={80} height={80} className="w-full h-full object-cover"/>
-                                ) : (
-                                    <User className="w-10 h-10 text-slate-300 m-auto mt-5"/>
-                                )}
-                            </div>
-                            <h4 className="font-bold text-slate-900">{person.name}</h4>
-                            {person.placedAt && <p className="text-sm text-pink-600 font-semibold mt-1">{person.placedAt}</p>}
-                            {person.package && <p className="text-xs text-slate-500 mt-1 bg-slate-100 px-2 py-1 rounded-md">{person.package}</p>}
-                        </div>
-                    ))}
+                {/* 🔥 FIX: min-h-[350px] added */}
+                <div className={`relative rounded-3xl overflow-hidden pb-4 ${!hasUltraAccess ? 'min-h-[350px] flex flex-col justify-center' : ''}`}>
+                    {!hasUltraAccess && <LockedOverlay title="Alumni Network" instituteId={institute.id} slug={institute.slug} />}
+
+                    <div className={`flex overflow-x-auto gap-5 snap-x ${!hasUltraAccess ? 'opacity-40 blur-[4px] pointer-events-none select-none grayscale-[50%] overflow-hidden' : ''}`}>
+                        {hasUltraAccess ? (
+                            institute.notablepersons.map((person: any) => (
+                                <div key={person.id} className="min-w-[220px] bg-white border border-slate-200 rounded-3xl p-5 shadow-sm snap-start flex flex-col items-center text-center">
+                                    <div className="w-20 h-20 rounded-full overflow-hidden bg-slate-100 border-2 border-pink-100 mb-3">
+                                        {isCloudinaryImage(person.imageUrl) ? (
+                                            <Image src={person.imageUrl} alt={person.name} width={80} height={80} className="w-full h-full object-cover"/>
+                                        ) : (
+                                            <User className="w-10 h-10 text-slate-300 m-auto mt-5"/>
+                                        )}
+                                    </div>
+                                    <h4 className="font-bold text-slate-900">{person.name}</h4>
+                                    {person.placedAt && <p className="text-sm text-pink-600 font-semibold mt-1">{person.placedAt}</p>}
+                                    {person.package && <p className="text-xs text-slate-500 mt-1 bg-slate-100 px-2 py-1 rounded-md">{person.package}</p>}
+                                </div>
+                            ))
+                        ) : (
+                             // Placeholders
+                             [1, 2, 3, 4].map((i: number) => (
+                                 <div key={i} className="min-w-[220px] bg-white border border-slate-200 rounded-3xl p-5 flex flex-col items-center">
+                                     <div className="w-20 h-20 rounded-full bg-amber-200 mb-3"></div>
+                                     <div className="h-5 w-2/3 bg-amber-200 rounded mb-2"></div>
+                                     <div className="h-4 w-1/2 bg-amber-200 rounded"></div>
+                                 </div>
+                             ))
+                        )}
+                    </div>
                 </div>
             </section>
         )}
 
-        {/* CLASSROOM IMAGES */}
-        {validClassroomImages.length > 0 && (
+        {/* 🚀 CLASSROOM IMAGES */}
+        {(!hasUltraAccess || validClassroomImages.length > 0) && (
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-blue-100 text-blue-600 rounded-xl"><Presentation className="w-6 h-6" /></div>
@@ -464,24 +518,36 @@ export default async function InstitutePage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {validClassroomImages.map((url: string, idx: number) => (
-                <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
-                  <img 
-                    src={url} 
-                    alt={`${institute.name} Classroom Infrastructure ${idx + 1}`} 
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                  />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+            {/* 🔥 FIX: min-h-[350px] added */}
+            <div className={`relative rounded-3xl overflow-hidden ${!hasUltraAccess ? 'min-h-[350px]' : ''}`}>
+                {!hasUltraAccess && <LockedOverlay title="Infrastructure Images" instituteId={institute.id} slug={institute.slug} />}
+
+                <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ${!hasUltraAccess ? 'opacity-40 blur-[4px] pointer-events-none select-none grayscale-[50%]' : ''}`}>
+                  {hasUltraAccess ? (
+                      validClassroomImages.map((url: string, idx: number) => (
+                        <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
+                          <img 
+                            src={url} 
+                            alt={`${institute.name} Classroom ${idx + 1}`} 
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                          />
+                          <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+                        </div>
+                      ))
+                  ) : (
+                      // Placeholders
+                      [1, 2, 3, 4].map((i: number) => (
+                          <div key={i} className="aspect-[4/3] rounded-2xl bg-amber-200 border border-slate-300"></div>
+                      ))
+                  )}
                 </div>
-              ))}
             </div>
           </section>
         )}
 
         {/* GALLERY IMAGES */}
-        {validGalleryImages.length > 0 && (
-          <section>
+        {(!hasUltraAccess || validGalleryImages.length > 0) && (
+          <section className="relative">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-amber-100 text-amber-600 rounded-xl"><Trophy className="w-6 h-6" /></div>
               <div>
@@ -490,24 +556,39 @@ export default async function InstitutePage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {validGalleryImages.map((url: string, idx: number) => (
-                <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
-                  <img 
-                    src={url} 
-                    alt={`${institute.name} Image ${idx + 1}`} 
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                  />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-                </div>
-              ))}
+            {/* The Content Wrapper */}
+            <div className="relative rounded-3xl overflow-hidden">
+              
+              {/* Overlay if not Ultra */}
+              {!hasUltraAccess && (
+                <LockedOverlay title="Gallery" instituteId={institute.id} slug={institute.slug} />
+              )}
+
+              {/* Grid Content (Actual or Mock for Blur) */}
+              <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ${!hasUltraAccess ? 'opacity-40 pointer-events-none select-none grayscale-[50%]' : ''}`}>
+                
+                {hasUltraAccess ? (
+                  // Actual Images
+                  validGalleryImages.map((url: string, idx: number) => (
+                    <div key={idx} className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm group cursor-pointer">
+                      <img src={url} alt={`Gallery ${idx}`} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    </div>
+                  ))
+                ) : (
+                  // Mock Placeholders for Basic Plan (Creates a realistic blurred background)
+                  [1, 2, 3, 4].map((i: number) => (
+                    <div key={i} className="aspect-4/3 rounded-3xl bg-amber-200 animate-pulse border border-amber-500" />
+                  ))
+                )}
+
+              </div>
             </div>
           </section>
         )}
 
         {/* YOUTUBE VIDEOS */}
-        {institute.youtubeVideos && institute.youtubeVideos.length > 0 && (
-          <section>
+        {(!hasUltraAccess || (institute.youtubeVideos && institute.youtubeVideos.length > 0)) && (
+          <section className="relative mt-16">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-red-100 text-red-600 rounded-xl"><PlayCircle className="w-6 h-6" /></div>
               <div>
@@ -516,40 +597,71 @@ export default async function InstitutePage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2">
-              {institute.youtubeVideos.map((url: string, idx: number) => {
-                const videoId = getYouTubeId(url);
-                if (!videoId) return null;
-                return (
-                  <div key={idx} className="aspect-video w-full overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${videoId}`}
-                      title="YouTube Video"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="h-full w-full border-0"
-                    ></iframe>
-                  </div>
-                );
-              })}
+            <div className="relative rounded-3xl overflow-hidden">
+              
+              {/* Overlay if not Ultra */}
+              {!hasUltraAccess && (
+                <LockedOverlay title="Video Gallery" instituteId={institute.id} slug={institute.slug} />
+              )}
+
+              <div className={`grid gap-6 sm:grid-cols-2 ${!hasUltraAccess ? 'opacity-40 pointer-events-none select-none grayscale-[50%]' : ''}`}>
+                
+                {hasUltraAccess ? (
+                  // Actual Videos
+                  institute.youtubeVideos.map((url: string, idx: number) => {
+                    const videoId = getYouTubeId(url);
+                    if (!videoId) return null;
+                    return (
+                      <div key={idx} className="aspect-video w-full overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm">
+                        <iframe src={`https://www.youtube.com/embed/${videoId}`} className="h-full w-full border-0" />
+                      </div>
+                    );
+                  })
+                ) : (
+                  // Mock Placeholders for Basic Plan
+                  [1, 2].map((i: number) => (
+                    <div key={i} className="aspect-video w-full rounded-3xl bg-amber-200 flex items-center justify-center">
+                      <PlayCircle className="w-12 h-12 text-black" />
+                    </div>
+                  ))
+                )}
+
+              </div>
             </div>
           </section>
         )}
 
-        {/* 🚀 FAQs */}
-        {institute.faqs && institute.faqs.length > 0 && (
+        {/* 🚀 FAQs (ULTRA FEATURE) */}
+       {(!hasUltraAccess || (institute.faqs && institute.faqs.length > 0)) && (
             <section className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
                   <HelpCircle className="w-6 h-6 text-slate-700" />
                   <h2 className="text-2xl font-bold text-slate-900">Frequently Asked Questions</h2>
                 </div>
-                <div className="space-y-6">
-                    {institute.faqs.map((faq: any) => (
-                        <div key={faq.id}>
-                            <h3 className="text-lg font-bold text-slate-800 mb-2">Q. {faq.question}</h3>
-                            <p className="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
-                        </div>
-                    ))}
+                
+                {/* 🔥 FIX: Yahan relative div lagaya hai heading ke neeche, with min-h */}
+                <div className={`relative rounded-2xl overflow-hidden ${!hasUltraAccess ? 'min-h-[350px] flex flex-col justify-center' : ''}`}>
+                    {!hasUltraAccess && <LockedOverlay title="FAQs" instituteId={institute.id} slug={institute.slug} />}
+                    
+                    <div className={`space-y-6 ${!hasUltraAccess ? 'opacity-30 blur-[4px] pointer-events-none select-none' : ''}`}>
+                        {hasUltraAccess ? (
+                            institute.faqs.map((faq: any) => (
+                                <div key={faq.id}>
+                                    <h3 className="text-lg font-bold text-slate-800 mb-2">Q. {faq.question}</h3>
+                                    <p className="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+                                </div>
+                            ))
+                        ) : (
+                            // Placeholders
+                            [1, 2, 3].map((i: number) => (
+                                <div key={i}>
+                                    <div className="h-6 w-3/4 bg-amber-200 rounded mb-2"></div>
+                                    <div className="h-4 w-full bg-amber-200 rounded mb-1"></div>
+                                    <div className="h-4 w-5/6 bg-amber-200 rounded"></div>
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
             </section>
         )}
