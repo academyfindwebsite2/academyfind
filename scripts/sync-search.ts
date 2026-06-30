@@ -122,7 +122,7 @@ async function main() {
     })),
 
       // --- BLOG POSTS ---
-  ...blogPosts.map((post) => ({
+  ...blogPosts.map((post: any) => ({
     id: `blog-${post.id}`,
     prismaId: post.id,
 
@@ -177,8 +177,8 @@ async function main() {
         }
       : null,
 
-    tags: post.tags.map((t) => t.tag.name),
-    tagSlugs: post.tags.map((t) => t.tag.slug),
+    tags: post.tags.map((t: { tag: { name: string } }) => t.tag.name),
+    tagSlugs: post.tags.map((t: { tag: { slug: string } }) => t.tag.slug),
 
     url: `/blog/${post.slug}`,
   })),
