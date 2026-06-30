@@ -54,7 +54,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
 
   // Performance Optimization: Explicitly type the incoming parameters object context
   const shouldShowMenu: BubbleMenuProps["shouldShow"] = useCallback(
-    ({ editor: currentEditor, state }) => {
+    ({ editor: currentEditor, state }: { editor: Editor; state: any }) => {
       const { selection } = state;
       const { empty, from, to } = selection;
 
