@@ -9,7 +9,7 @@ export default function AdminBlogLoading() {
         <div className="h-9 w-36 rounded-lg bg-purple-200" />
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
-        {[0, 1, 2].map((item) => (
+        {[0, 1, 2].map((item: number) => (
           <div key={item} className="h-24 rounded-2xl bg-slate-100" />
         ))}
       </div>

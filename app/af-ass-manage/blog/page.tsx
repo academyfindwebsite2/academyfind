@@ -50,17 +50,35 @@ type AdminBlogPageProps = {
   }>;
 };
 
+// Interface reflecting the specific fields selected via Prisma
+interface PostListItem {
+  id: string;
+  title: string;
+  slug: string;
+  coverImage: string | null;
+  status: BlogStatus;
+  visibility: string;
+  isFeatured: boolean;
+  isPinned: boolean;
+  viewCount: number;
+  commentCount: number;
+  updatedAt: Date;
+  brand: { id: string; name: string; avatarUrl: string | null } | null;
+  authorProfile: { displayName: string } | null;
+  category: { name: string } | null;
+}
+
 export default async function AdminBlogPage({
   searchParams,
 }: AdminBlogPageProps) {
   const params = await searchParams;
   const page = Math.max(1, Number(params.page) || 1);
   const query = params.query?.trim() ?? "";
-  const status = Object.values(BlogStatus).includes(
-    params.status as BlogStatus,
-  )
+  
+  const status = Object.values(BlogStatus).includes(params.status as BlogStatus)
     ? (params.status as BlogStatus)
     : undefined;
+    
   const brandId = params.brand && params.brand !== ALL ? params.brand : undefined;
 
   const where = {
@@ -104,7 +122,7 @@ export default async function AdminBlogPage({
           select: { name: true },
         },
       },
-    }),
+    }) as Promise<PostListItem[]>,
     prisma.blogPost.count({ where }),
     prisma.blogPost.groupBy({ by: ["status"], _count: true }),
     prisma.blogBrand.findMany({
@@ -127,6 +145,9 @@ export default async function AdminBlogPage({
     return `/af-ass-manage/blog?${next.toString()}`;
   };
 
+  const hasPrevious = page > 1;
+  const hasNext = page < totalPages;
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
@@ -145,7 +166,7 @@ export default async function AdminBlogPage({
           </Button>
           <Button asChild className="bg-purple-600 text-white hover:bg-purple-700">
             <Link href="/af-ass-manage/blog/new">
-              <Plus />
+              <Plus className="mr-2 size-4" />
               New brand post
             </Link>
           </Button>
@@ -158,17 +179,13 @@ export default async function AdminBlogPage({
           <p className="mt-1 text-2xl font-bold text-slate-900">{total}</p>
         </div>
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-          <p className="text-xs font-semibold uppercase text-emerald-700">
-            Published
-          </p>
+          <p className="text-xs font-semibold uppercase text-emerald-700">Published</p>
           <p className="mt-1 text-2xl font-bold text-emerald-900">
             {counts.PUBLISHED ?? 0}
           </p>
         </div>
         <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4">
-          <p className="text-xs font-semibold uppercase text-violet-700">
-            Awaiting review
-          </p>
+          <p className="text-xs font-semibold uppercase text-violet-700">Awaiting review</p>
           <p className="mt-1 text-2xl font-bold text-violet-900">
             {counts.PENDING_REVIEW ?? 0}
           </p>
@@ -211,7 +228,7 @@ export default async function AdminBlogPage({
             ))}
           </SelectContent>
         </Select>
-        <Button type="submit" className="h-10 bg-slate-900 text-white">
+        <Button type="submit" className="h-10 bg-slate-900 text-white hover:bg-slate-800">
           Filter
         </Button>
       </form>
@@ -229,12 +246,12 @@ export default async function AdminBlogPage({
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {posts.map((post) => (
+            {posts.map((post: any) => (
               <tr key={post.id} className="hover:bg-slate-50/60">
                 <td className="p-4">
                   <div className="flex items-center gap-3">
-                    <div className="relative size-14 overflow-hidden rounded-xl bg-slate-100">
-                      {post.coverImage ? (
+                    <div className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                      {post.coverImage && (
                         <Image
                           src={post.coverImage}
                           alt=""
@@ -242,7 +259,7 @@ export default async function AdminBlogPage({
                           sizes="56px"
                           className="object-cover"
                         />
-                      ) : null}
+                      )}
                     </div>
                     <div className="max-w-sm">
                       <p className="line-clamp-1 font-semibold text-slate-900">
@@ -251,35 +268,33 @@ export default async function AdminBlogPage({
                       <p className="mt-1 text-xs text-slate-500">
                         /{post.slug}
                       </p>
-                      <div className="mt-1 flex gap-1">
-                        {post.isFeatured ? (
+                      <div className="mt-1 flex items-center gap-1">
+                        {post.isFeatured && (
                           <Star className="size-3.5 fill-amber-400 text-amber-400" />
-                        ) : null}
-                        {post.isPinned ? (
+                        )}
+                        {post.isPinned && (
                           <Badge variant="outline" className="h-4 text-[10px]">
                             Pinned
                           </Badge>
-                        ) : null}
+                        )}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td className="p-4">
                   <p className="font-medium text-slate-700">
-                    {post.brand?.name ??
-                      post.authorProfile?.displayName ??
-                      "Unattributed"}
+                    {post.brand?.name ?? post.authorProfile?.displayName ?? "Unattributed"}
                   </p>
                   <p className="text-xs text-slate-400">
                     {post.brand ? "Brand" : "Contributor"}
                   </p>
                 </td>
                 <td className="p-4">
-                  <Badge className={statusStyles[post.status]}>
+                  <Badge className={statusStyles[post.status as BlogStatus]}>
                     {post.status.toLocaleLowerCase().replaceAll("_", " ")}
                   </Badge>
                   <p className="mt-1 text-xs text-slate-400">
-                    {post.visibility.toLocaleLowerCase()}
+                    {post.visibility?.toLocaleLowerCase()}
                   </p>
                 </td>
                 <td className="p-4">
@@ -306,34 +321,45 @@ export default async function AdminBlogPage({
                 </td>
               </tr>
             ))}
-            {!posts.length ? (
+            {!posts.length && (
               <tr>
                 <td colSpan={6} className="p-12 text-center text-slate-500">
                   No posts match these filters.
                 </td>
               </tr>
-            ) : null}
+            )}
           </tbody>
         </table>
       </div>
 
-      {totalPages > 1 ? (
+      {totalPages > 1 && (
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">
             Page {page} of {totalPages}
           </p>
           <div className="flex gap-2">
-            <Button asChild variant="outline" disabled={page <= 1}>
-              <Link href={buildPageHref(Math.max(1, page - 1))}>Previous</Link>
-            </Button>
-            <Button asChild variant="outline" disabled={page >= totalPages}>
-              <Link href={buildPageHref(Math.min(totalPages, page + 1))}>
+            {hasPrevious ? (
+              <Button asChild variant="outline">
+                <Link href={buildPageHref(page - 1)}>Previous</Link>
+              </Button>
+            ) : (
+              <Button variant="outline" disabled>
+                Previous
+              </Button>
+            )}
+            
+            {hasNext ? (
+              <Button asChild variant="outline">
+                <Link href={buildPageHref(page + 1)}>Next</Link>
+              </Button>
+            ) : (
+              <Button variant="outline" disabled>
                 Next
-              </Link>
-            </Button>
+              </Button>
+            )}
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 }

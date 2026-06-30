@@ -40,9 +40,9 @@ export default async function AdminBlogBrandsPage() {
       </div>
 
       <AdminBlogBrandManager
-        brands={brands.map(({ _count, ...brand }) => ({
+        brands={brands.map(({ _count: { posts }, ...brand }: any) => ({
           ...brand,
-          postCount: _count.posts,
+          postCount: posts,
         }))}
       />
     </div>
