@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import BlogCard from "@/components/blog/cards/BlogCard";
-import { toggleBookmark } from "@/lib/User/user/blog/removebookmark";
+import { toggleBookmark } from "@/lib/User/user/blog/togglebookmark";
 import { BlogCardPost } from "@/types/BlogCard";
 import { Bookmark } from "lucide-react"; 
 

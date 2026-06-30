@@ -8,9 +8,9 @@ import NewsletterCTA from "@/components/blog/article/NewsLetterCTA";
 import SearchHero from "@/components/blog/search/SearchHero";
 import SearchFilters from "@/components/blog/search/SearchFilters";
 import SearchResultGrid from "@/components/blog/search/SearchResultGrid";
-import SearchPagination from "@/components/blog/search/SearchPagination";
 import SearchEmptyState from "@/components/blog/search/SearchEmptyState";
 import SearchJsonLd from "@/components/blog/search/SearchJsonLd";
+import Pagination from "@/components/blog/shared/Pagination";
 
 import {
   getSearchFilters,
@@ -112,7 +112,7 @@ export default async function SearchPage({
                   posts={results.posts}
                 />
 
-                <SearchPagination
+                <Pagination
                   currentPage={results.page}
                   totalPages={results.totalPages}
                 />

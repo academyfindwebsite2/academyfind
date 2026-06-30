@@ -3,15 +3,15 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-type SearchPaginationProps = {
+type PaginationProps = {
   currentPage: number;
   totalPages: number;
 };
 
-export default function SearchPagination({
+export default function Pagination({
   currentPage,
   totalPages,
-}: SearchPaginationProps) {
+}: PaginationProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -71,7 +71,7 @@ export default function SearchPagination({
         Previous
       </button>
 
-      {pages.map((page, index) =>
+      {pages.map((page: number | "...", index: number) =>
         page === "..." ? (
           <span
             key={`ellipsis-${index}`}

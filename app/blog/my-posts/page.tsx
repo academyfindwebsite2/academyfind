@@ -9,8 +9,7 @@ import MyPostsStats from "@/components/blog/my-posts/MyPostsStats";
 import MyPostsFilters from "@/components/blog/my-posts/MyPostsFilters";
 import MyPostsGrid from "@/components/blog/my-posts/MyPostsGrid";
 import MyPostsEmptyState from "@/components/blog/my-posts/MyPostsEmptyState";
-import SearchPagination from "@/components/blog/search/SearchPagination";
-
+import Pagination from "@/components/blog/shared/Pagination";
 import { getCachedSession } from "@/lib/auth/session";
 import { getMyPosts } from "@/lib/User/user/blog/getmyposts";
 
@@ -89,7 +88,7 @@ export default async function MyPostsPage({
           <>
             <MyPostsGrid posts={data.posts} />
 
-            <SearchPagination
+            <Pagination
               currentPage={data.page}
               totalPages={data.totalPages}
             />
