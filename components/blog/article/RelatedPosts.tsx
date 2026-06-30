@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { BlogAuthorProfile, BlogCategory, BlogPost } from "@/app/generated/prisma/client";
+import type { BlogAuthorProfile, BlogBrand, BlogCategory, BlogPost } from "@/app/generated/prisma/client";
 
 type RelatedPost = Pick<
   BlogPost,
@@ -16,7 +16,8 @@ type RelatedPost = Pick<
   | "publishedAt"
   | "readingTime"
 > & {
-  authorProfile: Pick<BlogAuthorProfile, "displayName" | "username">;
+  authorProfile: Pick<BlogAuthorProfile, "displayName" | "username"> | null;
+  brand: Pick<BlogBrand, "name"> | null;
   category: Pick<BlogCategory, "name" | "slug"> | null;
 };
 
@@ -90,12 +91,16 @@ export default function RelatedPosts({ posts }: RelatedPostsProps) {
               )}
 
               <div className="mt-5 flex items-center justify-between text-sm text-slate-500">
-                <Link
-                  href={`/blog/author/${post.authorProfile.username}`}
-                  className="hover:text-slate-900"
-                >
-                  {post.authorProfile.displayName}
-                </Link>
+                {post.authorProfile ? (
+                  <Link
+                    href={`/blog/author/${post.authorProfile.username}`}
+                    className="hover:text-slate-900"
+                  >
+                    {post.authorProfile.displayName}
+                  </Link>
+                ) : (
+                  <span>{post.brand?.name ?? "AcademyFind"}</span>
+                )}
 
                 <span>
                   {post.readingTime ? `${post.readingTime} min` : ""}

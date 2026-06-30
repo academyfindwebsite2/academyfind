@@ -84,6 +84,16 @@ export type BlogEditorInitialData = Pick<
   | "metaDescription"
   | "focusKeyword"
   | "status"
+  | "visibility"
+  | "canonicalUrl"
+  | "robotsIndex"
+  | "robotsFollow"
+  | "isFeatured"
+  | "featuredOrder"
+  | "isPinned"
+  | "allowComments"
+  | "scheduledAt"
+  | "rejectionReason"
 > & {
   tags: { tag: Pick<BlogTag, "id" | "name" | "slug"> }[];
   faqs: Pick<BlogFAQ, "id" | "question" | "answer" | "order">[];
@@ -92,6 +102,7 @@ export type BlogEditorInitialData = Pick<
 export type BlogEditorProps = {
   mode: "create" | "edit";
   initialData?: BlogEditorInitialData;
+  management?: "author" | "admin";
 };
 
 export type BlogEditorOptions = {
@@ -115,4 +126,23 @@ export type BlogEditorSaveInput = {
   focusKeyword: string;
   faqs: { question: string; answer: string }[];
   intent: "draft" | "publish";
+  admin?: {
+    status:
+      | "DRAFT"
+      | "PENDING_REVIEW"
+      | "SCHEDULED"
+      | "PUBLISHED"
+      | "REJECTED"
+      | "ARCHIVED";
+    visibility: "PUBLIC" | "UNLISTED" | "PRIVATE";
+    canonicalUrl: string;
+    robotsIndex: boolean;
+    robotsFollow: boolean;
+    isFeatured: boolean;
+    featuredOrder: number;
+    isPinned: boolean;
+    allowComments: boolean;
+    scheduledAt: string;
+    rejectionReason: string;
+  };
 };

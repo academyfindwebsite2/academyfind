@@ -46,6 +46,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { saveAdminBlogPost } from "@/lib/User/admin/admin-blog";
 import { saveBlogPost } from "@/lib/User/user/blog/saveblogpost";
 import { uploadImage } from "./utils/uploadImage";
 
@@ -66,6 +68,7 @@ type EditableFaq = {
   question: string;
   answer: string;
 };
+type AdminControls = NonNullable<BlogEditorSaveInput["admin"]>;
 
 const EMPTY_CONTENT = "";
 const NONE_VALUE = "__none__";
@@ -126,6 +129,7 @@ export default function BlogEditorForm({
   mode,
   initialData,
   options,
+  management = "author",
 }: BlogEditorFormProps) {
   const router = useRouter();
   const coverInputRef = useRef<HTMLInputElement>(null);
@@ -138,6 +142,21 @@ export default function BlogEditorForm({
   const [status, setStatus] = useState(initialData?.status ?? "DRAFT");
   const [slugWasEdited, setSlugWasEdited] = useState(mode === "edit");
   const [tagInput, setTagInput] = useState("");
+  const [adminControls, setAdminControls] = useState<AdminControls>(() => ({
+    status: initialData?.status ?? "DRAFT",
+    visibility: initialData?.visibility ?? "PUBLIC",
+    canonicalUrl: initialData?.canonicalUrl ?? "",
+    robotsIndex: initialData?.robotsIndex ?? true,
+    robotsFollow: initialData?.robotsFollow ?? true,
+    isFeatured: initialData?.isFeatured ?? false,
+    featuredOrder: initialData?.featuredOrder ?? 0,
+    isPinned: initialData?.isPinned ?? false,
+    allowComments: initialData?.allowComments ?? true,
+    scheduledAt: initialData?.scheduledAt
+      ? new Date(initialData.scheduledAt).toISOString().slice(0, 16)
+      : "",
+    rejectionReason: initialData?.rejectionReason ?? "",
+  }));
   const [form, setForm] = useState<FormState>(() => ({
     title: initialData?.title ?? "",
     slug: initialData?.slug ?? "",
@@ -180,6 +199,17 @@ export default function BlogEditorForm({
   }, [form.tagNames, options.tags, tagInput]);
 
   const markUnsaved = useCallback(() => setSaveState("unsaved"), []);
+
+  const updateAdminField = useCallback(
+    <Key extends keyof AdminControls>(
+      key: Key,
+      value: AdminControls[Key],
+    ) => {
+      setAdminControls((current) => ({ ...current, [key]: value }));
+      markUnsaved();
+    },
+    [markUnsaved],
+  );
 
   const updateField = useCallback(
     <Key extends keyof FormState>(key: Key, value: FormState[Key]) => {
@@ -328,12 +358,17 @@ export default function BlogEditorForm({
 
     setSaveState("saving");
     startTransition(async () => {
-      const result = await saveBlogPost({
+      const payload: BlogEditorSaveInput = {
         ...form,
         id: postId,
         intent,
         faqs: faqs.map(({ question, answer }) => ({ question, answer })),
-      });
+        ...(management === "admin" ? { admin: adminControls } : {}),
+      };
+      const result =
+        management === "admin"
+          ? await saveAdminBlogPost(payload)
+          : await saveBlogPost(payload);
 
       if (!result.success) {
         setSaveState("unsaved");
@@ -342,11 +377,25 @@ export default function BlogEditorForm({
       }
 
       setPostId(result.id);
-      setStatus(intent === "publish" ? "PUBLISHED" : "DRAFT");
+      const nextStatus =
+        intent === "publish"
+          ? "PUBLISHED"
+          : management === "admin"
+            ? adminControls.status
+            : "DRAFT";
+      setStatus(nextStatus);
       setSaveState("saved");
-      toast.success(intent === "publish" ? "Post published." : "Draft saved.");
+      toast.success(
+        intent === "publish"
+          ? "Post published."
+          : management === "admin"
+            ? "Post changes saved."
+            : "Draft saved.",
+      );
 
-      if (intent === "publish") {
+      if (management === "admin" && !postId) {
+        router.replace(`/af-ass-manage/blog/edit/${result.id}`);
+      } else if (intent === "publish" && management === "author") {
         router.push(`/blog/${result.slug}`);
       }
     });
@@ -367,7 +416,7 @@ export default function BlogEditorForm({
         ) : (
           <FileText />
         )}
-        Save Draft
+        {management === "admin" ? "Save Changes" : "Save Draft"}
       </Button>
       <Button
         type="button"
@@ -682,7 +731,9 @@ export default function BlogEditorForm({
               </div>
 
               <div className="space-y-2">
-                <Label>Brand</Label>
+                <Label>
+                  Brand{management === "admin" ? " (required)" : ""}
+                </Label>
                 <Select
                   value={form.brandId || NONE_VALUE}
                   onValueChange={(value) =>
@@ -693,7 +744,9 @@ export default function BlogEditorForm({
                     <SelectValue placeholder="Choose a brand" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value={NONE_VALUE}>No brand</SelectItem>
+                    {management === "author" ? (
+                      <SelectItem value={NONE_VALUE}>No brand</SelectItem>
+                    ) : null}
                     {options.brands.map((brand) => (
                       <SelectItem key={brand.id} value={brand.id}>
                         {brand.name}
@@ -822,6 +875,159 @@ export default function BlogEditorForm({
               </div>
             </div>
           </SectionCard>
+
+          {management === "admin" ? (
+            <SectionCard
+              title="Admin controls"
+              description="Control workflow, visibility, and promotion."
+            >
+              <div className="space-y-5">
+                <div className="space-y-2">
+                  <Label>Workflow status</Label>
+                  <Select
+                    value={adminControls.status}
+                    onValueChange={(value: AdminControls["status"]) =>
+                      updateAdminField("status", value)
+                    }
+                  >
+                    <SelectTrigger className="h-10 w-full rounded-xl border-slate-200">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="DRAFT">Draft</SelectItem>
+                      <SelectItem value="PENDING_REVIEW">
+                        Pending review
+                      </SelectItem>
+                      <SelectItem value="SCHEDULED">Scheduled</SelectItem>
+                      <SelectItem value="PUBLISHED">Published</SelectItem>
+                      <SelectItem value="REJECTED">Rejected</SelectItem>
+                      <SelectItem value="ARCHIVED">Archived</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {adminControls.status === "SCHEDULED" ? (
+                  <div className="space-y-2">
+                    <Label htmlFor="scheduled-at">Publish at</Label>
+                    <Input
+                      id="scheduled-at"
+                      type="datetime-local"
+                      value={adminControls.scheduledAt}
+                      onChange={(event) =>
+                        updateAdminField("scheduledAt", event.target.value)
+                      }
+                      className="h-10 rounded-xl border-slate-200"
+                    />
+                  </div>
+                ) : null}
+
+                {adminControls.status === "REJECTED" ? (
+                  <div className="space-y-2">
+                    <Label htmlFor="rejection-reason">Rejection reason</Label>
+                    <Textarea
+                      id="rejection-reason"
+                      value={adminControls.rejectionReason}
+                      maxLength={1000}
+                      onChange={(event) =>
+                        updateAdminField(
+                          "rejectionReason",
+                          event.target.value,
+                        )
+                      }
+                      className="rounded-xl border-slate-200"
+                    />
+                  </div>
+                ) : null}
+
+                <div className="space-y-2">
+                  <Label>Visibility</Label>
+                  <Select
+                    value={adminControls.visibility}
+                    onValueChange={(value: AdminControls["visibility"]) =>
+                      updateAdminField("visibility", value)
+                    }
+                  >
+                    <SelectTrigger className="h-10 w-full rounded-xl border-slate-200">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="PUBLIC">Public</SelectItem>
+                      <SelectItem value="UNLISTED">Unlisted</SelectItem>
+                      <SelectItem value="PRIVATE">Private</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-3 rounded-xl bg-slate-50 p-3">
+                  {[
+                    ["isFeatured", "Feature this post"],
+                    ["isPinned", "Pin this post"],
+                    ["allowComments", "Allow comments"],
+                    ["robotsIndex", "Allow search indexing"],
+                    ["robotsFollow", "Allow link following"],
+                  ].map(([key, label]) => (
+                    <div
+                      key={key}
+                      className="flex items-center justify-between gap-3"
+                    >
+                      <Label htmlFor={`admin-${key}`}>{label}</Label>
+                      <Switch
+                        id={`admin-${key}`}
+                        checked={Boolean(
+                          adminControls[key as keyof AdminControls],
+                        )}
+                        onCheckedChange={(checked) =>
+                          updateAdminField(
+                            key as
+                              | "isFeatured"
+                              | "isPinned"
+                              | "allowComments"
+                              | "robotsIndex"
+                              | "robotsFollow",
+                            checked,
+                          )
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {adminControls.isFeatured ? (
+                  <div className="space-y-2">
+                    <Label htmlFor="featured-order">Featured order</Label>
+                    <Input
+                      id="featured-order"
+                      type="number"
+                      min={0}
+                      max={9999}
+                      value={adminControls.featuredOrder}
+                      onChange={(event) =>
+                        updateAdminField(
+                          "featuredOrder",
+                          Number(event.target.value),
+                        )
+                      }
+                      className="rounded-xl border-slate-200"
+                    />
+                  </div>
+                ) : null}
+
+                <div className="space-y-2">
+                  <Label htmlFor="canonical-url">Canonical URL</Label>
+                  <Input
+                    id="canonical-url"
+                    type="url"
+                    value={adminControls.canonicalUrl}
+                    onChange={(event) =>
+                      updateAdminField("canonicalUrl", event.target.value)
+                    }
+                    placeholder="https://academyfind.in/blog/..."
+                    className="rounded-xl border-slate-200"
+                  />
+                </div>
+              </div>
+            </SectionCard>
+          ) : null}
 
           <SectionCard title="Publish">
             <div className="space-y-4">

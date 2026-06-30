@@ -68,7 +68,9 @@ export default async function BlogDetailPage({
 
               <FAQSection faqs={post.faqs} />
 
-              <AuthorCard author={post.authorProfile} />
+              {post.authorProfile ? (
+                <AuthorCard author={post.authorProfile} />
+              ) : null}
 
               <RelatedPosts posts={relatedPosts} />
 

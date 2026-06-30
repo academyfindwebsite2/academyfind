@@ -17,14 +17,14 @@ export type BlogCardPost = {
   likeCount: number;
   commentCount: number;
 
-  authorProfile: {
+  authorProfile?: {
     displayName: string;
     username: string;
     avatarUrl: string | null;
     isVerified: boolean;
-  };
+  } | null;
 
-  category: {
+  category?: {
     id: string;
     name: string;
     slug: string;

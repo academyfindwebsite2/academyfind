@@ -33,6 +33,16 @@ export async function getEditBlogData(
       metaDescription: true,
       focusKeyword: true,
       status: true,
+      visibility: true,
+      canonicalUrl: true,
+      robotsIndex: true,
+      robotsFollow: true,
+      isFeatured: true,
+      featuredOrder: true,
+      isPinned: true,
+      allowComments: true,
+      scheduledAt: true,
+      rejectionReason: true,
       tags: {
         select: {
           tag: {

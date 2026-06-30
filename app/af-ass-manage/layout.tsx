@@ -18,10 +18,12 @@ import {
     PhoneCall,
     IdCard,
     BellIcon,
-    Star
+    Star,
+    BookOpen
 } from "lucide-react";
 import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Admin Control Panel | AcademyFind",
@@ -100,7 +102,7 @@ export default async function AdminLayout({
                     </div>
 
                     <nav className="flex flex-col gap-1.5">
-                        <SidebarLink href="/af-ass-manage" icon={<LayoutDashboard />} label="Overview" exact />
+                        <SidebarLink href="/af-ass-manage" icon={<LayoutDashboard />} label="Overview" />
                         <SidebarLink href="/af-ass-manage/notifications" icon={<BellIcon />} label="Notifications" count={notificationCount}/>
                         
                         {/* 👇 Yahan naye counts pass kiye hain */}
@@ -118,6 +120,7 @@ export default async function AdminLayout({
                         
                         {/* 👇 Careers me jobAppCount pass kiya hai */}
                         <SidebarLink href="/af-ass-manage/careers" icon={<IdCard />} label="Careers" count={jobAppCount} />
+                        <SidebarLink href="/af-ass-manage/blog" icon={<BookOpen />} label="Blog Management" />
                         
                         <div className="my-2 border-t border-slate-200"></div>
                         <SidebarLink href="/af-ass-manage/categories" icon={<FolderTree />} label="Categories" />
@@ -136,7 +139,17 @@ export default async function AdminLayout({
 }
 
 // 👇 UPDATED: Sidebar Link Helper Component with Badge UI
-function SidebarLink({ href, icon, label, count, exact = false }: any) {
+function SidebarLink({
+    href,
+    icon,
+    label,
+    count,
+}: {
+    href: string;
+    icon: ReactNode;
+    label: string;
+    count?: number;
+}) {
     return (
         <Link 
             href={href} 
@@ -149,7 +162,7 @@ function SidebarLink({ href, icon, label, count, exact = false }: any) {
             </div>
             
             {/* 🔥 Agar count pass hua hai aur > 0 hai, toh badge dikhao */}
-            {count > 0 && (
+            {(count ?? 0) > 0 && (
                 <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
                     {count}
                 </span>

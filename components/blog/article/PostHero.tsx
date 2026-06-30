@@ -33,9 +33,9 @@ interface PostHeroProps {
       | "avatarUrl"
       | "designation"
       | "isVerified"
-    >;
+    > | null;
     category: Pick<BlogCategory, "name" | "slug" | "color"> | null;
-    brand: Pick<BlogBrand, "name" | "slug"> | null;
+    brand: Pick<BlogBrand, "name" | "slug" | "avatarUrl"> | null;
   };
 }
 
@@ -120,6 +120,7 @@ export default function PostHero({ post }: PostHeroProps) {
         <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           
           {/* Meta Left: Author & Brand */}
+          {post.authorProfile ? (
           <div className="flex flex-1 items-start gap-4">
             <div className="relative h-16 w-16 overflow-hidden rounded-full border border-slate-200 bg-slate-100">
               {post.authorProfile.avatarUrl ? (
@@ -170,6 +171,33 @@ export default function PostHero({ post }: PostHeroProps) {
               )}
             </div>
           </div>
+          ) : post.brand ? (
+            <div className="flex flex-1 items-center gap-4">
+              <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-slate-200 bg-amber-100">
+                {post.brand.avatarUrl ? (
+                  <Image
+                    src={post.brand.avatarUrl}
+                    alt={post.brand.name}
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-xl font-bold text-amber-700">
+                    {post.brand.name.charAt(0)}
+                  </div>
+                )}
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">
+                  Published by
+                </p>
+                <h3 className="mt-1 text-lg font-semibold text-slate-900">
+                  {post.brand.name}
+                </h3>
+              </div>
+            </div>
+          ) : null}
 
           {/* Meta Right: Stats & Dates */}
           <div className="grid grid-cols-2 gap-6 sm:flex sm:flex-wrap sm:items-center">

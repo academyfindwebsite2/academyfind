@@ -971,9 +971,9 @@ model BlogPost {
   // Relations
   //-----------------------------------
 
-  authorProfileId String
+  authorProfileId String?
 
-  authorProfile BlogAuthorProfile @relation(fields: [authorProfileId], references: [id])
+  authorProfile BlogAuthorProfile? @relation(fields: [authorProfileId], references: [id])
 
   categoryId String?
 

@@ -16,7 +16,10 @@ type CategoryJsonLdProps = {
 
       authorProfile: {
         displayName: string;
-      };
+      } | null;
+      brand: {
+        name: string;
+      } | null;
     }[];
   };
 };
@@ -95,10 +98,15 @@ export default function CategoryJsonLd({
 
             datePublished: post.publishedAt?.toISOString(),
 
-            author: {
-              "@type": "Person",
-              name: post.authorProfile.displayName,
-            },
+            author: post.authorProfile
+              ? {
+                  "@type": "Person",
+                  name: post.authorProfile.displayName,
+                }
+              : {
+                  "@type": "Organization",
+                  name: post.brand?.name ?? "AcademyFind",
+                },
           },
         })),
       },
