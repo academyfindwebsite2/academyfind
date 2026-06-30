@@ -52,7 +52,7 @@ const HIGHLIGHT_COLORS = [
 export default function EditorBubbleMenu({ editor }: Props) {
   if (!editor) return null;
 
-  // Performance Optimization: Prevent recreating function on every render
+  // Performance Optimization: Explicitly type the incoming parameters object context
   const shouldShowMenu: BubbleMenuProps["shouldShow"] = useCallback(
     ({ editor: currentEditor, state }) => {
       const { selection } = state;
@@ -162,8 +162,9 @@ export default function EditorBubbleMenu({ editor }: Props) {
           <PopoverContent className="w-40 p-2 flex flex-col gap-1">
             {TEXT_COLORS.map((color: { value: string; name: string }) => (
               <button
+                type="button"
                 key={color.value}
-                className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors"
+                className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors flex items-center"
                 onClick={() => {
                   if (color.value === "inherit") {
                     editor.chain().focus().unsetColor().run();
@@ -173,7 +174,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
                 }}
               >
                 <span
-                  className="inline-block w-3 h-3 rounded-full border border-slate-300 mr-2 align-middle"
+                  className="inline-block w-3 h-3 rounded-full border border-slate-300 mr-2 align-middle shrink-0"
                   style={{ backgroundColor: color.value }}
                 />
                 {color.name}
@@ -195,16 +196,18 @@ export default function EditorBubbleMenu({ editor }: Props) {
           </PopoverTrigger>
           <PopoverContent className="w-40 p-2 flex flex-col gap-1">
             <button
-              className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors"
+              type="button"
+              className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors flex items-center"
               onClick={() => editor.chain().focus().unsetHighlight().run()}
             >
-              <span className="inline-block w-3 h-3 rounded-full border border-dashed border-slate-400 mr-2 align-middle bg-transparent" />
+              <span className="inline-block w-3 h-3 rounded-full border border-dashed border-slate-400 mr-2 align-middle bg-transparent shrink-0" />
               None
             </button>
             {HIGHLIGHT_COLORS.map((color: { value: string; name: string }) => (
               <button
+                type="button"
                 key={color.value}
-                className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors"
+                className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors flex items-center"
                 onClick={() =>
                   editor
                     .chain()
@@ -214,7 +217,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
                 }
               >
                 <span
-                  className="inline-block w-3 h-3 rounded border border-slate-300 mr-2 align-middle"
+                  className="inline-block w-3 h-3 rounded border border-slate-300 mr-2 align-middle shrink-0"
                   style={{ backgroundColor: color.value }}
                 />
                 {color.name}
