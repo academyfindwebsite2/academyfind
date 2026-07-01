@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { meili } from "@/lib/meilisearch";
-import { revalidatePath } from "next/dist/server/web/spec-extension/revalidate";
+import { revalidatePath } from "next/cache";
 
 export async function syncSingleInstituteToMeili(instituteId: string) {
   try {

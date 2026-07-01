@@ -3,6 +3,8 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { CLAIM_APPROVED_STATUS, CLAIM_PENDING_STATUS } from "@/lib/institutes/institute-workflow";
+import {syncSingleInstituteToMeili} from '@/scripts/SyncInstitute'
+import { meili } from "@/lib/meilisearch";
 
 // 1. 🚀 SMART COMBO APPROVE ACTION
 export async function approveInstituteRequest(requestId: string) {
@@ -70,6 +72,11 @@ export async function approveInstituteRequest(requestId: string) {
         // Saare actions ek sath DB mein daal do
         await prisma.$transaction(transactionOperations);
 
+        console.log(`Institute ${request.instituteId} approved, Syncing to Meilisearch and Pending claim processed: ${!!pendingClaim}`);
+        const syncresult = await syncSingleInstituteToMeili(request.instituteId);
+        if (!syncresult.success) {
+            console.error("Database updated but MeiliSync Error:", syncresult.error);
+        }
         revalidatePath("/af-ass-manage/instituteRequests");
         revalidatePath("/af-ass-manage");
         revalidatePath("/institute/[idSlug]");
@@ -105,6 +112,15 @@ export async function rejectInstituteRequest(requestId: string) {
             })
         ]);
 
+         try {
+            const index = meili.index("global_search");
+            const documentId = `inst-${request.instituteId}`;
+            const response = await index.deleteDocument(documentId);
+            await meili.tasks.waitForTask(response.taskUid, { timeout: 10000 });
+            console.log(`🗑️ Successfully removed unapproved institute ${documentId} from Meilisearch.`);
+        } catch (meiliError) {
+            console.error("Failed to delete rejected institute from Meilisearch:", meiliError);
+        }
         revalidatePath("/af-ass-manage/instituteRequests");
         revalidatePath("/af-ass-manage");
         return { success: true, message: "Request rejected and data safely cleared." };
