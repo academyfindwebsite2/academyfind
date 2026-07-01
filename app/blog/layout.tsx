@@ -27,6 +27,8 @@ export default async function BlogLayout({
       })
     : null;
 
+    const authorProfile = userWithBlogProfile?.blogAuthorProfile;
+
   return (
     <div className="bg-slate-50/50">
       <div className="border-b border-slate-200/80 bg-white/90 backdrop-blur">
@@ -65,9 +67,9 @@ export default async function BlogLayout({
                   </Link>
                 </Button>
 
-                {userWithBlogProfile?.blogAuthorProfile?.username ? (
+                {authorProfile ? (
                   <Button asChild variant="outline" className="rounded-full border-slate-200 bg-white">
-                    <Link href={`/blog/author/${userWithBlogProfile.blogAuthorProfile.username}`}>
+                    <Link href={`/blog/author/${authorProfile.username}`}>
                       <User className="mr-2 size-4" />
                       Author Profile
                     </Link>
