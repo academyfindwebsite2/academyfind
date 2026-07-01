@@ -37,10 +37,15 @@ export async function approveInstituteRequest(requestId: string) {
             prisma.instituteRequest.update({
                 where: { id: requestId },
                 data: { status: "APPROVED" } 
+            }),
+            // 3. Approval ke baad user ko next listing ke liye pass wapas do
+            prisma.user.update({
+                where: { id: request.userId },
+                data: { canAddInstitute: true }
             })
         ];
 
-        // 3. Manager Assignment Logic remains the same...
+        // 4. Manager Assignment Logic remains the same...
         if (pendingClaim) {
             transactionOperations.push(
                 prisma.instituteClaim.update({
@@ -91,14 +96,16 @@ export async function rejectInstituteRequest(requestId: string) {
         if (request.status !== "PENDING") {
             return { success: false, error: `Request already ${request.status.toLowerCase()}.` };
         }
-
-        // 🛠️ FIX: Just mark it as REJECTED so it shows up in your Admin UI tab.
-        // We do NOT delete the Institute here, otherwise AdminApprovalsPage will crash 
-        // when it tries to read req.institute.imageUrl on the Rejected tab.
-        await prisma.instituteRequest.update({
-            where: { id: requestId },
-            data: { status: "REJECTED" }
-        });
+        await prisma.$transaction([
+            prisma.instituteRequest.update({
+                where: { id: requestId },
+                data: { status: "REJECTED" }
+            }),
+            prisma.user.update({
+                where: { id: request.userId },
+                data: { canAddInstitute: true }
+            })
+        ]);
 
         try {
             const index = meili.index("global_search");
