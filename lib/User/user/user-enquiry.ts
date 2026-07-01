@@ -9,6 +9,7 @@ export async function submitStudentEnquiry(formData: FormData) {
     const phone = formData.get("phone") as string;
     const message = formData.get("message") as string;
     const instituteId = formData.get("instituteId") as string;
+    const email = formData.get("email") as string | null;
 
     await prisma.instituteEnquiry.create({
       data: {
@@ -16,6 +17,7 @@ export async function submitStudentEnquiry(formData: FormData) {
         phone,
         message,
         instituteId,
+        email: email || null,
         status: "NEW",
       },
     });

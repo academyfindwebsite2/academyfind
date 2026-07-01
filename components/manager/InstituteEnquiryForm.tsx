@@ -18,6 +18,7 @@ export default function InstituteEnquiryForm({ instituteId, feeInfo, mapsUrl }: 
   const [success, setSuccess] = useState(false);
   const [name,setName] = useState("");
   const [mobile,setMobile] = useState("");
+  const [email,setEmail] = useState("");
   const [msg,setmsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -82,11 +83,19 @@ export default function InstituteEnquiryForm({ instituteId, feeInfo, mapsUrl }: 
           <input 
             required 
             name="phone" 
-            maxLength={12} 
+            maxLength={10} 
             type="tel" 
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}
             placeholder="Mobile*" 
+            className="w-full p-3 text-sm border border-slate-200 rounded-xl focus:bg-white focus:border-amber-400 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all duration-300" 
+          />
+          <input 
+            name="email" 
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email (Optional)" 
             className="w-full p-3 text-sm border border-slate-200 rounded-xl focus:bg-white focus:border-amber-400 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all duration-300" 
           />
           <textarea 
