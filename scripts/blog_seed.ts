@@ -247,7 +247,7 @@ async function main() {
   ];
 
   for (const post of postsData) {
-    const category = categories.find((c) => c.slug === post.categorySlug);
+    const category = categories.find((c: any) => c.slug === post.categorySlug);
 
     const seededPost = await prisma.blogPost.upsert({
       where: { slug: post.slug },
