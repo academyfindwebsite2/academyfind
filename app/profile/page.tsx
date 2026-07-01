@@ -47,16 +47,18 @@ export default async function ProfilePage() {
             emailVerified: true,
             createdAt: true,
             canAddInstitute: true,
-            blogAuthorProfile: {
-                select: {
-                    username: true,
-                    displayName: true,
-                }
-            }
         }
     });
 
     if (!dbUser) redirect('/login');
+
+    const authorProfile = await prisma.blogAuthorProfile.findUnique({
+        where: { userId: dbUser.id },
+        select: {
+            username: true,
+            displayName: true,
+        },
+    });
 
     // 🚀 Fetch Shortlisted Institutes
     const shortlistedItems = await prisma.userShortlist.findMany({
@@ -341,9 +343,9 @@ export default async function ProfilePage() {
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                             <div className="p-2 bg-amber-100 rounded-lg text-amber-600"><PenTool className="w-5 h-5" /></div>
                             <CardTitle className="text-xl">Your Contributions</CardTitle>
-                            {dbUser.blogAuthorProfile?.username && (
+                            {authorProfile?.username && (
                                 <Button asChild size="sm" variant="outline" className="ml-auto rounded-full border-amber-200 bg-white text-amber-700 hover:bg-amber-50">
-                                    <Link href={`/blog/author/${dbUser.blogAuthorProfile.username}`}>
+                                    <Link href={`/blog/author/${authorProfile.username}`}>
                                         Author Profile
                                     </Link>
                                 </Button>
