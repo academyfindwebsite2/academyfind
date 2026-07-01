@@ -1,9 +1,9 @@
 import CreateInstituteForm from "@/components/User/CreateInstitute";
+import ClaimForm from "@/components/institute/ClaimForm";
 import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -39,36 +39,32 @@ export default async function UserCreateInstitutePage() {
             orderBy:{createdAt: "desc"}
         })
 
-        let needClaim = false;
-        if(latestReq){
-            const existingClaim = await prisma.instituteClaim.findFirst({
-                where:{
-                    userId: user.id,
-                    instituteId: latestReq.instituteId
-                }
+        const latestInstitute = latestReq
+            ? await prisma.institute.findUnique({
+                where: { id: latestReq.instituteId },
+                select: { id: true, name: true }
             })
-            if(!existingClaim){
-                needClaim = true;
-            }
-        }
+            : null;
+
         return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-4">
-                <h1 className="text-2xl font-bold text-slate-800">Wait Until Admin Approves</h1>
-                <p className="text-slate-500 mt-2">You have already submitted a request to add an institute. Please wait for AcademyFind support.</p>
-                
-                {/* Agar Claim pending hai, toh ye UI dikhega */}
-                {needClaim && latestReq && (
-                    <div className="mt-8 p-6 bg-amber-50 border border-amber-200 rounded-2xl max-w-md shadow-sm">
-                        <h3 className="font-bold text-amber-900 mb-2 text-lg">⚠️ Incomplete Step Detected</h3>
-                        <p className="text-sm text-amber-700 mb-5">
-                            We noticed you created the institute profile but haven't provided your ownership/contact details yet. 
-                        </p>
-                        <Link 
-                            href={`/user/create-institute/${latestReq.instituteId}/claim`}
-                            className="inline-block w-full px-6 py-3.5 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all shadow-md shadow-amber-500/20"
-                        >
-                            Complete Claim Step &rarr;
-                        </Link>
+            <div className="container mx-auto py-10 px-4 space-y-8">
+                <div className="flex flex-col items-center justify-center text-center p-4">
+                    <h1 className="text-2xl font-bold text-slate-800">Your Institute Is Under Review</h1>
+                    <p className="text-slate-500 mt-2 max-w-2xl">
+                        You have already submitted a request to add an institute. Until admin approves it, complete the claim form here so ownership details stay attached to the same institute request.
+                    </p>
+                </div>
+
+                {latestReq && latestInstitute ? (
+                    <ClaimForm
+                        instituteId={latestInstitute.id}
+                        instituteName={latestInstitute.name}
+                        userId={user.id}
+                    />
+                ) : (
+                    <div className="flex flex-col items-center justify-center min-h-[40vh] text-center p-4">
+                        <h2 className="text-xl font-semibold text-slate-700">Request Received</h2>
+                        <p className="text-slate-500 mt-2">Please wait while AcademyFind reviews your institute request.</p>
                     </div>
                 )}
             </div>
