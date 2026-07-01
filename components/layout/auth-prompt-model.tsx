@@ -17,13 +17,18 @@ import { Sparkles, ArrowRight } from "lucide-react";
 
 import { authClient } from "@/lib/auth/auth-client";
 
-export function AuthPromptModal() {
+export function AuthPromptModal({
+  isAuthenticated = false,
+}: {
+  isAuthenticated?: boolean;
+}) {
   const pathname = usePathname();
   const { data: session } = authClient.useSession();
   const [open, setOpen] = useState(false);
+  const isSignedIn = isAuthenticated || Boolean(session?.user);
 
   useEffect(() => {
-    if (session?.user) {
+    if (isSignedIn) {
       setOpen(false);
       return;
     }
@@ -44,13 +49,13 @@ export function AuthPromptModal() {
     }, 15000);
 
     return () => clearTimeout(timer);
-  }, [pathname, session]);
+  }, [pathname, isSignedIn]);
 
-  if (session?.user) return null;
+  if (isSignedIn) return null;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-md rounded-3xl border-0 p-0 overflow-hidden z-[150]">
+      <DialogContent className="max-w-md rounded-3xl border-0 p-0 overflow-hidden z-150">
         
         {/* 🚀 FIX: Isko 'sr-only' de diya taaki Accessibility Warning na aaye aur HTML invalid na ho */}
         <DialogHeader className="sr-only">

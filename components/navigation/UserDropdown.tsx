@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, LogOut, LayoutDashboard, ChevronDown, PlusCircle, Building2, Briefcase } from "lucide-react"; 
+import { User, LogOut, LayoutDashboard, ChevronDown, PlusCircle, Building2, Briefcase, FileText, Bookmark } from "lucide-react"; 
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth/auth-client"; 
 import Image from "next/image";
@@ -21,7 +21,8 @@ export default function UserDropdown({ user }: { user: any }) {
 
   const [liveUserData, setLiveUserData] = useState({
     role: user?.role || "USER",
-    canAddInstitute: user?.canAddInstitute || false
+    canAddInstitute: user?.canAddInstitute || false,
+    blogAuthorProfile: user?.blogAuthorProfile || null,
   });
 
   // 🚀 BACKGROUND FETCH: Background me chupke se fresh database records laao
@@ -34,7 +35,8 @@ export default function UserDropdown({ user }: { user: any }) {
           if (data.authenticated) {
             setLiveUserData({
               role: data.role,
-              canAddInstitute: data.canAddInstitute
+              canAddInstitute: data.canAddInstitute,
+              blogAuthorProfile: data.blogAuthorProfile || null,
             });
           }
         }
@@ -88,6 +90,42 @@ export default function UserDropdown({ user }: { user: any }) {
         
         <DropdownMenuSeparator className="bg-slate-100 my-1" />
         
+        <DropdownMenuLabel className="px-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+          Blog
+        </DropdownMenuLabel>
+
+        <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+          <Link href="/blog/write">
+            <FileText className="mr-3 h-4 w-4" />
+            <span className="font-medium text-sm">Write a Blog</span>
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+          <Link href="/blog/my-posts">
+            <FileText className="mr-3 h-4 w-4" />
+            <span className="font-medium text-sm">My Posts</span>
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+          <Link href="/blog/bookmark">
+            <Bookmark className="mr-3 h-4 w-4" />
+            <span className="font-medium text-sm">Bookmarks</span>
+          </Link>
+        </DropdownMenuItem>
+
+        {liveUserData.blogAuthorProfile?.username ? (
+          <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+            <Link href={`/blog/author/${liveUserData.blogAuthorProfile.username}`}>
+              <User className="mr-3 h-4 w-4" />
+              <span className="font-medium text-sm">Author Profile</span>
+            </Link>
+          </DropdownMenuItem>
+        ) : null}
+
+        <DropdownMenuSeparator className="bg-slate-100 my-1" />
+
         {/* 🚀 Profile Item - Wrapped inside Link with asChild to prevent navigation threads crash */}
         <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
           <Link href="/profile">

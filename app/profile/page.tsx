@@ -46,7 +46,13 @@ export default async function ProfilePage() {
             isActive: true,
             emailVerified: true,
             createdAt: true,
-            canAddInstitute: true
+            canAddInstitute: true,
+            blogAuthorProfile: {
+                select: {
+                    username: true,
+                    displayName: true,
+                }
+            }
         }
     });
 
@@ -332,26 +338,33 @@ export default async function ProfilePage() {
                 <Card className="rounded-3xl border-amber-100 shadow-sm bg-linear-to-br from-amber-50/50 to-white overflow-hidden relative">
                     <div className="absolute right-0 top-0 -mr-16 -mt-16 w-48 h-48 bg-amber-400 rounded-full blur-[80px] opacity-20 pointer-events-none"></div>
                     <CardHeader className="pb-2">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex flex-wrap items-center gap-2 mb-1">
                             <div className="p-2 bg-amber-100 rounded-lg text-amber-600"><PenTool className="w-5 h-5" /></div>
                             <CardTitle className="text-xl">Your Contributions</CardTitle>
+                            {dbUser.blogAuthorProfile?.username && (
+                                <Button asChild size="sm" variant="outline" className="ml-auto rounded-full border-amber-200 bg-white text-amber-700 hover:bg-amber-50">
+                                    <Link href={`/blog/author/${dbUser.blogAuthorProfile.username}`}>
+                                        Author Profile
+                                    </Link>
+                                </Button>
+                            )}
                         </div>
                         <CardDescription>Help other students by sharing your knowledge and experiences.</CardDescription>
                     </CardHeader>
                     <CardContent className="pt-4">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <Link href="/blog/submit" className="group p-4 rounded-2xl border border-slate-100 bg-white hover:border-amber-200 hover:shadow-md transition-all flex items-start gap-4">
+                            <Link href="/blog/write" className="group p-4 rounded-2xl border border-slate-100 bg-white hover:border-amber-200 hover:shadow-md transition-all flex items-start gap-4">
                                 <div className="p-3 bg-slate-50 rounded-xl group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors"><FileText className="w-5 h-5" /></div>
                                 <div className="flex-1">
                                     <h4 className="font-semibold text-slate-800 text-sm flex items-center justify-between">Write a Blog <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-amber-500 transition-transform group-hover:translate-x-1" /></h4>
                                     <p className="text-xs text-slate-500 mt-1">Share tips, preparation strategies, or your success story.</p>
                                 </div>
                             </Link>
-                            <Link href="/compare/submit" className="group p-4 rounded-2xl border border-slate-100 bg-white hover:border-amber-200 hover:shadow-md transition-all flex items-start gap-4">
-                                <div className="p-3 bg-slate-50 rounded-xl group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors"><Scale className="w-5 h-5" /></div>
+                            <Link href="/blog/my-posts" className="group p-4 rounded-2xl border border-slate-100 bg-white hover:border-amber-200 hover:shadow-md transition-all flex items-start gap-4">
+                                <div className="p-3 bg-slate-50 rounded-xl group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors"><FileText className="w-5 h-5" /></div>
                                 <div className="flex-1">
-                                    <h4 className="font-semibold text-slate-800 text-sm flex items-center justify-between">Compare Institutes <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-amber-500 transition-transform group-hover:translate-x-1" /></h4>
-                                    <p className="text-xs text-slate-500 mt-1">Help students decide between two top coaching centers.</p>
+                                    <h4 className="font-semibold text-slate-800 text-sm flex items-center justify-between">My Posts <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-amber-500 transition-transform group-hover:translate-x-1" /></h4>
+                                    <p className="text-xs text-slate-500 mt-1">Track drafts, published posts, and everything you have saved.</p>
                                 </div>
                             </Link>
                         </div>

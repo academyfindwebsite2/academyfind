@@ -19,10 +19,6 @@ export async function getWriteBlogData() {
     },
   });
 
-  if (!author) {
-    redirect("/blog");
-  }
-
   const [categories, tags, brands] = await Promise.all([
     prisma.blogCategory.findMany({
       where: {

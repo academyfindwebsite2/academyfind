@@ -118,7 +118,7 @@ export default async function RootLayout({
         </GoogleMapsProvider>
 
         <Toaster position="top-center" reverseOrder={false} />
-        <AuthPromptModal />
+        <AuthPromptModal isAuthenticated={Boolean(session?.user)} />
         
         <Footer />
         <GlobalCallbackFAB />

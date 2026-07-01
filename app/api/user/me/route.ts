@@ -18,7 +18,14 @@ export async function GET() {
             where: { id: session.user.id },
             select: {
                 role: true,
-                canAddInstitute: true
+                canAddInstitute: true,
+                blogAuthorProfile: {
+                    select: {
+                        id: true,
+                        username: true,
+                        displayName: true
+                    }
+                }
             }
         });
 

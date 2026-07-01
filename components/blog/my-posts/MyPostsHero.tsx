@@ -36,7 +36,7 @@ export default function MyPostsHero({
 
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/blog/new"
+            href="/blog/write"
             className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white transition hover:bg-amber-600"
           >
             <Plus className="h-4 w-4" />

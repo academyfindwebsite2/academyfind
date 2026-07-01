@@ -80,9 +80,9 @@ export default function Navbar({ session }: { session: any }) {
           <Link href="/careers" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
             Careers
           </Link>
-          {/* <Link href="/blog" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
-            Resources
-          </Link> */}
+          <Link href="/blog" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
+            Blogs
+          </Link>
           <Link href="/contact" className="text-sm font-semibold text-slate-600 hover:text-amber-500 transition-colors">
             Contact
           </Link>
@@ -173,7 +173,7 @@ export default function Navbar({ session }: { session: any }) {
                 <Button asChild variant="ghost" className="justify-start gap-3">
                   <Link href="/blog">
                     <FileText className="size-4" />
-                    Resources
+                    Blogs
                   </Link>
                 </Button>
 
