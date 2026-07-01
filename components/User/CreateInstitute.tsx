@@ -312,7 +312,7 @@ export default function CreateInstituteForm({
                             </div>
                         </div>
 
-                        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 max-h-[220px] overflow-y-auto custom-scrollbar">
+                        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 max-h-55 overflow-y-auto custom-scrollbar">
                             {filteredCategories.length === 0 ? (
                                 <p className="text-sm text-slate-400 text-center py-4">No categories found matching your search.</p>
                             ) : (
@@ -351,7 +351,7 @@ export default function CreateInstituteForm({
                         type="submit" 
                         disabled={isLoading} 
                         className={`w-full sm:w-auto py-6 px-10 text-base font-bold rounded-2xl shadow-lg transition-all ${
-                            isLoading ? 'bg-slate-400' : 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white hover:shadow-amber-500/25'
+                            isLoading ? 'bg-slate-400' : 'bg-linear-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white hover:shadow-amber-500/25'
                         }`}
                     >
                         {isLoading ? (
