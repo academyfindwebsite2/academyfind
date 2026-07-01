@@ -69,7 +69,7 @@ export default async function BlogLayout({
 
                 {authorProfile ? (
                   <Button asChild variant="outline" className="rounded-full border-slate-200 bg-white">
-                    <Link href={`/blog/author/${authorProfile.username}`}>
+                    <Link href={`/blog/author/${String(authorProfile.username)}`}>
                       <User className="mr-2 size-4" />
                       Author Profile
                     </Link>
