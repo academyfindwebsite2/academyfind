@@ -67,13 +67,12 @@ export async function submitClaimRequest(formData: FormData) {
       },
     });
 
-    // Institute page, claim page, aur admin queue ko revalidate karna taaki cache clear ho jaye
+    // Institute page aur admin queue ko revalidate karna taaki cache clear ho jaye
     revalidatePath(`/institute/${instituteId}`);
     revalidatePath("/institute/[idSlug]");
-    revalidatePath(`/user/create-institute/${instituteId}/claim`);
     revalidatePath("/af-ass-manage/claims");
     revalidatePath("/af-ass-manage");
-
+    
     return { success: true };
   } catch (error) {
     console.error("Error submitting claim request:", error);

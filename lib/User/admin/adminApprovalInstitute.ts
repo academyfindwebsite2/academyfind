@@ -2,11 +2,9 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { CLAIM_APPROVED_STATUS, CLAIM_PENDING_STATUS } from "@/lib/institutes/institute-workflow";
 import { syncSingleInstituteToMeili } from '@/scripts/SyncInstitute';
 import { meili } from "@/lib/meilisearch";
 
-// 1. 🚀 SMART COMBO APPROVE ACTION
 export async function approveInstituteRequest(requestId: string) {
     try {
         const request = await prisma.instituteRequest.findUnique({
@@ -19,29 +17,25 @@ export async function approveInstituteRequest(requestId: string) {
             return { success: false, error: `Request already ${request.status.toLowerCase()}.` };
         }
 
-        const pendingClaim = await prisma.instituteClaim.findFirst({
-            where: {
-                instituteId: request.instituteId,
-                status: CLAIM_PENDING_STATUS
-            },
-            orderBy: { createdAt: "asc" }
-        });
-
         const transactionOperations: any[] = [
-            // 1. Institute ko public active karo
             prisma.institute.update({
                 where: { id: request.instituteId },
-                data: { isActive: true, isPublished: true }
+                data: { 
+                    isActive: true, 
+                    isPublished: true,
+                    subscriptionPlan: "BASIC" 
+                }
             }),
-            // 2. 🛠️ FIX: Update status instead of deleting the request
             prisma.instituteRequest.update({
                 where: { id: requestId },
                 data: { status: "APPROVED" } 
             }),
-            // 3. Approval ke baad user ko next listing ke liye pass wapas do
             prisma.user.update({
                 where: { id: request.userId },
-                data: { canAddInstitute: true }
+                data: { 
+                    canAddInstitute: true,
+                    role: "INSTITUTE_MANAGER" 
+                }
             }),
             prisma.instituteManager.upsert({
                 where: {
@@ -58,32 +52,12 @@ export async function approveInstituteRequest(requestId: string) {
             })
         ];
 
-        // 4. Manager Assignment Logic remains the same...
-        if (pendingClaim) {
-            transactionOperations.push(
-                prisma.instituteClaim.update({
-                    where: { id: pendingClaim.id },
-                    data: { status: CLAIM_APPROVED_STATUS }
-                }),
-                prisma.instituteManager.upsert({
-                    where: {
-                        userId_instituteId: {
-                            userId: pendingClaim.userId,
-                            instituteId: pendingClaim.instituteId
-                        }
-                    },
-                    update: {},
-                    create: {
-                        userId: pendingClaim.userId,
-                        instituteId: pendingClaim.instituteId
-                    }
-                })
-            );
-        }
-
+        // DB Transaction execute karein
         await prisma.$transaction(transactionOperations);
 
         console.log(`Institute ${request.instituteId} approved, Syncing to Meilisearch...`);
+        
+        // Fix: Meilisearch task wait ko non-blocking banaya taaki server action pipeline fast respond kare
         const syncresult = await syncSingleInstituteToMeili(request.instituteId);
         if (!syncresult.success) {
             console.error("Database updated but MeiliSync Error:", syncresult.error);
@@ -91,14 +65,14 @@ export async function approveInstituteRequest(requestId: string) {
 
         revalidatePath("/af-ass-manage/instituteRequests");
         revalidatePath("/af-ass-manage");
-        return { success: true, message: "Institute Approved & Manager Assigned!" };
+        
+        return { success: true, message: "Institute Approved & Assigned to Manager (Basic Plan)!" };
     } catch (error) {
-        console.error(error);
+        console.error("Approval action error:", error);
         return { success: false, error: "Approval pipeline failed." };
     }
 }
 
-// 2. ❌ REJECT REQUEST ACTION
 export async function rejectInstituteRequest(requestId: string) {
     try {
         const request = await prisma.instituteRequest.findUnique({
@@ -109,6 +83,7 @@ export async function rejectInstituteRequest(requestId: string) {
         if (request.status !== "PENDING") {
             return { success: false, error: `Request already ${request.status.toLowerCase()}.` };
         }
+        
         await prisma.$transaction([
             prisma.instituteRequest.update({
                 where: { id: requestId },
@@ -122,10 +97,10 @@ export async function rejectInstituteRequest(requestId: string) {
 
         try {
             const index = meili.index("global_search");
-            const documentId = `inst-${request.instituteId}`;
-            const response = await index.deleteDocument(documentId);
-            await meili.tasks.waitForTask(response.taskUid, { timeout: 10000 });
-            console.log(`🗑️ Successfully removed unapproved institute ${documentId} from Meilisearch.`);
+            const documentId = `inst-${request.instituteId}`; 
+            // Background cleanup bina product blocking ke
+            await index.deleteDocument(documentId);
+            console.log(`🗑️ Sent remove request for unapproved institute ${documentId} to Meilisearch.`);
         } catch (meiliError) {
             console.error("Failed to delete rejected institute from Meilisearch:", meiliError);
         }
@@ -134,7 +109,7 @@ export async function rejectInstituteRequest(requestId: string) {
         revalidatePath("/af-ass-manage");
         return { success: true, message: "Request rejected successfully." };
     } catch (error) {
-        console.error(error);
+        console.error("Rejection action error:", error);
         return { success: false, error: "Rejection pipeline failed." };
     }
 }

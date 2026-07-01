@@ -83,7 +83,7 @@ export default function CreateInstituteForm({
             
             if (result.success) {
                 toast.success("Institute profile submitted for review!", { icon: '🎉' });
-                router.push(`/user/create-institute/${result.id}/claim`);
+                router.push(`/user/create-institute`);
                 router.refresh();
             } else {
                 toast.error(result.error || "Submission failed.");

@@ -6,7 +6,6 @@ export async function syncSingleInstituteToMeili(instituteId: string) {
   try {
     console.log(`Fetching institute data for ID: ${instituteId}...`);
 
-    // 1. Fetch data from DB
     const inst = await prisma.institute.findUnique({
       where: { id: instituteId, isActive: true },
       include: {
@@ -18,25 +17,22 @@ export async function syncSingleInstituteToMeili(instituteId: string) {
     const index = meili.index("global_search");
     const documentId = `inst-${instituteId}`;
 
-    // Handle deleted/inactive states safely
     if (!inst) {
       console.log(`Institute not found or inactive. Removing ${documentId} from Meilisearch...`);
-      const response = await index.deleteDocument(documentId);
-      await meili.tasks.waitForTask(response.taskUid, { timeout: 10000 });
+      await index.deleteDocument(documentId);
       return { success: true, action: "deleted" };
     }
 
-    // 2. Map payload matching your batch schema
     const documentToSync = {
       id: documentId,
       prismaId: inst.id,
       type: "institute",
       name: inst.name,
       slug: inst.slug,
-      city: inst.city.name,
-      cityId: inst.city.id,
-      citySlug: inst.city.slug,
-      state: inst.city.state,
+      city: inst.city?.name ?? "",
+      cityId: inst.city?.id ?? "",
+      citySlug: inst.city?.slug ?? "",
+      state: inst.city?.state ?? "",
       description: inst.description ?? "",
       address: inst.address,
       categoryNames: inst.categories.map((c) => c.category.name),
@@ -55,7 +51,7 @@ export async function syncSingleInstituteToMeili(instituteId: string) {
         lng: parseFloat(inst.longitude.toString())
       } : undefined,
       url: `/institute/${inst.id}-${inst.slug}`,
-      mode: inst.mode.toLowerCase(),
+      mode: inst.mode ? inst.mode.toLowerCase() : "offline",
       viewCount: inst.viewCount,
       compareCount: inst.compareCount,
       feeMin: inst.feeMin,
@@ -65,45 +61,28 @@ export async function syncSingleInstituteToMeili(instituteId: string) {
       hasDemoClasses: inst.hasDemoClasses,
     };
 
-    // 3. Sync to Meilisearch
     console.log(`Syncing ${documentId} to Meilisearch...`);
-    const response = await index.addDocuments([documentToSync]);
     
-    await meili.tasks.waitForTask(response.taskUid, { timeout: 15000 });
-    console.log(`✅ Successfully synced ${documentId} to Meilisearch!`);
+    // Server action me synchronous delay avoid karne ke liye inline response send kiya
+    await index.addDocuments([documentToSync]);
+    console.log(`✅ Push request triggered successfully for ${documentId}!`);
 
-    // 4. Safe Next.js Revalidation Check
-    // execution context check taaki CLI script na phate
-    if (process.env.NEXT_RUNTIME || typeof window === "undefined" && !process.env.INIT_CWD) {
+    // Next.js paths Safe Runtime Check fallback wrapper
+    const isNextRuntime = !!process.env.NEXT_RUNTIME || (typeof window === "undefined" && !process.env.INIT_CWD);
+    
+    if (isNextRuntime) {
        try {
            revalidatePath(`/institute/${inst.id}-${inst.slug}`);
            revalidatePath('/af-ass-manage/institutes');
            console.log("⚡ Next.js paths revalidated successfully.");
        } catch (revalidateError) {
-           // Fallback catch agar runtime detect na ho paye tab bhi execution na rukey
-           console.warn("⚠️ Revalidation skipped: Not running inside a live Next.js app server context.");
+           console.warn("Skipping revalidatePath outside Web server environment.");
        }
-    } else {
-       console.log("ℹ️ CLI Script Mode: Skipping Next.js cache revalidation.");
     }
 
     return { success: true, action: "synced" };
   } catch (error) {
-    console.error("Single Sync Error:", error);
-    return { success: false, error };
+    console.error("Critical error in syncSingleInstituteToMeili:", error);
+    return { success: false, error: String(error) };
   }
 }
-
-// Execution block
-syncSingleInstituteToMeili("cmr14ojgq000004jsblbwb6nu")
-  .then((res) => {
-    if (res.success) {
-      process.exit(0);
-    } else {
-      process.exit(1);
-    }
-  })
-  .catch((e) => {
-    console.error("Fatal Script Error:", e);
-    process.exit(1);
-  });
