@@ -13,6 +13,11 @@ export default async function BlogLayout({
 }>) {
   const session = await getCachedSession();
 
+  type BlogAuthorProfileLink = {
+    username: string;
+    displayName: string;
+  };
+
   const userWithBlogProfile = session?.user?.id
     ? await prisma.user.findUnique({
         where: { id: session.user.id },
@@ -27,7 +32,13 @@ export default async function BlogLayout({
       })
     : null;
 
-    const authorProfile = userWithBlogProfile?.blogAuthorProfile;
+  const authorProfile: BlogAuthorProfileLink | null =
+    userWithBlogProfile?.blogAuthorProfile
+      ? {
+          username: userWithBlogProfile.blogAuthorProfile.username,
+          displayName: userWithBlogProfile.blogAuthorProfile.displayName,
+        }
+      : null;
 
   return (
     <div className="bg-slate-50/50">
@@ -69,7 +80,7 @@ export default async function BlogLayout({
 
                 {authorProfile ? (
                   <Button asChild variant="outline" className="rounded-full border-slate-200 bg-white">
-                    <Link href={`/blog/author/${String(authorProfile.username)}`}>
+                    <Link href={`/blog/author/${authorProfile.username}`}>
                       <User className="mr-2 size-4" />
                       Author Profile
                     </Link>
