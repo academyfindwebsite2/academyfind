@@ -187,7 +187,7 @@ export default function LoginPage() {
               <p className="text-sm text-orange-100">Institutes</p>
             </div>
             <div className="rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-md">
-              <p className="text-2xl font-bold">6+</p>
+              <p className="text-2xl font-bold">9+</p>
               <p className="text-sm text-orange-100">Cities</p>
             </div>
             <div className="rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-md">
