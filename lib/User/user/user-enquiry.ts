@@ -22,11 +22,16 @@ export async function submitStudentEnquiry(formData: FormData) {
       },
     });
 
+    const institute = await prisma.institute.findUnique({
+      where: { id: instituteId },
+      select: { name: true },
+    });
+
     await prisma.adminNotification.create({
       data: {
         type: "NEW_INSTITUTE_ENQUIRY",
         title: "New Institute Enquiry",
-        message: `${name} (${phone}) sent an enquiry for institute ID: ${instituteId}.`,
+        message: `${name} (${phone}) sent an enquiry for institute ID: ${instituteId}. and name ${institute?.name}`,
       },
     });
 
