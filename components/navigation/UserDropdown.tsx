@@ -90,32 +90,40 @@ export default function UserDropdown({ user }: { user: any }) {
         
         <DropdownMenuSeparator className="bg-slate-100 my-1" />
         
-        <DropdownMenuLabel className="px-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-          Blog
-        </DropdownMenuLabel>
+        {liveUserData.role=== 'ADMIN'&&(
+          <DropdownMenuLabel className="px-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+            Blog
+          </DropdownMenuLabel>
+        )}
 
-        <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
-          <Link href="/blog/write">
-            <FileText className="mr-3 h-4 w-4" />
-            <span className="font-medium text-sm">Write a Blog</span>
-          </Link>
-        </DropdownMenuItem>
+        {liveUserData.role=== 'ADMIN'&&(
+          <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+            <Link href="/blog/write">
+              <FileText className="mr-3 h-4 w-4" />
+              <span className="font-medium text-sm">Write a Blog</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
 
-        <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
-          <Link href="/blog/my-posts">
-            <FileText className="mr-3 h-4 w-4" />
-            <span className="font-medium text-sm">My Posts</span>
-          </Link>
-        </DropdownMenuItem>
+        {liveUserData.role=== 'ADMIN'&&(
+          <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+            <Link href="/blog/my-posts">
+              <FileText className="mr-3 h-4 w-4" />
+              <span className="font-medium text-sm">My Posts</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
 
-        <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
-          <Link href="/blog/bookmark">
-            <Bookmark className="mr-3 h-4 w-4" />
-            <span className="font-medium text-sm">Bookmarks</span>
-          </Link>
-        </DropdownMenuItem>
+        {liveUserData.role=== 'ADMIN'&&(
+          <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
+            <Link href="/blog/bookmark">
+              <Bookmark className="mr-3 h-4 w-4" />
+              <span className="font-medium text-sm">Bookmarks</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
 
-        {liveUserData.blogAuthorProfile?.username ? (
+        {liveUserData.role=== 'ADMIN'&&liveUserData.blogAuthorProfile?.username ? (
           <DropdownMenuItem asChild className="rounded-xl cursor-pointer py-3 px-3 focus:bg-amber-50 focus:text-amber-700 transition-colors">
             <Link href={`/blog/author/${liveUserData.blogAuthorProfile.username}`}>
               <User className="mr-3 h-4 w-4" />
