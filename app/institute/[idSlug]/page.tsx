@@ -281,7 +281,7 @@ export default async function InstitutePage({ params }: PageProps) {
                         <CheckCircle className="w-4 h-4 text-amber-500" /> Are you the owner or representative?
                       </p>
                       <p className="text-amber-700 text-xs md:text-sm leading-relaxed">
-                        Claim this profile to update courses, fees, faculty details, and manage student enquiries.
+                        Don't miss out on student leads! Claim your profile now to manage enquiries, update details, and get real-time insights on who visits or saves your page.
                       </p>
                     </div>
 

@@ -47,3 +47,5 @@ next-env.d.ts
 /app/api/chat
 /app/ai-search
 /app/api/setup-vector
+/docs
+/area.txt
