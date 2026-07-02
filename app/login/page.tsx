@@ -17,6 +17,7 @@ import { authClient } from "@/lib/auth/auth-client";
 import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { auth } from "@/lib/auth/auth";
+import { getCachedSession } from "@/lib/auth/session";
 
 export default function LoginPage() {
   const [method, setMethod] = useState<"email" | "phone">("email");
@@ -33,11 +34,20 @@ export default function LoginPage() {
   const router = useRouter();
 
   useEffect(() => {
-    authClient.getSession().then((res) => {
-      if(res.data?.user){
+    const getSession = async () => {
+      const session = await getCachedSession();
+      if(session?.user){
         router.replace('/')
       }
-    });
+    };
+
+    // getSession();
+
+    // authClient.getSession().then((res) => {
+    //   if(res.data?.user){
+    //     router.replace('/')
+    //   }
+    // });
   },[router])
 
   const handleGoogleLogin = async () => {
