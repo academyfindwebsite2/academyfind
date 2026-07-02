@@ -351,28 +351,28 @@ export function SearchBar() {
     }
 
     if(selectedLocation?.lat === 28.4743879 && selectedLocation?.lng === 77.50399039999999){
-      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/greater-noida`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/greater-noida?${params.toString()}`);
         else router.push(`/categories?city=greater-noida`);
     }
     else if(selectedLocation?.lat === 28.5355161 && selectedLocation?.lng === 77.3910265){
-      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/noida`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/noida?${params.toString()}`);
       else router.push(`/categories?city=noida`);
     }
     else if(selectedLocation?.lat === 28.7040592 && selectedLocation?.lng === 77.10249019999999){
-      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/delhi`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/delhi?${params.toString()}`);
       else router.push(`/categories?city=delhi`);
     }
     else if(selectedLocation?.lat === 28.4089123 && selectedLocation?.lng === 77.3177894){
-      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/faridabad`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/faridabad?${params.toString()}`);
       else router.push(`/categories?city=faridabad`);
     }else if(selectedLocation?.lat === 28.8344396 && selectedLocation?.lng === 77.5698527){
-      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/modinagar`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/modinagar?${params.toString()}`);
       else router.push(`/categories?city=modinagar`);
     }else if(selectedLocation?.lat === 28.4594965 && selectedLocation?.lng === 77.0266383){
-      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/gurugram`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/gurugram?${params.toString()}`);
       else router.push(`/categories?city=gurugram`);
     }else if(selectedLocation?.lat === 28.99308229999999 && selectedLocation?.lng === 77.0150735){
-      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/sonipat`);
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/sonipat?${params.toString()}`);
       else router.push(`/categories?city=sonipat`);
     }
     else if (matchedCategorySlug && matchedCitySlug) {
