@@ -10,7 +10,7 @@ import { getInstitutesByCategory } from "@/lib/category/category_inst";
 export const getCachedInstituteById = unstable_cache(
   async (id: string) => getInstituteById(id),
   ["institute-by-id"],
-  { revalidate: 86400, tags: ["institutes"] } // tag generic rakha — neeche revalidateTag se bust hoga
+  { revalidate: 3600, tags: ["institutes"] } // tag generic rakha — neeche revalidateTag se bust hoga
 );
 
 // ────────────────────────────────────────────────
