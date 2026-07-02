@@ -3,7 +3,7 @@
 import { getCachedSession } from "@/lib/auth/session";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 import { syncBlogPostToMeili } from "./meilisync";
 
 export async function addBlogComment(postId: string, content: string) {
@@ -28,7 +28,10 @@ export async function addBlogComment(postId: string, content: string) {
     const userId = session.user.id;
 
     // Sanitize comment for XSS protection
-    const sanitizedContent = DOMPurify.sanitize(trimmedContent);
+    const sanitizedContent = sanitizeHtml(trimmedContent, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
     if (!sanitizedContent.trim()) {
       return { success: false, error: "Invalid comment content." };
     }
