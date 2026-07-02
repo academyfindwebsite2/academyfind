@@ -12,6 +12,7 @@ export default function InstituteFilters({ cities, categories }: { cities: any[]
     const currentCity = searchParams.get("cityId") || "";
     const currentCategory = searchParams.get("categoryId") || "";
     const currentStatus = searchParams.get("status") || "all";
+    const currentSubscriptionPlan = searchParams.get("subscriptionPlan") || "";
     const currentSortBy = searchParams.get("sortBy") || "newest";
 
     // URL Update Logic
@@ -72,6 +73,22 @@ export default function InstituteFilters({ cities, categories }: { cities: any[]
                     <option value="hidden">🙈 Hidden Only</option>
                 </select>
             </div>
+
+            {/* 🔥 Subscription Plan Filter */}
+            <div className="w-full md:w-60">
+                <select 
+                    value={currentSubscriptionPlan}
+                    onChange={(e) => updateFilter("subscriptionPlan", e.target.value)}
+                    className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-purple-500 outline-none cursor-pointer"
+                >
+                    <option value="">All Subscription Plans</option>
+                    <option value="BASIC">Basic</option>
+                    <option value="VERIFIED">Verified</option>
+                    <option value="PREMIUM">Premium</option>
+                    <option value="ULTRA">Ultra</option>
+                </select>
+            </div>
+
 
             {/* City Filter */}
             <div className="w-full md:w-40">

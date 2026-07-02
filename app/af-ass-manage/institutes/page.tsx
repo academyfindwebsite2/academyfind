@@ -18,6 +18,7 @@ export default async function AdminInstitutesPage({
     const search = typeof params.search === 'string' ? params.search : '';
     const cityId = typeof params.cityId === 'string' ? params.cityId : '';
     const categoryId = typeof params.categoryId === 'string' ? params.categoryId : '';
+    const subscriptionPlan = typeof params.subscriptionPlan === 'string' ? params.subscriptionPlan : '';
     
     // 🆕 Naye params sort aur status ke liye
     const status = typeof params.status === 'string' ? params.status : 'all';
@@ -43,6 +44,10 @@ export default async function AdminInstitutesPage({
     else if (status === 'inactive') whereCondition.isActive = false;
     else if (status === 'published') whereCondition.isPublished = true;
     else if (status === 'hidden') whereCondition.isPublished = false;
+
+    if (subscriptionPlan) {
+        whereCondition.subscriptionPlan = subscriptionPlan;
+    }
 
     // 🆕 Sorting Logic
     let orderByCondition: any = { createdAt: 'desc' }; // Default
