@@ -84,42 +84,46 @@ export default function EditorBubbleMenu({ editor }: Props) {
         placement: "top",
       }}
     >
-      <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white p-2 shadow-xl select-none pointer-events-auto flex-wrap max-w-md md:max-w-none">
+      <div className="flex items-center gap-1 rounded-xl border border-slate-300 bg-white/95 backdrop-blur-sm p-1.5 shadow-xl select-none pointer-events-auto flex-wrap max-w-md md:max-w-none">
         {/* Core Formatting */}
         <Button
           type="button"
           variant={editor.isActive("bold") ? "default" : "ghost"}
           size="icon"
+          className="h-8 w-8 rounded-lg"
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
-          <Bold className="h-4 w-4" />
+          <Bold className="h-3.5 w-3.5" />
         </Button>
 
         <Button
           type="button"
           variant={editor.isActive("italic") ? "default" : "ghost"}
           size="icon"
+          className="h-8 w-8 rounded-lg"
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
-          <Italic className="h-4 w-4" />
+          <Italic className="h-3.5 w-3.5" />
         </Button>
 
         <Button
           type="button"
           variant={editor.isActive("underline") ? "default" : "ghost"}
           size="icon"
+          className="h-8 w-8 rounded-lg"
           onClick={() => editor.chain().focus().toggleUnderline().run()}
         >
-          <Underline className="h-4 w-4" />
+          <Underline className="h-3.5 w-3.5" />
         </Button>
 
         <Button
           type="button"
           variant={editor.isActive("strike") ? "default" : "ghost"}
           size="icon"
+          className="h-8 w-8 rounded-lg"
           onClick={() => editor.chain().focus().toggleStrike().run()}
         >
-          <Strikethrough className="h-4 w-4" />
+          <Strikethrough className="h-3.5 w-3.5" />
         </Button>
 
         {/* Script Variants */}
@@ -127,27 +131,30 @@ export default function EditorBubbleMenu({ editor }: Props) {
           type="button"
           variant={editor.isActive("subscript") ? "default" : "ghost"}
           size="icon"
+          className="h-8 w-8 rounded-lg"
           onClick={() => editor.chain().focus().toggleSubscript().run()}
         >
-          <SubscriptIcon className="h-4 w-4" />
+          <SubscriptIcon className="h-3.5 w-3.5" />
         </Button>
 
         <Button
           type="button"
           variant={editor.isActive("superscript") ? "default" : "ghost"}
           size="icon"
+          className="h-8 w-8 rounded-lg"
           onClick={() => editor.chain().focus().toggleSuperscript().run()}
         >
-          <SuperscriptIcon className="h-4 w-4" />
+          <SuperscriptIcon className="h-3.5 w-3.5" />
         </Button>
 
         <Button
           type="button"
           variant={editor.isActive("code") ? "default" : "ghost"}
           size="icon"
+          className="h-8 w-8 rounded-lg"
           onClick={() => editor.chain().focus().toggleCode().run()}
         >
-          <Code2 className="h-4 w-4" />
+          <Code2 className="h-3.5 w-3.5" />
         </Button>
 
         <LinkPopover editor={editor} />
@@ -155,16 +162,16 @@ export default function EditorBubbleMenu({ editor }: Props) {
         {/* Text Color Picker */}
         <Popover>
           <PopoverTrigger asChild>
-            <Button type="button" variant="ghost" size="icon">
-              <Baseline className="h-4 w-4" />
+            <Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-lg">
+              <Baseline className="h-3.5 w-3.5" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-40 p-2 flex flex-col gap-1">
-            {TEXT_COLORS.map((color: { value: string; name: string }) => (
+          <PopoverContent className="w-44 p-2 flex flex-col gap-1 z-30 rounded-xl shadow-lg border-slate-200">
+            {TEXT_COLORS.map((color: { value: string; name: string; preview?: string }) => (
               <button
                 type="button"
                 key={color.value}
-                className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors flex items-center"
+                className="text-left text-sm p-2 hover:bg-slate-100 rounded-lg transition-all flex items-center"
                 onClick={() => {
                   if (color.value === "inherit") {
                     editor.chain().focus().unsetColor().run();
@@ -174,8 +181,8 @@ export default function EditorBubbleMenu({ editor }: Props) {
                 }}
               >
                 <span
-                  className="inline-block w-3 h-3 rounded-full border border-slate-300 mr-2 align-middle shrink-0"
-                  style={{ backgroundColor: color.value }}
+                  className="inline-block w-4 h-4 rounded-full border border-slate-300 mr-2.5 align-middle shrink-0 shadow-sm"
+                  style={{ backgroundColor: color.preview || color.value }}
                 />
                 {color.name}
               </button>
@@ -190,24 +197,25 @@ export default function EditorBubbleMenu({ editor }: Props) {
               type="button"
               variant={editor.isActive("highlight") ? "default" : "ghost"}
               size="icon"
+              className="h-8 w-8 rounded-lg"
             >
-              <Highlighter className="h-4 w-4" />
+              <Highlighter className="h-3.5 w-3.5" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-40 p-2 flex flex-col gap-1">
+          <PopoverContent className="w-44 p-2 flex flex-col gap-1 z-30 rounded-xl shadow-lg border-slate-200">
             <button
               type="button"
-              className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors flex items-center"
+              className="text-left text-sm p-2 hover:bg-slate-100 rounded-lg transition-all flex items-center"
               onClick={() => editor.chain().focus().unsetHighlight().run()}
             >
-              <span className="inline-block w-3 h-3 rounded-full border border-dashed border-slate-400 mr-2 align-middle bg-transparent shrink-0" />
+              <span className="inline-block w-4 h-4 rounded-full border border-dashed border-slate-400 mr-2.5 align-middle bg-transparent shrink-0" />
               None
             </button>
-            {HIGHLIGHT_COLORS.map((color: { value: string; name: string }) => (
+            {HIGHLIGHT_COLORS.map((color: { value: string; name: string; preview?: string }) => (
               <button
                 type="button"
                 key={color.value}
-                className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors flex items-center"
+                className="text-left text-sm p-2 hover:bg-slate-100 rounded-lg transition-all flex items-center"
                 onClick={() =>
                   editor
                     .chain()
@@ -217,8 +225,8 @@ export default function EditorBubbleMenu({ editor }: Props) {
                 }
               >
                 <span
-                  className="inline-block w-3 h-3 rounded border border-slate-300 mr-2 align-middle shrink-0"
-                  style={{ backgroundColor: color.value }}
+                  className="inline-block w-4 h-4 rounded border border-slate-300 mr-2.5 align-middle shrink-0 shadow-sm"
+                  style={{ backgroundColor: color.preview || color.value }}
                 />
                 {color.name}
               </button>
@@ -234,7 +242,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           type="button"
           variant="ghost"
           size="icon"
-          className="text-red-500 hover:text-red-600 hover:bg-red-50"
+          className="h-8 w-8 rounded-lg text-red-500 hover:text-red-600 hover:bg-red-50"
           onClick={() =>
             editor
               .chain()
@@ -245,7 +253,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
               .run()
           }
         >
-          <Eraser className="h-4 w-4" />
+          <Eraser className="h-3.5 w-3.5" />
         </Button>
       </div>
     </BubbleMenu>

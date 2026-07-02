@@ -12,10 +12,10 @@ import RelatedPosts from "@/components/blog/article/RelatedPosts";
 import ShareButtons from "@/components/blog/article/ShareButtons";
 import StickyCTA from "@/components/blog/article/StickyCTA";
 import TableOfContents from "@/components/blog/article/TableOfContents";
+import ViewTracker from "@/components/blog/article/ViewTracker";
 import { getCachedSession } from "@/lib/auth/session";
-import { getBlogPostBySlug, getisBookmarked, getRelatedInstitute, getUserReaction, getRelatedPosts, incrementBlogViewCount } from "@/lib/User/user/blog/blogpost";
+import { getBlogPostBySlug, getisBookmarked, getRelatedInstitute, getUserReaction, getRelatedPosts } from "@/lib/User/user/blog/blogpost";
 import { notFound } from "next/navigation";
-
 
 type Props = {
   params: Promise<{
@@ -23,24 +23,23 @@ type Props = {
   }>;
 };
 
-type TOCItem ={
+type TOCItem = {
   id: string;
   text: string;
   level: number;
-}
+};
 
 export default async function BlogDetailPage({
   params,
 }: Props) {
   const { slug } = await params;
   const [post, session] = await Promise.all([
-  getBlogPostBySlug(slug),
-  getCachedSession(),
-]);
+    getBlogPostBySlug(slug),
+    getCachedSession(),
+  ]);
+  
   if (!post) {
-    return (
-      notFound()
-    );
+    return notFound();
   }
 
   const userId = session?.user?.id;
@@ -52,55 +51,60 @@ export default async function BlogDetailPage({
     getRelatedPosts(post.id || "", post.categoryId || ""),
   ]);
 
-  void incrementBlogViewCount(post.id || "");
-
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <ViewTracker postId={post.id} />
       <ReadingProgress />
 
       <PostHero post={post} />
 
-      <Breadcrumb items={[{ label: "Blog", href: "/blog" }, { label: post.category?.name || "Uncategorized", href: `/blog/category/${post.category?.slug}` }, { label: post.title }]} />
+      <Breadcrumb
+        items={[
+          { label: "Blog", href: "/blog" },
+          { label: post.category?.name || "Uncategorized", href: `/blog/category/${post.category?.slug}` },
+          { label: post.title },
+        ]}
+      />
 
       <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_320px]">
-          <main>
-              <PostContent html={post.contentHtml} className="prose-lg" />
+        <main>
+          <PostContent html={post.contentHtml} className="prose-lg" />
 
-              <FAQSection faqs={post.faqs} />
+          <FAQSection faqs={post.faqs} />
 
-              {post.authorProfile ? (
-                <AuthorCard author={post.authorProfile} />
-              ) : null}
+          {post.authorProfile ? (
+            <AuthorCard author={post.authorProfile} />
+          ) : null}
 
-              <RelatedPosts posts={relatedPosts} />
+          <RelatedPosts posts={relatedPosts} />
 
-              <RelatedInstitute institute={post.relatedInstitute} />
+          <RelatedInstitute institute={post.relatedInstitute} />
 
-              <NewsletterCTA />
+          <NewsletterCTA />
 
-              <Comments postId={post.id} comments={post.comments} canComment={!!userId} />
-          </main>
+          <Comments postId={post.id} comments={post.comments} canComment={!!userId} />
+        </main>
 
-          <aside>
-              <TableOfContents items={(post.tableOfContents as TOCItem[]) ?? []} />
+        <aside>
+          <TableOfContents items={(post.tableOfContents as TOCItem[]) ?? []} />
 
-              <StickyCTA instituteSlug={relatedInstitute?.slug} />
+          <StickyCTA instituteSlug={relatedInstitute?.slug} />
 
-              <ShareButtons title={post.title} slug={post.slug} url={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`} />
+          <ShareButtons title={post.title} slug={post.slug} url={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`} />
 
-            <ArticleActions 
-              postId={post.id}
-              slug={post.slug}
-              initialLikes={post.likeCount}
-              initialBookmarks={post.bookmarkCount}
-              initialComments={post.commentCount}
-              hasLikedInitially={userReaction === "LIKE"}
-              hasHelpfullyInitially={userReaction === "HELPFUL"}
-              hasLovedInitially={userReaction === "LOVE"}
-              hasBookmarkedInitially={hasBookmarked === true}
-              isLoggedIn={!!userId} 
-            />
-          </aside>
+          <ArticleActions 
+            postId={post.id}
+            slug={post.slug}
+            initialLikes={post.likeCount}
+            initialBookmarks={post.bookmarkCount}
+            initialComments={post.commentCount}
+            hasLikedInitially={userReaction === "LIKE"}
+            hasHelpfullyInitially={userReaction === "HELPFUL"}
+            hasLovedInitially={userReaction === "LOVE"}
+            hasBookmarkedInitially={hasBookmarked === true}
+            isLoggedIn={!!userId} 
+          />
+        </aside>
       </div>
     </div>
   );

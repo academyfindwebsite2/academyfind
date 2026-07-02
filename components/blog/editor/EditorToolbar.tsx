@@ -108,11 +108,11 @@ const currentHighlightColor =
     editor.getAttributes("highlight").color;
   return (
     // FIX 3: Structured into logical group segments for cleaner semantic readability
-    <div className="sticky top-0 z-20 overflow-x-auto border-b border-slate-200 bg-white">
-        <div className="flex min-w-max items-center gap-1.5 p-2">
+    <div className="sticky top-0 z-20 overflow-x-auto border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
+        <div className="flex min-w-max items-center gap-1 p-2.5">
       
       {/* GROUP 1: HISTORY PIPELINE */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 rounded-lg bg-slate-50/50 p-1">
         <ToolbarItem
           label="Undo"
           onClick={() => editor.chain().focus().undo().run()}
@@ -129,7 +129,7 @@ const currentHighlightColor =
         </ToolbarItem>
       </div>
 
-      <Separator orientation="vertical" className="h-6 mx-1 bg-slate-200" />
+      <Separator orientation="vertical" className="h-6 mx-1.5 bg-slate-200" />
 
       {/* GROUP 2: DOCUMENT FORMAT TEXT BLOCK BLOCKS */}
       <div className="flex items-center gap-1">
@@ -164,7 +164,7 @@ const currentHighlightColor =
         </ToolbarItem>
       </div>
 
-      <Separator orientation="vertical" className="h-6 mx-1 bg-slate-200" />
+      <Separator orientation="vertical" className="h-6 mx-1.5 bg-slate-200" />
 
       {/* GROUP 3: INLINE INLINE FORMATTING */}
       <div className="flex items-center gap-1">
@@ -206,7 +206,7 @@ const currentHighlightColor =
         </ToolbarItem>
       </div>
 
-      <Separator orientation="vertical" className="h-6 mx-1 bg-slate-200" />
+      <Separator orientation="vertical" className="h-6 mx-1.5 bg-slate-200" />
 
       {/* GROUP 4: TEXT ALIGNMENT SETTINGS */}
       <div className="flex items-center gap-1">
@@ -240,25 +240,25 @@ const currentHighlightColor =
         </ToolbarItem>
       </div>
 
-      <Separator orientation="vertical" className="h-6 mx-1 bg-slate-200" />
+      <Separator orientation="vertical" className="h-6 mx-1.5 bg-slate-200" />
 
       {/* GROUP 5: PALETTE COLORS AND PICKERS */}
       <div className="flex items-center gap-1">
         {/* Text Color Picker */}
         <Popover>
           <PopoverTrigger asChild>
-            <Button type="button" variant="ghost" className="h-9 w-9" onMouseDown={(e) => e.preventDefault()}>
+            <Button type="button" variant="ghost" className="h-9 w-9 rounded-lg hover:bg-slate-100" onMouseDown={(e) => e.preventDefault()}>
               <Baseline className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-40 p-2 flex flex-col gap-1 z-30">
+          <PopoverContent className="w-44 p-2 flex flex-col gap-1 z-30 rounded-xl shadow-lg border-slate-200">
             {TEXT_COLORS.map((color: { name: string; value: string; preview: string }) => (
               <Button
                 type="button"
                 variant="ghost"
                 key={color.value}
                 onMouseDown={(e) => e.preventDefault()}
-                className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors"
+                className="text-left text-sm p-2 hover:bg-slate-100 rounded-lg transition-all justify-start"
                 onClick={() => {
                   if (color.value === "inherit") {
                     editor.chain().focus().unsetColor().run();
@@ -268,7 +268,7 @@ const currentHighlightColor =
                 }}
               >
                 <span
-                  className="inline-block w-3 h-3 rounded-full border border-slate-300 mr-2 align-middle"
+                  className="inline-block w-4 h-4 rounded-full border border-slate-300 mr-2.5 align-middle shadow-sm"
                   style={{ backgroundColor: color.preview }}
                 />
                 {color.name}
@@ -284,21 +284,21 @@ const currentHighlightColor =
               type="button"
               variant={editor.isActive("highlight") ? "secondary" : "ghost"}
               onMouseDown={(e) => e.preventDefault()}
-              className="h-9 w-9"
+              className="h-9 w-9 rounded-lg"
             >
               <Highlighter className="h-4 w-4" />
             </Button>
             
           </PopoverTrigger>
-          <PopoverContent className="w-40 p-2 flex flex-col gap-1 z-30">
+          <PopoverContent className="w-44 p-2 flex flex-col gap-1 z-30 rounded-xl shadow-lg border-slate-200">
             <Button
             type="button"
             variant="ghost"
-              className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors"
+              className="text-left text-sm p-2 hover:bg-slate-100 rounded-lg transition-all justify-start"
               onClick={() => editor.chain().focus().unsetHighlight().run()}
               onMouseDown={(e) => e.preventDefault()}
             >
-              <span className="inline-block w-3 h-3 rounded-full border border-dashed border-slate-400 mr-2 align-middle bg-transparent" />
+              <span className="inline-block w-4 h-4 rounded-full border border-dashed border-slate-400 mr-2.5 align-middle bg-transparent" />
               None
             </Button>
             {HIGHLIGHT_COLORS.map((color: { name: string; value: string; preview: string }) => (
@@ -307,11 +307,11 @@ const currentHighlightColor =
                 variant="ghost"
                 onMouseDown={(e) => e.preventDefault()}
                 key={color.value}
-                className="text-left text-xs p-1.5 hover:bg-slate-100 rounded transition-colors"
+                className="text-left text-sm p-2 hover:bg-slate-100 rounded-lg transition-all justify-start"
                 onClick={() => editor.chain().focus().setHighlight({ color: color.value }).run()}
               >
                 <span
-                  className="inline-block w-3 h-3 rounded border border-slate-300 mr-2 align-middle"
+                  className="inline-block w-4 h-4 rounded border border-slate-300 mr-2.5 align-middle shadow-sm"
                   style={{ backgroundColor: color.preview }}
                 />
                 {color.name}
@@ -334,7 +334,7 @@ const currentHighlightColor =
         </ToolbarItem>
       </div>
 
-      <Separator orientation="vertical" className="h-6 mx-1 bg-slate-200" />
+      <Separator orientation="vertical" className="h-6 mx-1.5 bg-slate-200" />
 
       {/* GROUP 6: ACCORDIONS AND LISTS */}
       <div className="flex items-center gap-1">
@@ -379,7 +379,7 @@ const currentHighlightColor =
          <div className="flex items-center gap-1.5">
             <Separator
                 orientation="vertical"
-                className="mx-1 h-6 bg-slate-200"
+                className="mx-1.5 h-6 bg-slate-200"
             />
         <ImageUploader editor={editor} />
         <LinkPopover editor={editor} />

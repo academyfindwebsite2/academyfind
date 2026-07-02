@@ -69,7 +69,7 @@ export default function EditorWordCount({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center justify-between gap-4 rounded-b-xl border-t border-slate-200 bg-slate-50 px-6 py-3 text-sm select-none",
+        "flex flex-wrap items-center justify-between gap-4 rounded-b-xl border-t border-slate-200 bg-gradient-to-r from-slate-50 to-white px-6 py-3.5 text-sm select-none",
         className
       )}
     >

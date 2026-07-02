@@ -345,6 +345,7 @@ model InstituteEnquiry {
   instituteId String
   name        String
   phone       String
+  email       String?
   message     String?
   status      String    @default("NEW")
   isForwarded Boolean   @default(false)

@@ -103,9 +103,15 @@ export default function Editor({
   // FIX 3 & 6: Clean, branded loading interface mirroring professional CMS portals
   if (!editor) {
     return (
-      <div className="flex min-h-[700px] flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/50 select-none">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-amber-200 border-t-amber-600" />
-        <p className="text-xs font-medium text-slate-400">Loading editor...</p>
+      <div className="flex min-h-[800px] flex-col items-center justify-center gap-4 rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50/50 select-none">
+        <div className="relative">
+          <div className="h-10 w-10 animate-spin rounded-full border-3 border-amber-200 border-t-amber-600" />
+          <div className="absolute inset-0 h-10 w-10 animate-ping rounded-full border border-amber-100 opacity-50" />
+        </div>
+        <div className="text-center">
+          <p className="text-sm font-semibold text-slate-600">Loading editor...</p>
+          <p className="mt-1 text-xs text-slate-400">Preparing your writing workspace</p>
+        </div>
       </div>
     );
   }
@@ -113,13 +119,13 @@ export default function Editor({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 flex flex-col focus-within:border-amber-400 focus-within:ring-4 focus-within:ring-amber-100/55",
+        "overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col focus-within:border-amber-400 focus-within:ring-4 focus-within:ring-amber-100/50",
         className
       )}
     >
       {editable && <EditorToolbar editor={editor} />}
 
-      <div className="relative flex-1">
+      <div className="relative flex-1 bg-gradient-to-b from-white to-slate-50/30">
         {editable && (
           <>
             <EditorBubbleMenu editor={editor} />
@@ -129,7 +135,7 @@ export default function Editor({
 
         <EditorContent editor={editor} />
         
-        {/* FIX 7: Render child extensions inside portal bounds layout spaces */}
+        {/* Render child extensions inside portal bounds layout spaces */}
         {children}
       </div>
 

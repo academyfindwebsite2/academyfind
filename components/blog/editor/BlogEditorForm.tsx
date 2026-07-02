@@ -91,17 +91,17 @@ function SectionCard({
 }) {
   return (
     <Card
-      className={`rounded-[22px] border border-slate-100 bg-white/70 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 ring-1 ring-slate-100/50 ${className}`}
+      className={`rounded-3xl border border-slate-100 bg-white shadow-xs hover:shadow-md hover:shadow-slate-100/50 transition-all duration-300 ${className}`}
     >
-      <CardHeader className="pb-4">
-        <CardTitle className="text-xl font-bold tracking-tight text-slate-800">{title}</CardTitle>
+      <CardHeader className="pb-5">
+        <CardTitle className="text-lg font-extrabold tracking-tight text-slate-800">{title}</CardTitle>
         {description ? (
-          <CardDescription className="text-sm text-slate-500 mt-1">
+          <CardDescription className="text-xs text-slate-500 mt-1.5 leading-relaxed">
             {description}
           </CardDescription>
         ) : null}
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      <CardContent className="pt-0">{children}</CardContent>
     </Card>
   );
 }
@@ -118,7 +118,7 @@ function FieldCounter({
   return (
     <span
       className={
-        nearLimit ? "text-xs text-amber-700" : "text-xs text-slate-400"
+        nearLimit ? "text-xs font-semibold text-amber-700" : "text-xs text-slate-400"
       }
     >
       {value.length}/{maximum}
@@ -435,7 +435,7 @@ export default function BlogEditorForm({
           size="lg"
           disabled={isPending || isUploading}
           onClick={handleDelete}
-          className="text-red-500 hover:bg-red-50 hover:text-red-600 border border-transparent hover:border-red-100 font-semibold"
+          className="text-red-500 hover:bg-red-50 hover:text-red-600 border border-transparent hover:border-red-100 font-semibold rounded-2xl transition-all duration-200 cursor-pointer text-sm"
         >
           <Trash2 className="h-4 w-4" />
           Delete Post
@@ -447,12 +447,12 @@ export default function BlogEditorForm({
         size="lg"
         disabled={isPending || isUploading}
         onClick={() => submit("draft")}
-        className="border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+        className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50 rounded-2xl font-bold transition-all duration-200 cursor-pointer text-sm shadow-xs border px-5 py-2.5 flex items-center gap-2"
       >
         {isPending && saveState === "saving" ? (
-          <Loader2 className="animate-spin" />
+          <Loader2 className="animate-spin size-4" />
         ) : (
-          <FileText />
+          <FileText className="size-4 text-slate-400" />
         )}
         {management === "admin" ? "Save Changes" : "Save Draft"}
       </Button>
@@ -461,12 +461,12 @@ export default function BlogEditorForm({
         size="lg"
         disabled={isPending || isUploading}
         onClick={() => submit("publish")}
-        className="bg-amber-500 text-slate-950 shadow-sm hover:bg-amber-400"
+        className="bg-amber-500 text-white shadow-md hover:bg-amber-600 hover:shadow-lg rounded-2xl font-bold transition-all duration-200 border-0 cursor-pointer text-sm px-6 py-2.5 flex items-center gap-2"
       >
         {isPending && saveState === "saving" ? (
-          <Loader2 className="animate-spin" />
+          <Loader2 className="animate-spin size-4" />
         ) : (
-          <Send />
+          <Send className="size-4" />
         )}
         Publish
       </Button>
@@ -474,9 +474,9 @@ export default function BlogEditorForm({
   );
 
   return (
-    <main className="min-h-screen bg-slate-50/80">
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-slate-50/50">
+      <header className="sticky top-0 z-30 border-b border-slate-100 bg-white/80 backdrop-blur-md shadow-xs">
+        <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-3">
             <Button
               type="button"
@@ -484,16 +484,16 @@ export default function BlogEditorForm({
               size="icon"
               aria-label="Go back"
               onClick={() => router.back()}
-              className="text-slate-500"
+              className="text-slate-500 rounded-xl hover:bg-slate-50"
             >
-              <ArrowLeft />
+              <ArrowLeft className="size-5" />
             </Button>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h1 className="truncate text-lg font-semibold text-slate-950 sm:text-xl">
+                <h1 className="truncate text-base font-extrabold text-slate-800 sm:text-lg">
                   {mode === "create" ? "Create Post" : "Edit Post"}
                 </h1>
-                <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">
+                <Badge className="bg-amber-50 text-amber-800 hover:bg-amber-100 rounded-lg px-2 py-0.5 border border-amber-100/50 text-[10px] font-bold uppercase tracking-wider">
                   {status === "DRAFT"
                     ? "Draft"
                     : status
@@ -501,7 +501,7 @@ export default function BlogEditorForm({
                         .replaceAll("_", " ")}
                 </Badge>
               </div>
-              <p className="hidden text-xs text-slate-500 sm:block">
+              <p className="hidden text-[10px] font-semibold uppercase tracking-wider text-slate-400 sm:block">
                 {saveState === "saving"
                   ? "Saving changes…"
                   : saveState === "unsaved"
@@ -510,7 +510,7 @@ export default function BlogEditorForm({
               </p>
             </div>
           </div>
-          <div className="hidden items-center gap-2 sm:flex">{actionButtons}</div>
+          <div className="hidden items-center gap-3 sm:flex">{actionButtons}</div>
         </div>
       </header>
 
@@ -523,7 +523,7 @@ export default function BlogEditorForm({
             <div className="space-y-5">
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-3">
-                  <Label htmlFor="blog-title">Title</Label>
+                  <Label htmlFor="blog-title" className="font-semibold text-slate-700">Title</Label>
                   <FieldCounter value={form.title} maximum={180} />
                 </div>
                 <Input
@@ -532,14 +532,14 @@ export default function BlogEditorForm({
                   maxLength={180}
                   onChange={handleTitleChange}
                   placeholder="A useful, specific post title"
-                  className="h-11 rounded-xl border-slate-200 text-base transition-all focus:border-amber-400 focus:ring-4 focus:ring-amber-100"
+                  className="h-11 rounded-2xl border-slate-200 text-sm transition-all focus:border-amber-400 focus:ring-4 focus:ring-amber-100"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="blog-slug">Slug</Label>
-                <div className="flex overflow-hidden rounded-xl border border-slate-200 bg-white transition-all focus-within:border-amber-400 focus-within:ring-4 focus-within:ring-amber-100">
-                  <span className="hidden items-center border-r border-slate-200 bg-slate-50 px-3 text-sm text-slate-500 sm:flex">
+                <Label htmlFor="blog-slug" className="font-semibold text-slate-700">Slug</Label>
+                <div className="flex overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all focus-within:border-amber-400 focus-within:ring-4 focus-within:ring-amber-100">
+                  <span className="hidden items-center border-r border-slate-100 bg-slate-50/50 px-4 text-xs font-bold text-slate-400 sm:flex">
                     /blog/
                   </span>
                   <Input
@@ -548,17 +548,17 @@ export default function BlogEditorForm({
                     maxLength={200}
                     onChange={handleSlugChange}
                     placeholder="your-post-slug"
-                    className="h-10 rounded-none border-0 focus-visible:ring-0"
+                    className="h-11 rounded-none border-0 focus-visible:ring-0 focus:ring-0 text-sm"
                   />
                 </div>
-                <p className="text-xs text-slate-500">
-                  Generated from the title until you edit it.
+                <p className="text-[11px] text-slate-400 leading-relaxed">
+                  Generated automatically from the title until you manually edit it.
                 </p>
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-3">
-                  <Label htmlFor="blog-excerpt">Excerpt</Label>
+                  <Label htmlFor="blog-excerpt" className="font-semibold text-slate-700">Excerpt</Label>
                   <FieldCounter value={form.excerpt} maximum={500} />
                 </div>
                 <Textarea
@@ -568,21 +568,21 @@ export default function BlogEditorForm({
                   rows={4}
                   onChange={(event) => updateField("excerpt", event.target.value)}
                   placeholder="A concise summary for cards and search results."
-                  className="min-h-28 rounded-xl border-slate-200 transition-all focus:border-amber-400 focus:ring-4 focus:ring-amber-100"
+                  className="min-h-28 rounded-2xl border-slate-200 transition-all focus:border-amber-400 focus:ring-4 focus:ring-amber-100 text-sm"
                 />
               </div>
             </div>
           </SectionCard>
 
           <section aria-labelledby="content-heading" className="space-y-3">
-            <div>
+            <div className="px-1">
               <h2
                 id="content-heading"
-                className="text-base font-semibold text-slate-900"
+                className="text-base font-extrabold text-slate-800"
               >
                 Main content
               </h2>
-              <p className="text-sm text-slate-500">
+              <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
                 Use the toolbar or slash commands to structure your story.
               </p>
             </div>
@@ -591,7 +591,7 @@ export default function BlogEditorForm({
               onChange={(contentHtml) => updateField("contentHtml", contentHtml)}
               saveState={saveState}
               placeholder="Start writing your post…"
-              className="min-h-[700px]"
+              className="min-h-[700px] rounded-3xl overflow-hidden border border-slate-200 bg-white"
             />
           </section>
 
@@ -601,12 +601,12 @@ export default function BlogEditorForm({
           >
             <div className="space-y-4">
               {faqs.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-5 py-8 text-center">
-                  <p className="text-sm font-medium text-slate-700">
+                <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/50 px-5 py-8 text-center">
+                  <p className="text-sm font-semibold text-slate-700">
                     No FAQs added yet
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    FAQs can improve clarity and search visibility.
+                  <p className="mt-1 text-xs text-slate-400 leading-relaxed">
+                    Adding FAQs improves readability and search visibility.
                   </p>
                 </div>
               ) : null}
@@ -614,10 +614,10 @@ export default function BlogEditorForm({
               {faqs.map((faq, index) => (
                 <div
                   key={faq.key}
-                  className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4"
+                  className="rounded-2xl border border-slate-100 bg-slate-50/30 p-4"
                 >
                   <div className="mb-4 flex items-center justify-between">
-                    <p className="text-sm font-semibold text-slate-700">
+                    <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                       FAQ {index + 1}
                     </p>
                     <Button
@@ -626,14 +626,14 @@ export default function BlogEditorForm({
                       size="icon-sm"
                       aria-label={`Remove FAQ ${index + 1}`}
                       onClick={() => removeFaq(faq.key)}
-                      className="text-slate-400 hover:bg-red-50 hover:text-red-600"
+                      className="text-slate-400 hover:bg-red-50 hover:text-red-650 rounded-xl"
                     >
-                      <Trash2 />
+                      <Trash2 className="size-4" />
                     </Button>
                   </div>
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor={`faq-question-${faq.key}`}>Question</Label>
+                      <Label htmlFor={`faq-question-${faq.key}`} className="text-xs font-semibold text-slate-700">Question</Label>
                       <Input
                         id={`faq-question-${faq.key}`}
                         value={faq.question}
@@ -646,7 +646,7 @@ export default function BlogEditorForm({
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor={`faq-answer-${faq.key}`}>Answer</Label>
+                      <Label htmlFor={`faq-answer-${faq.key}`} className="text-xs font-semibold text-slate-700">Answer</Label>
                       <Textarea
                         id={`faq-answer-${faq.key}`}
                         value={faq.answer}
@@ -656,7 +656,7 @@ export default function BlogEditorForm({
                           updateFaq(faq.key, "answer", event.target.value)
                         }
                         placeholder="Give a direct, helpful answer."
-                        className="rounded-xl border-slate-200 bg-white"
+                        className="rounded-xl border-slate-200 bg-white text-sm"
                       />
                     </div>
                   </div>
@@ -667,9 +667,9 @@ export default function BlogEditorForm({
                 type="button"
                 variant="outline"
                 onClick={addFaq}
-                className="w-full border-dashed border-amber-300 bg-amber-50/50 text-amber-800 hover:bg-amber-50"
+                className="w-full border-dashed border-amber-300 bg-amber-50/20 text-amber-800 hover:bg-amber-50 rounded-2xl h-11 font-bold cursor-pointer transition-all duration-200"
               >
-                <Plus />
+                <Plus className="size-4 mr-1" />
                 Add FAQ
               </Button>
             </div>
@@ -690,13 +690,13 @@ export default function BlogEditorForm({
             />
             {form.coverImage ? (
               <div className="space-y-3">
-                <div className="relative aspect-video overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative aspect-video overflow-hidden rounded-2xl bg-slate-50 border border-slate-100 shadow-xs">
                   <Image
                     src={form.coverImage}
                     alt={form.title || "Post cover preview"}
                     fill
                     sizes="(min-width: 1024px) 328px, 100vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 hover:scale-105"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -705,17 +705,18 @@ export default function BlogEditorForm({
                     variant="outline"
                     disabled={isUploading}
                     onClick={() => coverInputRef.current?.click()}
+                    className="rounded-xl border-slate-200 hover:bg-slate-50 cursor-pointer text-xs font-semibold h-9"
                   >
-                    <ImagePlus />
+                    <ImagePlus className="size-3.5 mr-1" />
                     Replace
                   </Button>
                   <Button
                     type="button"
                     variant="ghost"
                     onClick={() => updateField("coverImage", "")}
-                    className="text-slate-500 hover:text-red-600"
+                    className="text-slate-500 hover:bg-red-50 hover:text-red-650 rounded-xl cursor-pointer text-xs font-semibold h-9"
                   >
-                    <Trash2 />
+                    <Trash2 className="size-3.5 mr-1" />
                     Remove
                   </Button>
                 </div>
@@ -725,17 +726,19 @@ export default function BlogEditorForm({
                 type="button"
                 disabled={isUploading}
                 onClick={() => coverInputRef.current?.click()}
-                className="flex aspect-video w-full flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50 text-slate-500 transition hover:border-amber-400 hover:bg-amber-50/40 hover:text-amber-700 disabled:cursor-wait disabled:opacity-60"
+                className="group/dropzone flex aspect-video w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/50 text-slate-500 transition-all duration-300 hover:border-amber-400 hover:bg-amber-50/20 hover:text-amber-600 disabled:cursor-wait disabled:opacity-60"
               >
                 {isUploading ? (
-                  <Loader2 className="mb-2 size-6 animate-spin" />
+                  <Loader2 className="mb-3 size-8 animate-spin text-amber-500" />
                 ) : (
-                  <UploadCloud className="mb-2 size-6" />
+                  <UploadCloud className="mb-3 size-8 text-slate-400 transition-transform duration-300 group-hover/dropzone:-translate-y-1 group-hover/dropzone:text-amber-500" />
                 )}
-                <span className="text-sm font-medium">
-                  {isUploading ? "Uploading…" : "Upload cover"}
+                <span className="text-sm font-semibold text-slate-700 group-hover/dropzone:text-amber-700">
+                  {isUploading ? "Uploading cover image…" : "Upload a cover image"}
                 </span>
-                <span className="mt-1 text-xs">PNG, JPG or WebP</span>
+                <span className="mt-1 text-[11px] text-slate-400">
+                  PNG, JPG or WebP (16:9 ratio)
+                </span>
               </button>
             )}
           </SectionCard>
@@ -743,7 +746,7 @@ export default function BlogEditorForm({
           <SectionCard title="Organization">
             <div className="space-y-5">
               <div className="space-y-2">
-                <Label>Category</Label>
+                <Label className="font-semibold text-slate-700">Category</Label>
                 <Select
                   value={form.categoryId || NONE_VALUE}
                   onValueChange={(value) =>
@@ -753,10 +756,10 @@ export default function BlogEditorForm({
                     )
                   }
                 >
-                  <SelectTrigger className="h-10 w-full rounded-xl border-slate-200">
+                  <SelectTrigger className="h-10 w-full rounded-2xl border-slate-200">
                     <SelectValue placeholder="Choose a category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="rounded-2xl border-slate-100 shadow-lg">
                     <SelectItem value={NONE_VALUE}>No category</SelectItem>
                     {options.categories.map((category) => (
                       <SelectItem key={category.id} value={category.id}>
@@ -769,7 +772,7 @@ export default function BlogEditorForm({
               </div>
 
               <div className="space-y-2">
-                <Label>
+                <Label className="font-semibold text-slate-700">
                   Brand{management === "admin" ? " (required)" : ""}
                 </Label>
                 <Select
@@ -778,10 +781,10 @@ export default function BlogEditorForm({
                     updateField("brandId", value === NONE_VALUE ? "" : value)
                   }
                 >
-                  <SelectTrigger className="h-10 w-full rounded-xl border-slate-200">
+                  <SelectTrigger className="h-10 w-full rounded-2xl border-slate-200">
                     <SelectValue placeholder="Choose a brand" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="rounded-2xl border-slate-100 shadow-lg">
                     {management === "author" ? (
                       <SelectItem value={NONE_VALUE}>No brand</SelectItem>
                     ) : null}
@@ -795,13 +798,13 @@ export default function BlogEditorForm({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="blog-tags">Tags</Label>
-                <div className="rounded-xl border border-slate-200 bg-white p-2 focus-within:ring-3 focus-within:ring-amber-200">
+                <Label htmlFor="blog-tags" className="font-semibold text-slate-700">Tags</Label>
+                <div className="rounded-2xl border border-slate-200 bg-white p-2.5 transition-all focus-within:border-amber-400 focus-within:ring-4 focus-within:ring-amber-100">
                   <div className="flex flex-wrap gap-1.5">
                     {form.tagNames.map((tag) => (
                       <Badge
                         key={tag.toLocaleLowerCase()}
-                        className="bg-slate-100 text-slate-700 hover:bg-slate-100"
+                        className="bg-amber-50 text-amber-800 hover:bg-amber-100 hover:text-amber-900 rounded-lg px-2.5 py-1 text-xs border border-amber-100/50 shadow-xs flex items-center gap-1.5"
                       >
                         {tag}
                         <button
@@ -813,7 +816,7 @@ export default function BlogEditorForm({
                               form.tagNames.filter((item) => item !== tag),
                             )
                           }
-                          className="ml-0.5 rounded-full hover:text-red-600"
+                          className="rounded-full hover:bg-amber-200/50 p-0.5 hover:text-red-600 transition-colors"
                         >
                           <X className="size-3" />
                         </button>
@@ -828,12 +831,12 @@ export default function BlogEditorForm({
                       placeholder={
                         form.tagNames.length ? "Add another…" : "Type a tag…"
                       }
-                      className="h-6 min-w-28 flex-1 border-0 px-1 text-sm focus-visible:ring-0"
+                      className="h-7 min-w-28 flex-1 border-0 px-1 text-sm focus-visible:ring-0 shadow-none focus:ring-0 focus-visible:border-0"
                     />
                   </div>
                 </div>
                 {matchingTags.length ? (
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 mt-2">
                     {matchingTags.map((tag) => (
                       <Button
                         key={tag.id}
@@ -842,16 +845,16 @@ export default function BlogEditorForm({
                         size="xs"
                         onMouseDown={(event) => event.preventDefault()}
                         onClick={() => addTag(tag.name)}
-                        className="bg-slate-100 text-slate-600"
+                        className="bg-slate-100 text-slate-600 rounded-lg h-7 px-2 hover:bg-amber-50 hover:text-amber-700"
                       >
-                        <Plus />
+                        <Plus className="size-3 mr-0.5" />
                         {tag.name}
                       </Button>
                     ))}
                   </div>
                 ) : null}
-                <p className="text-xs text-slate-500">
-                  Press Enter or comma to add a tag.
+                <p className="text-[11px] text-slate-400">
+                  Press Enter or comma to create a tag.
                 </p>
               </div>
             </div>
@@ -859,12 +862,12 @@ export default function BlogEditorForm({
 
           <SectionCard
             title="Search optimization"
-            description="Fine-tune how this post appears in search."
+            description="Fine-tune how this post appears in search results."
           >
             <div className="space-y-5">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="seo-title">SEO title</Label>
+                  <Label htmlFor="seo-title" className="font-semibold text-slate-700">SEO title</Label>
                   <FieldCounter value={form.metaTitle} maximum={70} />
                 </div>
                 <Input
@@ -875,12 +878,12 @@ export default function BlogEditorForm({
                     updateField("metaTitle", event.target.value)
                   }
                   placeholder={form.title || "Search result title"}
-                  className="rounded-xl border-slate-200"
+                  className="rounded-2xl border-slate-200"
                 />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="seo-description">SEO description</Label>
+                  <Label htmlFor="seo-description" className="font-semibold text-slate-700">SEO description</Label>
                   <FieldCounter value={form.metaDescription} maximum={180} />
                 </div>
                 <Textarea
@@ -892,12 +895,12 @@ export default function BlogEditorForm({
                     updateField("metaDescription", event.target.value)
                   }
                   placeholder="A compelling description for search results."
-                  className="rounded-xl border-slate-200"
+                  className="rounded-2xl border-slate-200 text-sm"
                 />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="seo-keywords">SEO keywords</Label>
+                  <Label htmlFor="seo-keywords" className="font-semibold text-slate-700">SEO keywords</Label>
                   <FieldCounter value={form.focusKeyword} maximum={200} />
                 </div>
                 <Input
@@ -908,7 +911,7 @@ export default function BlogEditorForm({
                     updateField("focusKeyword", event.target.value)
                   }
                   placeholder="primary keyword, supporting keyword"
-                  className="rounded-xl border-slate-200"
+                  className="rounded-2xl border-slate-200"
                 />
               </div>
             </div>
@@ -921,17 +924,17 @@ export default function BlogEditorForm({
             >
               <div className="space-y-5">
                 <div className="space-y-2">
-                  <Label>Workflow status</Label>
+                  <Label className="font-semibold text-slate-700">Workflow status</Label>
                   <Select
                     value={adminControls.status}
                     onValueChange={(value: AdminControls["status"]) =>
                       updateAdminField("status", value)
                     }
                   >
-                    <SelectTrigger className="h-10 w-full rounded-xl border-slate-200">
+                    <SelectTrigger className="h-10 w-full rounded-2xl border-slate-200">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="rounded-2xl border-slate-100 shadow-lg">
                       <SelectItem value="DRAFT">Draft</SelectItem>
                       <SelectItem value="PENDING_REVIEW">
                         Pending review
@@ -946,7 +949,7 @@ export default function BlogEditorForm({
 
                 {adminControls.status === "SCHEDULED" ? (
                   <div className="space-y-2">
-                    <Label htmlFor="scheduled-at">Publish at</Label>
+                    <Label htmlFor="scheduled-at" className="font-semibold text-slate-700">Publish at</Label>
                     <Input
                       id="scheduled-at"
                       type="datetime-local"
@@ -954,14 +957,14 @@ export default function BlogEditorForm({
                       onChange={(event) =>
                         updateAdminField("scheduledAt", event.target.value)
                       }
-                      className="h-10 rounded-xl border-slate-200"
+                      className="h-10 rounded-2xl border-slate-200"
                     />
                   </div>
                 ) : null}
 
                 {adminControls.status === "REJECTED" ? (
                   <div className="space-y-2">
-                    <Label htmlFor="rejection-reason">Rejection reason</Label>
+                    <Label htmlFor="rejection-reason" className="font-semibold text-slate-700">Rejection reason</Label>
                     <Textarea
                       id="rejection-reason"
                       value={adminControls.rejectionReason}
@@ -972,23 +975,23 @@ export default function BlogEditorForm({
                           event.target.value,
                         )
                       }
-                      className="rounded-xl border-slate-200"
+                      className="rounded-2xl border-slate-200"
                     />
                   </div>
                 ) : null}
 
                 <div className="space-y-2">
-                  <Label>Visibility</Label>
+                  <Label className="font-semibold text-slate-700">Visibility</Label>
                   <Select
                     value={adminControls.visibility}
                     onValueChange={(value: AdminControls["visibility"]) =>
                       updateAdminField("visibility", value)
                     }
                   >
-                    <SelectTrigger className="h-10 w-full rounded-xl border-slate-200">
+                    <SelectTrigger className="h-10 w-full rounded-2xl border-slate-200">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="rounded-2xl border-slate-100 shadow-lg">
                       <SelectItem value="PUBLIC">Public</SelectItem>
                       <SelectItem value="UNLISTED">Unlisted</SelectItem>
                       <SelectItem value="PRIVATE">Private</SelectItem>
@@ -996,7 +999,7 @@ export default function BlogEditorForm({
                   </Select>
                 </div>
 
-                <div className="space-y-3 rounded-xl bg-slate-50 p-3">
+                <div className="space-y-3 rounded-2xl bg-slate-50/50 p-4 border border-slate-100">
                   {[
                     ["isFeatured", "Feature this post"],
                     ["isPinned", "Pin this post"],
@@ -1008,7 +1011,7 @@ export default function BlogEditorForm({
                       key={key}
                       className="flex items-center justify-between gap-3"
                     >
-                      <Label htmlFor={`admin-${key}`}>{label}</Label>
+                      <Label htmlFor={`admin-${key}`} className="text-xs font-semibold text-slate-600">{label}</Label>
                       <Switch
                         id={`admin-${key}`}
                         checked={Boolean(
@@ -1032,7 +1035,7 @@ export default function BlogEditorForm({
 
                 {adminControls.isFeatured ? (
                   <div className="space-y-2">
-                    <Label htmlFor="featured-order">Featured order</Label>
+                    <Label htmlFor="featured-order" className="font-semibold text-slate-700">Featured order</Label>
                     <Input
                       id="featured-order"
                       type="number"
@@ -1045,13 +1048,13 @@ export default function BlogEditorForm({
                           Number(event.target.value),
                         )
                       }
-                      className="rounded-xl border-slate-200"
+                      className="rounded-2xl border-slate-200"
                     />
                   </div>
                 ) : null}
 
                 <div className="space-y-2">
-                  <Label htmlFor="canonical-url">Canonical URL</Label>
+                  <Label htmlFor="canonical-url" className="font-semibold text-slate-700">Canonical URL</Label>
                   <Input
                     id="canonical-url"
                     type="url"
@@ -1060,7 +1063,7 @@ export default function BlogEditorForm({
                       updateAdminField("canonicalUrl", event.target.value)
                     }
                     placeholder="https://academyfind.in/blog/..."
-                    className="rounded-xl border-slate-200"
+                    className="rounded-2xl border-slate-200"
                   />
                 </div>
               </div>
@@ -1069,14 +1072,14 @@ export default function BlogEditorForm({
 
           <SectionCard title="Publish">
             <div className="space-y-4">
-              <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2.5">
-                <span className="text-sm text-slate-600">Status</span>
-                <span className="flex items-center gap-1.5 text-sm font-medium text-slate-800">
+              <div className="flex items-center justify-between rounded-2xl bg-emerald-50/50 border border-emerald-100/50 px-4 py-3">
+                <span className="text-xs font-semibold text-emerald-800">Status</span>
+                <span className="flex items-center gap-1.5 text-xs font-extrabold text-emerald-800 uppercase tracking-wider">
                   <Check className="size-4 text-emerald-600" />
                   {status === "DRAFT" ? "Draft" : "Ready"}
                 </span>
               </div>
-              <p className="text-xs leading-5 text-slate-500">
+              <p className="text-[11px] leading-relaxed text-slate-400">
                 Save a draft to keep working, or publish when the post is ready
                 for readers.
               </p>
@@ -1086,7 +1089,7 @@ export default function BlogEditorForm({
         </aside>
       </div>
 
-      <div className="sticky bottom-0 z-20 flex gap-2 border-t border-slate-200 bg-white/95 p-3 backdrop-blur sm:hidden">
+      <div className="sticky bottom-0 z-20 flex gap-2 border-t border-slate-100 bg-white/80 backdrop-blur-md p-4 sm:hidden">
         <div className="grid w-full grid-cols-2 gap-2">{actionButtons}</div>
       </div>
     </main>
