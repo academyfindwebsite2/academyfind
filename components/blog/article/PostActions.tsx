@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 // Actions
 import { ReportReason } from "@/app/generated/prisma/client";
 import { reportPost } from "@/lib/User/user/blog/report";
-import { toggleBookmark } from "@/lib/User/user/blog/bookmark";
+import { toggleBookmark } from "@/lib/User/user/blog/togglebookmark";
 import { toggleReaction } from "@/lib/User/user/blog/reaction";
 
 interface ArticleActionsProps {
@@ -134,7 +134,7 @@ export default function ArticleActions({
       const newStatus = !optimisticBookmark.hasBookmarked;
       addOptimisticBookmark(newStatus);
       
-      const res = await toggleBookmark(postId, slug);
+      const res = await toggleBookmark(postId);
       if (!res.success) {
         toast.error(res.message || "Failed to update bookmark.");
       } else {

@@ -87,6 +87,7 @@ export async function toggleBookmark(postId: string) {
 
     return {
     success: true,
+    message: "Bookmark added successfully.",
     bookmarked: true,
     };
   } catch (error) {
@@ -94,6 +95,7 @@ export async function toggleBookmark(postId: string) {
 
     return {
       success: false,
+      message: "An error occurred while toggling the bookmark.",
       error: "Failed to toggle bookmark.",
     };
   }
