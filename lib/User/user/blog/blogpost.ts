@@ -1,8 +1,10 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
 
 export async function getBlogPostBySlug(slug: string) {
-    try{
+    try {
         const response = await prisma.blogPost.findUnique({
             where: {
                 slug
@@ -47,20 +49,18 @@ export async function getBlogPostBySlug(slug: string) {
                         createdAt: "desc"
                     }
                 },
-               
-                
             }
         });
         return response;
-    }catch(error){
+    } catch (error) {
         console.error("Error fetching blog post:", error);
         return null;
     }
 }
 
 export async function getUserReaction(postId: string, userId: string) {
-    try{
-        if(!postId){
+    try {
+        if (!postId) {
             return false;
         }
 
@@ -76,15 +76,15 @@ export async function getUserReaction(postId: string, userId: string) {
             }
         });
         return response?.type || null;
-    }catch(error){
+    } catch (error) {
         console.error("Error fetching user reaction:", error);
         return null;
     }
 }
 
 export async function getisBookmarked(postId: string, userId: string) {
-    try{
-        if(!postId){
+    try {
+        if (!postId) {
             return false;
         }
         const response = await prisma.blogBookmark.findUnique({
@@ -96,15 +96,15 @@ export async function getisBookmarked(postId: string, userId: string) {
             }
         });
         return !!response;
-    }catch(error){
+    } catch (error) {
         console.error("Error fetching bookmark status:", error);
         return false;
     }
 }
 
 export async function getRelatedInstitute(relatedInstituteId: string | null) {
-    try{
-        if(!relatedInstituteId){
+    try {
+        if (!relatedInstituteId) {
             return null;
         }
         const response = await prisma.institute.findUnique({
@@ -129,15 +129,15 @@ export async function getRelatedInstitute(relatedInstituteId: string | null) {
             }
         });
         return response;
-    }catch(error){
+    } catch (error) {
         console.error("Error fetching related institutes:", error);
         return null;
     }
 }
 
 export async function getRelatedPosts(postId: string, categoryId: string) {
-    try{
-        if(!postId || !categoryId){
+    try {
+        if (!postId || !categoryId) {
             return [];
         }
         const response = await prisma.blogPost.findMany({
@@ -159,7 +159,7 @@ export async function getRelatedPosts(postId: string, categoryId: string) {
             take: 3
         });
         return response;
-    }catch(error){
+    } catch (error) {
         console.error("Error fetching related posts:", error);
         return [];
     }
@@ -179,7 +179,8 @@ export async function incrementBlogViewCount(postId: string) {
             return; // Prevent duplicate counts from rapid refreshes
         }
 
-        await prisma.blogPost.update({
+        // 🚀 PROPER FIX: Use updateMany because 'status' is not unique
+        await prisma.blogPost.updateMany({
             where: { id: postId, status: "PUBLISHED" },
             data: {
                 viewCount: {
