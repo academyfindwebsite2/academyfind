@@ -50,7 +50,7 @@ export async function PopularComparisons() {
 
         {/* 🚀 Active Grid without Blur */}
         <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
-          {topComparisons.map((comparison) => (
+          {topComparisons.map((comparison: any) => (
             <Link 
               key={comparison.slug} 
               href={`/compare/${comparison.slug}`} // 👈 Route to the page we built earlier
