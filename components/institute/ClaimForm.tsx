@@ -149,6 +149,7 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
               <input 
                 type="tel" 
                 name="phone" 
+                maxLength={10}
                 required
                 className="w-full px-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all"
                 placeholder="+91 98765 43210"
