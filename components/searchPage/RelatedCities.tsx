@@ -10,10 +10,17 @@ const cities = [
   { name: "Delhi", slug: "delhi" },
   { name: "Faridabad", slug: "faridabad" },
   { name: "Greater Noida", slug: "greater-noida" },
+  { name: "Gurgaon", slug: "gurgaon" },
+  { name: "Ghaziabad", slug: "ghaziabad" },
+  { name: "Modinagar", slug: "modinagar" },
+  { name: "Meerut", slug: "meerut" },
+  { name: "Sonipat", slug: "sonipat" },
 ];
 
 export default function RelatedCities() {
   const searchParams = useSearchParams();
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
 
   const createQueryString = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -21,6 +28,10 @@ export default function RelatedCities() {
     params.delete("page"); 
     return params.toString();
   };
+
+  if(lat && lng) {
+    return null; // Don't show related cities if lat/lng is present
+  }
 
   return (
     <section>

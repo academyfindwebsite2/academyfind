@@ -116,9 +116,12 @@ export default async function InstituteResults({
   if (hits.length === 0) {
     return (
       <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm mt-4">
-        <h3 className="text-lg font-semibold">No results found in this area</h3>
+        <h3 className="text-lg font-semibold">No results found according to your filters or search query</h3>
         <p className="mt-2 text-slate-500">
-          Try expanding your distance radius or searching in a different location.
+          Try expanding your distance radius, searching in a different location or using a different keyword to find more results.
+        </p>
+        <p className="mt-2 text-slate-500">
+          You can also <a href="/contact" className="text-amber-600 font-semibold underline"> contact us</a> to suggest an institute or report missing information.
         </p>
       </div>
     );
