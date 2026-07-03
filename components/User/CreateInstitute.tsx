@@ -134,15 +134,15 @@ export default function CreateInstituteForm({
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="space-y-2.5">
                             <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Full Name *</label>
-                            <Input name="ownerName" required placeholder="e.g. Rahul Sharma" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
+                            <Input maxLength={60} name="ownerName" required placeholder="e.g. Rahul Sharma" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                         <div className="space-y-2.5">
                             <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Phone Number *</label>
-                            <Input name="ownerPhone" type="tel" required placeholder="e.g. 9876543210" maxLength={15} className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
+                            <Input maxLength={10} name="ownerPhone" type="tel" required placeholder="e.g. 9876543210" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                         <div className="space-y-2.5">
                             <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Designation *</label>
-                            <Input name="ownerDesignation" required placeholder="e.g. Founder / Director" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
+                            <Input maxLength={60} name="ownerDesignation" required placeholder="e.g. Founder / Director" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                     </div>
                 </div>
