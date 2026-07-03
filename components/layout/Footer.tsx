@@ -49,10 +49,22 @@ const cities = [
 ];
 
 const comparisons = [
-  "Allen vs Motion",
-  "Vision IAS vs Drishti IAS",
-  "PW vs Unacademy",
-  "Aakash vs Allen",
+  {
+    name: "Allen Kallu Sarai vs Allen Janakpuri",
+    href: "/compare/allen-career-institute---kalu-sarai-campus-iit-jee-neet-foundation-coaching-vs-allen-career-institute---janakpuri-iit-wing-campus-iit-jee-neet-foundation-coaching"
+  },
+  {
+    name:"Entropy Classes vs FAST Eduventures ",
+    href: "/compare/entropy-classes-vs-fast-eduventures-by-iitians-nitians-for-jee-neet-boards-olympiads"
+  },
+  {
+    name: "NARAYANA Janakpuri vs Akash coaching institute",
+    href: "/compare/narayana-iitneetfoundation-janakpuri-vs-akash-coaching-institute"
+  },
+  {
+    name: "View All",
+    href: "/compare"
+  }
 ];
 
 export function Footer() {
@@ -175,28 +187,26 @@ export function Footer() {
 
           {/* Compare */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <h3 className="font-semibold">
-                Compare
-              </h3>
-              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                Coming Soon
-              </span>
-            </div>
+            <h3 className="mb-4 font-semibold">
+              Compare Institutes
+            </h3>
 
             <ul className="space-y-3 text-sm text-muted-foreground opacity-50">
               {comparisons.map((item) => (
-                <li key={item}>
-                  <span className="cursor-not-allowed">
-                    {item}
-                  </span>
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="transition-colors hover:text-foreground"
+                  >
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Bottom */}
+                {/* Bottom */}
         <div
           className="
             mt-10
