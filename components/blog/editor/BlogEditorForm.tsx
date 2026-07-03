@@ -771,7 +771,7 @@ export default function BlogEditorForm({
                 </Select>
               </div>
 
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label className="font-semibold text-slate-700">
                   Brand{management === "admin" ? " (required)" : ""}
                 </Label>
@@ -795,7 +795,7 @@ export default function BlogEditorForm({
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
+              </div> */}
 
               <div className="space-y-2">
                 <Label htmlFor="blog-tags" className="font-semibold text-slate-700">Tags</Label>

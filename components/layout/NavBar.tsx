@@ -76,7 +76,7 @@ return (
           { label: "Search", href: "/" },
           { label: "About Us", href: "/about" },
           { label: "Careers", href: "/careers" },
-          // { label: "Blogs", href: "/blog" },
+          { label: "Blogs", href: "/blog" },
           { label: "Contact", href: "/contact" },
         ].map((link) => (
           <Link
