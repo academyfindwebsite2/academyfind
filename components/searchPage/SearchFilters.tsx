@@ -86,6 +86,7 @@ export default function SearchFilters({
                     </div>
                   </SelectTrigger>
                   <SelectContent className="rounded-xl border-slate-100 shadow-xl">
+                    <SelectItem value="ALL" className="cursor-pointer font-medium">Any Distance</SelectItem>
                     <SelectItem value="1" className="cursor-pointer font-medium">&lt; 1 km</SelectItem>
                     <SelectItem value="2" className="cursor-pointer font-medium">&lt; 2 km</SelectItem>
                     <SelectItem value="5" className="cursor-pointer font-medium">&lt; 5 km</SelectItem>
@@ -94,21 +95,31 @@ export default function SearchFilters({
                 </Select>
             </div>
 
-            <div className="space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
-                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Sort By Location</label>
-                <Select value={currentSort || "nearest_location"} onValueChange={(val) => handleFilterChange("sort", val)}>
-                  <SelectTrigger className={triggerClasses}>
-                    <div className="flex items-center gap-2">
-                      <Filter className="h-4 w-4 text-amber-500 shrink-0" />
-                      <SelectValue placeholder="Sort Results" />
-                    </div>
-                  </SelectTrigger>
-                  <SelectContent className="rounded-xl border-slate-100 shadow-xl">
-                    <SelectItem value="nearest_location" className="cursor-pointer font-medium">Nearest to Searched Area</SelectItem>
-                    <SelectItem value="nearest_me" className="cursor-pointer font-medium">Nearest to Me (My GPS)</SelectItem>
-                  </SelectContent>
-                </Select>
+            <div className="space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                <Button variant="outline" className="w-full justify-between border-slate-200 bg-white shadow-sm rounded-2xl py-3 font-bold text-slate-700 hover:bg-slate-50" onClick={() => handleFilterChange("sort", "nearest_location")}>
+                  <span className="flex items-center gap-2">
+                    <Navigation className="w-4 h-4 text-amber-500" />
+                    Sort by Nearest to Area
+                  </span>
+                </Button>
             </div>
+
+
+            {/*  <div className="space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
+                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Sort By Location</label>
+                   <Select value={currentSort || "nearest_location"} onValueChange={(val) => handleFilterChange("sort", val)}>
+                     <SelectTrigger className={triggerClasses}>
+                       <div className="flex items-center gap-2">
+                         <Filter className="h-4 w-4 text-amber-500 shrink-0" />
+                         <SelectValue placeholder="Sort Results" />
+                       </div>
+                     </SelectTrigger>
+                     <SelectContent className="rounded-xl border-slate-100 shadow-xl">
+                       <SelectItem value="nearest_location" className="cursor-pointer font-medium">Nearest to Searched Area</SelectItem>
+                       <SelectItem value="nearest_me" className="cursor-pointer font-medium">Nearest to Me (My GPS)</SelectItem>
+                     </SelectContent>
+                   </Select>
+               </div> */}
           </div>
         )}
         <div className="space-y-2">
