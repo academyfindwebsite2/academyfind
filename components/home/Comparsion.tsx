@@ -8,7 +8,7 @@ export async function PopularComparisons() {
   const [topComparisons, instituteCount, comparisonCount] = await Promise.all([
       prisma.instituteComparisonCache.findMany({
         orderBy: { viewCount: 'desc' },
-        take: 9,
+        take: 3,
         include: {
           institute1: { select: { name: true, logo: true, city: { select: { name: true } } } },
           institute2: { select: { name: true, logo: true, city: { select: { name: true } } } },
