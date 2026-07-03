@@ -182,7 +182,7 @@ export default function SearchFilters({
             </Select>
         </div>
 
-        <div className="space-y-2">
+        {!currentLat && ( <div className="space-y-2">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">City</label>
             <Select value={currentCity || "ALL"} onValueChange={(val) => handleFilterChange("city", val)}>
               <SelectTrigger className={triggerClasses}>
@@ -199,6 +199,7 @@ export default function SearchFilters({
               </SelectContent>
             </Select>
         </div>
+        )}
 
         {(currentType === "ALL" || currentType === "institute" || !currentType) && (
             <div className="space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
