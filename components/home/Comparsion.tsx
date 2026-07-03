@@ -1,30 +1,22 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { prisma } from "@/lib/prisma";
 
-// Abhi ke liye hardcoded, baad me aap isko Prisma se fetch kar sakte ho
-const comparisons = [
-  {
-    instituteA: "Allen",
-    instituteB: "Physics Wallah",
-    category: "JEE • Noida",
-    slug: "allen-vs-physics-wallah-noida", // 👈 DB wala slug
-  },
-  {
-    instituteA: "Vision IAS",
-    instituteB: "Drishti IAS",
-    category: "UPSC • Delhi",
-    slug: "vision-ias-vs-drishti-ias-delhi",
-  },
-  {
-    instituteA: "Aakash",
-    instituteB: "FIITJEE",
-    category: "NEET • Delhi",
-    slug: "aakash-vs-fiitjee-delhi",
-  },
-];
 
-export function PopularComparisons() {
+export async function PopularComparisons() {
+  const [topComparisons, instituteCount, comparisonCount] = await Promise.all([
+      prisma.instituteComparisonCache.findMany({
+        orderBy: { viewCount: 'desc' },
+        take: 9,
+        include: {
+          institute1: { select: { name: true, logo: true, city: { select: { name: true } } } },
+          institute2: { select: { name: true, logo: true, city: { select: { name: true } } } },
+        },
+      }),
+      prisma.institute.count({ where: { isActive: true } }),
+      prisma.instituteComparisonCache.count(),
+    ]);
   return (
     <section className="py-12 sm:py-16 lg:py-24">
       <div className="container mx-auto px-4">
@@ -58,7 +50,7 @@ export function PopularComparisons() {
 
         {/* 🚀 Active Grid without Blur */}
         <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
-          {comparisons.map((comparison) => (
+          {topComparisons.map((comparison) => (
             <Link 
               key={comparison.slug} 
               href={`/compare/${comparison.slug}`} // 👈 Route to the page we built earlier
@@ -70,10 +62,10 @@ export function PopularComparisons() {
                     {/* Institute A */}
                     <div className="flex flex-col items-center text-center">
                       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-lg font-black text-slate-700 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors">
-                        {comparison.instituteA.charAt(0)}
+                        {comparison.institute1.name.charAt(0)}
                       </div>
                       <span className="mt-3 text-sm font-bold sm:text-base text-slate-800">
-                        {comparison.instituteA}
+                        {comparison.institute1.name}
                       </span>
                     </div>
 
@@ -87,10 +79,10 @@ export function PopularComparisons() {
                     {/* Institute B */}
                     <div className="flex flex-col items-center text-center">
                       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-lg font-black text-slate-700 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
-                        {comparison.instituteB.charAt(0)}
+                        {comparison.institute2.name.charAt(0)}
                       </div>
                       <span className="mt-3 text-sm font-bold sm:text-base text-slate-800">
-                        {comparison.instituteB}
+                        {comparison.institute2.name}
                       </span>
                     </div>
                   </div>
@@ -98,7 +90,7 @@ export function PopularComparisons() {
                   {/* Footer */}
                   <div className="mt-6 flex items-center justify-between border-t pt-4">
                     <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                      {comparison.category}
+                      {comparison.institute1.city?.name || comparison.institute2.city?.name || "Unknown City"}
                     </span>
                     <span className="flex items-center gap-1 text-sm font-bold text-amber-600 opacity-0 transform translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
                       Compare Now
