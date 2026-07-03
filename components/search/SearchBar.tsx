@@ -200,6 +200,8 @@ const CITY_MAP = [
   { keywords: ["gurugram","gurgaon"], slug: "gurugram" },
   { keywords: ["modinagar"], slug: "modinagar" },
   { keywords: ["sonipat"], slug: "sonipat" },
+  {keywords: ["ghaziabad"], slug: "ghaziabad" },
+  {keywords: ["meerut"], slug: "meerut" },
 ];
 
 export function SearchBar() {
