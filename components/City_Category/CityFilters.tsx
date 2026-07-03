@@ -183,7 +183,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
         </SelectContent>
       </Select>
 
-      <Select value={currentFee} onValueChange={(val) => handleFilterChange("fee", val)}>
+      {/* <Select value={currentFee} onValueChange={(val) => handleFilterChange("fee", val)}>
         <SelectTrigger className={`w-full ${triggerClasses}`}>
           <div className="flex items-center gap-2 font-medium text-slate-700">
             <IndianRupee className="h-4 w-4 text-amber-500" />
@@ -196,7 +196,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
           <SelectItem value="100000" className="cursor-pointer">&lt; ₹1,00,000</SelectItem>
           <SelectItem value="150000" className="cursor-pointer">&lt; ₹1,50,000</SelectItem>
         </SelectContent>
-      </Select>
+      </Select> */}
 
       <div className="rounded-3xl border border-amber-200 bg-white p-5 shadow-sm mt-1">
         <div className="flex items-center gap-2 font-bold text-slate-800 mb-4 pb-3 border-b border-slate-100">
