@@ -45,7 +45,6 @@ async function main() {
     "_geo",
     "googleRating",
     "googleReviewCount",
-    // 🚀 NAYE SORTABLE ATTRIBUTES (For "Sort By" Dropdown)
     "viewCount",
     "compareCount",
     "feeMin",

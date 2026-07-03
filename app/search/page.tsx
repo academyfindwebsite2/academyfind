@@ -6,8 +6,9 @@ import RelatedCategories from "@/components/searchPage/RelatedCategories";
 import RelatedCities from "@/components/searchPage/RelatedCities";
 import RelatedBlogs from "@/components/searchPage/RelatedBlogs";
 import CompareCTA from "@/components/searchPage/CompareCTA";
+import MapToggleSection from "@/components/maps/MapToggleSection"; // 👈 Naya Import Map ke liye
 import { prisma } from "@/lib/prisma"; 
-import { Metadata } from "next"; // 👈 Don't forget to import Metadata
+import { Metadata } from "next"; 
 
 type Props = {
   searchParams: Promise<{
@@ -16,20 +17,26 @@ type Props = {
     city?: string;
     category?: string; 
     rating?: string;   
+    lat?: string;
+    lng?: string;
+    address?: string;
+    radius?: string;
+    sort?: string;
+    page?: string;
   }>;
 };
 
-// ─── 1. DYNAMIC METADATA FOR SEARCH UX & CRAWLER CONTROL ───
+// ─── 1. DYNAMIC METADATA ───
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const { q = "", city = "", category = "" } = await searchParams;
+  const { q = "", city = "", category = "", address = "" } = await searchParams;
 
-  // Browser tab ke liye ek smart dynamic title banate hain
   let titleStr = "Search Institutes & Coaching";
   
   if (q) {
     titleStr = `Results for "${q}"`;
+  } else if (address) {
+    titleStr = `Top Institutes near ${address.split(',')[0]}`; // Crossings Republik
   } else if (category && city) {
-    // Format slashes or hyphens if needed, e.g., "JEE Coaching in Delhi"
     titleStr = `${category.replace(/-/g, ' ')} in ${city.replace(/-/g, ' ')}`;
   } else if (city) {
     titleStr = `Top Institutes in ${city.replace(/-/g, ' ')}`;
@@ -41,48 +48,30 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const description = "Search, filter, and compare the best coaching institutes and schools on AcademyFind.";
 
   return {
-    title: title,
-    description: description,
-    robots: { 
-      index: false, 
-      follow: true 
-    },
-    openGraph: {
-      title: title,
-      description: description,
-      url: "https://www.academyfind.com/search",
-      type: "website",
-    },
+    title,
+    description,
+    robots: { index: false, follow: true },
+    openGraph: { title, description, url: "https://www.academyfind.com/search", type: "website" },
   };
 }
 
-// ─── 2. PAGE COMPONENT ───────────────────────────────────────
+// ─── 2. PAGE COMPONENT ───
 export default async function SearchPage({ searchParams }: Props) {
-  const { q = "", type = "", city = "", category = "", rating = "" } = await searchParams;
+  const { 
+    q = "", type = "", city = "", category = "", rating = "",
+    lat = "", lng = "", address = "", radius = "5", sort = "nearest", page = "1" 
+  } = await searchParams;
 
   const categories = await prisma.category.findMany({ select: { name: true, slug: true }, orderBy: { name: "asc" } });
   const cities = await prisma.city.findMany({
-    where: {
-      institutes: {
-        some: {
-          isActive: true,
-          isPublished: true,
-        }
-      }
-    },
-    select: { 
-      name: true, 
-      slug: true 
-    },
-    orderBy: [
-      { name: 'asc' },
-      { state: 'asc' },
-    ]
+    where: { institutes: { some: { isActive: true, isPublished: true } } },
+    select: { name: true, slug: true },
+    orderBy: [{ name: 'asc' }, { state: 'asc' }]
   });
 
   return (
     <>
-      <SearchHero query={q || city} />
+      <SearchHero query={q || address || city} />
 
       <section className="mx-auto max-w-7xl px-4 py-10">
         <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
@@ -94,18 +83,26 @@ export default async function SearchPage({ searchParams }: Props) {
             currentCity={city} 
             currentCategory={category}
             currentRating={rating}
+            currentLat={lat}
+            currentLng={lng}
+            currentRadius={radius}
+            currentSort={sort}
           />
 
           <div className="space-y-14">
             <SearchResultsHeader 
-               query={q} 
+               query={q || address} 
                type={type} 
                city={city} 
                category={category} 
                rating={rating}
             />
 
-            <InstituteResults query={q} type={type} city={city} category={category} rating={rating} />
+            <InstituteResults 
+               query={q} type={type} city={city} category={category} 
+               rating={rating} lat={lat} lng={lng} radius={radius} 
+               sort={sort} page={page} 
+            />
 
             <RelatedCategories />
             <RelatedCities />

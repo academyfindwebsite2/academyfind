@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Layers, MapPin, Star, Sparkles, Filter } from "lucide-react";
+import { Layers, MapPin, Star, Sparkles, Filter, Navigation } from "lucide-react";
 
 type FilterProps = {
   categories: { name: string; slug: string }[];
@@ -19,10 +19,14 @@ type FilterProps = {
   currentCity: string;
   currentCategory: string;
   currentRating: string;
+  currentLat?: string;
+  currentLng?: string;
+  currentRadius?: string;
+  currentSort?: string;
 };
 
 export default function SearchFilters({ 
-  categories, cities, currentType, currentCity, currentCategory, currentRating 
+  categories, cities, currentType, currentCity, currentCategory, currentRating, currentLat, currentLng, currentRadius, currentSort
 }: FilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -30,6 +34,31 @@ export default function SearchFilters({
 
   const handleFilterChange = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
+
+    if(key === "sort" && value === "nearest_me" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        params.set("userlat", latitude.toString());
+        params.set("userlng", longitude.toString());
+        params.set(key, value);
+        params.delete("page");
+        router.push(`${pathname}?${params.toString()}`);
+      }, (error) => {
+        console.error("Error getting geolocation:", error);
+        params.delete("userlat");
+        params.delete("userlng");
+        router.push(`${pathname}?${params.toString()}`);
+      })
+    }
+
+    if(key === "sort" && value === "nearest_location") {
+      params.delete("userlat");
+      params.delete("userlng");
+      params.set(key, value);
+      params.delete("page");
+      router.push(`${pathname}?${params.toString()}`);
+    }
+
     
     if (value && value !== "ALL") params.set(key, value);
     else params.delete(key); 
@@ -45,6 +74,43 @@ export default function SearchFilters({
   // 🔥 Dono Desktop & Mobile ke liye Same Content Variable
   const FiltersContent = (
     <div className="space-y-6">
+      {currentLat && currentLng && (
+          <div className="space-y-4 rounded-2xl">
+             <div className="space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Distance From Area</label>
+                <Select value={currentRadius || "5"} onValueChange={(val) => handleFilterChange("radius", val)}>
+                  <SelectTrigger className={triggerClasses}>
+                    <div className="flex items-center gap-2">
+                      <Navigation className="h-4 w-4 text-amber-500 shrink-0" />
+                      <SelectValue placeholder="Select Distance" />
+                    </div>
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl border-slate-100 shadow-xl">
+                    <SelectItem value="1" className="cursor-pointer font-medium">&lt; 1 km</SelectItem>
+                    <SelectItem value="2" className="cursor-pointer font-medium">&lt; 2 km</SelectItem>
+                    <SelectItem value="5" className="cursor-pointer font-medium">&lt; 5 km</SelectItem>
+                    <SelectItem value="10" className="cursor-pointer font-medium">&lt; 10 km</SelectItem>
+                  </SelectContent>
+                </Select>
+            </div>
+
+            <div className="space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Sort By Location</label>
+                <Select value={currentSort || "nearest_location"} onValueChange={(val) => handleFilterChange("sort", val)}>
+                  <SelectTrigger className={triggerClasses}>
+                    <div className="flex items-center gap-2">
+                      <Filter className="h-4 w-4 text-amber-500 shrink-0" />
+                      <SelectValue placeholder="Sort Results" />
+                    </div>
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl border-slate-100 shadow-xl">
+                    <SelectItem value="nearest_location" className="cursor-pointer font-medium">Nearest to Searched Area</SelectItem>
+                    <SelectItem value="nearest_me" className="cursor-pointer font-medium">Nearest to Me (My GPS)</SelectItem>
+                  </SelectContent>
+                </Select>
+            </div>
+          </div>
+        )}
         <div className="space-y-2">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Result Type</label>
             <Select value={currentType || "ALL"} onValueChange={(val) => handleFilterChange("type", val)}>

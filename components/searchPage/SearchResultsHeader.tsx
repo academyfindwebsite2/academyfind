@@ -12,7 +12,7 @@ export default function SearchResultsHeader({ query, type, city, category, ratin
     if (!str || str === "ALL") return null;
     return str
       .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
 
