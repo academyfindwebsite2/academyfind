@@ -1,4 +1,5 @@
 import { BookOpenText, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export default function RelatedBlogs() {
   return (
@@ -16,13 +17,18 @@ export default function RelatedBlogs() {
         
         <div className="mx-auto max-w-md">
           <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-700">
-            <Sparkles className="h-3.5 w-3.5" /> Coming Soon
+            <Sparkles className="h-3.5 w-3.5" /> Featured Articles
           </div>
           <h3 className="mb-2 text-xl font-bold text-slate-800">
             Expert Articles & Preparation Guides
           </h3>
           <p className="text-sm text-slate-500 leading-relaxed">
-            Our team of top educators and toppers are crafting comprehensive guides, study plans, and review articles to help you make the right choice.
+            Explore our curated collection of expert-written articles and preparation guides to help you make informed decisions about your education and career path.
+          </p>
+          <p className="mt-4">
+            <Link prefetch={false} href="/blog" className="inline-flex items-center gap-1.5 rounded-full bg-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-amber-600">
+              Explore Blogs
+            </Link>
           </p>
         </div>
       </div>

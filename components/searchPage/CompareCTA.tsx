@@ -1,4 +1,5 @@
 import { Scale, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export default function CompareCTA() {
   return (
@@ -23,7 +24,9 @@ export default function CompareCTA() {
         {/* 🚀 Premium Coming Soon Badge instead of Button */}
         <div className="mt-8 inline-flex cursor-default items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 font-bold text-white backdrop-blur-md transition-all hover:bg-white/20">
           <Sparkles className="h-5 w-5 text-amber-200" />
-          Feature Dropping Soon
+          <Link href="/compare" className="text-white">
+            Compare Institutes
+          </Link>
         </div>
       </div>
     </section>
