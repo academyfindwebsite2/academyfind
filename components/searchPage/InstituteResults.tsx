@@ -121,7 +121,7 @@ export default async function InstituteResults({
           Try expanding your distance radius, searching in a different location or using a different keyword to find more results.
         </p>
         <p className="mt-2 text-slate-500">
-          You can also <a href="/contact" className="text-amber-600 font-semibold underline"> contact us</a> to suggest an institute or report missing information.
+          You can also <a href="/contact" className="text-amber-400 font-semibold underline"> contact us</a> to suggest an institute or report missing information.
         </p>
       </div>
     );
@@ -137,7 +137,7 @@ export default async function InstituteResults({
             <span className="text-xl">📍</span>
             <div>
               <h4 className="font-semibold">Couldn't find exact matches for your keyword.</h4>
-              <p className="text-sm mt-1 text-amber-700">
+              <p className="text-sm mt-1 text-amber-500">
                 Showing top available institutes near your selected location.
               </p>
             </div>

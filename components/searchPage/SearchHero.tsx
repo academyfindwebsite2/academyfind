@@ -41,7 +41,7 @@ export default function SearchHero({ query }: Props) {
           Search Results
           {query && (
             <>
-              <span className="block mt-2 text-amber-500">
+              <span className="block mt-2 text-amber-400">
                 "{query}"
               </span>
             </>

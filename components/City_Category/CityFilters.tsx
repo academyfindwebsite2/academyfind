@@ -139,7 +139,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
       <Select value={currentSort} onValueChange={(val) => handleFilterChange("sort", val)}>
         <SelectTrigger className={`w-full ${triggerClasses}`}>
           <div className="flex items-center gap-2 font-medium text-slate-700">
-            <ArrowDownUp className="h-4 w-4 text-amber-500" />
+            <ArrowDownUp className="h-4 w-4 text-amber-400" />
             <SelectValue placeholder="Sort By" />
           </div>
         </SelectTrigger>
@@ -155,7 +155,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
         <Select value={currentRadius} onValueChange={(val) => handleFilterChange("radius", val)}>
           <SelectTrigger className={`w-full ${triggerClasses}`}>
             <div className="flex items-center gap-2 font-medium text-slate-700">
-              <MapPin className="h-4 w-4 text-amber-500" />
+              <MapPin className="h-4 w-4 text-amber-400" />
               <SelectValue placeholder="Distance" />
             </div>
           </SelectTrigger>
@@ -171,7 +171,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
       <Select value={currentRating} onValueChange={(val) => handleFilterChange("rating", val)}>
         <SelectTrigger className={`w-full ${triggerClasses}`}>
           <div className="flex items-center gap-2 font-medium text-slate-700">
-            <Star className="h-4 w-4 text-amber-500" />
+            <Star className="h-4 w-4 text-amber-400" />
             <SelectValue placeholder="Ratings" />
           </div>
         </SelectTrigger>
@@ -200,7 +200,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
 
       <div className="rounded-3xl border border-amber-200 bg-white p-5 shadow-sm mt-1">
         <div className="flex items-center gap-2 font-bold text-slate-800 mb-4 pb-3 border-b border-slate-100">
-          <MonitorSmartphone className="h-5 w-5 text-amber-500" />
+          <MonitorSmartphone className="h-5 w-5 text-amber-400" />
           <span>Learning Mode</span>
         </div>
         <div className="flex flex-col gap-3.5">
@@ -214,7 +214,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
                 id={`mode-${mode.id}`}
                 checked={currentModes.includes(mode.id)}
                 onCheckedChange={() => toggleMode(mode.id)}
-                className="h-5 w-5 rounded-[6px] border-slate-300 data-[state=checked]:bg-amber-500 data-[state=checked]:border-amber-500 transition-all cursor-pointer"
+                className="h-5 w-5 rounded-[6px] border-slate-300 data-[state=checked]:bg-amber-400 data-[state=checked]:border-amber-500 transition-all cursor-pointer"
               />
               <Label
                 htmlFor={`mode-${mode.id}`}
@@ -276,7 +276,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
           <SheetTrigger asChild>
             <Button variant="outline" className="w-full justify-between border-slate-200 bg-white shadow-sm rounded-2xl py-6 font-bold text-slate-700 hover:bg-slate-50">
               <span className="flex items-center gap-2">
-                <Filter className="w-5 h-5 text-amber-500" />
+                <Filter className="w-5 h-5 text-amber-400" />
                 Filter Results
               </span>
               <span className="text-xs bg-slate-100 px-2.5 py-1 rounded-full text-slate-500">Tap to open</span>
@@ -286,7 +286,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
           <SheetContent side="bottom" className="rounded-t-3xl h-[85vh] w-full max-w-none overflow-y-auto px-6 z-[150]">
             <SheetHeader className="pb-4 border-b border-slate-100 mb-6 text-left">
               <SheetTitle className="flex items-center gap-2 text-xl font-extrabold text-slate-800">
-                <Sparkles className="w-5 h-5 text-amber-500" /> Refine Search
+                <Sparkles className="w-5 h-5 text-amber-400" /> Refine Search
               </SheetTitle>
             </SheetHeader>
             {FiltersContent}

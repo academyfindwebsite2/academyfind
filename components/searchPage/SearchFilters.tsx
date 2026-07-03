@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Layers, MapPin, Star, Sparkles, Filter, Navigation, LocateFixed } from "lucide-react";
+import { Switch } from "@/components/ui/switch"; // 👈 Switch component import kiya
+import { Layers, MapPin, Star, Sparkles, Filter, Navigation, LocateFixed, Home } from "lucide-react"; // 👈 Home icon add kiya
 
 type FilterProps = {
   categories: { name: string; slug: string }[];
@@ -73,6 +74,7 @@ export default function SearchFilters({
       return; 
     }
 
+    // NORMALS FILTERS LOGIC
     if (value && value !== "ALL") params.set(key, value);
     else params.delete(key); 
 
@@ -86,7 +88,8 @@ export default function SearchFilters({
 
   // 🔥 Check kaunsa button exactly active hai
   const isNearestLocation = currentSort === "nearest_location";
-  const isNearestMe = currentSort === "nearest_me";
+  // currentCategory aapke slug ke hisaab se "home_tuition" ya "home-tuition" ho sakti hai
+  const checkedHomeTuition = currentCategory === "home_tuition" || currentCategory === "home-tuition"; 
 
   const FiltersContent = (
     <div className="space-y-6">
@@ -98,28 +101,15 @@ export default function SearchFilters({
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Sort Results By</label>
                 <div className="flex bg-slate-100/80 p-1 rounded-xl shadow-inner border border-slate-200/60">
                    <button 
-                     // Yahan condition lagai hai ki agar pehle se selected hai toh "remove_sort" pass karo
                      onClick={() => handleFilterChange("sort", isNearestLocation ? "remove_sort" : "nearest_location")}
                      className={`flex-1 flex items-center justify-center gap-2 text-xs font-bold py-2.5 rounded-lg transition-all duration-300 ${
                         isNearestLocation 
-                        ? 'bg-amber-500 text-white shadow-md ring-1 ring-amber-600/50' // Active Color
-                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50' // Inactive Color
+                        ? 'bg-amber-400 text-white shadow-md ring-1 ring-amber-500/50' 
+                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50' 
                      }`}
                    >
                      <Navigation className={`w-3.5 h-3.5 ${isNearestLocation ? 'text-white' : 'text-slate-400'}`} /> Searched Area
                    </button>
-                   
-                   {/* Agar future me My GPS button wapas laana ho toh wo bhi isi Toggle Logic par kaam karega */}
-                   {/* <button 
-                     onClick={() => handleFilterChange("sort", isNearestMe ? "remove_sort" : "nearest_me")}
-                     className={`flex-1 flex items-center justify-center gap-2 text-xs font-bold py-2.5 rounded-lg transition-all duration-300 ${
-                        isNearestMe 
-                        ? 'bg-amber-500 text-white shadow-md ring-1 ring-amber-600/50' 
-                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'
-                     }`}
-                   >
-                     <LocateFixed className={`w-3.5 h-3.5 ${isNearestMe ? 'text-white' : 'text-slate-400'}`} /> My GPS
-                   </button> */}
                 </div>
              </div>
 
@@ -129,7 +119,7 @@ export default function SearchFilters({
                 <Select value={currentRadius || "5"} onValueChange={(val) => handleFilterChange("radius", val)}>
                   <SelectTrigger className="w-full rounded-xl border-white bg-white hover:border-amber-300 focus:ring-2 focus:ring-amber-400 focus:outline-none transition-all h-11 text-sm shadow-sm font-medium text-slate-700">
                     <div className="flex items-center gap-2">
-                      <Navigation className="h-4 w-4 text-amber-500 shrink-0" />
+                      <Navigation className="h-4 w-4 text-amber-400 shrink-0" />
                       <SelectValue placeholder="Select Distance" />
                     </div>
                   </SelectTrigger>
@@ -151,7 +141,7 @@ export default function SearchFilters({
             <Select value={currentType || "ALL"} onValueChange={(val) => handleFilterChange("type", val)}>
               <SelectTrigger className={triggerClasses}>
                 <div className="flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-amber-500 shrink-0" />
+                  <Layers className="h-4 w-4 text-amber-400 shrink-0" />
                   <SelectValue placeholder="Everything" />
                 </div>
               </SelectTrigger>
@@ -164,12 +154,32 @@ export default function SearchFilters({
             </Select>
         </div>
 
+        {/* 🔥 HOME TUITION TOGGLE BUTTON */}
+        <div className="flex items-center justify-between p-4 rounded-2xl border shadow-sm hover:shadow-md transition-all duration-300">
+          <div className="flex items-center gap-3">
+             <div className="text-amber-400 rounded-lg">
+                <Home className="w-5 h-5" />
+             </div>
+             <div className="space-y-0.5 text-left">
+                <label className="text-sm font-bold text-slate-800 cursor-pointer">Home Tuition</label>
+                <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Tutors at your doorstep</p>
+             </div>
+          </div>
+          <Switch
+            checked={checkedHomeTuition}
+            // Directly category ki value change kar rahe hain taaki baaki filters kharaab na ho
+            onCheckedChange={(checked) => handleFilterChange("category", checked ? "home_tuition" : "ALL")}
+            className="data-[state=checked]:bg-amber-400 data-[state=checked]:border-amber-400 h-5 w-10 rounded-full border bg-slate-200 transition-all shadow-sm"
+          />
+        </div>
+
+        {/* CATEGORY FILTER - Optional: Agar aap Home Tuition toggle de rahe ho, toh yahan se home_tuition options remove kar sakte ho taaki duplicate na ho */}
         <div className="space-y-2">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Category</label>
             <Select value={currentCategory || "ALL"} onValueChange={(val) => handleFilterChange("category", val)}>
               <SelectTrigger className={triggerClasses}>
                 <div className="flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-amber-500 shrink-0" />
+                  <Layers className="h-4 w-4 text-amber-400 shrink-0" />
                   <SelectValue placeholder="All Categories" />
                 </div>
               </SelectTrigger>
@@ -182,12 +192,13 @@ export default function SearchFilters({
             </Select>
         </div>
 
-        {!currentLat && ( <div className="space-y-2">
+        {!currentLat && ( 
+          <div className="space-y-2">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">City</label>
             <Select value={currentCity || "ALL"} onValueChange={(val) => handleFilterChange("city", val)}>
               <SelectTrigger className={triggerClasses}>
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-amber-500 shrink-0" />
+                  <MapPin className="h-4 w-4 text-amber-400 shrink-0" />
                   <SelectValue placeholder="All Cities" />
                 </div>
               </SelectTrigger>
@@ -198,7 +209,7 @@ export default function SearchFilters({
                 ))}
               </SelectContent>
             </Select>
-        </div>
+          </div>
         )}
 
         {(currentType === "ALL" || currentType === "institute" || !currentType) && (
@@ -207,7 +218,7 @@ export default function SearchFilters({
                 <Select value={currentRating || "ALL"} onValueChange={(val) => handleFilterChange("rating", val)}>
                   <SelectTrigger className={triggerClasses}>
                     <div className="flex items-center gap-2">
-                      <Star className="h-4 w-4 text-amber-500 shrink-0" />
+                      <Star className="h-4 w-4 text-amber-400 shrink-0" />
                       <SelectValue placeholder="Any Rating" />
                     </div>
                   </SelectTrigger>
@@ -229,7 +240,7 @@ export default function SearchFilters({
           <SheetTrigger asChild>
             <Button variant="outline" className="w-full justify-between border-slate-200 bg-white shadow-sm rounded-2xl py-6 font-bold text-slate-700 hover:bg-slate-50 ring-1 ring-slate-900/5">
               <span className="flex items-center gap-2">
-                <Filter className="w-5 h-5 text-amber-500" />
+                <Filter className="w-5 h-5 text-amber-400" />
                 Filter Results
               </span>
               <span className="text-xs bg-slate-100 px-2.5 py-1 rounded-full text-slate-500">Tap to open</span>
@@ -238,7 +249,7 @@ export default function SearchFilters({
           <SheetContent side="bottom" className="rounded-t-3xl h-[85vh] overflow-y-auto px-6 py-5 z-[999]">
             <SheetHeader className="pb-4 border-b border-slate-100 mb-6 text-left">
               <SheetTitle className="flex items-center gap-2 text-xl font-extrabold text-slate-800">
-                <Sparkles className="w-5 h-5 text-amber-500" /> Refine Search
+                <Sparkles className="w-5 h-5 text-amber-400" /> Refine Search
               </SheetTitle>
             </SheetHeader>
             {FiltersContent}
@@ -248,7 +259,7 @@ export default function SearchFilters({
 
       <aside className="sticky top-24 hidden h-fit rounded-3xl border bg-background p-6 shadow-sm lg:block border-slate-200 z-10">
         <h3 className="font-extrabold text-slate-900 mb-6 text-lg tracking-tight pb-3 border-b border-slate-100 flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-amber-500" /> Filters
+          <Sparkles className="w-5 h-5 text-amber-400" /> Filters
         </h3>
         {FiltersContent}
       </aside>
