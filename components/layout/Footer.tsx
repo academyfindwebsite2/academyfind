@@ -191,7 +191,7 @@ export function Footer() {
               Compare Institutes
             </h3>
 
-            <ul className="space-y-3 text-sm text-muted-foreground opacity-50">
+            <ul className="space-y-3 text-sm text-muted-foreground">
               {comparisons.map((item) => (
                 <li key={item.name}>
                   <Link
