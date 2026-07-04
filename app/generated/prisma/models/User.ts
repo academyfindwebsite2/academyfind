@@ -306,6 +306,7 @@ export type UserWhereInput = {
   notifications?: Prisma.UserNotificationListRelationFilter
   wallet?: Prisma.XOR<Prisma.UserWalletNullableScalarRelationFilter, Prisma.UserWalletWhereInput> | null
   reputation?: Prisma.XOR<Prisma.UserReputationNullableScalarRelationFilter, Prisma.UserReputationWhereInput> | null
+  preferences?: Prisma.XOR<Prisma.UserPreferenceNullableScalarRelationFilter, Prisma.UserPreferenceWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -368,6 +369,7 @@ export type UserOrderByWithRelationInput = {
   notifications?: Prisma.UserNotificationOrderByRelationAggregateInput
   wallet?: Prisma.UserWalletOrderByWithRelationInput
   reputation?: Prisma.UserReputationOrderByWithRelationInput
+  preferences?: Prisma.UserPreferenceOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -433,6 +435,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.UserNotificationListRelationFilter
   wallet?: Prisma.XOR<Prisma.UserWalletNullableScalarRelationFilter, Prisma.UserWalletWhereInput> | null
   reputation?: Prisma.XOR<Prisma.UserReputationNullableScalarRelationFilter, Prisma.UserReputationWhereInput> | null
+  preferences?: Prisma.XOR<Prisma.UserPreferenceNullableScalarRelationFilter, Prisma.UserPreferenceWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -537,6 +540,7 @@ export type UserCreateInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -599,6 +603,7 @@ export type UserUncheckedCreateInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -661,6 +666,7 @@ export type UserUpdateInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -723,6 +729,7 @@ export type UserUncheckedUpdateInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -893,6 +900,20 @@ export type UserUpdateOneRequiredWithoutReputationNestedInput = {
   upsert?: Prisma.UserUpsertWithoutReputationInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReputationInput, Prisma.UserUpdateWithoutReputationInput>, Prisma.UserUncheckedUpdateWithoutReputationInput>
+}
+
+export type UserCreateNestedOneWithoutPreferencesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPreferencesInput, Prisma.UserUncheckedCreateWithoutPreferencesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPreferencesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPreferencesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPreferencesInput, Prisma.UserUncheckedCreateWithoutPreferencesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPreferencesInput
+  upsert?: Prisma.UserUpsertWithoutPreferencesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPreferencesInput, Prisma.UserUpdateWithoutPreferencesInput>, Prisma.UserUncheckedUpdateWithoutPreferencesInput>
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -1564,6 +1585,7 @@ export type UserCreateWithoutWalletInput = {
   createdConversations?: Prisma.ConversationCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWalletInput = {
@@ -1625,6 +1647,7 @@ export type UserUncheckedCreateWithoutWalletInput = {
   createdConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWalletInput = {
@@ -1702,6 +1725,7 @@ export type UserUpdateWithoutWalletInput = {
   createdConversations?: Prisma.ConversationUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWalletInput = {
@@ -1763,6 +1787,7 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   createdConversations?: Prisma.ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReputationInput = {
@@ -1824,6 +1849,7 @@ export type UserCreateWithoutReputationInput = {
   createdConversations?: Prisma.ConversationCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReputationInput = {
@@ -1885,6 +1911,7 @@ export type UserUncheckedCreateWithoutReputationInput = {
   createdConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCreatedByInput
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReputationInput = {
@@ -1962,6 +1989,7 @@ export type UserUpdateWithoutReputationInput = {
   createdConversations?: Prisma.ConversationUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReputationInput = {
@@ -2023,6 +2051,271 @@ export type UserUncheckedUpdateWithoutReputationInput = {
   createdConversations?: Prisma.ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPreferencesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  emailVerified?: boolean
+  onboardingCompleted?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  canAddInstitute?: boolean
+  canWriteBlogs?: boolean
+  managedInstitutes?: Prisma.InstituteManagerCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  adminNotifications?: Prisma.AdminNotificationCreateNestedManyWithoutUserInput
+  communityAnswers?: Prisma.CommunityAnswerCreateNestedManyWithoutUserInput
+  communityQuestions?: Prisma.CommunityQuestionCreateNestedManyWithoutUserInput
+  claims?: Prisma.InstituteClaimCreateNestedManyWithoutUserInput
+  instituteRequests?: Prisma.InstituteRequestCreateNestedManyWithoutUserInput
+  salesAssignments?: Prisma.SalesAssignmentCreateNestedManyWithoutSalesManagerInput
+  salesCategoryAssignments?: Prisma.SalesCategoryAssignmentCreateNestedManyWithoutSalesManagerInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  payments?: Prisma.SubscriptionPaymentCreateNestedManyWithoutUserInput
+  compareLists?: Prisma.UserCompareListCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistCreateNestedManyWithoutUserInput
+  distributionLogs?: Prisma.LeadDistributionLogCreateNestedManyWithoutAdminInput
+  blogAuthorProfile?: Prisma.BlogAuthorProfileCreateNestedOneWithoutUserInput
+  blogComments?: Prisma.BlogCommentCreateNestedManyWithoutUserInput
+  blogReactions?: Prisma.BlogReactionCreateNestedManyWithoutUserInput
+  blogViews?: Prisma.BlogViewCreateNestedManyWithoutUserInput
+  blogBookmarks?: Prisma.BlogBookmarkCreateNestedManyWithoutUserInput
+  followedAuthors?: Prisma.BlogAuthorFollowerCreateNestedManyWithoutUserInput
+  reviewedPosts?: Prisma.BlogPostCreateNestedManyWithoutReviewedByInput
+  publishedPosts?: Prisma.BlogPostCreateNestedManyWithoutPublishedByInput
+  editedPosts?: Prisma.BlogPostCreateNestedManyWithoutLastEditedByInput
+  blogRevisions?: Prisma.BlogRevisionCreateNestedManyWithoutCreatedByInput
+  blogReports?: Prisma.BlogReportCreateNestedManyWithoutUserInput
+  resolvedBlogReports?: Prisma.BlogReportCreateNestedManyWithoutResolvedByInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  teacherProfile?: Prisma.TeacherProfileCreateNestedOneWithoutUserInput
+  memberships?: Prisma.InstituteMembershipCreateNestedManyWithoutUserInput
+  chatSettings?: Prisma.ChatSettingsCreateNestedOneWithoutUserInput
+  conversationParticipants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  messageReads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput
+  messageReports?: Prisma.MessageReportCreateNestedManyWithoutReporterInput
+  resolvedMessageReports?: Prisma.MessageReportCreateNestedManyWithoutResolverInput
+  blockedUsers?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blockedByUsers?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  createdConversations?: Prisma.ConversationCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
+  reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPreferencesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  image?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  emailVerified?: boolean
+  onboardingCompleted?: boolean
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  canAddInstitute?: boolean
+  canWriteBlogs?: boolean
+  managedInstitutes?: Prisma.InstituteManagerUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedCreateNestedManyWithoutUserInput
+  communityAnswers?: Prisma.CommunityAnswerUncheckedCreateNestedManyWithoutUserInput
+  communityQuestions?: Prisma.CommunityQuestionUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.InstituteClaimUncheckedCreateNestedManyWithoutUserInput
+  instituteRequests?: Prisma.InstituteRequestUncheckedCreateNestedManyWithoutUserInput
+  salesAssignments?: Prisma.SalesAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedCreateNestedManyWithoutSalesManagerInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.SubscriptionPaymentUncheckedCreateNestedManyWithoutUserInput
+  compareLists?: Prisma.UserCompareListUncheckedCreateNestedManyWithoutUserInput
+  viewHistory?: Prisma.UserHistoryUncheckedCreateNestedManyWithoutUserInput
+  shortlisted?: Prisma.UserShortlistUncheckedCreateNestedManyWithoutUserInput
+  distributionLogs?: Prisma.LeadDistributionLogUncheckedCreateNestedManyWithoutAdminInput
+  blogAuthorProfile?: Prisma.BlogAuthorProfileUncheckedCreateNestedOneWithoutUserInput
+  blogComments?: Prisma.BlogCommentUncheckedCreateNestedManyWithoutUserInput
+  blogReactions?: Prisma.BlogReactionUncheckedCreateNestedManyWithoutUserInput
+  blogViews?: Prisma.BlogViewUncheckedCreateNestedManyWithoutUserInput
+  blogBookmarks?: Prisma.BlogBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followedAuthors?: Prisma.BlogAuthorFollowerUncheckedCreateNestedManyWithoutUserInput
+  reviewedPosts?: Prisma.BlogPostUncheckedCreateNestedManyWithoutReviewedByInput
+  publishedPosts?: Prisma.BlogPostUncheckedCreateNestedManyWithoutPublishedByInput
+  editedPosts?: Prisma.BlogPostUncheckedCreateNestedManyWithoutLastEditedByInput
+  blogRevisions?: Prisma.BlogRevisionUncheckedCreateNestedManyWithoutCreatedByInput
+  blogReports?: Prisma.BlogReportUncheckedCreateNestedManyWithoutUserInput
+  resolvedBlogReports?: Prisma.BlogReportUncheckedCreateNestedManyWithoutResolvedByInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  teacherProfile?: Prisma.TeacherProfileUncheckedCreateNestedOneWithoutUserInput
+  memberships?: Prisma.InstituteMembershipUncheckedCreateNestedManyWithoutUserInput
+  chatSettings?: Prisma.ChatSettingsUncheckedCreateNestedOneWithoutUserInput
+  conversationParticipants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  messageReads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
+  messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput
+  messageReports?: Prisma.MessageReportUncheckedCreateNestedManyWithoutReporterInput
+  resolvedMessageReports?: Prisma.MessageReportUncheckedCreateNestedManyWithoutResolverInput
+  blockedUsers?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blockedByUsers?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  createdConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
+  reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPreferencesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPreferencesInput, Prisma.UserUncheckedCreateWithoutPreferencesInput>
+}
+
+export type UserUpsertWithoutPreferencesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPreferencesInput, Prisma.UserUncheckedUpdateWithoutPreferencesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPreferencesInput, Prisma.UserUncheckedCreateWithoutPreferencesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPreferencesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPreferencesInput, Prisma.UserUncheckedUpdateWithoutPreferencesInput>
+}
+
+export type UserUpdateWithoutPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  canAddInstitute?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canWriteBlogs?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  managedInstitutes?: Prisma.InstituteManagerUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  adminNotifications?: Prisma.AdminNotificationUpdateManyWithoutUserNestedInput
+  communityAnswers?: Prisma.CommunityAnswerUpdateManyWithoutUserNestedInput
+  communityQuestions?: Prisma.CommunityQuestionUpdateManyWithoutUserNestedInput
+  claims?: Prisma.InstituteClaimUpdateManyWithoutUserNestedInput
+  instituteRequests?: Prisma.InstituteRequestUpdateManyWithoutUserNestedInput
+  salesAssignments?: Prisma.SalesAssignmentUpdateManyWithoutSalesManagerNestedInput
+  salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUpdateManyWithoutSalesManagerNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.SubscriptionPaymentUpdateManyWithoutUserNestedInput
+  compareLists?: Prisma.UserCompareListUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUpdateManyWithoutUserNestedInput
+  distributionLogs?: Prisma.LeadDistributionLogUpdateManyWithoutAdminNestedInput
+  blogAuthorProfile?: Prisma.BlogAuthorProfileUpdateOneWithoutUserNestedInput
+  blogComments?: Prisma.BlogCommentUpdateManyWithoutUserNestedInput
+  blogReactions?: Prisma.BlogReactionUpdateManyWithoutUserNestedInput
+  blogViews?: Prisma.BlogViewUpdateManyWithoutUserNestedInput
+  blogBookmarks?: Prisma.BlogBookmarkUpdateManyWithoutUserNestedInput
+  followedAuthors?: Prisma.BlogAuthorFollowerUpdateManyWithoutUserNestedInput
+  reviewedPosts?: Prisma.BlogPostUpdateManyWithoutReviewedByNestedInput
+  publishedPosts?: Prisma.BlogPostUpdateManyWithoutPublishedByNestedInput
+  editedPosts?: Prisma.BlogPostUpdateManyWithoutLastEditedByNestedInput
+  blogRevisions?: Prisma.BlogRevisionUpdateManyWithoutCreatedByNestedInput
+  blogReports?: Prisma.BlogReportUpdateManyWithoutUserNestedInput
+  resolvedBlogReports?: Prisma.BlogReportUpdateManyWithoutResolvedByNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  teacherProfile?: Prisma.TeacherProfileUpdateOneWithoutUserNestedInput
+  memberships?: Prisma.InstituteMembershipUpdateManyWithoutUserNestedInput
+  chatSettings?: Prisma.ChatSettingsUpdateOneWithoutUserNestedInput
+  conversationParticipants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  messageReads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput
+  messageReports?: Prisma.MessageReportUpdateManyWithoutReporterNestedInput
+  resolvedMessageReports?: Prisma.MessageReportUpdateManyWithoutResolverNestedInput
+  blockedUsers?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blockedByUsers?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  createdConversations?: Prisma.ConversationUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
+  reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  canAddInstitute?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  canWriteBlogs?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  managedInstitutes?: Prisma.InstituteManagerUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  adminNotifications?: Prisma.AdminNotificationUncheckedUpdateManyWithoutUserNestedInput
+  communityAnswers?: Prisma.CommunityAnswerUncheckedUpdateManyWithoutUserNestedInput
+  communityQuestions?: Prisma.CommunityQuestionUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.InstituteClaimUncheckedUpdateManyWithoutUserNestedInput
+  instituteRequests?: Prisma.InstituteRequestUncheckedUpdateManyWithoutUserNestedInput
+  salesAssignments?: Prisma.SalesAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  salesCategoryAssignments?: Prisma.SalesCategoryAssignmentUncheckedUpdateManyWithoutSalesManagerNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.SubscriptionPaymentUncheckedUpdateManyWithoutUserNestedInput
+  compareLists?: Prisma.UserCompareListUncheckedUpdateManyWithoutUserNestedInput
+  viewHistory?: Prisma.UserHistoryUncheckedUpdateManyWithoutUserNestedInput
+  shortlisted?: Prisma.UserShortlistUncheckedUpdateManyWithoutUserNestedInput
+  distributionLogs?: Prisma.LeadDistributionLogUncheckedUpdateManyWithoutAdminNestedInput
+  blogAuthorProfile?: Prisma.BlogAuthorProfileUncheckedUpdateOneWithoutUserNestedInput
+  blogComments?: Prisma.BlogCommentUncheckedUpdateManyWithoutUserNestedInput
+  blogReactions?: Prisma.BlogReactionUncheckedUpdateManyWithoutUserNestedInput
+  blogViews?: Prisma.BlogViewUncheckedUpdateManyWithoutUserNestedInput
+  blogBookmarks?: Prisma.BlogBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followedAuthors?: Prisma.BlogAuthorFollowerUncheckedUpdateManyWithoutUserNestedInput
+  reviewedPosts?: Prisma.BlogPostUncheckedUpdateManyWithoutReviewedByNestedInput
+  publishedPosts?: Prisma.BlogPostUncheckedUpdateManyWithoutPublishedByNestedInput
+  editedPosts?: Prisma.BlogPostUncheckedUpdateManyWithoutLastEditedByNestedInput
+  blogRevisions?: Prisma.BlogRevisionUncheckedUpdateManyWithoutCreatedByNestedInput
+  blogReports?: Prisma.BlogReportUncheckedUpdateManyWithoutUserNestedInput
+  resolvedBlogReports?: Prisma.BlogReportUncheckedUpdateManyWithoutResolvedByNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  teacherProfile?: Prisma.TeacherProfileUncheckedUpdateOneWithoutUserNestedInput
+  memberships?: Prisma.InstituteMembershipUncheckedUpdateManyWithoutUserNestedInput
+  chatSettings?: Prisma.ChatSettingsUncheckedUpdateOneWithoutUserNestedInput
+  conversationParticipants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  messageReads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
+  messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+  messageReports?: Prisma.MessageReportUncheckedUpdateManyWithoutReporterNestedInput
+  resolvedMessageReports?: Prisma.MessageReportUncheckedUpdateManyWithoutResolverNestedInput
+  blockedUsers?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blockedByUsers?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  createdConversations?: Prisma.ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
+  reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2084,6 +2377,7 @@ export type UserCreateWithoutSessionsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2145,6 +2439,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2222,6 +2517,7 @@ export type UserUpdateWithoutSessionsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2283,6 +2579,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -2344,6 +2641,7 @@ export type UserCreateWithoutAccountsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -2405,6 +2703,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -2482,6 +2781,7 @@ export type UserUpdateWithoutAccountsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -2543,6 +2843,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutManagedInstitutesInput = {
@@ -2604,6 +2905,7 @@ export type UserCreateWithoutManagedInstitutesInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedInstitutesInput = {
@@ -2665,6 +2967,7 @@ export type UserUncheckedCreateWithoutManagedInstitutesInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedInstitutesInput = {
@@ -2742,6 +3045,7 @@ export type UserUpdateWithoutManagedInstitutesInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedInstitutesInput = {
@@ -2803,6 +3107,7 @@ export type UserUncheckedUpdateWithoutManagedInstitutesInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -2864,6 +3169,7 @@ export type UserCreateWithoutReviewsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -2925,6 +3231,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -3002,6 +3309,7 @@ export type UserUpdateWithoutReviewsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -3063,6 +3371,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClaimsInput = {
@@ -3124,6 +3433,7 @@ export type UserCreateWithoutClaimsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClaimsInput = {
@@ -3185,6 +3495,7 @@ export type UserUncheckedCreateWithoutClaimsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClaimsInput = {
@@ -3262,6 +3573,7 @@ export type UserUpdateWithoutClaimsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClaimsInput = {
@@ -3323,6 +3635,7 @@ export type UserUncheckedUpdateWithoutClaimsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShortlistedInput = {
@@ -3384,6 +3697,7 @@ export type UserCreateWithoutShortlistedInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShortlistedInput = {
@@ -3445,6 +3759,7 @@ export type UserUncheckedCreateWithoutShortlistedInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShortlistedInput = {
@@ -3522,6 +3837,7 @@ export type UserUpdateWithoutShortlistedInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShortlistedInput = {
@@ -3583,6 +3899,7 @@ export type UserUncheckedUpdateWithoutShortlistedInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutViewHistoryInput = {
@@ -3644,6 +3961,7 @@ export type UserCreateWithoutViewHistoryInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutViewHistoryInput = {
@@ -3705,6 +4023,7 @@ export type UserUncheckedCreateWithoutViewHistoryInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutViewHistoryInput = {
@@ -3782,6 +4101,7 @@ export type UserUpdateWithoutViewHistoryInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutViewHistoryInput = {
@@ -3843,6 +4163,7 @@ export type UserUncheckedUpdateWithoutViewHistoryInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTeacherProfileInput = {
@@ -3904,6 +4225,7 @@ export type UserCreateWithoutTeacherProfileInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTeacherProfileInput = {
@@ -3965,6 +4287,7 @@ export type UserUncheckedCreateWithoutTeacherProfileInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTeacherProfileInput = {
@@ -4042,6 +4365,7 @@ export type UserUpdateWithoutTeacherProfileInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeacherProfileInput = {
@@ -4103,6 +4427,7 @@ export type UserUncheckedUpdateWithoutTeacherProfileInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentProfileInput = {
@@ -4164,6 +4489,7 @@ export type UserCreateWithoutStudentProfileInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentProfileInput = {
@@ -4225,6 +4551,7 @@ export type UserUncheckedCreateWithoutStudentProfileInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentProfileInput = {
@@ -4302,6 +4629,7 @@ export type UserUpdateWithoutStudentProfileInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentProfileInput = {
@@ -4363,6 +4691,7 @@ export type UserUncheckedUpdateWithoutStudentProfileInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembershipsInput = {
@@ -4424,6 +4753,7 @@ export type UserCreateWithoutMembershipsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -4485,6 +4815,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -4562,6 +4893,7 @@ export type UserUpdateWithoutMembershipsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -4623,6 +4955,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCreatedConversationsInput = {
@@ -4684,6 +5017,7 @@ export type UserCreateWithoutCreatedConversationsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedConversationsInput = {
@@ -4745,6 +5079,7 @@ export type UserUncheckedCreateWithoutCreatedConversationsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedConversationsInput = {
@@ -4822,6 +5157,7 @@ export type UserUpdateWithoutCreatedConversationsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedConversationsInput = {
@@ -4883,6 +5219,7 @@ export type UserUncheckedUpdateWithoutCreatedConversationsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutConversationParticipantsInput = {
@@ -4944,6 +5281,7 @@ export type UserCreateWithoutConversationParticipantsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConversationParticipantsInput = {
@@ -5005,6 +5343,7 @@ export type UserUncheckedCreateWithoutConversationParticipantsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConversationParticipantsInput = {
@@ -5082,6 +5421,7 @@ export type UserUpdateWithoutConversationParticipantsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversationParticipantsInput = {
@@ -5143,6 +5483,7 @@ export type UserUncheckedUpdateWithoutConversationParticipantsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -5204,6 +5545,7 @@ export type UserCreateWithoutMessagesInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -5265,6 +5607,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -5342,6 +5685,7 @@ export type UserUpdateWithoutMessagesInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -5403,6 +5747,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessageReactionsInput = {
@@ -5464,6 +5809,7 @@ export type UserCreateWithoutMessageReactionsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessageReactionsInput = {
@@ -5525,6 +5871,7 @@ export type UserUncheckedCreateWithoutMessageReactionsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessageReactionsInput = {
@@ -5602,6 +5949,7 @@ export type UserUpdateWithoutMessageReactionsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessageReactionsInput = {
@@ -5663,6 +6011,7 @@ export type UserUncheckedUpdateWithoutMessageReactionsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessageReadsInput = {
@@ -5724,6 +6073,7 @@ export type UserCreateWithoutMessageReadsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessageReadsInput = {
@@ -5785,6 +6135,7 @@ export type UserUncheckedCreateWithoutMessageReadsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessageReadsInput = {
@@ -5862,6 +6213,7 @@ export type UserUpdateWithoutMessageReadsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessageReadsInput = {
@@ -5923,6 +6275,7 @@ export type UserUncheckedUpdateWithoutMessageReadsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessageReportsInput = {
@@ -5984,6 +6337,7 @@ export type UserCreateWithoutMessageReportsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessageReportsInput = {
@@ -6045,6 +6399,7 @@ export type UserUncheckedCreateWithoutMessageReportsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessageReportsInput = {
@@ -6111,6 +6466,7 @@ export type UserCreateWithoutResolvedMessageReportsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResolvedMessageReportsInput = {
@@ -6172,6 +6528,7 @@ export type UserUncheckedCreateWithoutResolvedMessageReportsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResolvedMessageReportsInput = {
@@ -6249,6 +6606,7 @@ export type UserUpdateWithoutMessageReportsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessageReportsInput = {
@@ -6310,6 +6668,7 @@ export type UserUncheckedUpdateWithoutMessageReportsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutResolvedMessageReportsInput = {
@@ -6382,6 +6741,7 @@ export type UserUpdateWithoutResolvedMessageReportsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedMessageReportsInput = {
@@ -6443,6 +6803,7 @@ export type UserUncheckedUpdateWithoutResolvedMessageReportsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChatSettingsInput = {
@@ -6504,6 +6865,7 @@ export type UserCreateWithoutChatSettingsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatSettingsInput = {
@@ -6565,6 +6927,7 @@ export type UserUncheckedCreateWithoutChatSettingsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatSettingsInput = {
@@ -6642,6 +7005,7 @@ export type UserUpdateWithoutChatSettingsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatSettingsInput = {
@@ -6703,6 +7067,7 @@ export type UserUncheckedUpdateWithoutChatSettingsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -6764,6 +7129,7 @@ export type UserCreateWithoutNotificationsInput = {
   createdConversations?: Prisma.ConversationCreateNestedManyWithoutCreatedByInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -6825,6 +7191,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   createdConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCreatedByInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -6902,6 +7269,7 @@ export type UserUpdateWithoutNotificationsInput = {
   createdConversations?: Prisma.ConversationUpdateManyWithoutCreatedByNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -6963,6 +7331,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   createdConversations?: Prisma.ConversationUncheckedUpdateManyWithoutCreatedByNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlockedUsersInput = {
@@ -7024,6 +7393,7 @@ export type UserCreateWithoutBlockedUsersInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlockedUsersInput = {
@@ -7085,6 +7455,7 @@ export type UserUncheckedCreateWithoutBlockedUsersInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlockedUsersInput = {
@@ -7151,6 +7522,7 @@ export type UserCreateWithoutBlockedByUsersInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlockedByUsersInput = {
@@ -7212,6 +7584,7 @@ export type UserUncheckedCreateWithoutBlockedByUsersInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlockedByUsersInput = {
@@ -7289,6 +7662,7 @@ export type UserUpdateWithoutBlockedUsersInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlockedUsersInput = {
@@ -7350,6 +7724,7 @@ export type UserUncheckedUpdateWithoutBlockedUsersInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutBlockedByUsersInput = {
@@ -7422,6 +7797,7 @@ export type UserUpdateWithoutBlockedByUsersInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlockedByUsersInput = {
@@ -7483,6 +7859,7 @@ export type UserUncheckedUpdateWithoutBlockedByUsersInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInstituteRequestsInput = {
@@ -7544,6 +7921,7 @@ export type UserCreateWithoutInstituteRequestsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInstituteRequestsInput = {
@@ -7605,6 +7983,7 @@ export type UserUncheckedCreateWithoutInstituteRequestsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInstituteRequestsInput = {
@@ -7682,6 +8061,7 @@ export type UserUpdateWithoutInstituteRequestsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInstituteRequestsInput = {
@@ -7743,6 +8123,7 @@ export type UserUncheckedUpdateWithoutInstituteRequestsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -7804,6 +8185,7 @@ export type UserCreateWithoutPaymentsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -7865,6 +8247,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -7942,6 +8325,7 @@ export type UserUpdateWithoutPaymentsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -8003,6 +8387,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSalesAssignmentsInput = {
@@ -8064,6 +8449,7 @@ export type UserCreateWithoutSalesAssignmentsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSalesAssignmentsInput = {
@@ -8125,6 +8511,7 @@ export type UserUncheckedCreateWithoutSalesAssignmentsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSalesAssignmentsInput = {
@@ -8202,6 +8589,7 @@ export type UserUpdateWithoutSalesAssignmentsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesAssignmentsInput = {
@@ -8263,6 +8651,7 @@ export type UserUncheckedUpdateWithoutSalesAssignmentsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSalesCategoryAssignmentsInput = {
@@ -8324,6 +8713,7 @@ export type UserCreateWithoutSalesCategoryAssignmentsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSalesCategoryAssignmentsInput = {
@@ -8385,6 +8775,7 @@ export type UserUncheckedCreateWithoutSalesCategoryAssignmentsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSalesCategoryAssignmentsInput = {
@@ -8462,6 +8853,7 @@ export type UserUpdateWithoutSalesCategoryAssignmentsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesCategoryAssignmentsInput = {
@@ -8523,6 +8915,7 @@ export type UserUncheckedUpdateWithoutSalesCategoryAssignmentsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAdminNotificationsInput = {
@@ -8584,6 +8977,7 @@ export type UserCreateWithoutAdminNotificationsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAdminNotificationsInput = {
@@ -8645,6 +9039,7 @@ export type UserUncheckedCreateWithoutAdminNotificationsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAdminNotificationsInput = {
@@ -8722,6 +9117,7 @@ export type UserUpdateWithoutAdminNotificationsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdminNotificationsInput = {
@@ -8783,6 +9179,7 @@ export type UserUncheckedUpdateWithoutAdminNotificationsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCompareListsInput = {
@@ -8844,6 +9241,7 @@ export type UserCreateWithoutCompareListsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCompareListsInput = {
@@ -8905,6 +9303,7 @@ export type UserUncheckedCreateWithoutCompareListsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCompareListsInput = {
@@ -8982,6 +9381,7 @@ export type UserUpdateWithoutCompareListsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompareListsInput = {
@@ -9043,6 +9443,7 @@ export type UserUncheckedUpdateWithoutCompareListsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommunityQuestionsInput = {
@@ -9104,6 +9505,7 @@ export type UserCreateWithoutCommunityQuestionsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommunityQuestionsInput = {
@@ -9165,6 +9567,7 @@ export type UserUncheckedCreateWithoutCommunityQuestionsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommunityQuestionsInput = {
@@ -9242,6 +9645,7 @@ export type UserUpdateWithoutCommunityQuestionsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommunityQuestionsInput = {
@@ -9303,6 +9707,7 @@ export type UserUncheckedUpdateWithoutCommunityQuestionsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommunityAnswersInput = {
@@ -9364,6 +9769,7 @@ export type UserCreateWithoutCommunityAnswersInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommunityAnswersInput = {
@@ -9425,6 +9831,7 @@ export type UserUncheckedCreateWithoutCommunityAnswersInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommunityAnswersInput = {
@@ -9502,6 +9909,7 @@ export type UserUpdateWithoutCommunityAnswersInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommunityAnswersInput = {
@@ -9563,6 +9971,7 @@ export type UserUncheckedUpdateWithoutCommunityAnswersInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDistributionLogsInput = {
@@ -9624,6 +10033,7 @@ export type UserCreateWithoutDistributionLogsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDistributionLogsInput = {
@@ -9685,6 +10095,7 @@ export type UserUncheckedCreateWithoutDistributionLogsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDistributionLogsInput = {
@@ -9762,6 +10173,7 @@ export type UserUpdateWithoutDistributionLogsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDistributionLogsInput = {
@@ -9823,6 +10235,7 @@ export type UserUncheckedUpdateWithoutDistributionLogsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogAuthorProfileInput = {
@@ -9884,6 +10297,7 @@ export type UserCreateWithoutBlogAuthorProfileInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogAuthorProfileInput = {
@@ -9945,6 +10359,7 @@ export type UserUncheckedCreateWithoutBlogAuthorProfileInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogAuthorProfileInput = {
@@ -10022,6 +10437,7 @@ export type UserUpdateWithoutBlogAuthorProfileInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogAuthorProfileInput = {
@@ -10083,6 +10499,7 @@ export type UserUncheckedUpdateWithoutBlogAuthorProfileInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewedPostsInput = {
@@ -10144,6 +10561,7 @@ export type UserCreateWithoutReviewedPostsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewedPostsInput = {
@@ -10205,6 +10623,7 @@ export type UserUncheckedCreateWithoutReviewedPostsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewedPostsInput = {
@@ -10271,6 +10690,7 @@ export type UserCreateWithoutPublishedPostsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPublishedPostsInput = {
@@ -10332,6 +10752,7 @@ export type UserUncheckedCreateWithoutPublishedPostsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPublishedPostsInput = {
@@ -10398,6 +10819,7 @@ export type UserCreateWithoutEditedPostsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEditedPostsInput = {
@@ -10459,6 +10881,7 @@ export type UserUncheckedCreateWithoutEditedPostsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEditedPostsInput = {
@@ -10536,6 +10959,7 @@ export type UserUpdateWithoutReviewedPostsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedPostsInput = {
@@ -10597,6 +11021,7 @@ export type UserUncheckedUpdateWithoutReviewedPostsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutPublishedPostsInput = {
@@ -10669,6 +11094,7 @@ export type UserUpdateWithoutPublishedPostsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPublishedPostsInput = {
@@ -10730,6 +11156,7 @@ export type UserUncheckedUpdateWithoutPublishedPostsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutEditedPostsInput = {
@@ -10802,6 +11229,7 @@ export type UserUpdateWithoutEditedPostsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEditedPostsInput = {
@@ -10863,6 +11291,7 @@ export type UserUncheckedUpdateWithoutEditedPostsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogRevisionsInput = {
@@ -10924,6 +11353,7 @@ export type UserCreateWithoutBlogRevisionsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogRevisionsInput = {
@@ -10985,6 +11415,7 @@ export type UserUncheckedCreateWithoutBlogRevisionsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogRevisionsInput = {
@@ -11062,6 +11493,7 @@ export type UserUpdateWithoutBlogRevisionsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogRevisionsInput = {
@@ -11123,6 +11555,7 @@ export type UserUncheckedUpdateWithoutBlogRevisionsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogViewsInput = {
@@ -11184,6 +11617,7 @@ export type UserCreateWithoutBlogViewsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogViewsInput = {
@@ -11245,6 +11679,7 @@ export type UserUncheckedCreateWithoutBlogViewsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogViewsInput = {
@@ -11322,6 +11757,7 @@ export type UserUpdateWithoutBlogViewsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogViewsInput = {
@@ -11383,6 +11819,7 @@ export type UserUncheckedUpdateWithoutBlogViewsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogBookmarksInput = {
@@ -11444,6 +11881,7 @@ export type UserCreateWithoutBlogBookmarksInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogBookmarksInput = {
@@ -11505,6 +11943,7 @@ export type UserUncheckedCreateWithoutBlogBookmarksInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogBookmarksInput = {
@@ -11582,6 +12021,7 @@ export type UserUpdateWithoutBlogBookmarksInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogBookmarksInput = {
@@ -11643,6 +12083,7 @@ export type UserUncheckedUpdateWithoutBlogBookmarksInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFollowedAuthorsInput = {
@@ -11704,6 +12145,7 @@ export type UserCreateWithoutFollowedAuthorsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowedAuthorsInput = {
@@ -11765,6 +12207,7 @@ export type UserUncheckedCreateWithoutFollowedAuthorsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowedAuthorsInput = {
@@ -11842,6 +12285,7 @@ export type UserUpdateWithoutFollowedAuthorsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowedAuthorsInput = {
@@ -11903,6 +12347,7 @@ export type UserUncheckedUpdateWithoutFollowedAuthorsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutResolvedBlogReportsInput = {
@@ -11964,6 +12409,7 @@ export type UserCreateWithoutResolvedBlogReportsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResolvedBlogReportsInput = {
@@ -12025,6 +12471,7 @@ export type UserUncheckedCreateWithoutResolvedBlogReportsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResolvedBlogReportsInput = {
@@ -12091,6 +12538,7 @@ export type UserCreateWithoutBlogReportsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogReportsInput = {
@@ -12152,6 +12600,7 @@ export type UserUncheckedCreateWithoutBlogReportsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogReportsInput = {
@@ -12229,6 +12678,7 @@ export type UserUpdateWithoutResolvedBlogReportsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedBlogReportsInput = {
@@ -12290,6 +12740,7 @@ export type UserUncheckedUpdateWithoutResolvedBlogReportsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutBlogReportsInput = {
@@ -12362,6 +12813,7 @@ export type UserUpdateWithoutBlogReportsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogReportsInput = {
@@ -12423,6 +12875,7 @@ export type UserUncheckedUpdateWithoutBlogReportsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogCommentsInput = {
@@ -12484,6 +12937,7 @@ export type UserCreateWithoutBlogCommentsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogCommentsInput = {
@@ -12545,6 +12999,7 @@ export type UserUncheckedCreateWithoutBlogCommentsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogCommentsInput = {
@@ -12622,6 +13077,7 @@ export type UserUpdateWithoutBlogCommentsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogCommentsInput = {
@@ -12683,6 +13139,7 @@ export type UserUncheckedUpdateWithoutBlogCommentsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBlogReactionsInput = {
@@ -12744,6 +13201,7 @@ export type UserCreateWithoutBlogReactionsInput = {
   notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBlogReactionsInput = {
@@ -12805,6 +13263,7 @@ export type UserUncheckedCreateWithoutBlogReactionsInput = {
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.UserWalletUncheckedCreateNestedOneWithoutUserInput
   reputation?: Prisma.UserReputationUncheckedCreateNestedOneWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBlogReactionsInput = {
@@ -12882,6 +13341,7 @@ export type UserUpdateWithoutBlogReactionsInput = {
   notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlogReactionsInput = {
@@ -12943,6 +13403,7 @@ export type UserUncheckedUpdateWithoutBlogReactionsInput = {
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.UserWalletUncheckedUpdateOneWithoutUserNestedInput
   reputation?: Prisma.UserReputationUncheckedUpdateOneWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
 }
 
 
@@ -13369,6 +13830,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
   reputation?: boolean | Prisma.User$reputationArgs<ExtArgs>
+  preferences?: boolean | Prisma.User$preferencesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -13472,6 +13934,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
   reputation?: boolean | Prisma.User$reputationArgs<ExtArgs>
+  preferences?: boolean | Prisma.User$preferencesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -13524,6 +13987,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     notifications: Prisma.$UserNotificationPayload<ExtArgs>[]
     wallet: Prisma.$UserWalletPayload<ExtArgs> | null
     reputation: Prisma.$UserReputationPayload<ExtArgs> | null
+    preferences: Prisma.$UserPreferencePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -13979,6 +14443,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wallet<T extends Prisma.User$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$walletArgs<ExtArgs>>): Prisma.Prisma__UserWalletClient<runtime.Types.Result.GetResult<Prisma.$UserWalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reputation<T extends Prisma.User$reputationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reputationArgs<ExtArgs>>): Prisma.Prisma__UserReputationClient<runtime.Types.Result.GetResult<Prisma.$UserReputationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  preferences<T extends Prisma.User$preferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$preferencesArgs<ExtArgs>>): Prisma.Prisma__UserPreferenceClient<runtime.Types.Result.GetResult<Prisma.$UserPreferencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15439,6 +15904,25 @@ export type User$reputationArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.UserReputationInclude<ExtArgs> | null
   where?: Prisma.UserReputationWhereInput
+}
+
+/**
+ * User.preferences
+ */
+export type User$preferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserPreference
+   */
+  select?: Prisma.UserPreferenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserPreference
+   */
+  omit?: Prisma.UserPreferenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserPreferenceInclude<ExtArgs> | null
+  where?: Prisma.UserPreferenceWhereInput
 }
 
 /**

@@ -51,85 +51,57 @@ model User {
   blogRevisions            BlogRevision[]            @relation("RevisionAuthor")
   blogReports              BlogReport[]
   resolvedBlogReports      BlogReport[]              @relation("ResolvedBlogReports")
-
-  studentProfile StudentProfile?
-  teacherProfile TeacherProfile?
-
-  memberships  InstituteMembership[]
-  chatSettings ChatSettings?
-
+  studentProfile          StudentProfile?
+  teacherProfile          TeacherProfile?
+  memberships             InstituteMembership[]
+  chatSettings            ChatSettings?
   conversationParticipants ConversationParticipant[]
   messages                 Message[]
   messageReads             MessageRead[]
   messageReactions         MessageReaction[]
-
-  messageReports         MessageReport[] @relation("Reporter")
-  resolvedMessageReports MessageReport[] @relation("Resolver")
-
-  blockedUsers         UserBlock[]    @relation("UserBlocks")
-  blockedByUsers       UserBlock[]    @relation("BlockedUsers")
-  createdConversations Conversation[]
-
-  notifications UserNotification[]
-
-  wallet UserWallet?
-
-  reputation UserReputation?
-
+  messageReports           MessageReport[] @relation("Reporter")
+  resolvedMessageReports   MessageReport[] @relation("Resolver")
+  blockedUsers             UserBlock[]    @relation("UserBlocks")
+  blockedByUsers           UserBlock[]    @relation("BlockedUsers")
+  createdConversations     Conversation[]
+  notifications            UserNotification[]
+  wallet                   UserWallet?
+  reputation               UserReputation?
+  preferences              UserPreference?
   @@map("user")
 }
 
 model UserWallet {
-  id String @id @default(cuid())
-
-  userId String @unique
-
-  balance Int @default(0)
-
-  lifetimeEarned Int @default(0)
-
-  lifetimeSpent Int @default(0)
-
-  createdAt DateTime @default(now())
-
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  transactions WalletTransaction[]
+  id             String              @id @default(cuid())
+  userId         String              @unique
+  balance        Int                 @default(0)
+  lifetimeEarned Int                 @default(0)
+  lifetimeSpent  Int                 @default(0)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions   WalletTransaction[]
 
   @@map("user_wallet")
 }
 
 enum WalletTransactionType {
   CREDIT
-
   DEBIT
 }
 
 enum WalletTransactionSource {
   DAILY_LOGIN
-
   PROFILE_COMPLETION
-
   REVIEW
-
   REVIEW_LIKE
-
   REFERRAL
-
   PURCHASE
-
   AI_CHAT
-
   DM_BOOST
-
   COURSE_PURCHASE
-
   ADMIN
-
   REFUND
-
   BONUS
 }
 
@@ -209,22 +181,59 @@ enum ReputationSource {
   ADMIN
 }
 
+model UserPreference {
+  id                  String                  @id @default(cuid())
+  userId              String                  @unique
+  emailOnDm           Boolean                 @default(true)
+  emailOnNews         Boolean                 @default(true)
+  emailOnUpdates      Boolean                 @default(true)
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+  user                User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  preferredCities     UserPreferenceCity[]
+  preferredCategories UserPreferredCategory[]
+  completedAt         DateTime?
+
+  @@map("user_preference")
+}
+
+model UserPreferredCategory {
+  id           String         @id @default(cuid())
+  preferenceId String
+  categoryId   String
+  priority     Int            @default(0)
+  preference   UserPreference @relation(fields: [preferenceId], references: [id], onDelete: Cascade)
+  category     Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([preferenceId, categoryId])
+  @@index([categoryId])
+  @@index([preferenceId])
+  @@map("user_preferred_category")
+}
+
+model UserPreferenceCity {
+  id           String         @id @default(cuid())
+  preferenceId String
+  cityId       String
+  priority     Int            @default(0)
+  preference   UserPreference @relation(fields: [preferenceId], references: [id], onDelete: Cascade)
+  city         City           @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  @@unique([preferenceId, cityId])
+  @@index([cityId])
+  @@index([preferenceId])
+  @@map("user_preference_city")
+}
+
 model ReputationLog {
-  id String @id @default(cuid())
-
+  id           String           @id @default(cuid())
   reputationId String
-
-  source ReputationSource
-
-  points Int
-
-  description String?
-
-  referenceId String?
-
-  createdAt DateTime @default(now())
-
-  reputation UserReputation @relation(fields: [reputationId], references: [id], onDelete: Cascade)
+  source       ReputationSource
+  points       Int
+  description  String?
+  referenceId  String?
+  createdAt    DateTime         @default(now())
+  reputation   UserReputation   @relation(fields: [reputationId], references: [id], onDelete: Cascade)
 
   @@index([reputationId])
   @@index([source])
@@ -390,6 +399,7 @@ model City {
   population       Int?
   institutes       Institute[]
   categoryContents CategoryCityContent[]
+  preferredBy      UserPreferenceCity[]
 
   @@index([state])
 }
@@ -414,6 +424,8 @@ model Category {
   institutes               InstituteCategory[]
   cityContents             CategoryCityContent[]
   salesCategoryAssignments SalesCategoryAssignment[]
+
+  preferredBy UserPreferredCategory[]
 
   @@index([parentId])
 }

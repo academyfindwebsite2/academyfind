@@ -83,7 +83,6 @@ const CITY_HUBS_GREATER_NOIDA=[
 
 const CITY_HUBS_DELHI = [
 
-  // 🎓 MAIN COACHING CORRIDOR (Highway belt — PCS, UGC-NET, nursing, pro courses)
   { name: "Old Faridabad & Sector 8-12", lat: 28.4082, lng: 77.3156, radius: 2000 },
   { name: "Sector 14 & 15 (Bata Chowk, Main Hub)", lat: 28.3907, lng: 77.3133, radius: 2000 },
   { name: "Ajronda & Neelam Chowk", lat: 28.4162, lng: 77.3022, radius: 2000 },

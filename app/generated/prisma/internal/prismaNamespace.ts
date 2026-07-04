@@ -388,6 +388,9 @@ export const ModelName = {
   UserWallet: 'UserWallet',
   WalletTransaction: 'WalletTransaction',
   UserReputation: 'UserReputation',
+  UserPreference: 'UserPreference',
+  UserPreferredCategory: 'UserPreferredCategory',
+  UserPreferenceCity: 'UserPreferenceCity',
   ReputationLog: 'ReputationLog',
   Session: 'Session',
   Account: 'Account',
@@ -475,7 +478,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userWallet" | "walletTransaction" | "userReputation" | "reputationLog" | "session" | "account" | "verification" | "institute" | "city" | "category" | "categoryCityContent" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "studentProfile" | "instituteMembership" | "studentInstituteRecord" | "teacherInstituteRecord" | "conversation" | "conversationParticipant" | "message" | "messageAttachment" | "messageReaction" | "messageRead" | "messageReport" | "chatSettings" | "userNotification" | "userBlock" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume" | "instituteDailyView" | "instituteFacility" | "instituteBatch" | "batchStudent" | "batchTeacher" | "instituteHighlightStat" | "instituteAchievement" | "instituteFAQ" | "instituteOperatingHour" | "userCompareList" | "compareListInstitute" | "communityQuestion" | "communityAnswer" | "notablePersons" | "instituteComparisonCache" | "leadDistributionLog" | "blogAuthorProfile" | "blogCategory" | "blogTag" | "blogPost" | "blogSlugHistory" | "blogRevision" | "blogView" | "blogBookmark" | "blogAuthorFollower" | "blogSubscriber" | "blogReport" | "blogPostTag" | "blogComment" | "blogReaction" | "blogFAQ" | "blogBrand"
+    modelProps: "user" | "userWallet" | "walletTransaction" | "userReputation" | "userPreference" | "userPreferredCategory" | "userPreferenceCity" | "reputationLog" | "session" | "account" | "verification" | "institute" | "city" | "category" | "categoryCityContent" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "studentProfile" | "instituteMembership" | "studentInstituteRecord" | "teacherInstituteRecord" | "conversation" | "conversationParticipant" | "message" | "messageAttachment" | "messageReaction" | "messageRead" | "messageReport" | "chatSettings" | "userNotification" | "userBlock" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume" | "instituteDailyView" | "instituteFacility" | "instituteBatch" | "batchStudent" | "batchTeacher" | "instituteHighlightStat" | "instituteAchievement" | "instituteFAQ" | "instituteOperatingHour" | "userCompareList" | "compareListInstitute" | "communityQuestion" | "communityAnswer" | "notablePersons" | "instituteComparisonCache" | "leadDistributionLog" | "blogAuthorProfile" | "blogCategory" | "blogTag" | "blogPost" | "blogSlugHistory" | "blogRevision" | "blogView" | "blogBookmark" | "blogAuthorFollower" | "blogSubscriber" | "blogReport" | "blogPostTag" | "blogComment" | "blogReaction" | "blogFAQ" | "blogBrand"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -772,6 +775,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserReputationCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserReputationCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserPreference: {
+      payload: Prisma.$UserPreferencePayload<ExtArgs>
+      fields: Prisma.UserPreferenceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserPreferenceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserPreferenceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>
+        }
+        findFirst: {
+          args: Prisma.UserPreferenceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserPreferenceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>
+        }
+        findMany: {
+          args: Prisma.UserPreferenceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>[]
+        }
+        create: {
+          args: Prisma.UserPreferenceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>
+        }
+        createMany: {
+          args: Prisma.UserPreferenceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserPreferenceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>[]
+        }
+        delete: {
+          args: Prisma.UserPreferenceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>
+        }
+        update: {
+          args: Prisma.UserPreferenceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>
+        }
+        deleteMany: {
+          args: Prisma.UserPreferenceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserPreferenceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserPreferenceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>[]
+        }
+        upsert: {
+          args: Prisma.UserPreferenceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferencePayload>
+        }
+        aggregate: {
+          args: Prisma.UserPreferenceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserPreference>
+        }
+        groupBy: {
+          args: Prisma.UserPreferenceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserPreferenceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserPreferenceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserPreferenceCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserPreferredCategory: {
+      payload: Prisma.$UserPreferredCategoryPayload<ExtArgs>
+      fields: Prisma.UserPreferredCategoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserPreferredCategoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserPreferredCategoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>
+        }
+        findFirst: {
+          args: Prisma.UserPreferredCategoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserPreferredCategoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>
+        }
+        findMany: {
+          args: Prisma.UserPreferredCategoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>[]
+        }
+        create: {
+          args: Prisma.UserPreferredCategoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>
+        }
+        createMany: {
+          args: Prisma.UserPreferredCategoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserPreferredCategoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>[]
+        }
+        delete: {
+          args: Prisma.UserPreferredCategoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>
+        }
+        update: {
+          args: Prisma.UserPreferredCategoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserPreferredCategoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserPreferredCategoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserPreferredCategoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserPreferredCategoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferredCategoryPayload>
+        }
+        aggregate: {
+          args: Prisma.UserPreferredCategoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserPreferredCategory>
+        }
+        groupBy: {
+          args: Prisma.UserPreferredCategoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserPreferredCategoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserPreferredCategoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserPreferredCategoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserPreferenceCity: {
+      payload: Prisma.$UserPreferenceCityPayload<ExtArgs>
+      fields: Prisma.UserPreferenceCityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserPreferenceCityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserPreferenceCityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>
+        }
+        findFirst: {
+          args: Prisma.UserPreferenceCityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserPreferenceCityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>
+        }
+        findMany: {
+          args: Prisma.UserPreferenceCityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>[]
+        }
+        create: {
+          args: Prisma.UserPreferenceCityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>
+        }
+        createMany: {
+          args: Prisma.UserPreferenceCityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserPreferenceCityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>[]
+        }
+        delete: {
+          args: Prisma.UserPreferenceCityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>
+        }
+        update: {
+          args: Prisma.UserPreferenceCityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserPreferenceCityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserPreferenceCityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserPreferenceCityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserPreferenceCityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPreferenceCityPayload>
+        }
+        aggregate: {
+          args: Prisma.UserPreferenceCityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserPreferenceCity>
+        }
+        groupBy: {
+          args: Prisma.UserPreferenceCityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserPreferenceCityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserPreferenceCityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserPreferenceCityCountAggregateOutputType> | number
         }
       }
     }
@@ -6206,6 +6431,40 @@ export const UserReputationScalarFieldEnum = {
 export type UserReputationScalarFieldEnum = (typeof UserReputationScalarFieldEnum)[keyof typeof UserReputationScalarFieldEnum]
 
 
+export const UserPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  emailOnDm: 'emailOnDm',
+  emailOnNews: 'emailOnNews',
+  emailOnUpdates: 'emailOnUpdates',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  completedAt: 'completedAt'
+} as const
+
+export type UserPreferenceScalarFieldEnum = (typeof UserPreferenceScalarFieldEnum)[keyof typeof UserPreferenceScalarFieldEnum]
+
+
+export const UserPreferredCategoryScalarFieldEnum = {
+  id: 'id',
+  preferenceId: 'preferenceId',
+  categoryId: 'categoryId',
+  priority: 'priority'
+} as const
+
+export type UserPreferredCategoryScalarFieldEnum = (typeof UserPreferredCategoryScalarFieldEnum)[keyof typeof UserPreferredCategoryScalarFieldEnum]
+
+
+export const UserPreferenceCityScalarFieldEnum = {
+  id: 'id',
+  preferenceId: 'preferenceId',
+  cityId: 'cityId',
+  priority: 'priority'
+} as const
+
+export type UserPreferenceCityScalarFieldEnum = (typeof UserPreferenceCityScalarFieldEnum)[keyof typeof UserPreferenceCityScalarFieldEnum]
+
+
 export const ReputationLogScalarFieldEnum = {
   id: 'id',
   reputationId: 'reputationId',
@@ -8008,6 +8267,9 @@ export type GlobalOmitConfig = {
   userWallet?: Prisma.UserWalletOmit
   walletTransaction?: Prisma.WalletTransactionOmit
   userReputation?: Prisma.UserReputationOmit
+  userPreference?: Prisma.UserPreferenceOmit
+  userPreferredCategory?: Prisma.UserPreferredCategoryOmit
+  userPreferenceCity?: Prisma.UserPreferenceCityOmit
   reputationLog?: Prisma.ReputationLogOmit
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit

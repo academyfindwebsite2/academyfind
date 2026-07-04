@@ -55,6 +55,9 @@ export const ModelName = {
   UserWallet: 'UserWallet',
   WalletTransaction: 'WalletTransaction',
   UserReputation: 'UserReputation',
+  UserPreference: 'UserPreference',
+  UserPreferredCategory: 'UserPreferredCategory',
+  UserPreferenceCity: 'UserPreferenceCity',
   ReputationLog: 'ReputationLog',
   Session: 'Session',
   Account: 'Account',
@@ -207,6 +210,40 @@ export const UserReputationScalarFieldEnum = {
 } as const
 
 export type UserReputationScalarFieldEnum = (typeof UserReputationScalarFieldEnum)[keyof typeof UserReputationScalarFieldEnum]
+
+
+export const UserPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  emailOnDm: 'emailOnDm',
+  emailOnNews: 'emailOnNews',
+  emailOnUpdates: 'emailOnUpdates',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  completedAt: 'completedAt'
+} as const
+
+export type UserPreferenceScalarFieldEnum = (typeof UserPreferenceScalarFieldEnum)[keyof typeof UserPreferenceScalarFieldEnum]
+
+
+export const UserPreferredCategoryScalarFieldEnum = {
+  id: 'id',
+  preferenceId: 'preferenceId',
+  categoryId: 'categoryId',
+  priority: 'priority'
+} as const
+
+export type UserPreferredCategoryScalarFieldEnum = (typeof UserPreferredCategoryScalarFieldEnum)[keyof typeof UserPreferredCategoryScalarFieldEnum]
+
+
+export const UserPreferenceCityScalarFieldEnum = {
+  id: 'id',
+  preferenceId: 'preferenceId',
+  cityId: 'cityId',
+  priority: 'priority'
+} as const
+
+export type UserPreferenceCityScalarFieldEnum = (typeof UserPreferenceCityScalarFieldEnum)[keyof typeof UserPreferenceCityScalarFieldEnum]
 
 
 export const ReputationLogScalarFieldEnum = {

@@ -298,6 +298,7 @@ export type CityWhereInput = {
   population?: Prisma.IntNullableFilter<"City"> | number | null
   institutes?: Prisma.InstituteListRelationFilter
   categoryContents?: Prisma.CategoryCityContentListRelationFilter
+  preferredBy?: Prisma.UserPreferenceCityListRelationFilter
 }
 
 export type CityOrderByWithRelationInput = {
@@ -317,6 +318,7 @@ export type CityOrderByWithRelationInput = {
   population?: Prisma.SortOrderInput | Prisma.SortOrder
   institutes?: Prisma.InstituteOrderByRelationAggregateInput
   categoryContents?: Prisma.CategoryCityContentOrderByRelationAggregateInput
+  preferredBy?: Prisma.UserPreferenceCityOrderByRelationAggregateInput
 }
 
 export type CityWhereUniqueInput = Prisma.AtLeast<{
@@ -339,6 +341,7 @@ export type CityWhereUniqueInput = Prisma.AtLeast<{
   population?: Prisma.IntNullableFilter<"City"> | number | null
   institutes?: Prisma.InstituteListRelationFilter
   categoryContents?: Prisma.CategoryCityContentListRelationFilter
+  preferredBy?: Prisma.UserPreferenceCityListRelationFilter
 }, "id" | "slug">
 
 export type CityOrderByWithAggregationInput = {
@@ -400,6 +403,7 @@ export type CityCreateInput = {
   population?: number | null
   institutes?: Prisma.InstituteCreateNestedManyWithoutCityInput
   categoryContents?: Prisma.CategoryCityContentCreateNestedManyWithoutCityInput
+  preferredBy?: Prisma.UserPreferenceCityCreateNestedManyWithoutCityInput
 }
 
 export type CityUncheckedCreateInput = {
@@ -419,6 +423,7 @@ export type CityUncheckedCreateInput = {
   population?: number | null
   institutes?: Prisma.InstituteUncheckedCreateNestedManyWithoutCityInput
   categoryContents?: Prisma.CategoryCityContentUncheckedCreateNestedManyWithoutCityInput
+  preferredBy?: Prisma.UserPreferenceCityUncheckedCreateNestedManyWithoutCityInput
 }
 
 export type CityUpdateInput = {
@@ -438,6 +443,7 @@ export type CityUpdateInput = {
   population?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   institutes?: Prisma.InstituteUpdateManyWithoutCityNestedInput
   categoryContents?: Prisma.CategoryCityContentUpdateManyWithoutCityNestedInput
+  preferredBy?: Prisma.UserPreferenceCityUpdateManyWithoutCityNestedInput
 }
 
 export type CityUncheckedUpdateInput = {
@@ -457,6 +463,7 @@ export type CityUncheckedUpdateInput = {
   population?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   institutes?: Prisma.InstituteUncheckedUpdateManyWithoutCityNestedInput
   categoryContents?: Prisma.CategoryCityContentUncheckedUpdateManyWithoutCityNestedInput
+  preferredBy?: Prisma.UserPreferenceCityUncheckedUpdateManyWithoutCityNestedInput
 }
 
 export type CityCreateManyInput = {
@@ -578,6 +585,20 @@ export type CitySumOrderByAggregateInput = {
   population?: Prisma.SortOrder
 }
 
+export type CityCreateNestedOneWithoutPreferredByInput = {
+  create?: Prisma.XOR<Prisma.CityCreateWithoutPreferredByInput, Prisma.CityUncheckedCreateWithoutPreferredByInput>
+  connectOrCreate?: Prisma.CityCreateOrConnectWithoutPreferredByInput
+  connect?: Prisma.CityWhereUniqueInput
+}
+
+export type CityUpdateOneRequiredWithoutPreferredByNestedInput = {
+  create?: Prisma.XOR<Prisma.CityCreateWithoutPreferredByInput, Prisma.CityUncheckedCreateWithoutPreferredByInput>
+  connectOrCreate?: Prisma.CityCreateOrConnectWithoutPreferredByInput
+  upsert?: Prisma.CityUpsertWithoutPreferredByInput
+  connect?: Prisma.CityWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CityUpdateToOneWithWhereWithoutPreferredByInput, Prisma.CityUpdateWithoutPreferredByInput>, Prisma.CityUncheckedUpdateWithoutPreferredByInput>
+}
+
 export type CityCreateNestedOneWithoutInstitutesInput = {
   create?: Prisma.XOR<Prisma.CityCreateWithoutInstitutesInput, Prisma.CityUncheckedCreateWithoutInstitutesInput>
   connectOrCreate?: Prisma.CityCreateOrConnectWithoutInstitutesInput
@@ -606,6 +627,98 @@ export type CityUpdateOneRequiredWithoutCategoryContentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CityUpdateToOneWithWhereWithoutCategoryContentsInput, Prisma.CityUpdateWithoutCategoryContentsInput>, Prisma.CityUncheckedUpdateWithoutCategoryContentsInput>
 }
 
+export type CityCreateWithoutPreferredByInput = {
+  id?: string
+  name: string
+  slug: string
+  state: string
+  country?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bannerImage?: string | null
+  description?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  metaDescription?: string | null
+  metaTitle?: string | null
+  population?: number | null
+  institutes?: Prisma.InstituteCreateNestedManyWithoutCityInput
+  categoryContents?: Prisma.CategoryCityContentCreateNestedManyWithoutCityInput
+}
+
+export type CityUncheckedCreateWithoutPreferredByInput = {
+  id?: string
+  name: string
+  slug: string
+  state: string
+  country?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bannerImage?: string | null
+  description?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  metaDescription?: string | null
+  metaTitle?: string | null
+  population?: number | null
+  institutes?: Prisma.InstituteUncheckedCreateNestedManyWithoutCityInput
+  categoryContents?: Prisma.CategoryCityContentUncheckedCreateNestedManyWithoutCityInput
+}
+
+export type CityCreateOrConnectWithoutPreferredByInput = {
+  where: Prisma.CityWhereUniqueInput
+  create: Prisma.XOR<Prisma.CityCreateWithoutPreferredByInput, Prisma.CityUncheckedCreateWithoutPreferredByInput>
+}
+
+export type CityUpsertWithoutPreferredByInput = {
+  update: Prisma.XOR<Prisma.CityUpdateWithoutPreferredByInput, Prisma.CityUncheckedUpdateWithoutPreferredByInput>
+  create: Prisma.XOR<Prisma.CityCreateWithoutPreferredByInput, Prisma.CityUncheckedCreateWithoutPreferredByInput>
+  where?: Prisma.CityWhereInput
+}
+
+export type CityUpdateToOneWithWhereWithoutPreferredByInput = {
+  where?: Prisma.CityWhereInput
+  data: Prisma.XOR<Prisma.CityUpdateWithoutPreferredByInput, Prisma.CityUncheckedUpdateWithoutPreferredByInput>
+}
+
+export type CityUpdateWithoutPreferredByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  population?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  institutes?: Prisma.InstituteUpdateManyWithoutCityNestedInput
+  categoryContents?: Prisma.CategoryCityContentUpdateManyWithoutCityNestedInput
+}
+
+export type CityUncheckedUpdateWithoutPreferredByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bannerImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  population?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  institutes?: Prisma.InstituteUncheckedUpdateManyWithoutCityNestedInput
+  categoryContents?: Prisma.CategoryCityContentUncheckedUpdateManyWithoutCityNestedInput
+}
+
 export type CityCreateWithoutInstitutesInput = {
   id?: string
   name: string
@@ -622,6 +735,7 @@ export type CityCreateWithoutInstitutesInput = {
   metaTitle?: string | null
   population?: number | null
   categoryContents?: Prisma.CategoryCityContentCreateNestedManyWithoutCityInput
+  preferredBy?: Prisma.UserPreferenceCityCreateNestedManyWithoutCityInput
 }
 
 export type CityUncheckedCreateWithoutInstitutesInput = {
@@ -640,6 +754,7 @@ export type CityUncheckedCreateWithoutInstitutesInput = {
   metaTitle?: string | null
   population?: number | null
   categoryContents?: Prisma.CategoryCityContentUncheckedCreateNestedManyWithoutCityInput
+  preferredBy?: Prisma.UserPreferenceCityUncheckedCreateNestedManyWithoutCityInput
 }
 
 export type CityCreateOrConnectWithoutInstitutesInput = {
@@ -674,6 +789,7 @@ export type CityUpdateWithoutInstitutesInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   population?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryContents?: Prisma.CategoryCityContentUpdateManyWithoutCityNestedInput
+  preferredBy?: Prisma.UserPreferenceCityUpdateManyWithoutCityNestedInput
 }
 
 export type CityUncheckedUpdateWithoutInstitutesInput = {
@@ -692,6 +808,7 @@ export type CityUncheckedUpdateWithoutInstitutesInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   population?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryContents?: Prisma.CategoryCityContentUncheckedUpdateManyWithoutCityNestedInput
+  preferredBy?: Prisma.UserPreferenceCityUncheckedUpdateManyWithoutCityNestedInput
 }
 
 export type CityCreateWithoutCategoryContentsInput = {
@@ -710,6 +827,7 @@ export type CityCreateWithoutCategoryContentsInput = {
   metaTitle?: string | null
   population?: number | null
   institutes?: Prisma.InstituteCreateNestedManyWithoutCityInput
+  preferredBy?: Prisma.UserPreferenceCityCreateNestedManyWithoutCityInput
 }
 
 export type CityUncheckedCreateWithoutCategoryContentsInput = {
@@ -728,6 +846,7 @@ export type CityUncheckedCreateWithoutCategoryContentsInput = {
   metaTitle?: string | null
   population?: number | null
   institutes?: Prisma.InstituteUncheckedCreateNestedManyWithoutCityInput
+  preferredBy?: Prisma.UserPreferenceCityUncheckedCreateNestedManyWithoutCityInput
 }
 
 export type CityCreateOrConnectWithoutCategoryContentsInput = {
@@ -762,6 +881,7 @@ export type CityUpdateWithoutCategoryContentsInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   population?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   institutes?: Prisma.InstituteUpdateManyWithoutCityNestedInput
+  preferredBy?: Prisma.UserPreferenceCityUpdateManyWithoutCityNestedInput
 }
 
 export type CityUncheckedUpdateWithoutCategoryContentsInput = {
@@ -780,6 +900,7 @@ export type CityUncheckedUpdateWithoutCategoryContentsInput = {
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   population?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   institutes?: Prisma.InstituteUncheckedUpdateManyWithoutCityNestedInput
+  preferredBy?: Prisma.UserPreferenceCityUncheckedUpdateManyWithoutCityNestedInput
 }
 
 
@@ -790,11 +911,13 @@ export type CityUncheckedUpdateWithoutCategoryContentsInput = {
 export type CityCountOutputType = {
   institutes: number
   categoryContents: number
+  preferredBy: number
 }
 
 export type CityCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   institutes?: boolean | CityCountOutputTypeCountInstitutesArgs
   categoryContents?: boolean | CityCountOutputTypeCountCategoryContentsArgs
+  preferredBy?: boolean | CityCountOutputTypeCountPreferredByArgs
 }
 
 /**
@@ -821,6 +944,13 @@ export type CityCountOutputTypeCountCategoryContentsArgs<ExtArgs extends runtime
   where?: Prisma.CategoryCityContentWhereInput
 }
 
+/**
+ * CityCountOutputType without action
+ */
+export type CityCountOutputTypeCountPreferredByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserPreferenceCityWhereInput
+}
+
 
 export type CitySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -839,6 +969,7 @@ export type CitySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   population?: boolean
   institutes?: boolean | Prisma.City$institutesArgs<ExtArgs>
   categoryContents?: boolean | Prisma.City$categoryContentsArgs<ExtArgs>
+  preferredBy?: boolean | Prisma.City$preferredByArgs<ExtArgs>
   _count?: boolean | Prisma.CityCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["city"]>
 
@@ -897,6 +1028,7 @@ export type CityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type CityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   institutes?: boolean | Prisma.City$institutesArgs<ExtArgs>
   categoryContents?: boolean | Prisma.City$categoryContentsArgs<ExtArgs>
+  preferredBy?: boolean | Prisma.City$preferredByArgs<ExtArgs>
   _count?: boolean | Prisma.CityCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CityIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -907,6 +1039,7 @@ export type $CityPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     institutes: Prisma.$InstitutePayload<ExtArgs>[]
     categoryContents: Prisma.$CategoryCityContentPayload<ExtArgs>[]
+    preferredBy: Prisma.$UserPreferenceCityPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1319,6 +1452,7 @@ export interface Prisma__CityClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   institutes<T extends Prisma.City$institutesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.City$institutesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstitutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categoryContents<T extends Prisma.City$categoryContentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.City$categoryContentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryCityContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  preferredBy<T extends Prisma.City$preferredByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.City$preferredByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPreferenceCityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1800,6 +1934,30 @@ export type City$categoryContentsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.CategoryCityContentScalarFieldEnum | Prisma.CategoryCityContentScalarFieldEnum[]
+}
+
+/**
+ * City.preferredBy
+ */
+export type City$preferredByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserPreferenceCity
+   */
+  select?: Prisma.UserPreferenceCitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserPreferenceCity
+   */
+  omit?: Prisma.UserPreferenceCityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserPreferenceCityInclude<ExtArgs> | null
+  where?: Prisma.UserPreferenceCityWhereInput
+  orderBy?: Prisma.UserPreferenceCityOrderByWithRelationInput | Prisma.UserPreferenceCityOrderByWithRelationInput[]
+  cursor?: Prisma.UserPreferenceCityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserPreferenceCityScalarFieldEnum | Prisma.UserPreferenceCityScalarFieldEnum[]
 }
 
 /**

@@ -62,6 +62,21 @@ export type WalletTransaction = Prisma.WalletTransactionModel
  */
 export type UserReputation = Prisma.UserReputationModel
 /**
+ * Model UserPreference
+ * 
+ */
+export type UserPreference = Prisma.UserPreferenceModel
+/**
+ * Model UserPreferredCategory
+ * 
+ */
+export type UserPreferredCategory = Prisma.UserPreferredCategoryModel
+/**
+ * Model UserPreferenceCity
+ * 
+ */
+export type UserPreferenceCity = Prisma.UserPreferenceCityModel
+/**
  * Model ReputationLog
  * 
  */
