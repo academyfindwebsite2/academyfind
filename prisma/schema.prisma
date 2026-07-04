@@ -72,7 +72,163 @@ model User {
 
   notifications UserNotification[]
 
+  wallet UserWallet?
+
+  reputation UserReputation?
+
   @@map("user")
+}
+
+model UserWallet {
+  id String @id @default(cuid())
+
+  userId String @unique
+
+  balance Int @default(0)
+
+  lifetimeEarned Int @default(0)
+
+  lifetimeSpent Int @default(0)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  transactions WalletTransaction[]
+
+  @@map("user_wallet")
+}
+
+enum WalletTransactionType {
+  CREDIT
+
+  DEBIT
+}
+
+enum WalletTransactionSource {
+  DAILY_LOGIN
+
+  PROFILE_COMPLETION
+
+  REVIEW
+
+  REVIEW_LIKE
+
+  REFERRAL
+
+  PURCHASE
+
+  AI_CHAT
+
+  DM_BOOST
+
+  COURSE_PURCHASE
+
+  ADMIN
+
+  REFUND
+
+  BONUS
+}
+
+model WalletTransaction {
+  id String @id @default(cuid())
+
+  walletId String
+
+  type WalletTransactionType
+
+  source WalletTransactionSource
+
+  amount Int
+
+  balanceAfter Int
+
+  description String?
+
+  referenceId String?
+
+  createdAt DateTime @default(now())
+
+  wallet UserWallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId])
+  @@index([source])
+  @@map("wallet_transaction")
+}
+
+model UserReputation {
+  id String @id @default(cuid())
+
+  userId String @unique
+
+  score Int @default(0)
+
+  teacherScore Int @default(0)
+
+  studentScore Int @default(0)
+
+  managerScore Int @default(0)
+
+  lifetimeEarned Int @default(0)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  logs ReputationLog[]
+
+  @@map("user_reputation")
+}
+
+enum ReputationSource {
+  PROFILE_COMPLETED
+
+  VERIFIED_PROFILE
+
+  REVIEW_POSTED
+
+  REVIEW_HELPFUL
+
+  STUDENT_VERIFIED
+
+  TEACHER_VERIFIED
+
+  MANAGER_VERIFIED
+
+  REFERRAL
+
+  ANSWER_HELPFUL
+
+  COMMUNITY_CONTRIBUTION
+
+  ADMIN
+}
+
+model ReputationLog {
+  id String @id @default(cuid())
+
+  reputationId String
+
+  source ReputationSource
+
+  points Int
+
+  description String?
+
+  referenceId String?
+
+  createdAt DateTime @default(now())
+
+  reputation UserReputation @relation(fields: [reputationId], references: [id], onDelete: Cascade)
+
+  @@index([reputationId])
+  @@index([source])
+  @@map("reputation_log")
 }
 
 model Session {

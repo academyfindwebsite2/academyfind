@@ -23,6 +23,26 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
+ * Model UserWallet
+ * 
+ */
+export type UserWallet = Prisma.UserWalletModel
+/**
+ * Model WalletTransaction
+ * 
+ */
+export type WalletTransaction = Prisma.WalletTransactionModel
+/**
+ * Model UserReputation
+ * 
+ */
+export type UserReputation = Prisma.UserReputationModel
+/**
+ * Model ReputationLog
+ * 
+ */
+export type ReputationLog = Prisma.ReputationLogModel
+/**
  * Model Session
  * 
  */

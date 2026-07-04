@@ -52,6 +52,10 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  UserWallet: 'UserWallet',
+  WalletTransaction: 'WalletTransaction',
+  UserReputation: 'UserReputation',
+  ReputationLog: 'ReputationLog',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
@@ -160,6 +164,62 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const UserWalletScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  balance: 'balance',
+  lifetimeEarned: 'lifetimeEarned',
+  lifetimeSpent: 'lifetimeSpent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserWalletScalarFieldEnum = (typeof UserWalletScalarFieldEnum)[keyof typeof UserWalletScalarFieldEnum]
+
+
+export const WalletTransactionScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  type: 'type',
+  source: 'source',
+  amount: 'amount',
+  balanceAfter: 'balanceAfter',
+  description: 'description',
+  referenceId: 'referenceId',
+  createdAt: 'createdAt'
+} as const
+
+export type WalletTransactionScalarFieldEnum = (typeof WalletTransactionScalarFieldEnum)[keyof typeof WalletTransactionScalarFieldEnum]
+
+
+export const UserReputationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  score: 'score',
+  teacherScore: 'teacherScore',
+  studentScore: 'studentScore',
+  managerScore: 'managerScore',
+  lifetimeEarned: 'lifetimeEarned',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserReputationScalarFieldEnum = (typeof UserReputationScalarFieldEnum)[keyof typeof UserReputationScalarFieldEnum]
+
+
+export const ReputationLogScalarFieldEnum = {
+  id: 'id',
+  reputationId: 'reputationId',
+  source: 'source',
+  points: 'points',
+  description: 'description',
+  referenceId: 'referenceId',
+  createdAt: 'createdAt'
+} as const
+
+export type ReputationLogScalarFieldEnum = (typeof ReputationLogScalarFieldEnum)[keyof typeof ReputationLogScalarFieldEnum]
 
 
 export const SessionScalarFieldEnum = {

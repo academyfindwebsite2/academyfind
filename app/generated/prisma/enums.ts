@@ -9,6 +9,49 @@
 * 🟢 You can import this file directly.
 */
 
+export const WalletTransactionType = {
+  CREDIT: 'CREDIT',
+  DEBIT: 'DEBIT'
+} as const
+
+export type WalletTransactionType = (typeof WalletTransactionType)[keyof typeof WalletTransactionType]
+
+
+export const WalletTransactionSource = {
+  DAILY_LOGIN: 'DAILY_LOGIN',
+  PROFILE_COMPLETION: 'PROFILE_COMPLETION',
+  REVIEW: 'REVIEW',
+  REVIEW_LIKE: 'REVIEW_LIKE',
+  REFERRAL: 'REFERRAL',
+  PURCHASE: 'PURCHASE',
+  AI_CHAT: 'AI_CHAT',
+  DM_BOOST: 'DM_BOOST',
+  COURSE_PURCHASE: 'COURSE_PURCHASE',
+  ADMIN: 'ADMIN',
+  REFUND: 'REFUND',
+  BONUS: 'BONUS'
+} as const
+
+export type WalletTransactionSource = (typeof WalletTransactionSource)[keyof typeof WalletTransactionSource]
+
+
+export const ReputationSource = {
+  PROFILE_COMPLETED: 'PROFILE_COMPLETED',
+  VERIFIED_PROFILE: 'VERIFIED_PROFILE',
+  REVIEW_POSTED: 'REVIEW_POSTED',
+  REVIEW_HELPFUL: 'REVIEW_HELPFUL',
+  STUDENT_VERIFIED: 'STUDENT_VERIFIED',
+  TEACHER_VERIFIED: 'TEACHER_VERIFIED',
+  MANAGER_VERIFIED: 'MANAGER_VERIFIED',
+  REFERRAL: 'REFERRAL',
+  ANSWER_HELPFUL: 'ANSWER_HELPFUL',
+  COMMUNITY_CONTRIBUTION: 'COMMUNITY_CONTRIBUTION',
+  ADMIN: 'ADMIN'
+} as const
+
+export type ReputationSource = (typeof ReputationSource)[keyof typeof ReputationSource]
+
+
 export const InstituteMemberRole = {
   STUDENT: 'STUDENT',
   TEACHER: 'TEACHER',
