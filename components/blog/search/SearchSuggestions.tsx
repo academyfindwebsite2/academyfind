@@ -31,7 +31,7 @@ export default function SearchSuggestions({
 }: SearchSuggestionsProps) {
   if (loading) {
     return (
-      <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+      <div className="absolute left-0 right-0 top-full z-[104] mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
         <div className="space-y-3 p-4">
           {Array.from({ length: 5 }).map((_, index) => (
             <div
@@ -49,7 +49,7 @@ export default function SearchSuggestions({
   }
 
   return (
-    <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+    <div className="absolute left-0 right-0 top-full z-[104] mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
       <div className="max-h-96 overflow-y-auto py-2">
         {suggestions.map((item: SearchSuggestion, index: number) => (
           <Link

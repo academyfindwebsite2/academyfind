@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch"; // 👈 Switch component import kiya
 import { Layers, MapPin, Star, Sparkles, Filter, Navigation, LocateFixed, Home } from "lucide-react"; // 👈 Home icon add kiya
@@ -91,7 +91,7 @@ export default function SearchFilters({
   // currentCategory aapke slug ke hisaab se "home_tuition" ya "home-tuition" ho sakti hai
   const checkedHomeTuition = currentCategory === "home_tuition" || currentCategory === "home-tuition"; 
 
-  const FiltersContent = (
+const FiltersContent = (
     <div className="space-y-6">
       {currentLat && currentLng && (
           <div className="space-y-5 rounded-2xl">
@@ -123,7 +123,8 @@ export default function SearchFilters({
                       <SelectValue placeholder="Select Distance" />
                     </div>
                   </SelectTrigger>
-                  <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[999]">
+                  {/* FIX: Added position="popper", sideOffset, and z-[999] */}
+                  <SelectContent position="popper" sideOffset={5} className="rounded-xl border-slate-100 shadow-xl z-[999]">
                     <SelectItem value="ALL" className="cursor-pointer font-medium">Any Distance</SelectItem>
                     <SelectItem value="1" className="cursor-pointer font-medium">&lt; 1 km</SelectItem>
                     <SelectItem value="2" className="cursor-pointer font-medium">&lt; 2 km</SelectItem>
@@ -135,7 +136,6 @@ export default function SearchFilters({
           </div>
       )}
         
-        {/* ... (Baaki purane filters as it is rahenge) ... */}
         <div className="space-y-2">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Result Type</label>
             <Select value={currentType || "ALL"} onValueChange={(val) => handleFilterChange("type", val)}>
@@ -145,7 +145,8 @@ export default function SearchFilters({
                   <SelectValue placeholder="Everything" />
                 </div>
               </SelectTrigger>
-              <SelectContent className="rounded-xl border-slate-100 shadow-xl max-h-60 z-[100]">
+              {/* FIX: Added position="popper" and changed to z-[999] */}
+              <SelectContent position="popper" sideOffset={5} className="rounded-xl border-slate-100 shadow-xl max-h-60 z-[999]">
                 <SelectItem value="ALL" className="cursor-pointer font-medium">Everything</SelectItem>
                 <SelectItem value="institute" className="cursor-pointer font-medium">Institutes</SelectItem>
                 <SelectItem value="job" className="cursor-pointer font-medium">Careers & Jobs</SelectItem>
@@ -167,13 +168,12 @@ export default function SearchFilters({
           </div>
           <Switch
             checked={checkedHomeTuition}
-            // Directly category ki value change kar rahe hain taaki baaki filters kharaab na ho
             onCheckedChange={(checked) => handleFilterChange("category", checked ? "home_tuition" : "ALL")}
             className="data-[state=checked]:bg-amber-400 data-[state=checked]:border-amber-400 h-5 w-10 rounded-full border bg-slate-200 transition-all shadow-sm"
           />
         </div>
 
-        {/* CATEGORY FILTER - Optional: Agar aap Home Tuition toggle de rahe ho, toh yahan se home_tuition options remove kar sakte ho taaki duplicate na ho */}
+        {/* CATEGORY FILTER */}
         <div className="space-y-2">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Category</label>
             <Select value={currentCategory || "ALL"} onValueChange={(val) => handleFilterChange("category", val)}>
@@ -183,7 +183,8 @@ export default function SearchFilters({
                   <SelectValue placeholder="All Categories" />
                 </div>
               </SelectTrigger>
-              <SelectContent className="rounded-xl border-slate-100 shadow-xl max-h-64 z-[100]">
+              {/* FIX: Added position="popper" and changed to z-[999] */}
+              <SelectContent position="popper" sideOffset={5} className="rounded-xl border-slate-100 shadow-xl max-h-64 z-[999]">
                 <SelectItem value="ALL" className="cursor-pointer font-medium">All Categories</SelectItem>
                 {categories.map((c) => (
                   <SelectItem key={c.slug} value={c.slug} className="cursor-pointer font-medium">{c.name}</SelectItem>
@@ -202,7 +203,8 @@ export default function SearchFilters({
                   <SelectValue placeholder="All Cities" />
                 </div>
               </SelectTrigger>
-              <SelectContent className="rounded-xl border-slate-100 shadow-xl max-h-64 z-[100]">
+              {/* FIX: Added position="popper" and changed to z-[999] */}
+              <SelectContent position="popper" sideOffset={5} className="rounded-xl border-slate-100 shadow-xl max-h-64 z-[999]">
                 <SelectItem value="ALL" className="cursor-pointer font-medium">All Cities</SelectItem>
                 {cities.map((c) => (
                   <SelectItem key={c.slug} value={c.slug} className="cursor-pointer font-medium">{c.name}</SelectItem>
@@ -222,7 +224,8 @@ export default function SearchFilters({
                       <SelectValue placeholder="Any Rating" />
                     </div>
                   </SelectTrigger>
-                  <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[100]">
+                  {/* FIX: Added position="popper" and changed to z-[999] */}
+                  <SelectContent position="popper" sideOffset={5} className="rounded-xl border-slate-100 shadow-xl z-[999]">
                     <SelectItem value="ALL" className="cursor-pointer font-medium">Any Rating</SelectItem>
                     <SelectItem value="4" className="cursor-pointer font-medium">4.0 & Above</SelectItem>
                     <SelectItem value="4.5" className="cursor-pointer font-medium">4.5 & Above</SelectItem>
@@ -246,13 +249,27 @@ export default function SearchFilters({
               <span className="text-xs bg-slate-100 px-2.5 py-1 rounded-full text-slate-500">Tap to open</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="bottom" className="rounded-t-3xl h-[85vh] overflow-y-auto px-6 py-5 z-[999]">
-            <SheetHeader className="pb-4 border-b border-slate-100 mb-6 text-left">
+          {/* h-[85vh] ko relative banaya aur padding adjust ki taaki button bottom me fix rahe */}
+          <SheetContent side="bottom" className="rounded-t-3xl h-[85vh] flex flex-col px-0 py-5 z-[103]">
+            <SheetHeader className="pb-4 border-b border-slate-100 mb-2 px-6 text-left">
               <SheetTitle className="flex items-center gap-2 text-xl font-extrabold text-slate-800">
                 <Sparkles className="w-5 h-5 text-amber-400" /> Refine Search
               </SheetTitle>
             </SheetHeader>
-            {FiltersContent}
+            
+            {/* Scrollable Filters Area */}
+            <div className="flex-1 overflow-y-auto px-6 pb-24">
+              {FiltersContent}
+            </div>
+
+            {/* 🔥 CLOSE / APPLY BUTTON (Sticky at Bottom) */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-100 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)]">
+              <SheetClose asChild>
+                <Button className="w-full bg-amber-400 hover:bg-amber-500 text-white font-bold py-6 rounded-xl text-md shadow-md transition-all">
+                  Apply & View Results
+                </Button>
+              </SheetClose>
+            </div>
           </SheetContent>
         </Sheet>
       </div>

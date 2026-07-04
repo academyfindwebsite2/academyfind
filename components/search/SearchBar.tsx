@@ -406,7 +406,7 @@ export function SearchBar() {
         sm:flex-row
         sm:items-center
         sm:p-2
-        overflow-hidden sm:overflow-visible
+        overflow-visible
       "
     >
       {/* 1. "What" Input Box */}
