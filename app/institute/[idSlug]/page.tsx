@@ -370,6 +370,7 @@ export default async function InstitutePage({ params }: PageProps) {
         )}
 
         {/* 🚀 COURSES & BATCHES */}
+        {/*}
         {(!hasUltraAccess || (institute.batches && institute.batches.length > 0)) && (
             <section>
                 <div className="flex items-center gap-3 mb-6">
@@ -412,8 +413,10 @@ export default async function InstitutePage({ params }: PageProps) {
                 </div>
             </section>
         )}
+        */}
 
         {/* 🚀 TEACHERS / FACULTY */}
+       {/*
         {(!hasUltraAccess || (institute.teachers && institute.teachers.length > 0)) && (
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -424,7 +427,6 @@ export default async function InstitutePage({ params }: PageProps) {
               </div>
             </div>
 
-            {/* 🔥 FIX: min-h-[350px] added */}
             <div className={`relative rounded-3xl overflow-hidden ${!hasUltraAccess ? 'min-h-[350px]' : ''}`}>
                 {!hasUltraAccess && <LockedOverlay title="Faculty Profiles" instituteId={institute.id} slug={institute.slug} />}
 
@@ -461,7 +463,8 @@ export default async function InstitutePage({ params }: PageProps) {
                 </div>
             </div>
           </section>
-        )}
+        )} 
+        */}
 
         {/* 🚀 NOTABLE ALUMNI */}
         {(!hasUltraAccess || (institute.notablepersons && institute.notablepersons.length > 0)) && (

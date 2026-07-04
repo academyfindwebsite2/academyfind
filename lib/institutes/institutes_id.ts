@@ -10,11 +10,11 @@ export async function getInstituteById(
 
     include: {
       city: true,
-      teachers: true,
+      //teachers: true,
       managers: true,
       facilities:true,
       faqs:true,
-      batches:true,
+      //batches:true,
       notablepersons:true,
       achievements:true,
 
