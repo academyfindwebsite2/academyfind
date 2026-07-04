@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
+import Image from 'next/image'; // Import Next.js optimized Image component
 
 export default function PublicLoading() {
   const [statusIndex, setStatusIndex] = useState(0);
@@ -7,7 +8,7 @@ export default function PublicLoading() {
   const dynamicLogs = [
     "SCANNING DISCOVERY PLATFORM...",
     "VERIFYING INSTITUTE RATINGS...",
-    "INDEXING LOCATION COCHING CORES...",
+    "INDEXING LOCATION COACHING CORES...", // Fixed typo from 'COCHING'
     "FILTERING TUITION HUBS...",
     "COMPARING ADMISSION CRITERIA..."
   ];
@@ -44,13 +45,21 @@ export default function PublicLoading() {
           {/* Counter-rotating Inner Compass Ring */}
           <div className="absolute inset-5 rounded-full border border-dashed border-slate-300 animate-[spin_6s_linear_infinite] [animation-direction:reverse]" />
           
-          {/* Core Brand Indicator Frame (Simulates a standard location pinpoint core) */}
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 shadow-xl shadow-amber-500/20 rotate-45 transform transition-transform animate-pulse">
-            {/* The Inner Cap/Book Icon Symbolism made with pure geometric shapes */}
-            <div className="-rotate-45 flex flex-col items-center justify-center">
-              <div className="w-4 h-2 bg-amber-400 rounded-sm mb-0.5" />
-              <div className="w-2 h-2 border-b-2 border-x-2 border-amber-400 rounded-b-sm" />
+          {/* Core Brand Indicator Frame (Holds your Logo) */}
+          <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 shadow-xl shadow-amber-500/20 rotate-45 transform transition-transform animate-pulse">
+            
+            {/* The Logo Container (Rotates back so your logo stays perfectly upright) */}
+            <div className="-rotate-45 relative w-7 h-7 flex items-center justify-center">
+              <Image 
+                src="/logo.png"          // <-- Path to your public folder logo asset (SVG or PNG)
+                alt="AcademyFind Logo"
+                width={28}               // Adjust width and height to fit your logo aspect ratio cleanly
+                height={28}
+                priority                 // Tells Next.js to load this image instantly with highest priority
+                className="object-contain"
+              />
             </div>
+            
           </div>
 
           {/* Satellite Orbit Pings */}
