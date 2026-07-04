@@ -67,6 +67,20 @@ export const ModelName = {
   UserHistory: 'UserHistory',
   InstituteEnquiry: 'InstituteEnquiry',
   TeacherProfile: 'TeacherProfile',
+  StudentProfile: 'StudentProfile',
+  InstituteMembership: 'InstituteMembership',
+  StudentInstituteRecord: 'StudentInstituteRecord',
+  TeacherInstituteRecord: 'TeacherInstituteRecord',
+  Conversation: 'Conversation',
+  ConversationParticipant: 'ConversationParticipant',
+  Message: 'Message',
+  MessageAttachment: 'MessageAttachment',
+  MessageReaction: 'MessageReaction',
+  MessageRead: 'MessageRead',
+  MessageReport: 'MessageReport',
+  ChatSettings: 'ChatSettings',
+  UserNotification: 'UserNotification',
+  UserBlock: 'UserBlock',
   ContactMessage: 'ContactMessage',
   InstituteRequest: 'InstituteRequest',
   SubscriptionPayment: 'SubscriptionPayment',
@@ -80,6 +94,8 @@ export const ModelName = {
   InstituteDailyView: 'InstituteDailyView',
   InstituteFacility: 'InstituteFacility',
   InstituteBatch: 'InstituteBatch',
+  BatchStudent: 'BatchStudent',
+  BatchTeacher: 'BatchTeacher',
   InstituteHighlightStat: 'InstituteHighlightStat',
   InstituteAchievement: 'InstituteAchievement',
   InstituteFAQ: 'InstituteFAQ',
@@ -401,15 +417,262 @@ export type InstituteEnquiryScalarFieldEnum = (typeof InstituteEnquiryScalarFiel
 
 export const TeacherProfileScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  subject: 'subject',
-  experience: 'experience',
+  userId: 'userId',
+  displayname: 'displayname',
   imageUrl: 'imageUrl',
-  instituteId: 'instituteId',
-  qualification: 'qualification'
+  headline: 'headline',
+  bio: 'bio',
+  qualification: 'qualification',
+  experience: 'experience',
+  subjects: 'subjects',
+  languages: 'languages',
+  allowDMs: 'allowDMs',
+  isVisible: 'isVisible',
+  isVerified: 'isVerified',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type TeacherProfileScalarFieldEnum = (typeof TeacherProfileScalarFieldEnum)[keyof typeof TeacherProfileScalarFieldEnum]
+
+
+export const StudentProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  headline: 'headline',
+  bio: 'bio',
+  targetExam: 'targetExam',
+  currentClass: 'currentClass',
+  allowDMs: 'allowDMs',
+  isVisible: 'isVisible',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StudentProfileScalarFieldEnum = (typeof StudentProfileScalarFieldEnum)[keyof typeof StudentProfileScalarFieldEnum]
+
+
+export const InstituteMembershipScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  instituteId: 'instituteId',
+  role: 'role',
+  status: 'status',
+  joinedAt: 'joinedAt',
+  leftAt: 'leftAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InstituteMembershipScalarFieldEnum = (typeof InstituteMembershipScalarFieldEnum)[keyof typeof InstituteMembershipScalarFieldEnum]
+
+
+export const StudentInstituteRecordScalarFieldEnum = {
+  id: 'id',
+  membershipId: 'membershipId',
+  studentProfileId: 'studentProfileId',
+  instituteId: 'instituteId',
+  courseName: 'courseName',
+  batchYear: 'batchYear',
+  passoutYear: 'passoutYear',
+  rollNumber: 'rollNumber',
+  bio: 'bio',
+  isVerified: 'isVerified',
+  isVisible: 'isVisible',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StudentInstituteRecordScalarFieldEnum = (typeof StudentInstituteRecordScalarFieldEnum)[keyof typeof StudentInstituteRecordScalarFieldEnum]
+
+
+export const TeacherInstituteRecordScalarFieldEnum = {
+  id: 'id',
+  membershipId: 'membershipId',
+  teacherProfileId: 'teacherProfileId',
+  instituteId: 'instituteId',
+  designation: 'designation',
+  department: 'department',
+  teachingSubjects: 'teachingSubjects',
+  joinedOn: 'joinedOn',
+  bio: 'bio',
+  isFeatured: 'isFeatured',
+  isVerified: 'isVerified',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeacherInstituteRecordScalarFieldEnum = (typeof TeacherInstituteRecordScalarFieldEnum)[keyof typeof TeacherInstituteRecordScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  dmKey: 'dmKey',
+  instituteId: 'instituteId',
+  batchId: 'batchId',
+  channelType: 'channelType',
+  title: 'title',
+  imageUrl: 'imageUrl',
+  description: 'description',
+  createdById: 'createdById',
+  visibility: 'visibility',
+  memberCount: 'memberCount',
+  lastMessageId: 'lastMessageId',
+  lastMessageAt: 'lastMessageAt',
+  lastActivityAt: 'lastActivityAt',
+  isReadOnly: 'isReadOnly',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const ConversationParticipantScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  userId: 'userId',
+  joinedAt: 'joinedAt',
+  leftAt: 'leftAt',
+  isMuted: 'isMuted',
+  isPinned: 'isPinned',
+  isArchived: 'isArchived',
+  lastReadMessageId: 'lastReadMessageId',
+  lastReadAt: 'lastReadAt',
+  lastSeenAt: 'lastSeenAt',
+  role: 'role',
+  status: 'status',
+  notificationsMuted: 'notificationsMuted',
+  isHidden: 'isHidden'
+} as const
+
+export type ConversationParticipantScalarFieldEnum = (typeof ConversationParticipantScalarFieldEnum)[keyof typeof ConversationParticipantScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  type: 'type',
+  content: 'content',
+  replyToId: 'replyToId',
+  isEdited: 'isEdited',
+  editedAt: 'editedAt',
+  deletedAt: 'deletedAt',
+  editedById: 'editedById',
+  deletedById: 'deletedById',
+  isPinned: 'isPinned',
+  isDeleted: 'isDeleted',
+  senderRoleSnapshot: 'senderRoleSnapshot',
+  searchText: 'searchText',
+  senderNameSnapshot: 'senderNameSnapshot',
+  senderAvatarSnapshot: 'senderAvatarSnapshot',
+  senderProfileId: 'senderProfileId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  status: 'status'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const MessageAttachmentScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  fileUrl: 'fileUrl',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  size: 'size',
+  width: 'width',
+  height: 'height',
+  duration: 'duration',
+  thumbnailUrl: 'thumbnailUrl',
+  storageProvider: 'storageProvider',
+  checksum: 'checksum',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageAttachmentScalarFieldEnum = (typeof MessageAttachmentScalarFieldEnum)[keyof typeof MessageAttachmentScalarFieldEnum]
+
+
+export const MessageReactionScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  emoji: 'emoji',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageReactionScalarFieldEnum = (typeof MessageReactionScalarFieldEnum)[keyof typeof MessageReactionScalarFieldEnum]
+
+
+export const MessageReadScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  readAt: 'readAt'
+} as const
+
+export type MessageReadScalarFieldEnum = (typeof MessageReadScalarFieldEnum)[keyof typeof MessageReadScalarFieldEnum]
+
+
+export const MessageReportScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  reporterId: 'reporterId',
+  reason: 'reason',
+  description: 'description',
+  status: 'status',
+  resolvedById: 'resolvedById',
+  resolvedAt: 'resolvedAt',
+  adminNote: 'adminNote',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageReportScalarFieldEnum = (typeof MessageReportScalarFieldEnum)[keyof typeof MessageReportScalarFieldEnum]
+
+
+export const ChatSettingsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  allowDirectMessages: 'allowDirectMessages',
+  allowMessageRequests: 'allowMessageRequests',
+  showOnlineStatus: 'showOnlineStatus',
+  showLastSeen: 'showLastSeen',
+  readReceiptsEnabled: 'readReceiptsEnabled'
+} as const
+
+export type ChatSettingsScalarFieldEnum = (typeof ChatSettingsScalarFieldEnum)[keyof typeof ChatSettingsScalarFieldEnum]
+
+
+export const UserNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  entityId: 'entityId',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+} as const
+
+export type UserNotificationScalarFieldEnum = (typeof UserNotificationScalarFieldEnum)[keyof typeof UserNotificationScalarFieldEnum]
+
+
+export const UserBlockScalarFieldEnum = {
+  id: 'id',
+  blockerId: 'blockerId',
+  blockedId: 'blockedId',
+  createdAt: 'createdAt',
+  reason: 'reason',
+  isActive: 'isActive',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserBlockScalarFieldEnum = (typeof UserBlockScalarFieldEnum)[keyof typeof UserBlockScalarFieldEnum]
 
 
 export const ContactMessageScalarFieldEnum = {
@@ -593,23 +856,52 @@ export type InstituteFacilityScalarFieldEnum = (typeof InstituteFacilityScalarFi
 
 export const InstituteBatchScalarFieldEnum = {
   id: 'id',
+  slug: 'slug',
   instituteId: 'instituteId',
   name: 'name',
-  duration: 'duration',
-  fee: 'fee',
+  description: 'description',
+  courseName: 'courseName',
+  academicYear: 'academicYear',
   batchType: 'batchType',
   mode: 'mode',
+  duration: 'duration',
   timing: 'timing',
+  startDate: 'startDate',
+  endDate: 'endDate',
   seatsTotal: 'seatsTotal',
   seatsLeft: 'seatsLeft',
-  ageGroupMin: 'ageGroupMin',
-  ageGroupMax: 'ageGroupMax',
+  fee: 'fee',
+  allowStudentMessaging: 'allowStudentMessaging',
   originalFee: 'originalFee',
+  coverImage: 'coverImage',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type InstituteBatchScalarFieldEnum = (typeof InstituteBatchScalarFieldEnum)[keyof typeof InstituteBatchScalarFieldEnum]
+
+
+export const BatchStudentScalarFieldEnum = {
+  id: 'id',
+  batchId: 'batchId',
+  studentRecordId: 'studentRecordId',
+  joinedAt: 'joinedAt',
+  isActive: 'isActive'
+} as const
+
+export type BatchStudentScalarFieldEnum = (typeof BatchStudentScalarFieldEnum)[keyof typeof BatchStudentScalarFieldEnum]
+
+
+export const BatchTeacherScalarFieldEnum = {
+  id: 'id',
+  batchId: 'batchId',
+  teacherRecordId: 'teacherRecordId',
+  isPrimary: 'isPrimary',
+  joinedAt: 'joinedAt'
+} as const
+
+export type BatchTeacherScalarFieldEnum = (typeof BatchTeacherScalarFieldEnum)[keyof typeof BatchTeacherScalarFieldEnum]
 
 
 export const InstituteHighlightStatScalarFieldEnum = {

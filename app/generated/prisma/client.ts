@@ -122,6 +122,76 @@ export type InstituteEnquiry = Prisma.InstituteEnquiryModel
  */
 export type TeacherProfile = Prisma.TeacherProfileModel
 /**
+ * Model StudentProfile
+ * 
+ */
+export type StudentProfile = Prisma.StudentProfileModel
+/**
+ * Model InstituteMembership
+ * 
+ */
+export type InstituteMembership = Prisma.InstituteMembershipModel
+/**
+ * Model StudentInstituteRecord
+ * 
+ */
+export type StudentInstituteRecord = Prisma.StudentInstituteRecordModel
+/**
+ * Model TeacherInstituteRecord
+ * 
+ */
+export type TeacherInstituteRecord = Prisma.TeacherInstituteRecordModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model ConversationParticipant
+ * 
+ */
+export type ConversationParticipant = Prisma.ConversationParticipantModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model MessageAttachment
+ * 
+ */
+export type MessageAttachment = Prisma.MessageAttachmentModel
+/**
+ * Model MessageReaction
+ * 
+ */
+export type MessageReaction = Prisma.MessageReactionModel
+/**
+ * Model MessageRead
+ * 
+ */
+export type MessageRead = Prisma.MessageReadModel
+/**
+ * Model MessageReport
+ * 
+ */
+export type MessageReport = Prisma.MessageReportModel
+/**
+ * Model ChatSettings
+ * 
+ */
+export type ChatSettings = Prisma.ChatSettingsModel
+/**
+ * Model UserNotification
+ * 
+ */
+export type UserNotification = Prisma.UserNotificationModel
+/**
+ * Model UserBlock
+ * 
+ */
+export type UserBlock = Prisma.UserBlockModel
+/**
  * Model ContactMessage
  * 
  */
@@ -186,6 +256,16 @@ export type InstituteFacility = Prisma.InstituteFacilityModel
  * 
  */
 export type InstituteBatch = Prisma.InstituteBatchModel
+/**
+ * Model BatchStudent
+ * 
+ */
+export type BatchStudent = Prisma.BatchStudentModel
+/**
+ * Model BatchTeacher
+ * 
+ */
+export type BatchTeacher = Prisma.BatchTeacherModel
 /**
  * Model InstituteHighlightStat
  * 

@@ -9,6 +9,120 @@
 * 🟢 You can import this file directly.
 */
 
+export const InstituteMemberRole = {
+  STUDENT: 'STUDENT',
+  TEACHER: 'TEACHER',
+  MANAGER: 'MANAGER',
+  ADMIN: 'ADMIN'
+} as const
+
+export type InstituteMemberRole = (typeof InstituteMemberRole)[keyof typeof InstituteMemberRole]
+
+
+export const MembershipStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  ALUMNI: 'ALUMNI',
+  REMOVED: 'REMOVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type MembershipStatus = (typeof MembershipStatus)[keyof typeof MembershipStatus]
+
+
+export const ConversationType = {
+  DIRECT: 'DIRECT',
+  INSTITUTE: 'INSTITUTE',
+  BATCH: 'BATCH',
+  GROUP: 'GROUP',
+  AI: 'AI'
+} as const
+
+export type ConversationType = (typeof ConversationType)[keyof typeof ConversationType]
+
+
+export const ConversationVisibility = {
+  PRIVATE: 'PRIVATE',
+  INSTITUTE: 'INSTITUTE',
+  PUBLIC: 'PUBLIC'
+} as const
+
+export type ConversationVisibility = (typeof ConversationVisibility)[keyof typeof ConversationVisibility]
+
+
+export const ChannelType = {
+  GENERAL: 'GENERAL',
+  STUDENTS: 'STUDENTS',
+  TEACHERS: 'TEACHERS',
+  ANNOUNCEMENTS: 'ANNOUNCEMENTS',
+  BATCH: 'BATCH',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type ChannelType = (typeof ChannelType)[keyof typeof ChannelType]
+
+
+export const ConversationStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED',
+  DELETED: 'DELETED'
+} as const
+
+export type ConversationStatus = (typeof ConversationStatus)[keyof typeof ConversationStatus]
+
+
+export const MessageStatus = {
+  SENT: 'SENT',
+  FAILED: 'FAILED',
+  DELETED: 'DELETED'
+} as const
+
+export type MessageStatus = (typeof MessageStatus)[keyof typeof MessageStatus]
+
+
+export const MessageType = {
+  TEXT: 'TEXT',
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  FILE: 'FILE',
+  AUDIO: 'AUDIO',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type MessageType = (typeof MessageType)[keyof typeof MessageType]
+
+
+export const ChatReportStatus = {
+  PENDING: 'PENDING',
+  REVIEWED: 'REVIEWED',
+  DISMISSED: 'DISMISSED',
+  ACTION_TAKEN: 'ACTION_TAKEN'
+} as const
+
+export type ChatReportStatus = (typeof ChatReportStatus)[keyof typeof ChatReportStatus]
+
+
+export const NotificationType = {
+  MESSAGE: 'MESSAGE',
+  MENTION: 'MENTION',
+  REACTION: 'REACTION',
+  NOTICE: 'NOTICE',
+  REVIEW: 'REVIEW',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const ConversationRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+} as const
+
+export type ConversationRole = (typeof ConversationRole)[keyof typeof ConversationRole]
+
+
 export const InstituteMode = {
   OFFLINE: 'OFFLINE',
   ONLINE: 'ONLINE',

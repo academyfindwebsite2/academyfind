@@ -140,7 +140,7 @@ export default async function InstituteDashboardOverview({
                                     {institute._count.shortlistedBy} Students
                                 </div>
                                 <p className="text-xs text-slate-400 mt-1">
-                                    Jinhone aapki academy save ki hai
+                                    Students who have saved your academy
                                 </p>
                             </div>
                         )}
@@ -158,7 +158,7 @@ export default async function InstituteDashboardOverview({
                         </div>
                         <h3 className="font-bold text-lg text-slate-800">Update Profile Details</h3>
                         <p className="text-slate-500 text-sm leading-relaxed">
-                            Apne coaching centers ka Name, Description, Fees structure aur accurate address up-to-date rakhein taaki onboarding students misdirect na ho sakein.
+                            Update your coaching center's name, description, fee structure, and accurate address to ensure a smooth onboarding experience for students.
                         </p>
                     </div>
                     <Button asChild className="w-full justify-between bg-white text-slate-800 border hover:bg-slate-100 rounded-xl">
@@ -176,7 +176,7 @@ export default async function InstituteDashboardOverview({
                         </div>
                         <h3 className="font-bold text-lg text-slate-800">Premium Utilities</h3>
                         <p className="text-slate-500 text-sm leading-relaxed">
-                            Aap public page pe dedicated direct Enquiry forms chalana chahte hain ya analytics track karna chahte hain? Subscription plan checkout karein.
+                           If you want to unlock advanced features like lead tracking, audience insights, and more, consider upgrading your subscription plan.
                         </p>
                     </div>
                     <Button asChild className="w-full justify-between bg-amber-500 hover:bg-amber-600 text-white rounded-xl">

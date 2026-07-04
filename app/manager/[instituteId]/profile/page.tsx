@@ -16,12 +16,12 @@ export default async function ManagerProfilePage({
     const institute = await prisma.institute.findUnique({
         where: { id: instituteId },
         include:{
-            teachers: true,
+           // teachers: true,
             categories: true,
             facilities: true,
             highlightStats: true,
             faqs: true,
-            batches: true,
+            //batches: true,
             achievements: true,
             notablepersons: true,
             operatingHours: true

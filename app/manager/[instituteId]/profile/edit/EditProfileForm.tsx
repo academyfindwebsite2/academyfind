@@ -678,18 +678,18 @@ export default function EditProfileForm({
                     )}
 
                     {/* Teacher Profiles Component */}
-                    {isPremiumOrUltra ? (
+                    {/* {isPremiumOrUltra ? (
                         <EditTeachers instituteId={institute.id} currentTeachers={institute.teachers || []} maxLimit={limits.maxTeachers} />
                     ) : (
                         <LockedFeatureCard icon={<Users className="w-4 h-4 text-emerald-500" />} title="Faculty Profiles" desc="Introduce your experienced faculty members, their qualifications, and subjects taught." instituteId={institute.id} />
-                    )}
+                    )} */}
 
                     {/* Batches & Fees — NEW: InstituteBatch */}
-                    {isPremiumOrUltra ? (
+                    {/* {isPremiumOrUltra ? (
                         <EditBatches instituteId={institute.id} currentBatches={institute.batches || []} maxLimit={15} />
                     ) : (
                         <LockedFeatureCard icon={<GraduationCap className="w-4 h-4 text-blue-500" />} title="Batches & Fee Structure" desc="List your batches with duration, fees, timings and seats — powers comparison pages." instituteId={institute.id} />
-                    )}
+                    )} */}
 
                     {/* FAQs — NEW: InstituteFAQ */}
                     {isPremiumOrUltra ? (
