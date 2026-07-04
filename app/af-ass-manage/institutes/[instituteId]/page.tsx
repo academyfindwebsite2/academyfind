@@ -14,8 +14,9 @@ export default async function AdminMasterInstituteEditorPage({
     const [institute, allCities, allCategories] = await Promise.all([
         prisma.institute.findUnique({
             where: { id: instituteId },
-            include: { categories: { select: { categoryId: true } }, teachers: true, managers: true,facilities: true,faqs: true,
-                batches: true,
+            include: { categories: { select: { categoryId: true } }, //teachers: true, 
+            managers: true,facilities: true,faqs: true,
+                //batches: true,
                 achievements: true,
                 notablepersons: true,
                 operatingHours: true,       // 🔥 ZAROORI HAI
