@@ -20,15 +20,15 @@ import {
 import Link from "next/link";
 
 // 🚀 IMPORT PORTFOLIO COMPONENTS
-import EditTeachers from "@/app/manager/[instituteId]/profile/edit/EditTeacherProfile";
-import EditResultImages from "@/app/manager/[instituteId]/profile/edit/EditResultImages";
-import EditVideoLinks from "@/app/manager/[instituteId]/profile/edit/EditVideoLinks";
-import ClassroomImages from "@/app/manager/[instituteId]/profile/edit/EditClassroomImages";
-import EditBatches from "@/app/manager/[instituteId]/profile/edit/EditBatches";
-import EditFAQs from "@/app/manager/[instituteId]/profile/edit/EditFAQS";
-import EditAchievements from "@/app/manager/[instituteId]/profile/edit/EditAchievements";
-import EditNotablePersons from "@/app/manager/[instituteId]/profile/edit/EditNotablePersons";
-import EditOperatingHours from "@/app/manager/[instituteId]/profile/edit/EditOperatingHours";
+import EditTeachers from "@/app/(public)/manager/[instituteId]/profile/edit/EditTeacherProfile";
+import EditResultImages from "@/app/(public)/manager/[instituteId]/profile/edit/EditResultImages";
+import EditVideoLinks from "@/app/(public)/manager/[instituteId]/profile/edit/EditVideoLinks";
+import ClassroomImages from "@/app/(public)/manager/[instituteId]/profile/edit/EditClassroomImages";
+import EditBatches from "@/app/(public)/manager/[instituteId]/profile/edit/EditBatches";
+import EditFAQs from "@/app/(public)/manager/[instituteId]/profile/edit/EditFAQS";
+import EditAchievements from "@/app/(public)/manager/[instituteId]/profile/edit/EditAchievements";
+import EditNotablePersons from "@/app/(public)/manager/[instituteId]/profile/edit/EditNotablePersons";
+import EditOperatingHours from "@/app/(public)/manager/[instituteId]/profile/edit/EditOperatingHours";
 
 type Facility = { id: string; name: string; available: boolean };
 type HighlightStat = { id: string; label: string; value: string; icon: string };

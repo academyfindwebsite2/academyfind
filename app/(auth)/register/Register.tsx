@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Mail,
@@ -8,31 +8,36 @@ import {
   Lock,
   Eye,
   EyeOff,
-  Star,
-  Loader2, // Added for loading spinner
+  User,
+  Loader2, // 👈 Loading spinner ke liye add kiya hai
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import { authClient } from "@/lib/auth/auth-client";
-import { redirect, useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { auth } from "@/lib/auth/auth";
+import { useRouter } from "next/navigation";
+import toast from 'react-hot-toast'
 
-export default function LoginPage() {
+
+export default function RegisterComponent() { // Component ka naam RegisterPage hona better hai
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  // User Details States
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setphone] = useState("");
   const [password, setPassword] = useState("");
-
-  // Nayi States for OTP and Loading
+  const [confirmPassword, setConfirmPassword] = useState("");
+  
+  // 🚀 Nayi States for frictionless flow
   const [showOtpScreen, setShowOtpScreen] = useState(false);
   const [otp, setOtp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  
   const router = useRouter();
 
-  useEffect(() => {
+    useEffect(() => {
     authClient.getSession().then((res) => {
       if(res.data?.user){
         router.replace('/')
@@ -40,100 +45,93 @@ export default function LoginPage() {
     });
   },[router])
 
+
+
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
       provider: "google",
       callbackURL: "/",
     });
   };
-
-  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+  // 1. Account Create & Send OTP
+  async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (method !== "email") {
-      toast.error("Phone login will be implemented separately.");
+      toast.error("Phone registration will be implemented separately.");
       return;
     }
-
-    if (!email.trim()) {
-      toast.error("Please enter email");
+    if (!name.trim() || !email.trim()) {
+      toast.error("Please enter both name and email");
       return;
     }
-
-    if (!password.trim()) {
-      toast.error("Please enter password");
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const { error } = await authClient.signIn.email({
+      // Step A: Account Create Karein
+      const { error: signUpError } = await authClient.signUp.email({
+        name,
         email,
         password,
-        callbackURL: "/", // Sahi password hone par yahan jayega
       });
 
-      if (error) {
-        // Agar email verify nahi hai, toh auto-send OTP and show UI
-        if (error?.message?.toLowerCase().includes("not verified")) {
-          const { error: otpError } = await authClient.emailOtp.sendVerificationOtp({
-            email: email,
-            type: "email-verification",
-          });
-
-          if (!otpError) {
-            toast.success("Account not verified. We've sent a new code to your email!", {
-              duration: 4000,
-            });
-            setShowOtpScreen(true); // OTP UI dikhao
-          } else {
-            toast.error("Failed to send verification code. Try again later.");
-          }
-          return;
-        }
-
-        // Agar password galat hai ya koi aur error hai
-        if(error){
-          toast.error("Some issues in login")
-          return;
-        }
-        
+      if (signUpError) {
+        toast.error("Registration failed" );
+        setIsLoading(false);
+        return;
       }
 
-      // Login Successful!
-      toast.success("Welcome back!");
-      router.push("/");
+      const { error: otpError } = await authClient.emailOtp.sendVerificationOtp({
+        email: email,
+        type: "email-verification",
+      });
+
+      if (otpError) {
+        toast.error("Account created, but OTP sending failed " );
+      } else {
+        // Step C: UI change karke OTP screen dikhayein (No Redirect)
+        setShowOtpScreen(true);
+        toast.success("OTP Sent your mail, Please verify")
+      }
     } catch (error) {
-      console.error("Login Error:", error);
-      toast.error("Something went wrong during login.");
+      console.error("Unexpected error:", error);
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
   }
 
-  // Naya Function: Verify OTP and Login
+  // 2. Verify OTP & Auto-Login
   async function handleVerifyAndLogin(e: React.FormEvent) {
     e.preventDefault();
     if (otp.length < 6) return;
-
+    
     setIsLoading(true);
 
     try {
-      // 1. Verify OTP
+      // Step A: Verify OTP
       const { error: verifyError } = await authClient.emailOtp.verifyEmail({
         email,
         otp,
       });
 
       if (verifyError) {
-        toast.error("Invalid OTP: " + verifyError.message);
+        toast.error("Invalid OTP, please enter correct one");
         setOtp("")
         setIsLoading(false);
         return;
       }
 
-      // 2. Auto Login using the password from state
+      // Step B: Auto Login using state password
       const { error: loginError } = await authClient.signIn.email({
         email,
         password,
@@ -141,9 +139,9 @@ export default function LoginPage() {
 
       if (loginError) {
         toast.error("Email verified, but auto-login failed. Please login manually.");
-        setShowOtpScreen(false);
+        router.push("/login");
       } else {
-        toast.success("Verified and logged in successfully!");
+        // Step C: Makkhan redirect to dashboard
         router.push("/");
       }
     } catch (error) {
@@ -157,65 +155,62 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bg-[#f8f8f8] p-4 lg:p-8">
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-7xl overflow-hidden rounded-[32px] bg-white shadow-2xl">
+        
         {/* LEFT PANEL */}
-        <div className="relative hidden w-1/2 overflow-hidden bg-linear-to-b from-amber-400 to-amber-500 p-12 text-white lg:flex lg:flex-col">
+        <div className="relative hidden w-1/2 overflow-hidden bg-linear-to-b from-amber-400 to-orange-500 p-12 text-white lg:flex lg:flex-col">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl shadow-lg shadow-amber-500/30 bg-white/90 backdrop-blur">
-              <Image src="/logo.png" alt="AcademyFind Logo" width={120} height={120} />
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/90 backdrop-blur">
+              <Image src="/logo.png" alt="academy find logo" width={120} height={120} />
             </div>
-            <span className="font-semibold">
-              AcademyFind
-              <p className="text-[0.6rem]">Academy Search Simplified</p>
-            </span>
+            <span className="font-semibold">AcademyFind</span>
           </div>
 
           {/* Content */}
-          <div className="mt-24 max-w-sm">
-            <h1 className="text-5xl font-bold leading-tight">
-              Find the Right Institute Before You Join
+          <div className="mt-20">
+            <h1 className="max-w-md text-5xl font-bold leading-tight">
+              Start Your Learning Journey With Confidence
             </h1>
-            <p className="mt-5 text-orange-100">
-              Discover, compare and choose India's best coaching institutes.
+            <p className="mt-5 max-w-sm text-orange-100">
+              Join thousands of students discovering the best coaching institutes across India.
             </p>
+
+            {/* Journey Steps */}
+            <div className="mt-12 space-y-4">
+              {[
+                { title: "Search Institutes", desc: "Explore coaching institutes across India" },
+                { title: "Compare Options", desc: "Check ratings, reviews and facilities" },
+                { title: "Connect Directly", desc: "Reach institutes without middlemen" },
+                { title: "Choose Confidently", desc: "Make better academic decisions" },
+              ].map((step, index) => (
+                <div key={step.title} className="flex items-start gap-4 rounded-2xl bg-white/10 p-4 backdrop-blur-md">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold text-orange-500">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{step.title}</h3>
+                    <p className="mt-1 text-sm text-orange-100">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Stats */}
-          <div className="mt-14 flex flex-wrap gap-4">
-            <div className="rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-md">
-              <p className="text-2xl font-bold">41,000+</p>
-              <p className="text-sm text-orange-100">Institutes</p>
-            </div>
-            <div className="rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-md">
-              <p className="text-2xl font-bold">9+</p>
-              <p className="text-sm text-orange-100">Cities</p>
-            </div>
-            <div className="rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-md">
-              <div className="flex items-center gap-1">
-                <Star className="h-4 w-4 fill-white text-white" />
-                <span className="text-2xl font-bold">4.6</span>
-              </div>
-              <p className="text-sm text-orange-100">Avg Rating</p>
-            </div>
-          </div>
-
-          {/* Decorative Triangle */}
-          <div className="absolute bottom-20 right-16 opacity-10">
-            <div className="h-0 w-0 border-l-90 border-r-90 border-b-160 border-l-transparent border-r-transparent border-b-white" />
-          </div>
+          {/* Decorative Circles */}
+          <div className="absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-white/10 blur-3xl" />
         </div>
 
         {/* RIGHT PANEL */}
         <div className="flex flex-1 items-center justify-center bg-[#fafafa] px-6 py-10">
           <div className="w-full max-w-md">
+            
             {/* Logo Mobile */}
             <div className="mb-8 text-center">
-              <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl shadow-lg shadow-amber-500/30">
+              <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl text-white shadow-lg shadow-amber-500/30">
                 <Image src="/logo.png" alt="AcademyFind Logo" width={120} height={120} />
               </div>
-              <h3 className="text-sm font-bold tracking-[0.25em] text-slate-900">
-                ACADEMYFIND
-              </h3>
+              <h3 className="text-sm font-bold tracking-[0.25em] text-slate-900">ACADEMYFIND</h3>
               <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-amber-400">
                 Academy Search Simplified
               </p>
@@ -223,6 +218,7 @@ export default function LoginPage() {
 
             {/* 🔥 CONDITIONAL RENDERING STARTS HERE */}
             {showOtpScreen ? (
+              
               /* ================= OTP VERIFICATION UI ================= */
               <div className="animate-in fade-in zoom-in duration-300">
                 <div className="mb-8 text-center">
@@ -230,8 +226,7 @@ export default function LoginPage() {
                     Check Your Email
                   </h2>
                   <p className="mt-2 text-sm text-slate-500">
-                    We've sent a 6-digit verification code to <br />
-                    <strong className="text-slate-800">{email}</strong>
+                    We've sent a 6-digit verification code to <br/> <strong className="text-slate-800">{email}</strong>
                   </p>
                 </div>
 
@@ -250,7 +245,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={isLoading || otp.length < 6}
-                    className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-400 font-semibold text-white shadow-md transition-all hover:shadow-lg hover:shadow-amber-500/30 disabled:opacity-70 cursor-pointer"
+                    className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-400 font-semibold text-white shadow-md transition-all hover:shadow-lg hover:shadow-amber-500/30 disabled:opacity-70"
                   >
                     {isLoading ? (
                       <>
@@ -263,102 +258,90 @@ export default function LoginPage() {
                 </form>
 
                 <p className="mt-8 text-center text-sm text-slate-500">
-                  Didn't request this?{" "}
+                  Made a mistake?{" "}
                   <button
                     onClick={() => setShowOtpScreen(false)}
                     className="font-semibold text-amber-400 hover:text-amber-500"
                   >
-                    Go Back
+                    Change Email
                   </button>
                 </p>
               </div>
+
             ) : (
-              /* ================= ORIGINAL LOGIN UI ================= */
+
+              /* ================= ORIGINAL REGISTRATION UI ================= */
               <div className="animate-in fade-in duration-300">
-                {/* Heading */}
                 <div className="mb-6 text-center">
                   <h2 className="text-3xl font-bold bg-linear-to-r from-amber-500 to-rose-200 bg-clip-text text-transparent">
-                    Welcome Back
+                    Create Account
                   </h2>
                   <p className="mt-2 text-sm text-slate-500">
-                    Log in to your AcademyFind account
+                    Join AcademyFind and discover India's best coaching institutes.
                   </p>
                 </div>
 
-                {/* Toggle */}
                 {/* <div className="mb-6 grid grid-cols-2 rounded-xl bg-slate-100 p-1">
                   <button
                     type="button"
                     onClick={() => setMethod("email")}
                     className={`flex items-center justify-center gap-2 cursor-pointer rounded-lg py-2 text-sm font-medium transition-all ${
-                      method === "email"
-                        ? "bg-amber-400 text-white shadow-sm"
-                        : "text-slate-600"
+                      method === "email" ? "bg-amber-400 text-white shadow-sm" : "text-slate-600"
                     }`}
                   >
-                    <Mail size={16} />
-                    Email
+                    <Mail size={16} /> Email
                   </button>
-
                   <button
                     type="button"
                     onClick={() => setMethod("phone")}
                     className={`flex items-center justify-center gap-2 cursor-pointer rounded-lg py-2 text-sm font-medium transition-all ${
-                      method === "phone"
-                        ? "bg-amber-400 text-white shadow-sm"
-                        : "text-slate-600"
+                      method === "phone" ? "bg-amber-400 text-white shadow-sm" : "text-slate-600"
                     }`}
                   >
-                    <Phone size={16} />
-                    Phone
+                    <Phone size={16} /> Phone
                   </button>
                 </div> */}
 
-                <form className="space-y-5" onSubmit={handleLogin}>
-                  {/* Email / Phone */}
+                <form className="space-y-5" onSubmit={handleRegister}>
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">Full Name</label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="text"
+                        placeholder="Enter your full name"
+                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
                   <div>
                     <label className="mb-2 block text-sm font-medium text-slate-700">
                       {method === "email" ? "Email Address" : "Phone Number"}
                     </label>
-
                     <div className="relative">
                       {method === "email" ? (
                         <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                       ) : (
                         <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                       )}
-
                       <input
                         type={method === "email" ? "email" : "tel"}
-                        placeholder={
-                          method === "email"
-                            ? "Enter your email"
-                            : "Enter mobile number"
-                        }
+                        placeholder={method === "email" ? "Enter your email" : "Enter mobile number"}
+                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                         value={method === "email" ? email : phone}
                         onChange={(e) => {
                           if (method === "email") setEmail(e.target.value);
                           else setphone(e.target.value);
                         }}
-                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                       />
                     </div>
                   </div>
 
-                  {/* Password */}
                   <div>
-                    <div className="mb-2 flex items-center justify-between">
-                      <label className="text-sm font-medium text-slate-700">
-                        Password
-                      </label>
-                      <Link
-                        href="/forgot-password"
-                        className="text-xs text-amber-400 hover:text-amber-500"
-                      >
-                        Forgot Password?
-                      </Link>
-                    </div>
-
+                    <label className="text-sm font-medium text-slate-700 mb-2 block">Password</label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                       <input
@@ -378,47 +361,60 @@ export default function LoginPage() {
                     </div>
                   </div>
 
-                  {/* Login */}
+                  <div>
+                    <label className="text-sm font-medium text-slate-700 mb-2 block">Confirm Password</label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Confirm your password"
+                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-12 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"
+                      >
+                        {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
+                  </div>
+
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-400 font-semibold text-white shadow-md transition-all hover:shadow-lg hover:shadow-amber-500/30 disabled:opacity-70"
+                    className="flex h-12 w-full items-center justify-center gap-2 cursor-pointer rounded-xl bg-amber-400 font-semibold text-white shadow-md transition-all hover:shadow-lg hover:shadow-amber-500/30 disabled:opacity-70"
                   >
                     {isLoading ? (
                       <>
-                        <Loader2 className="h-4 w-4 animate-spin" /> Logging in...
+                        <Loader2 className="h-4 w-4 animate-spin" /> Processing...
                       </>
                     ) : (
-                      "Log In"
+                      "Create Account"
                     )}
                   </button>
                 </form>
 
-                {/* Divider */}
                 <div className="my-6 flex items-center">
                   <div className="h-px flex-1 bg-slate-200" />
                   <span className="mx-4 text-xs text-slate-400">OR</span>
                   <div className="h-px flex-1 bg-slate-200" />
                 </div>
 
-                {/* Google Login */}
                 <button
                   type="button"
                   className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                   onClick={handleGoogleLogin}
                 >
-                  <FcGoogle size={20} />
-                  Continue with Google
+                  <FcGoogle size={20} /> Continue with Google
                 </button>
 
-                {/* Signup */}
                 <p className="mt-8 text-center text-sm text-slate-500">
-                  Don't have an account?{" "}
-                  <Link
-                    href="/register"
-                    className="font-semibold text-amber-400 hover:text-amber-500"
-                  >
-                    Sign Up
+                  Already have an account?{" "}
+                  <Link href="/login" className="font-semibold text-amber-400 hover:text-amber-500">
+                    Sign In
                   </Link>
                 </p>
               </div>

@@ -1,7 +1,3 @@
-// ============================================================
-// OPTIMIZED GLOBAL ROOT LAYOUT — AcademyFind
-// ============================================================
-
 import type { Metadata } from "next";
 import GoogleMapsProvider from "@/components/providers/GoogleMapsProvider";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
@@ -106,9 +102,9 @@ export default async function RootLayout({
       <body
         className={`min-h-full flex flex-col ${inter.className}`}
       >
-        <Navbar session={session}/>
+        {/* <Navbar session={session}/> */}
 
-        <CursorGlow />
+        {/* <CursorGlow /> */}
         <GoogleMapsProvider>
           <NextTopLoader color="#f59e0b" showSpinner={false} />
 
@@ -118,10 +114,10 @@ export default async function RootLayout({
         </GoogleMapsProvider>
 
         <Toaster position="top-center" reverseOrder={false} />
-        <AuthPromptModal isAuthenticated={Boolean(session?.user)} />
+        {/* <AuthPromptModal isAuthenticated={Boolean(session?.user)} />
         
         <Footer />
-        <GlobalCallbackFAB />
+        {/* <GlobalCallbackFAB /> */}
         <SpeedInsights />
         <Analytics />
         <Script 
