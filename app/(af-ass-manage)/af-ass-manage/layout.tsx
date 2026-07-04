@@ -153,6 +153,7 @@ function SidebarLink({
     return (
         <Link 
             href={href} 
+            prefetch={false}
             className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all
             hover:bg-purple-50 hover:text-purple-700 text-slate-600`}
         >
