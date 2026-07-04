@@ -90,7 +90,7 @@ export default async function CompareHubPage() {
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {topComparisons.map((comp: any, i:any) => (
-              <Link key={comp.id} href={`/compare/${comp.slug}`} className="group">
+              <Link prefetch={false} key={comp.id} href={`/compare/${comp.slug}`} className="group">
                 <div className="relative flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg hover:shadow-amber-100/60">
                   <div className="mb-5 flex items-center justify-between">
                     <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-stone-900 text-[11px] font-bold tabular-nums text-white">
