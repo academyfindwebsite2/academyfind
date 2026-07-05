@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   const accept = request.headers.get('accept') || '';
   const lowercaseUA = userAgent.toLowerCase();
 
-  // 1. TRUSTED EXCEPTION: Protect search engines for SEO rankings
+  // 1. TRUSTED EXCEPTION: Protect core search engines for SEO rankings
   const isSearchEngine = 
     lowercaseUA.includes('googlebot') || 
     lowercaseUA.includes('bingbot') || 
@@ -16,22 +16,23 @@ export function middleware(request: NextRequest) {
   if (!isSearchEngine) {
     const isPageRequest = !path.includes('.') && !path.startsWith('/_next');
 
-    // TRAP A: Block fake desktop bots using dummy .0.0.0 chrome builds
-    const isFakeChromeBuild = /Chrome\/\d+\.0\.0\.0/.test(userAgent);
-
-    // TRAP B: Block ancient legacy OS versions used by cheap scraping setups
+    // TRAP A: Block ancient legacy OS versions used by primitive automated setups
     const isLegacyOS = userAgent.includes('Windows NT 6.1') || userAgent.includes('Windows NT 6.0');
 
-    // TRAP C: Target programmatic requests trying to scrape raw page data
-    const isHeadlessOrScraper = lowercaseUA.includes('python') || lowercaseUA.includes('axios') || lowercaseUA.includes('curl') || lowercaseUA.includes('headless');
+    // TRAP B: Target specific programming packages and headless scripts
+    const isHeadlessOrScraper = 
+      lowercaseUA.includes('python') || 
+      lowercaseUA.includes('axios') || 
+      lowercaseUA.includes('curl') || 
+      lowercaseUA.includes('headless');
     
-    // FIXED: Must use && (AND) so it only blocks if it's a naked accept AND shows a malicious footprint
-    const isSuspiciousNakedAccept = isPageRequest && (accept.trim() === '*/*') && (isLegacyOS || isFakeChromeBuild || isHeadlessOrScraper);
+    // SAFE TRAP C: ONLY flag naked accepts if they are verified to be paired with a script engine
+    const isSuspiciousNakedAccept = isPageRequest && (accept.trim() === '*/*') && (isLegacyOS || isHeadlessOrScraper);
 
-    // TRAP D: Catch anomalous residential proxies (like the Mexico-WeChat bot mismatch)
+    // TRAP D: Catch strange proxy app loops (like the Mexico-WeChat bot mismatch)
     const isSuspiciousAppBrowser = userAgent.includes('MicroMessenger') && !userAgent.includes('Language/zh_CN');
 
-    if (isSuspiciousNakedAccept || isLegacyOS || isFakeChromeBuild || isSuspiciousAppBrowser) {
+    if (isSuspiciousNakedAccept || isLegacyOS || isHeadlessOrScraper || isSuspiciousAppBrowser) {
       console.warn(`\n🛑 [SECURITY BLOCK] Path: ${path} | Reason: Scraper Footprint | UA: ${userAgent}`);
       
       return new NextResponse(JSON.stringify({ error: "Access Forbidden" }), {
