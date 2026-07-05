@@ -4,31 +4,46 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const userAgent = request.headers.get('user-agent') || '';
+  const accept = request.headers.get('accept') || '';
   const lowercaseUA = userAgent.toLowerCase();
 
-  // 1. SECURITY BARRIER: Catch unverified malicious scrapers
-  // Triggers if a desktop Chrome signature hardcodes trailing zeros (e.g., Chrome/142.0.0.0)
-  const isFakeDesktopChrome = /Chrome\/\d+\.0\.0\.0/.test(userAgent);
+  // 1. TRUSTED EXCEPTION: Protect search engines for SEO rankings
+  const isSearchEngine = 
+    lowercaseUA.includes('googlebot') || 
+    lowercaseUA.includes('bingbot') || 
+    lowercaseUA.includes('google-keyword-associator');
 
-  if (isFakeDesktopChrome) {
-    // EXCEPTIONS: Always let genuine search engine bots pass safely
-    const isVerifiedSearchEngine = lowercaseUA.includes('googlebot') || lowercaseUA.includes('bingbot');
+  if (!isSearchEngine) {
+    const isPageRequest = !path.includes('.') && !path.startsWith('/_next');
 
-    if (!isVerifiedSearchEngine) {
-      console.warn(`\n[BLOCKED TRAFFIC] Prevented fake scraper bot at: ${path}`);
-      console.warn(`User-Agent: ${userAgent}\n`);
+    // TRAP A: Block fake desktop bots using dummy .0.0.0 chrome builds
+    const isFakeChromeBuild = /Chrome\/\d+\.0\.0\.0/.test(userAgent);
+
+    // TRAP B: Block ancient legacy OS versions used by cheap scraping setups
+    const isLegacyOS = userAgent.includes('Windows NT 6.1') || userAgent.includes('Windows NT 6.0');
+
+    // TRAP C: Target programmatic requests trying to scrape raw page data
+    const isHeadlessOrScraper = lowercaseUA.includes('python') || lowercaseUA.includes('axios') || lowercaseUA.includes('curl') || lowercaseUA.includes('headless');
+    
+    // FIXED: Must use && (AND) so it only blocks if it's a naked accept AND shows a malicious footprint
+    const isSuspiciousNakedAccept = isPageRequest && (accept.trim() === '*/*') && (isLegacyOS || isFakeChromeBuild || isHeadlessOrScraper);
+
+    // TRAP D: Catch anomalous residential proxies (like the Mexico-WeChat bot mismatch)
+    const isSuspiciousAppBrowser = userAgent.includes('MicroMessenger') && !userAgent.includes('Language/zh_CN');
+
+    if (isSuspiciousNakedAccept || isLegacyOS || isFakeChromeBuild || isSuspiciousAppBrowser) {
+      console.warn(`\n🛑 [SECURITY BLOCK] Path: ${path} | Reason: Scraper Footprint | UA: ${userAgent}`);
       
-      return new NextResponse(JSON.stringify({ error: "Access Denied" }), {
+      return new NextResponse(JSON.stringify({ error: "Access Forbidden" }), {
         status: 403,
         headers: { 'Content-Type': 'application/json' },
       });
     }
   }
 
-  // 2. LOGGING UTILITY: Print standard web page headers to terminal
+  // 2. LIVE MONITORING: Log clean traffic to your Vercel runtime logs
   if (!path.includes('.') && !path.startsWith('/_next')) {
     console.log(`\n--- [${request.method}] Request to: ${path} ---`);
-    
     request.headers.forEach((value, key) => {
       console.log(`[Header] ${key}: ${value}`);
     });
@@ -38,16 +53,8 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// 3. OPTIMIZATION: Ensure the middleware runs only on targeted paths
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };
