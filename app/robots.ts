@@ -34,7 +34,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: 'MJ12bot',
-        crawlDelay: 10
+        crawlDelay: 30
       }
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
