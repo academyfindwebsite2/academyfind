@@ -17,7 +17,7 @@ export default async function SecuritySettingsPage() {
       <section className="mt-7 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="text-xl font-semibold">Connected accounts</h2>
         <div className="mt-4 space-y-2">
-          {accounts.map((account) => (
+          {accounts.map((account: any) => (
             <div key={account.id} className="rounded-xl bg-slate-50 px-4 py-3 capitalize">
               {account.providerId}
             </div>
