@@ -42,7 +42,7 @@ export function ProfileSidebar({
   profile,
   isOwnProfile,
 }: {
-  profile: CompletePublicProfile;
+  profile: any;
   isOwnProfile: boolean;
 }) {
   const completion = computeProfileCompletion(
