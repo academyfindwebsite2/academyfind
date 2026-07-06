@@ -1,3 +1,4 @@
+import { PremiumLock } from "@/components/manager/PremiumLock";
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
 import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound, Users, PackageOpen, MessageCircle } from "lucide-react";
@@ -8,39 +9,39 @@ import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "Manager Control Panel | AcademyFind",
-  robots: {
-    index: false,
-    follow: false,
-  },
+    title: "Manager Control Panel | AcademyFind",
+    robots: {
+        index: false,
+        follow: false,
+    },
 };
 
 export default async function ManagerDashBoardLayout({
-    children,params
-}:{
+    children, params
+}: {
     children: React.ReactNode;
     params: any;
 }) {
-    const {instituteId} = await params;
+    const { instituteId } = await params;
     const session = await auth.api.getSession({
         headers: await headers()
     })
 
-    if(!session){
+    if (!session) {
         toast.error("You are not logged In")
         redirect('/login')
     }
 
     const isAuthorized = await prisma.instituteManager.findUnique({
-        where:{
-            userId_instituteId:{
+        where: {
+            userId_instituteId: {
                 userId: session.user.id,
                 instituteId: instituteId
             },
         }
     })
 
-    if(session.user.role !== "ADMIN" && !isAuthorized){
+    if (session.user.role !== "ADMIN" && !isAuthorized) {
         return (
             <div className="p-12 text-center text-red-500 font-bold text-xl">Unauthorized Access!</div>
         )
@@ -90,7 +91,7 @@ export default async function ManagerDashBoardLayout({
 
     // Count pending membership requests
     const pendingCount = await prisma.instituteMembership.count({
-      where: { instituteId, status: "PENDING" },
+        where: { instituteId, status: "PENDING" },
     });
 
     const plan = institute.subscriptionPlan; // BASIC, PREMIUM, ULTRA
@@ -98,7 +99,7 @@ export default async function ManagerDashBoardLayout({
     return (
         <div className="bg-slate-50/50 min-h-screen pb-12">
             <div className="container mx-auto max-w-7xl pt-8 px-4 flex flex-col md:flex-row gap-8">
-                
+
                 {/* --- SIDEBAR --- */}
                 <aside className="w-full md:w-64 shrink-0 space-y-6">
                     {/* Header */}
@@ -116,54 +117,68 @@ export default async function ManagerDashBoardLayout({
 
                     {/* Navigation Links */}
                     <nav className="flex flex-col gap-1.5">
-                        <SidebarLink 
-                            href={`/manager/${instituteId}`} 
-                            icon={<LayoutDashboardIcon />} 
-                            label="Dashboard"  
+                        <SidebarLink
+                            href={`/manager/${instituteId}`}
+                            icon={<LayoutDashboardIcon />}
+                            label="Dashboard"
+                        />
+                        <SidebarLink
+                            href={`/manager/${instituteId}/profile`}
+                            icon={<User />}
+                            label="Profile Data"
+                            locked={plan == "BASIC"}
+                        />
+                        <SidebarLink
+                            href={`/manager/${instituteId}/team`}
+                            icon={<UserRound />}
+                            label="Add a team Member"
                         />
                         <SidebarLink
                             href={`/manager/${instituteId}/members`}
                             icon={<Users />}
                             label="Members"
                             badge={pendingCount > 0 ? pendingCount : undefined}
+                            locked={plan === "BASIC" || plan == "VERIFIED"}
                         />
                         <SidebarLink
                             href={`/manager/${instituteId}/batches`}
                             icon={<PackageOpen />}
                             label="Batches"
+                            locked={plan == "BASIC" || plan == "VERIFIED"}
                         />
                         <SidebarLink
-                            href={`/chat?instituteId=${instituteId}`}
+                            href={`/manager/${instituteId}/chat`}
                             icon={<MessageCircle />}
                             label="Institute Chat"
+                            locked={plan == "BASIC" || plan == "VERIFIED"}
+                            onClick={() => {
+                                if (plan === "BASIC" || plan === "VERIFIED") {
+                                    return <PremiumLock title="Institute Chat Locked" description="Upgrade to Premium or Ultra to unlock institute chats, enabling direct communication between students and teachers." instituteId={instituteId} />
+                                }
+                            }}
                         />
-                        <SidebarLink href={`/manager/${instituteId}/leads`} icon={<MessageSquare />} label="Student Leads" locked={plan === "BASIC" || plan == "VERIFIED"}/>
-                        <SidebarLink href={`/manager/${instituteId}/profile`} icon={<User />} label="Profile Data" locked={plan == "BASIC"}/>
-                        <SidebarLink 
-                            href={`/manager/${instituteId}/team`} 
-                            icon={<UserRound />} 
-                            label="Add a team Member" 
-                            locked={plan === "BASIC" || plan == "VERIFIED"} 
-                        />
+                        <SidebarLink href={`/manager/${instituteId}/leads`} icon={<MessageSquare />} label="Student Leads" locked={plan === "BASIC" || plan == "VERIFIED"} />
 
-                        <SidebarLink 
-                            href={`/manager/${instituteId}/metrics`} 
-                            icon={<BarChart2 />} 
-                            label="Metrics"  
+
+
+                        <SidebarLink
+                            href={`/manager/${instituteId}/metrics`}
+                            icon={<BarChart2 />}
+                            label="Metrics"
                             locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
-                        
-                        <SidebarLink 
-                            href={`/manager/${instituteId}/analytics`} 
-                            icon={<BarChart3 />} 
-                            label="Analytics" 
-                            locked={plan === "BASIC" || plan === "VERIFIED"} 
+
+                        <SidebarLink
+                            href={`/manager/${instituteId}/analytics`}
+                            icon={<BarChart3 />}
+                            label="Analytics"
+                            locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
-                        
-                        <SidebarLink 
-                            href={`/manager/${instituteId}/subscription`} 
-                            icon={<CreditCard />} 
-                            label="Billing & Plan" 
+
+                        <SidebarLink
+                            href={`/manager/${instituteId}/subscription`}
+                            icon={<CreditCard />}
+                            label="Billing & Plan"
                             className="mt-4 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200/50"
                         />
                     </nav>
@@ -182,8 +197,8 @@ export default async function ManagerDashBoardLayout({
 // Helper Component for Sidebar Links
 function SidebarLink({ href, icon, label, locked, badge, className = "" }: any) {
     return (
-        <Link 
-            href={href} 
+        <Link
+            href={href}
             className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all
             hover:bg-blue-50 hover:text-blue-700 text-slate-600 ${className}`}
         >
@@ -193,9 +208,9 @@ function SidebarLink({ href, icon, label, locked, badge, className = "" }: any) 
             </div>
             {locked && <span className="text-xs bg-slate-100 text-slate-500 px-1.5 rounded">🔒</span>}
             {!locked && badge !== undefined && (
-              <span className="rounded-full bg-rose-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
-                {badge}
-              </span>
+                <span className="rounded-full bg-rose-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                    {badge}
+                </span>
             )}
         </Link>
     );

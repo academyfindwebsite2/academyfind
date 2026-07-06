@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { Check, X, UserMinus, Clock, BadgeCheck, Users, GraduationCap, BookOpen } from "lucide-react";
+import { Check, X, UserMinus, Clock, BadgeCheck, Users, GraduationCap, BookOpen, Lock } from "lucide-react";
 import { InviteMemberModal } from "@/components/manager/InviteMemberModal";
 import { PremiumLock } from "@/components/manager/PremiumLock";
 
@@ -23,6 +23,25 @@ export default async function ManagerMembersPage({ params }: Props) {
     select: { id: true, name: true, slug: true, subscriptionPlan: true },
   });
   if (!institute) notFound();
+
+  const subscriptionplan = institute.subscriptionPlan;
+
+  if (subscriptionplan === "BASIC" || subscriptionplan === "VERIFIED") {
+    return (
+      <div className="min-h-[500px] flex flex-col items-center justify-center text-center p-8 bg-slate-50/50 rounded-3xl border border-dashed border-slate-200">
+        <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6">
+          <Lock className="w-8 h-8" />
+        </div>
+        <h2 className="text-2xl font-bold text-slate-800 mb-2">Student Leads Locked</h2>
+        <p className="text-slate-500 max-w-md mb-6">
+          Unlock direct student enquiries and lead generation. Upgrade to the <b>Premium</b> or <b>Elite </b> Plans to see who is trying to contact your academy.
+        </p>
+        <Link href={`/manager/${instituteId}/subscription`} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-medium transition">
+          View Upgrade Plans
+        </Link>
+      </div>
+    );
+  }
 
   const [pending, students, teachers] = await Promise.all([
     prisma.instituteMembership.findMany({
@@ -90,10 +109,10 @@ export default async function ManagerMembersPage({ params }: Props) {
     <div className="space-y-10">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-            <h1 className="text-2xl font-bold text-slate-900">Members</h1>
-            <p className="mt-1 text-sm text-slate-500">
+          <h1 className="text-2xl font-bold text-slate-900">Members</h1>
+          <p className="mt-1 text-sm text-slate-500">
             Manage student and teacher memberships for {institute.name}.
-            </p>
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <Link
@@ -103,7 +122,7 @@ export default async function ManagerMembersPage({ params }: Props) {
             View public directory →
           </Link>
           {(institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED") ? (
-            <PremiumLock 
+            <PremiumLock
               title="Invites Locked"
               description="Upgrade to Premium to invite members."
               isSmall={true}

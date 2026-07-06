@@ -38,11 +38,11 @@ export function PremiumLock({
       <p className="mb-6 max-w-md text-slate-500">{description}</p>
       {instituteId ? (
         <Button asChild className="bg-amber-600 text-white hover:bg-amber-700 rounded-xl font-bold">
-          <Link href={`/manager/${instituteId}/subscription`}>Upgrade to Premium Or Ultra</Link>
+          <Link href={`/manager/${instituteId}/subscription`}>Upgrade to Premium Or Elite</Link>
         </Button>
       ) : (
         <Button disabled className="bg-amber-600 text-white rounded-xl font-bold">
-          Available on Premium Or Ultra
+          Available on Premium Or Elite
         </Button>
       )}
     </div>

@@ -60,9 +60,9 @@ export default async function ManagerBatchesPage({ params }: Props) {
 
       {/* Add Batch Form */}
       {(institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED") ? (
-        <PremiumLock 
-          title="Batch Creation Locked" 
-          description="Upgrade to Premium or Ultra to create and manage batches."
+        <PremiumLock
+          title="Batch Creation Locked"
+          description="Upgrade to Premium or Elite to create and manage batches."
           instituteId={institute.id}
         />
       ) : (
@@ -70,62 +70,62 @@ export default async function ManagerBatchesPage({ params }: Props) {
           <h2 className="mb-5 text-lg font-bold text-slate-900">
             Create New Batch
           </h2>
-        <form action={createBatchFn} className="grid gap-4 sm:grid-cols-2">
-          <FieldGroup>
-            <Label>Batch Name *</Label>
-            <Input name="name" placeholder="e.g. JEE 2025 – Morning Batch" required />
-          </FieldGroup>
-          <FieldGroup>
-            <Label>Course Name</Label>
-            <Input name="courseName" placeholder="e.g. JEE Advanced" />
-          </FieldGroup>
-          <FieldGroup>
-            <Label>Mode</Label>
-            <select name="mode" className={INPUT_CLASS}>
-              <option value="OFFLINE">Offline</option>
-              <option value="ONLINE">Online</option>
-              <option value="HYBRID">Hybrid</option>
-            </select>
-          </FieldGroup>
-          <FieldGroup>
-            <Label>Academic Year</Label>
-            <Input name="academicYear" placeholder="e.g. 2024-25" />
-          </FieldGroup>
-          <FieldGroup>
-            <Label>Duration</Label>
-            <Input name="duration" placeholder="e.g. 12 months" />
-          </FieldGroup>
-          <FieldGroup>
-            <Label>Timing</Label>
-            <Input name="timing" placeholder="e.g. Mon–Fri 7–9 AM" />
-          </FieldGroup>
-          <FieldGroup>
-            <Label>Fee (₹)</Label>
-            <Input name="fee" type="number" placeholder="50000" />
-          </FieldGroup>
-          <FieldGroup>
-            <Label>Total Seats</Label>
-            <Input name="seatsTotal" type="number" placeholder="40" />
-          </FieldGroup>
-          <FieldGroup className="sm:col-span-2">
-            <Label>Description</Label>
-            <textarea
-              name="description"
-              rows={2}
-              placeholder="Brief description of this batch..."
-              className={INPUT_CLASS}
-            />
-          </FieldGroup>
-          <div className="sm:col-span-2">
-            <button
-              type="submit"
-              className="rounded-xl bg-amber-600 px-6 py-2.5 font-bold text-white hover:bg-amber-700"
-            >
-              Create Batch
-            </button>
-          </div>
-        </form>
-      </section>
+          <form action={createBatchFn} className="grid gap-4 sm:grid-cols-2">
+            <FieldGroup>
+              <Label>Batch Name *</Label>
+              <Input name="name" placeholder="e.g. JEE 2025 – Morning Batch" required />
+            </FieldGroup>
+            <FieldGroup>
+              <Label>Course Name</Label>
+              <Input name="courseName" placeholder="e.g. JEE Advanced" />
+            </FieldGroup>
+            <FieldGroup>
+              <Label>Mode</Label>
+              <select name="mode" className={INPUT_CLASS}>
+                <option value="OFFLINE">Offline</option>
+                <option value="ONLINE">Online</option>
+                <option value="HYBRID">Hybrid</option>
+              </select>
+            </FieldGroup>
+            <FieldGroup>
+              <Label>Academic Year</Label>
+              <Input name="academicYear" placeholder="e.g. 2024-25" />
+            </FieldGroup>
+            <FieldGroup>
+              <Label>Duration</Label>
+              <Input name="duration" placeholder="e.g. 12 months" />
+            </FieldGroup>
+            <FieldGroup>
+              <Label>Timing</Label>
+              <Input name="timing" placeholder="e.g. Mon–Fri 7–9 AM" />
+            </FieldGroup>
+            <FieldGroup>
+              <Label>Fee (₹)</Label>
+              <Input name="fee" type="number" placeholder="50000" />
+            </FieldGroup>
+            <FieldGroup>
+              <Label>Total Seats</Label>
+              <Input name="seatsTotal" type="number" placeholder="40" />
+            </FieldGroup>
+            <FieldGroup className="sm:col-span-2">
+              <Label>Description</Label>
+              <textarea
+                name="description"
+                rows={2}
+                placeholder="Brief description of this batch..."
+                className={INPUT_CLASS}
+              />
+            </FieldGroup>
+            <div className="sm:col-span-2">
+              <button
+                type="submit"
+                className="rounded-xl bg-amber-600 px-6 py-2.5 font-bold text-white hover:bg-amber-700"
+              >
+                Create Batch
+              </button>
+            </div>
+          </form>
+        </section>
       )}
 
       {/* Batch list */}
@@ -153,8 +153,8 @@ export default async function ManagerBatchesPage({ params }: Props) {
                 <div
                   key={batch.id}
                   className={`rounded-2xl border bg-white p-5 shadow-sm ${batch.isActive
-                      ? "border-slate-200"
-                      : "border-slate-100 opacity-60"
+                    ? "border-slate-200"
+                    : "border-slate-100 opacity-60"
                     }`}
                 >
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -210,10 +210,10 @@ export default async function ManagerBatchesPage({ params }: Props) {
                           <div className="mt-1 h-2 overflow-hidden rounded-full bg-slate-100">
                             <div
                               className={`h-full rounded-full ${seatsPercent >= 90
-                                  ? "bg-rose-500"
-                                  : seatsPercent >= 70
-                                    ? "bg-amber-500"
-                                    : "bg-emerald-500"
+                                ? "bg-rose-500"
+                                : seatsPercent >= 70
+                                  ? "bg-amber-500"
+                                  : "bg-emerald-500"
                                 }`}
                               style={{ width: `${seatsPercent}%` }}
                             />
@@ -246,8 +246,8 @@ export default async function ManagerBatchesPage({ params }: Props) {
                         <button
                           type="submit"
                           className={`rounded-xl border px-3 py-2 text-xs font-semibold ${batch.isActive
-                              ? "border-slate-200 text-slate-600 hover:bg-slate-50"
-                              : "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                            ? "border-slate-200 text-slate-600 hover:bg-slate-50"
+                            : "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                             }`}
                         >
                           {batch.isActive ? "Deactivate" : "Activate"}

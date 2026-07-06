@@ -5,6 +5,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { MessageCircle, Users } from "lucide-react";
 import { PremiumLock } from "@/components/manager/PremiumLock";
+import { CreateChannelModal } from "@/components/manager/CreateChannelModal";
+import { DeleteChannelButton } from "@/components/manager/DeleteChannelButton";
 
 type Props = { params: Promise<{ instituteId: string }> };
 
@@ -65,7 +67,7 @@ export default async function ManagerCommunityPage({ params }: Props) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Community</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Institute Chat</h1>
         <p className="mt-1 text-sm text-slate-500">
           Manage channels and moderate messages for {institute.name}.
         </p>
@@ -90,9 +92,12 @@ export default async function ManagerCommunityPage({ params }: Props) {
 
           {/* Channels overview */}
       <section>
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-800">
-          <MessageCircle className="size-5 text-violet-500" /> Channels
-        </h2>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="flex items-center gap-2 text-lg font-bold text-slate-800">
+            <MessageCircle className="size-5 text-violet-500" /> Channels
+          </h2>
+          <CreateChannelModal instituteId={instituteId} />
+        </div>
         {channels.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-400">
             No channels yet. They'll be created automatically when the first member joins.
@@ -105,13 +110,16 @@ export default async function ManagerCommunityPage({ params }: Props) {
                 className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-slate-900">
+                  <h3 className="font-semibold text-slate-900 flex items-center gap-2">
                     {ch.title ?? `# ${ch.channelType?.toLowerCase()}`}
+                    {ch.isReadOnly && (
+                      <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
+                        Read-only
+                      </span>
+                    )}
                   </h3>
-                  {ch.isReadOnly && (
-                    <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
-                      Read-only
-                    </span>
+                  {ch.channelType === "CUSTOM" && (
+                    <DeleteChannelButton channelId={ch.id} />
                   )}
                 </div>
                 <div className="mt-3 flex gap-4 text-sm text-slate-500">
