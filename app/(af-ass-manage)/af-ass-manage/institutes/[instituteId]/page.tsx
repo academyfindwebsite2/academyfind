@@ -14,13 +14,28 @@ export default async function AdminMasterInstituteEditorPage({
     const [institute, allCities, allCategories] = await Promise.all([
         prisma.institute.findUnique({
             where: { id: instituteId },
-            include: { categories: { select: { categoryId: true } }, //teachers: true, 
-            managers: true,facilities: true,faqs: true,
-                //batches: true,
+            include: { 
+                categories: { select: { categoryId: true } }, 
+                teacherRecords: {
+                    include: {
+                        membership: {
+                            include: {
+                                user: {
+                                    select: { name: true, image: true, email: true }
+                                }
+                            }
+                        }
+                    }
+                },
+                managers: true,
+                facilities: true,
+                faqs: true,
+                batches: true,
                 achievements: true,
                 notablepersons: true,
                 operatingHours: true,       // 🔥 ZAROORI HAI
-                highlightStats: true }
+                highlightStats: true 
+            }
         }),
         prisma.city.findMany({ orderBy: { name: 'asc' } }),
         prisma.category.findMany({ where: { isActive: true }, orderBy: { name: 'asc' } })

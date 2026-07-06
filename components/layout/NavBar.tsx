@@ -12,6 +12,7 @@ import {
   Building,
   IdCard,
   Scale,
+  MessageCircle,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation"; 
@@ -27,6 +28,7 @@ import {
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import UserDropdown from "@/components/navigation/UserDropdown";
+import { NotificationBell } from "@/components/layout/NotificationBell";
 
 export default function Navbar({ session }: { session: any }) {
   const pathname = usePathname(); 
@@ -123,7 +125,17 @@ return (
         {/* Auth Dropdown / Buttons */}
         <div className="flex items-center gap-3">
           {session?.user ? (
-            <UserDropdown user={session.user}/>
+            <>
+              <NotificationBell />
+              <Link
+                href="/chat"
+                title="Messages"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-800"
+              >
+                <MessageCircle className="size-4" />
+              </Link>
+              <UserDropdown user={session.user}/>
+            </>
           ) : (
             <>
               <Button asChild variant="ghost" className="gap-2 cursor-pointer text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-xl transition-all duration-250">

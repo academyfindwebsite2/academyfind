@@ -25,6 +25,17 @@ export async function GET() {
                         username: true,
                         displayName: true
                     }
+                },
+                wallet: {
+                    select: { balance: true }
+                },
+                managedInstitutes: {
+                    select: {
+                        institute: {
+                            select: { id: true, slug: true }
+                        }
+                    },
+                    take: 1
                 }
             }
         });

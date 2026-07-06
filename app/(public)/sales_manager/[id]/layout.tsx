@@ -24,7 +24,7 @@ export default async function SalesManagerLayout({
     params,
 }: {
     children: React.ReactNode;
-    params: Promise<{ id: string }>;
+    params: any;
 }) {
     const { id } = await params;
 

@@ -71,8 +71,50 @@ export async function updateClaimStatus(claimId: string, status: "APPROVED" | "R
                         userId:claim.userId,
                         instituteId:claim.instituteId
                     }
+                }),
+
+                prisma.instituteMembership.upsert({
+                    where: {
+                        userId_instituteId_role: {
+                            userId: claim.userId,
+                            instituteId: claim.instituteId,
+                            role: 'MANAGER'
+                        }
+                    },
+                    create: {
+                        userId: claim.userId,
+                        instituteId: claim.instituteId,
+                        role: 'MANAGER',
+                        status: 'ACTIVE',
+                        joinedAt: new Date(),
+                        isActive: true
+                    },
+                    update: {
+                        status: 'ACTIVE',
+                        joinedAt: new Date(),
+                        isActive: true
+                    }
                 })
             ])
+
+            // Also ensure institute channels exist and add manager
+            const { ensureInstituteChannels } = await import("@/lib/chat/ensureInstituteChannels");
+            await ensureInstituteChannels(claim.instituteId);
+            
+            const channels = await prisma.conversation.findMany({
+                where: { instituteId: claim.instituteId, type: 'INSTITUTE' }
+            });
+            
+            if (channels.length > 0) {
+                await prisma.conversationParticipant.createMany({
+                    data: channels.map(ch => ({
+                        conversationId: ch.id,
+                        userId: claim.userId,
+                        role: 'ADMIN' // manager is admin in channels
+                    })),
+                    skipDuplicates: true
+                });
+            }
         }
         revalidatePath("/af-ass-manage/claims")
         revalidatePath("/af-ass-manage")

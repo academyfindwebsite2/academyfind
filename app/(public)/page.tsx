@@ -11,8 +11,11 @@ import { LifeCoachCTA } from "@/components/home/LifeCoachCTA";
 import { PopularCities } from "@/components/home/PopularCities";
 import { StartJourney } from "@/components/home/StartJourney";
 import { TrendingDestinations } from "@/components/home/Trending";
+import { getSession } from "@/lib/auth/getSession";
+import { prisma } from "@/lib/prisma";
 
-export const revalidate = 86400; // Cache for 24 hours
+// Removed static revalidate to allow personalized dynamic rendering for logged in users
+// export const revalidate = 86400; // Cache for 24 hours
 
 // ─── 1. METADATA (Brand Authority & Broad Keywords) ──────────
 export const metadata: Metadata = {
@@ -167,7 +170,27 @@ function JsonLdSchemas() {
 }
 
 // ─── 3. PAGE COMPONENT ───────────────────────────────────────
-export default function Home() {
+export default async function Home() {
+  const session = await getSession();
+  const userId = session?.user?.id;
+  
+  let preferredCityIds: string[] = [];
+  let preferredCategoryIds: string[] = [];
+
+  if (userId) {
+    const prefs = await prisma.userPreference.findUnique({
+      where: { userId },
+      include: {
+        preferredCities: true,
+        preferredCategories: true,
+      }
+    });
+    if (prefs) {
+      preferredCityIds = prefs.preferredCities.map((c) => c.cityId);
+      preferredCategoryIds = prefs.preferredCategories.map((c) => c.categoryId);
+    }
+  }
+
   return (
     <>
       <JsonLdSchemas />
@@ -177,7 +200,7 @@ export default function Home() {
       <ExploreByGoal />
       <LifeCoachCTA />
       <PopularComparisons />
-      <FeaturedInstitutes />
+      <FeaturedInstitutes preferredCityIds={preferredCityIds} preferredCategoryIds={preferredCategoryIds} />
       <PopularCities />
       <StartJourney />
       <FAQSection />

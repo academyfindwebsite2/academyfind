@@ -1,0 +1,63 @@
+import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth/auth";
+import { headers } from "next/headers";
+import { prisma } from "@/lib/prisma";
+
+type Params = { params: Promise<{ id: string }> };
+
+export async function GET(_req: Request, { params }: Params) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { id } = await params;
+
+  // Verify user is a participant
+  const participant = await prisma.conversationParticipant.findFirst({
+    where: { conversationId: id, userId: session.user.id, status: "ACTIVE" },
+  });
+  if (!participant) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  const conversation = await prisma.conversation.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      type: true,
+      title: true,
+      imageUrl: true,
+      channelType: true,
+      isReadOnly: true,
+      _count: {
+        select: {
+          participants: { where: { status: "ACTIVE" } }
+        }
+      },
+      instituteId: true,
+      batchId: true,
+      institute: { select: { id: true, name: true, logo: true, slug: true } },
+      participants: {
+        where: { status: "ACTIVE" },
+        take: 50,
+        select: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              username: true,
+              image: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!conversation) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  
+  // Override memberCount with the actual active participant count
+  const payload = {
+    ...conversation,
+    memberCount: conversation._count.participants,
+  };
+  
+  return NextResponse.json({ conversation: payload });
+}

@@ -6,17 +6,45 @@ import { prisma } from "@/lib/prisma";
 import ScrollToTopButton from "./ScrollToTopButton";
 
 
-export async function FeaturedInstitutes() {
-  const topInstitutes = await prisma.institute.findMany({
-    where:{
-      isActive:true,
-      googleRating:{gte:4.8}
-    },
-    include:{
-      city: true
-    },
-    take:20
-  })
+export async function FeaturedInstitutes({
+  preferredCityIds = [],
+  preferredCategoryIds = []
+}: {
+  preferredCityIds?: string[];
+  preferredCategoryIds?: string[];
+}) {
+  let whereClause: any = {
+    isActive: true,
+    googleRating: { gte: 4.5 }
+  };
+
+  if (preferredCityIds.length > 0 || preferredCategoryIds.length > 0) {
+    whereClause.OR = [];
+    if (preferredCityIds.length > 0) {
+      whereClause.OR.push({ cityId: { in: preferredCityIds } });
+    }
+    if (preferredCategoryIds.length > 0) {
+      whereClause.OR.push({ categories: { some: { categoryId: { in: preferredCategoryIds } } } });
+    }
+  }
+
+  let topInstitutes = await prisma.institute.findMany({
+    where: whereClause,
+    include: { city: true },
+    take: 20
+  });
+
+  if (topInstitutes.length < 4) {
+    const fallbackInstitutes = await prisma.institute.findMany({
+      where: { isActive: true, googleRating: { gte: 4.8 } },
+      include: { city: true },
+      take: 20
+    });
+    const existingIds = new Set(topInstitutes.map(i => i.id));
+    for (const inst of fallbackInstitutes) {
+      if (!existingIds.has(inst.id)) topInstitutes.push(inst);
+    }
+  }
 
   const random4 = topInstitutes.sort(() => 0.5 - Math.random()).slice(0,4);
   const institutes = random4.map((inst) => ({

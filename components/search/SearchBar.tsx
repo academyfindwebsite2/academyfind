@@ -246,6 +246,9 @@ export function SearchBar() {
         const response = await fetch(
           `/api/search/suggestions?q=${encodeURIComponent(input)}`
         );
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
         const data = await response.json();
         setSuggestions(data);
       } catch (error) {

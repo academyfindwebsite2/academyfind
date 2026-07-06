@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
-import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound } from "lucide-react";
+import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound, Users, PackageOpen, MessageCircle } from "lucide-react";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
@@ -19,7 +19,7 @@ export default async function ManagerDashBoardLayout({
     children,params
 }:{
     children: React.ReactNode;
-    params: Promise<{ instituteId: string }>
+    params: any;
 }) {
     const {instituteId} = await params;
     const session = await auth.api.getSession({
@@ -46,12 +46,52 @@ export default async function ManagerDashBoardLayout({
         )
     }
 
+    // BACKFILL: Ensure manager has an active InstituteMembership
+    if (isAuthorized) {
+        const membership = await prisma.instituteMembership.findFirst({
+            where: { userId: session.user.id, instituteId, role: 'MANAGER' }
+        });
+        if (!membership) {
+            await prisma.instituteMembership.create({
+                data: {
+                    userId: session.user.id,
+                    instituteId,
+                    role: 'MANAGER',
+                    status: 'ACTIVE',
+                    joinedAt: new Date(),
+                    isActive: true
+                }
+            });
+            // Also ensure channel membership
+            const { ensureInstituteChannels } = await import("@/lib/chat/ensureInstituteChannels");
+            await ensureInstituteChannels(instituteId);
+            const channels = await prisma.conversation.findMany({
+                where: { instituteId: instituteId, type: 'INSTITUTE' }
+            });
+            if (channels.length > 0) {
+                await prisma.conversationParticipant.createMany({
+                    data: channels.map(ch => ({
+                        conversationId: ch.id,
+                        userId: session.user.id,
+                        role: 'ADMIN' // manager is admin in channels
+                    })),
+                    skipDuplicates: true
+                });
+            }
+        }
+    }
+
     const institute = await prisma.institute.findUnique({
         where: { id: instituteId },
         select: { name: true, subscriptionPlan: true }
     });
 
     if (!institute) return <div>Institute not found.</div>;
+
+    // Count pending membership requests
+    const pendingCount = await prisma.instituteMembership.count({
+      where: { instituteId, status: "PENDING" },
+    });
 
     const plan = institute.subscriptionPlan; // BASIC, PREMIUM, ULTRA
 
@@ -81,17 +121,28 @@ export default async function ManagerDashBoardLayout({
                             icon={<LayoutDashboardIcon />} 
                             label="Dashboard"  
                         />
+                        <SidebarLink
+                            href={`/manager/${instituteId}/members`}
+                            icon={<Users />}
+                            label="Members"
+                            badge={pendingCount > 0 ? pendingCount : undefined}
+                        />
+                        <SidebarLink
+                            href={`/manager/${instituteId}/batches`}
+                            icon={<PackageOpen />}
+                            label="Batches"
+                        />
+                        <SidebarLink
+                            href={`/chat?instituteId=${instituteId}`}
+                            icon={<MessageCircle />}
+                            label="Institute Chat"
+                        />
+                        <SidebarLink href={`/manager/${instituteId}/leads`} icon={<MessageSquare />} label="Student Leads" locked={plan === "BASIC" || plan == "VERIFIED"}/>
                         <SidebarLink href={`/manager/${instituteId}/profile`} icon={<User />} label="Profile Data" locked={plan == "BASIC"}/>
                         <SidebarLink 
                             href={`/manager/${instituteId}/team`} 
                             icon={<UserRound />} 
                             label="Add a team Member" 
-                            locked={plan === "BASIC" || plan == "VERIFIED"} 
-                        />
-                        <SidebarLink 
-                            href={`/manager/${instituteId}/leads`} 
-                            icon={<MessageSquare />} 
-                            label="Student Leads" 
                             locked={plan === "BASIC" || plan == "VERIFIED"} 
                         />
 
@@ -129,7 +180,7 @@ export default async function ManagerDashBoardLayout({
 }
 
 // Helper Component for Sidebar Links
-function SidebarLink({ href, icon, label, locked, className = "" }: any) {
+function SidebarLink({ href, icon, label, locked, badge, className = "" }: any) {
     return (
         <Link 
             href={href} 
@@ -141,6 +192,11 @@ function SidebarLink({ href, icon, label, locked, className = "" }: any) {
                 {label}
             </div>
             {locked && <span className="text-xs bg-slate-100 text-slate-500 px-1.5 rounded">🔒</span>}
+            {!locked && badge !== undefined && (
+              <span className="rounded-full bg-rose-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                {badge}
+              </span>
+            )}
         </Link>
     );
 }

@@ -35,7 +35,7 @@ async function getComparison(slug: string) {
           highlightStats: { orderBy: { order: 'asc' } },
           achievements: { orderBy: { year: 'desc' }, take: 5 },
           faqs: { orderBy: { order: 'asc' } },
-          teachers: { take: 3 },
+          teacherRecords: { take: 3 },
           notablepersons: { take: 3, orderBy: { batchYear: 'desc' } },
         },
       },
@@ -47,7 +47,7 @@ async function getComparison(slug: string) {
           highlightStats: { orderBy: { order: 'asc' } },
           achievements: { orderBy: { year: 'desc' }, take: 5 },
           faqs: { orderBy: { order: 'asc' } },
-          teachers: { take: 3 },
+          teacherRecords: { take: 3 },
           notablepersons: { take: 3, orderBy: { batchYear: 'desc' } },
         },
       },
@@ -358,7 +358,7 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
         {/* ==========================================
             8. FACULTY
             ========================================== */}
-        {(a.teachers.length > 0 || b.teachers.length > 0) && (
+        {(a.teacherRecords.length > 0 || b.teacherRecords.length > 0) && (
           <section>
             <SectionHeading title="Faculty" />
             <div className="grid gap-6 md:grid-cols-2">
@@ -573,24 +573,23 @@ function FacultyList({ institute }: { institute: InstituteData }) {
   return (
     <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
       <p className="mb-4 font-bold text-stone-900">{institute.name}</p>
-      {institute.teachers.length === 0 ? (
+      {institute.teacherRecords.length === 0 ? (
         <p className="text-sm text-stone-400">Faculty details not added yet.</p>
       ) : (
         <ul className="space-y-4">
-          {institute.teachers.map((t: any) => (
+          {institute.teacherRecords.map((t: any) => (
             <li key={t.id} className="flex items-start gap-3">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-amber-50">
-                {t.imageUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={t.imageUrl} alt={t.name} className="h-full w-full object-cover" />
-                ) : (
-                  <GraduationCap className="h-5 w-5 text-amber-400" />
-                )}
+                <GraduationCap className="h-5 w-5 text-amber-400" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-stone-800">{t.name}</p>
-                <p className="text-xs text-stone-500">{[t.subject, t.experience].filter(Boolean).join(' · ')}</p>
-                {t.qualification && <p className="text-xs text-stone-400">{t.qualification}</p>}
+                <p className="text-sm font-semibold text-stone-800">
+                  {t.designation || 'Faculty'}
+                </p>
+                <p className="text-xs text-stone-500">
+                  {[t.department, t.teachingSubjects?.slice(0,2).join(', ')].filter(Boolean).join(' · ')}
+                </p>
+                {t.bio && <p className="mt-0.5 text-xs text-stone-400 line-clamp-1">{t.bio}</p>}
               </div>
             </li>
           ))}

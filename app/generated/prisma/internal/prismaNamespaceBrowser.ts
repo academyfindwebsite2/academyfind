@@ -151,10 +151,12 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  username: 'username',
   email: 'email',
   phone: 'phone',
   passwordHash: 'passwordHash',
   image: 'image',
+  coverImage: 'coverImage',
   role: 'role',
   isActive: 'isActive',
   emailVerified: 'emailVerified',
@@ -163,7 +165,16 @@ export const UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   canAddInstitute: 'canAddInstitute',
-  canWriteBlogs: 'canWriteBlogs'
+  canWriteBlogs: 'canWriteBlogs',
+  facebookUrl: 'facebookUrl',
+  instagramUrl: 'instagramUrl',
+  telegramUrl: 'telegramUrl',
+  twitterUrl: 'twitterUrl',
+  youtubeUrl: 'youtubeUrl',
+  linkedinUrl: 'linkedinUrl',
+  whatsappUrl: 'whatsappUrl',
+  allowDms: 'allowDms',
+  isVisible: 'isVisible'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -515,15 +526,12 @@ export type InstituteEnquiryScalarFieldEnum = (typeof InstituteEnquiryScalarFiel
 export const TeacherProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  displayname: 'displayname',
-  imageUrl: 'imageUrl',
   headline: 'headline',
   bio: 'bio',
   qualification: 'qualification',
   experience: 'experience',
   subjects: 'subjects',
   languages: 'languages',
-  allowDMs: 'allowDMs',
   isVisible: 'isVisible',
   isVerified: 'isVerified',
   createdAt: 'createdAt',
@@ -540,7 +548,6 @@ export const StudentProfileScalarFieldEnum = {
   bio: 'bio',
   targetExam: 'targetExam',
   currentClass: 'currentClass',
-  allowDMs: 'allowDMs',
   isVisible: 'isVisible',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -577,6 +584,7 @@ export const StudentInstituteRecordScalarFieldEnum = {
   bio: 'bio',
   isVerified: 'isVerified',
   isVisible: 'isVisible',
+  allowMessaging: 'allowMessaging',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -596,6 +604,7 @@ export const TeacherInstituteRecordScalarFieldEnum = {
   bio: 'bio',
   isFeatured: 'isFeatured',
   isVerified: 'isVerified',
+  isVisible: 'isVisible',
   displayOrder: 'displayOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -640,6 +649,7 @@ export const ConversationParticipantScalarFieldEnum = {
   lastReadMessageId: 'lastReadMessageId',
   lastReadAt: 'lastReadAt',
   lastSeenAt: 'lastSeenAt',
+  typingAt: 'typingAt',
   role: 'role',
   status: 'status',
   notificationsMuted: 'notificationsMuted',

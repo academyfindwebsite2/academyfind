@@ -492,11 +492,21 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                     <p className="text-sm text-emerald-700">Actions below save instantly directly to DB.</p>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                    {/* <EditTeachers instituteId={institute.id} currentTeachers={institute.teachers || []} maxLimit={999} /> */}
+                    <EditTeachers 
+                        instituteId={institute.id} 
+                        currentTeachers={(institute.teacherRecords || []).map((r: any) => ({
+                            membershipId: r.membershipId,
+                            designation: r.designation,
+                            department: r.department,
+                            teachingSubjects: r.teachingSubjects,
+                            user: r.membership?.user || { name: null, image: null, email: '' }
+                        }))} 
+                        maxLimit={999} 
+                    />
                     <EditResultImages instituteId={institute.id} currentImages={institute.gallery || []} maxLimit={999} />
                     <EditVideoLinks instituteId={institute.id} currentVideos={institute.youtubeVideos || []} maxLimit={999} />
                     <ClassroomImages instituteId={institute.id} currentImages={institute.classroomImages || []} maxLimit={999} />
-                    {/* <EditBatches instituteId={institute.id} currentBatches={institute.batches || []} maxLimit={999} /> */}
+                    <EditBatches instituteId={institute.id} currentBatches={institute.batches || []} maxLimit={999} />
                     <EditFAQs instituteId={institute.id} currentFAQs={institute.faqs || []} maxLimit={999} />
                     <EditAchievements instituteId={institute.id} currentAchievements={institute.achievements || []} maxLimit={999} />
                     <EditNotablePersons instituteId={institute.id} currentPersons={institute.notablepersons || []} maxLimit={999} />

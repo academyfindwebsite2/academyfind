@@ -3,14 +3,19 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+import { creditWallet } from "@/lib/wallet/credit";
+
 // 1. Approve Review & Update Rating
 export async function approveReview(reviewId: string, instituteId: string) {
   try {
     // 1. Review ko APPROVED mark karein
-    await prisma.review.update({
+    const updatedReview = await prisma.review.update({
       where: { id: reviewId },
       data: { status: "APPROVED" },
     });
+
+    // Award +20 coins to the reviewer
+    await creditWallet(updatedReview.userId, 20, "REVIEW", "Review approved", reviewId);
 
     // 2. Sirf "APPROVED" reviews ka average nikalenge
     const stats = await prisma.review.aggregate({

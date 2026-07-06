@@ -38,26 +38,46 @@ const parseNum = (val: any) => {
 export async function updateInstituteBatches(instituteId: string, batches: any[]) {
     try {
         await prisma.$transaction(async (tx) => {
-            await tx.instituteBatch.deleteMany({ where: { instituteId } });
+            const batchIdsToKeep = batches.map(b => b.id).filter(Boolean);
+            
+            // Delete batches not in the updated list
+            await tx.instituteBatch.deleteMany({ 
+                where: { 
+                    instituteId, 
+                    id: { notIn: batchIdsToKeep } 
+                } 
+            });
 
             if (batches.length > 0) {
-                await tx.instituteBatch.createMany({
-                    data: batches.map(b => ({
-                        instituteId,
+                for (const b of batches) {
+                    const data = {
                         name: b.name,
                         duration: b.duration || null,
                         fee: parseNum(b.fee),
                         originalFee: parseNum(b.originalFee),
                         batchType: b.batchType || null,
-                        // Fix for Enum Types
                         mode: (b.mode as "OFFLINE" | "ONLINE" | "HYBRID") || "OFFLINE",
                         timing: b.timing || null,
                         seatsTotal: parseNum(b.seatsTotal),
                         seatsLeft: parseNum(b.seatsLeft),
                         ageGroupMin: parseNum(b.ageGroupMin),
                         ageGroupMax: parseNum(b.ageGroupMax),
-                    }))
-                });
+                    };
+
+                    if (b.id) {
+                        await tx.instituteBatch.update({
+                            where: { id: b.id },
+                            data
+                        });
+                    } else {
+                        await tx.instituteBatch.create({
+                            data: {
+                                instituteId,
+                                ...data
+                            }
+                        });
+                    }
+                }
             }
         });
         

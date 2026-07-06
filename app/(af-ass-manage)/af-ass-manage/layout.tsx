@@ -19,7 +19,10 @@ import {
     IdCard,
     BellIcon,
     Star,
-    BookOpen
+    BookOpen,
+    UserCheck,
+    MessageCircle,
+    Wallet
 } from "lucide-react";
 import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
@@ -80,7 +83,13 @@ export default async function AdminLayout({
         prisma.lifeCoachRequest.count({ where: { status: "PENDING" } }),
         prisma.subscriptionPayment.count({ where: { status: "PENDING" } }),
         prisma.jobApplication.count({ where: { status: "NEW" } }),
-        prisma.instituteEnquiry.count({ where: { status: "NEW" } }), // Job postings ke new applications
+        prisma.instituteEnquiry.count({ where: { status: "NEW" } }),
+    ]);
+
+    // New route counts
+    const [pendingMemberships, pendingChatReports] = await Promise.all([
+        prisma.instituteMembership.count({ where: { status: "PENDING" } }),
+        prisma.messageReport.count({ where: { status: "PENDING" } }),
     ]);
 
     return (
@@ -125,6 +134,12 @@ export default async function AdminLayout({
                         <div className="my-2 border-t border-slate-200"></div>
                         <SidebarLink href="/af-ass-manage/categories" icon={<FolderTree />} label="Categories" />
                         <SidebarLink href="/af-ass-manage/cities" icon={<MapPin />} label="Cities & Regions" />
+
+                        <div className="my-2 border-t border-slate-200"></div>
+                        <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Platform Tools</p>
+                        <SidebarLink href="/af-ass-manage/memberships" icon={<UserCheck />} label="Memberships" count={pendingMemberships} />
+                        <SidebarLink href="/af-ass-manage/chat" icon={<MessageCircle />} label="Chat Reports" count={pendingChatReports} />
+                        <SidebarLink href="/af-ass-manage/wallets" icon={<Wallet />} label="Wallets" />
                     </nav>
                 </aside>
 

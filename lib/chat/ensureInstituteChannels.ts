@@ -1,0 +1,102 @@
+import type {
+  ChannelType,
+  ConversationVisibility,
+} from "@/app/generated/prisma/client";
+import { prisma } from "@/lib/prisma";
+
+const INSTITUTE_CHANNELS: Array<{
+  channelType: ChannelType;
+  title: string;
+  isReadOnly: boolean;
+  visibility: ConversationVisibility;
+}> = [
+  {
+    channelType: "GENERAL",
+    title: "# General",
+    isReadOnly: false,
+    visibility: "INSTITUTE",
+  },
+  {
+    channelType: "ANNOUNCEMENTS",
+    title: "# Announcements",
+    isReadOnly: true,
+    visibility: "INSTITUTE",
+  },
+  {
+    channelType: "STUDENTS",
+    title: "# Q&A",
+    isReadOnly: false,
+    visibility: "INSTITUTE",
+  },
+  {
+    channelType: "TEACHERS",
+    title: "# Teachers",
+    isReadOnly: false,
+    visibility: "INSTITUTE",
+  },
+  {
+    channelType: "STAFF",
+    title: "# Staff",
+    isReadOnly: false,
+    visibility: "INSTITUTE",
+  },
+];
+
+export async function ensureInstituteChannels(instituteId: string) {
+  return Promise.all(
+    INSTITUTE_CHANNELS.map((channel) =>
+      prisma.conversation.upsert({
+        where: {
+          instituteId_channelType: {
+            instituteId,
+            channelType: channel.channelType,
+          },
+        },
+        create: {
+          type: "INSTITUTE",
+          instituteId,
+          ...channel,
+        },
+        update: {
+          title: channel.title,
+          isReadOnly: channel.isReadOnly,
+          visibility: channel.visibility,
+        },
+      }),
+    ),
+  );
+}
+
+export async function addMemberToInstituteChannels(
+  userId: string,
+  instituteId: string,
+  role: "STUDENT" | "TEACHER" | "MANAGER" | "ADMIN",
+) {
+  const channels = await ensureInstituteChannels(instituteId);
+  const allowed = channels.filter(({ channelType }) => {
+    if (channelType === "STAFF") return role === "MANAGER" || role === "ADMIN";
+    if (channelType === "TEACHERS") {
+      return role === "TEACHER" || role === "MANAGER" || role === "ADMIN";
+    }
+    return true;
+  });
+
+  await Promise.all(
+    allowed.map((conversation) =>
+      prisma.conversationParticipant.upsert({
+        where: {
+          conversationId_userId: {
+            conversationId: conversation.id,
+            userId,
+          },
+        },
+        create: {
+          conversationId: conversation.id,
+          userId,
+          role: role === "MANAGER" || role === "ADMIN" ? "ADMIN" : "MEMBER",
+        },
+        update: { leftAt: null, status: "ACTIVE", isHidden: false },
+      }),
+    ),
+  );
+}

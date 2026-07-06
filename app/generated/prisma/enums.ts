@@ -99,6 +99,7 @@ export const ChannelType = {
   TEACHERS: 'TEACHERS',
   ANNOUNCEMENTS: 'ANNOUNCEMENTS',
   BATCH: 'BATCH',
+  STAFF: 'STAFF',
   CUSTOM: 'CUSTOM'
 } as const
 
