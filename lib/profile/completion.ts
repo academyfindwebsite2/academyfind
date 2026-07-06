@@ -123,7 +123,7 @@ export async function checkAndAwardProfileCompletion(userId: string) {
   const studentProfile = await prisma.studentProfile.findUnique({ where: { userId } });
   const teacherProfile = await prisma.teacherProfile.findUnique({ where: { userId } });
 
-  const { isComplete } = computeProfileCompletion(user, studentProfile, teacherProfile);
+  const { isComplete } = computeProfileCompletion(user as any, studentProfile, teacherProfile);
 
   if (isComplete) {
     await creditWallet(userId, 30, "PROFILE_COMPLETION", "Profile completed");
