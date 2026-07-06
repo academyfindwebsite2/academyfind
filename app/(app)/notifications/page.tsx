@@ -43,7 +43,7 @@ export default async function NotificationsPage() {
       },
     });
 
-    notifications = adminNotifications.map((n) => ({
+    notifications = adminNotifications.map((n: any) => ({
       id: n.id,
       type: n.type,
       title: n.title,
@@ -69,7 +69,7 @@ export default async function NotificationsPage() {
       },
     });
 
-    notifications = userNotifications.map((n) => ({
+    notifications = userNotifications.map((n: any) => ({
       id: n.id,
       type: n.type,
       title: n.title,
@@ -82,7 +82,7 @@ export default async function NotificationsPage() {
   }
 
   // Calculate unread safely for both admins and normal users
-  const unread = notifications.filter((n) => !n.isRead).length;
+  const unread = notifications.filter((n: any) => !n.isRead).length;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
@@ -119,7 +119,7 @@ export default async function NotificationsPage() {
         </div>
       ) : (
         <div className="space-y-2">
-          {notifications.map((n) => (
+          {notifications.map((n: any) => (
             <div
               key={n.id}
               className={`flex items-start gap-4 rounded-2xl border p-5 transition-colors ${!n.isRead

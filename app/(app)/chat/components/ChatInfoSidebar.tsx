@@ -13,7 +13,7 @@ const fetcher = (url: string) => fetch(url).then(r => r.json());
 export function ChatInfoSidebar({ conversationId, meta }: { conversationId: string, meta: any }) {
     const [open, setOpen] = useState(false);
 
-    const { data, isLoading } = useSWR<{ participants: any[] }>(
+    const { data, isLoading } = useSWR<{ participants: { role: string }[] }>(
         open ? `/api/v2/conversations/${conversationId}/participants` : null,
         fetcher
     );
@@ -21,8 +21,8 @@ export function ChatInfoSidebar({ conversationId, meta }: { conversationId: stri
     const participants = data?.participants || [];
     
     // Group participants by role if it's an institute channel
-    const admins = participants.filter(p => p.role === "ADMIN");
-    const members = participants.filter(p => p.role === "MEMBER");
+    const admins = participants.filter((p: { role: string }) => p.role === "ADMIN");
+    const members = participants.filter((p: { role: string }) => p.role === "MEMBER");
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
@@ -74,7 +74,7 @@ export function ChatInfoSidebar({ conversationId, meta }: { conversationId: stri
                                     <div>
                                         <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 px-2">Admins / Teachers</p>
                                         <div className="space-y-2">
-                                            {admins.map(p => (
+                                            {admins.map((p: any) => (
                                                 <MemberRow key={p.id} participant={p} />
                                             ))}
                                         </div>
@@ -85,7 +85,7 @@ export function ChatInfoSidebar({ conversationId, meta }: { conversationId: stri
                                     <div>
                                         <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 px-2">Students</p>
                                         <div className="space-y-2">
-                                            {members.map(p => (
+                                            {members.map((p: any) => (
                                                 <MemberRow key={p.id} participant={p} />
                                             ))}
                                         </div>
@@ -100,7 +100,7 @@ export function ChatInfoSidebar({ conversationId, meta }: { conversationId: stri
     );
 }
 
-function MemberRow({ participant }: { participant: any }) {
+function MemberRow({ participant }: { participant: { role: string; user: any } }) {
     const u = participant.user;
     if (!u) return null;
     return (

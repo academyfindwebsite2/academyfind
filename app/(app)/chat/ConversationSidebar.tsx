@@ -42,14 +42,14 @@ export function ConversationSidebar({ userId }: { userId: string }) {
 
   const conversations = data?.conversations ?? [];
 
-  const filtered = conversations.filter((c) =>
+  const filtered = conversations.filter((c: ConversationItem) =>
     c.displayName.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const pinned = filtered.filter((c) => c.isPinned);
-  const dms = filtered.filter((c) => !c.isPinned && c.type === "DIRECT");
+  const pinned = filtered.filter((c: ConversationItem) => c.isPinned);
+  const dms = filtered.filter((c: ConversationItem) => !c.isPinned && c.type === "DIRECT");
   const channels = filtered.filter(
-          (c) => !c.isPinned && c.type !== "DIRECT",
+          (c: ConversationItem) => !c.isPinned && c.type !== "DIRECT",
   );
 
   return (
@@ -90,7 +90,7 @@ export function ConversationSidebar({ userId }: { userId: string }) {
 
         {pinned.length > 0 && (
           <SectionGroup label="Pinned">
-            {pinned.map((c) => (
+            {pinned.map((c: ConversationItem) => (
               <ConvoCard key={c.id} convo={c} isActive={pathname.includes(c.id)} />
             ))}
           </SectionGroup>
@@ -98,7 +98,7 @@ export function ConversationSidebar({ userId }: { userId: string }) {
 
         {dms.length > 0 && (
           <SectionGroup label="Direct Messages">
-            {dms.map((c) => (
+            {dms.map((c: ConversationItem) => (
               <ConvoCard key={c.id} convo={c} isActive={pathname.includes(c.id)} />
             ))}
           </SectionGroup>
@@ -106,7 +106,7 @@ export function ConversationSidebar({ userId }: { userId: string }) {
 
         {channels.length > 0 && (
           <SectionGroup label="Channels">
-            {channels.map((c) => (
+            {channels.map((c: ConversationItem) => (
               <ConvoCard key={c.id} convo={c} isActive={pathname.includes(c.id)} />
             ))}
           </SectionGroup>
