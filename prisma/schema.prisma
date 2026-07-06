@@ -965,9 +965,8 @@ model UserBlock {
 
 enum ConversationRole {
   OWNER
-
   ADMIN
-
+  MANAGER
   MEMBER
 }
 

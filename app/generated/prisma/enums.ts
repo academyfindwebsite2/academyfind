@@ -161,6 +161,7 @@ export type NotificationType = (typeof NotificationType)[keyof typeof Notificati
 export const ConversationRole = {
   OWNER: 'OWNER',
   ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER',
   MEMBER: 'MEMBER'
 } as const
 

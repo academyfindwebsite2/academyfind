@@ -10,37 +10,37 @@ const INSTITUTE_CHANNELS: Array<{
   isReadOnly: boolean;
   visibility: ConversationVisibility;
 }> = [
-  {
-    channelType: "GENERAL",
-    title: "# General",
-    isReadOnly: false,
-    visibility: "INSTITUTE",
-  },
-  {
-    channelType: "ANNOUNCEMENTS",
-    title: "# Announcements",
-    isReadOnly: true,
-    visibility: "INSTITUTE",
-  },
-  {
-    channelType: "STUDENTS",
-    title: "# Q&A",
-    isReadOnly: false,
-    visibility: "INSTITUTE",
-  },
-  {
-    channelType: "TEACHERS",
-    title: "# Teachers",
-    isReadOnly: false,
-    visibility: "INSTITUTE",
-  },
-  {
-    channelType: "STAFF",
-    title: "# Staff",
-    isReadOnly: false,
-    visibility: "INSTITUTE",
-  },
-];
+    {
+      channelType: "GENERAL",
+      title: "# General",
+      isReadOnly: false,
+      visibility: "INSTITUTE",
+    },
+    {
+      channelType: "ANNOUNCEMENTS",
+      title: "# Announcements",
+      isReadOnly: true,
+      visibility: "INSTITUTE",
+    },
+    {
+      channelType: "STUDENTS",
+      title: "# Q&A",
+      isReadOnly: false,
+      visibility: "INSTITUTE",
+    },
+    {
+      channelType: "TEACHERS",
+      title: "# Teachers",
+      isReadOnly: false,
+      visibility: "INSTITUTE",
+    },
+    {
+      channelType: "STAFF",
+      title: "# Staff",
+      isReadOnly: false,
+      visibility: "INSTITUTE",
+    },
+  ];
 
 export async function ensureInstituteChannels(instituteId: string) {
   return Promise.all(
@@ -93,7 +93,7 @@ export async function addMemberToInstituteChannels(
         create: {
           conversationId: conversation.id,
           userId,
-          role: role === "MANAGER" || role === "ADMIN" ? "ADMIN" : "MEMBER",
+          role: role === "ADMIN" ? "ADMIN" : role === "MANAGER" ? "MANAGER" : "MEMBER",
         },
         update: { leftAt: null, status: "ACTIVE", isHidden: false },
       }),
