@@ -64,7 +64,7 @@ export default async function ProfileSettingsPage() {
           institute.
         </p>
         <div className="mt-4 space-y-2">
-          {user.memberships.map((membership) => (
+          {user.memberships.map((membership: any) => (
             <div
               key={membership.id}
               className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"
