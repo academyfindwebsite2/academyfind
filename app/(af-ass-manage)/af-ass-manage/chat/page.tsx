@@ -37,8 +37,8 @@ export default async function AdminChatPage() {
     },
   });
 
-  const pending = reports.filter((r) => r.status === "PENDING");
-  const resolved = reports.filter((r) => r.status !== "PENDING");
+  const pending = reports.filter((r: any) => r.status === "PENDING");
+  const resolved = reports.filter((r: any) => r.status !== "PENDING");
 
   const REASON_LABELS: Record<string, string> = {
     SPAM: "🚫 Spam",
