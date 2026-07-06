@@ -29,9 +29,9 @@ export default async function AdminWalletsPage() {
     },
   });
 
-  const totalBalance = wallets.reduce((sum, w) => sum + w.balance, 0);
-  const totalEarned = wallets.reduce((sum, w) => sum + w.lifetimeEarned, 0);
-  const totalSpent = wallets.reduce((sum, w) => sum + w.lifetimeSpent, 0);
+  const totalBalance = wallets.reduce((sum: number, w: any) => sum + w.balance, 0);
+  const totalEarned = wallets.reduce((sum: number, w: any) => sum + w.lifetimeEarned, 0);
+  const totalSpent = wallets.reduce((sum: number, w: any) => sum + w.lifetimeSpent, 0);
 
   return (
     <div className="space-y-8">
