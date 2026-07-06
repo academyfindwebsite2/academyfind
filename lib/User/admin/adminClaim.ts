@@ -107,10 +107,10 @@ export async function updateClaimStatus(claimId: string, status: "APPROVED" | "R
             
             if (channels.length > 0) {
                 await prisma.conversationParticipant.createMany({
-                    data: channels.map(ch => ({
+                    data: channels.map((ch: any) => ({
                         conversationId: ch.id,
                         userId: claim.userId,
-                        role: 'ADMIN' // manager is admin in channels
+                        role: 'MANAGER' // manager is admin in channels
                     })),
                     skipDuplicates: true
                 });
