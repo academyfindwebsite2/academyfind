@@ -73,7 +73,7 @@ export default async function ManagerDashBoardLayout({
                     data: channels.map(ch => ({
                         conversationId: ch.id,
                         userId: session.user.id,
-                        role: 'MANAGER' // manager is admin in channels
+                        role: 'MANAGER' // 
                     })),
                     skipDuplicates: true
                 });
