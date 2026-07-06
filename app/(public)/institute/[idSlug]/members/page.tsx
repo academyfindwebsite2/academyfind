@@ -143,7 +143,7 @@ export default async function MembersDirectoryPage({ params }: Props) {
             <EmptyState text="No verified students yet." />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {students.map((record) => {
+              {students.map((record: any) => {
                 const user = record.studentProfile?.user;
                 if (!user) return null;
                 return (
@@ -170,7 +170,7 @@ export default async function MembersDirectoryPage({ params }: Props) {
             <EmptyState text="No verified faculty yet." />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {teachers.map((record) => {
+              {teachers.map((record: any) => {
                 const user = record.teacherProfile?.user;
                 if (!user) return null;
                 return (
@@ -197,7 +197,7 @@ export default async function MembersDirectoryPage({ params }: Props) {
             <EmptyState text="No managers found." />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {managers.map(({ user }) => (
+              {managers.map(({ user }: { user: any }) => (
                 <MemberCard
                   key={user.id}
                   user={user}
