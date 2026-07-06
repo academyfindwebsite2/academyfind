@@ -73,7 +73,7 @@ export default async function AdminChatPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {pending.map((r) => (
+            {pending.map((r: any) => (
               <ReportCard key={r.id} report={r} reasonLabels={REASON_LABELS} />
             ))}
           </div>
@@ -86,7 +86,7 @@ export default async function AdminChatPage() {
           ✅ Resolved ({resolved.length})
         </h2>
         <div className="space-y-3">
-          {resolved.slice(0, 20).map((r) => (
+          {resolved.slice(0, 20).map((r: any) => (
             <ReportCard key={r.id} report={r} reasonLabels={REASON_LABELS} compact />
           ))}
         </div>
