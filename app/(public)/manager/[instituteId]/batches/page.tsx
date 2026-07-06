@@ -130,7 +130,7 @@ export default async function ManagerBatchesPage({ params }: Props) {
           </div>
         ) : (
           <div className="space-y-4">
-            {batches.map((batch) => {
+            {batches.map((batch: any) => {
               const seatsPercent =
                 batch.seatsTotal && batch.seatsLeft !== null
                   ? Math.round(

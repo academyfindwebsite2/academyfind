@@ -57,7 +57,7 @@ export default async function TeamPage({ params }: { params: Promise<{ institute
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                {team.map((member) => (
+                {team.map((member: any) => (
                     <div key={member.userId} className="flex items-center gap-4 p-4 border border-slate-100 rounded-2xl shadow-sm bg-white hover:shadow-md transition-all">
                         <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-500 overflow-hidden shrink-0">
                             {member.user.image ? (

@@ -119,7 +119,7 @@ export default async function ManagerMembersPage({ params }: Props) {
           <EmptyCard text="No pending requests." />
         ) : (
           <div className="space-y-3">
-            {pending.map((m) => (
+            {pending.map((m: any) => (
               <div
                 key={m.id}
                 className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
@@ -200,7 +200,7 @@ export default async function ManagerMembersPage({ params }: Props) {
           <EmptyCard text="No students yet." />
         ) : (
           <div className="space-y-3">
-            {students.map((m) => (
+            {students.map((m: any) => (
               <div
                 key={m.id}
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4"
@@ -258,7 +258,7 @@ export default async function ManagerMembersPage({ params }: Props) {
           <EmptyCard text="No faculty yet." />
         ) : (
           <div className="space-y-3">
-            {teachers.map((m) => (
+            {teachers.map((m: any) => (
               <div
                 key={m.id}
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4"
@@ -275,7 +275,7 @@ export default async function ManagerMembersPage({ params }: Props) {
                     </p>
                     {m.teacherRecord?.teachingSubjects.length ? (
                       <div className="mt-1 flex flex-wrap gap-1">
-                        {m.teacherRecord.teachingSubjects.slice(0, 3).map((s) => (
+                        {m.teacherRecord.teachingSubjects.slice(0, 3).map((s: any) => (
                           <span key={s} className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-600">
                             {s}
                           </span>

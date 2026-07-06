@@ -87,7 +87,7 @@ export default async function ManagerCommunityPage({ params }: Props) {
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {channels.map((ch) => (
+            {channels.map((ch: any) => (
               <div
                 key={ch.id}
                 className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
@@ -144,7 +144,7 @@ export default async function ManagerCommunityPage({ params }: Props) {
           </div>
         ) : (
           <div className="space-y-3">
-            {reports.map((r) => (
+            {reports.map((r: any) => (
               <div
                 key={r.id}
                 className="rounded-2xl border border-rose-200 bg-rose-50/30 p-5"
