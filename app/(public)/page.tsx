@@ -186,8 +186,8 @@ export default async function Home() {
       }
     });
     if (prefs) {
-      preferredCityIds = prefs.preferredCities.map((c) => c.cityId);
-      preferredCategoryIds = prefs.preferredCategories.map((c) => c.categoryId);
+      preferredCityIds = prefs.preferredCities.map((c: { cityId: string }) => c.cityId);
+      preferredCategoryIds = prefs.preferredCategories.map((c: { categoryId: string }) => c.categoryId);
     }
   }
 
