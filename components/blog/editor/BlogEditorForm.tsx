@@ -380,7 +380,7 @@ export default function BlogEditorForm({
       setPostId(result.id);
       const nextStatus =
         intent === "publish"
-          ? "PUBLISHED"
+          ? (management === "admin" ? "PUBLISHED" : "PENDING_REVIEW")
           : management === "admin"
             ? adminControls.status
             : "DRAFT";
@@ -388,7 +388,7 @@ export default function BlogEditorForm({
       setSaveState("saved");
       toast.success(
         intent === "publish"
-          ? "Post published."
+          ? (management === "admin" ? "Post published." : "Post submitted for review.")
           : management === "admin"
             ? "Post changes saved."
             : "Draft saved.",
@@ -771,31 +771,33 @@ export default function BlogEditorForm({
                 </Select>
               </div>
 
-              {/* <div className="space-y-2">
-                <Label className="font-semibold text-slate-700">
-                  Brand{management === "admin" ? " (required)" : ""}
-                </Label>
-                <Select
-                  value={form.brandId || NONE_VALUE}
-                  onValueChange={(value) =>
-                    updateField("brandId", value === NONE_VALUE ? "" : value)
-                  }
-                >
-                  <SelectTrigger className="h-10 w-full rounded-2xl border-slate-200">
-                    <SelectValue placeholder="Choose a brand" />
-                  </SelectTrigger>
-                  <SelectContent className="rounded-2xl border-slate-100 shadow-lg">
-                    {management === "author" ? (
-                      <SelectItem value={NONE_VALUE}>No brand</SelectItem>
-                    ) : null}
-                    {options.brands.map((brand) => (
-                      <SelectItem key={brand.id} value={brand.id}>
-                        {brand.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div> */}
+              {management === "admin" && (
+                <div className="space-y-2">
+                  <Label className="font-semibold text-slate-700">
+                    Publish As (Brand) *
+                  </Label>
+                  <Select
+                    value={form.brandId || NONE_VALUE}
+                    onValueChange={(value) =>
+                      updateField("brandId", value === NONE_VALUE ? "" : value)
+                    }
+                  >
+                    <SelectTrigger className="h-10 w-full rounded-2xl border-slate-200">
+                      <SelectValue placeholder="Choose a brand" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-2xl border-slate-100 shadow-lg">
+                      {options.brands.map((brand) => (
+                        <SelectItem key={brand.id} value={brand.id}>
+                          {brand.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-[11px] text-slate-400">
+                    Select which brand to publish this post under.
+                  </p>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <Label htmlFor="blog-tags" className="font-semibold text-slate-700">Tags</Label>

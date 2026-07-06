@@ -148,12 +148,10 @@ async function persistBlogPost(
     ).values(),
   ];
 
-  const status = value.intent === "publish" ? "PUBLISHED" : "DRAFT";
+  const status = value.intent === "publish" ? "PENDING_REVIEW" : "DRAFT";
   
-  // Bug fix: Preserve original publishedAt date if post is already published
-  const publishedAt = value.intent === "publish"
-    ? (existingPost?.publishedAt ?? new Date())
-    : null;
+  // Fix: Do not set publishedAt immediately. Admin will set it when they approve the post.
+  const publishedAt = existingPost?.publishedAt ?? null;
 
   const sharedData = {
     title: value.title,
@@ -170,6 +168,7 @@ async function persistBlogPost(
     focusKeyword: value.focusKeyword || null,
     status,
     publishedAt,
+    ...(value.intent === "publish" ? { submittedAt: new Date() } : {}),
   } as const;
 
   const post = await prisma.$transaction(async (tx) => {
