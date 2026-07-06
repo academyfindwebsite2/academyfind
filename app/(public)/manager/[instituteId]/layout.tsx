@@ -70,7 +70,7 @@ export default async function ManagerDashBoardLayout({
             });
             if (channels.length > 0) {
                 await prisma.conversationParticipant.createMany({
-                    data: channels.map(ch => ({
+                    data: channels.map((ch: { id: string }) => ({
                         conversationId: ch.id,
                         userId: session.user.id,
                         role: 'MANAGER' // 
