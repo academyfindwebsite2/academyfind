@@ -8,12 +8,18 @@ export default async function SubscriptionPage({ params }: { params: Promise<{ i
     const institute = await prisma.institute.findUnique({ 
         where: { id: instituteId } 
     });
-    
     if (!institute) return null;
+    
+    // Server par data fetch karein
+    const latestPayment = await prisma.subscriptionPayment.findFirst({
+        where: { instituteId: institute.id, status: "APPROVED", planRequested: institute.subscriptionPlan },
+        orderBy: { createdAt: "desc" }
+    });
+    const currentBillingCycle = latestPayment?.billingCycle === "ANNUAL" ? "ANNUAL" : "MONTHLY";
 
     const currentPlan = institute.subscriptionPlan;
 
     return (
-        <SubscriptionClient currentPlan={currentPlan} instituteId={institute.id}/>
+        <SubscriptionClient currentPlan={currentPlan} currentBillingCycle={currentBillingCycle} instituteId={institute.id}/>
     );
 }

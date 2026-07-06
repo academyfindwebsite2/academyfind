@@ -84,7 +84,7 @@ export default async function ManagerDashBoardLayout({
 
     const institute = await prisma.institute.findUnique({
         where: { id: instituteId },
-        select: { name: true, subscriptionPlan: true }
+        select: { name: true, subscriptionPlan: true, planExpiresAt: true }
     });
 
     if (!institute) return <div>Institute not found.</div>;
@@ -95,6 +95,40 @@ export default async function ManagerDashBoardLayout({
     });
 
     const plan = institute.subscriptionPlan; // BASIC, PREMIUM, ULTRA
+
+    // Automatic Expiry Notification Check
+    if (plan !== "BASIC" && institute.planExpiresAt) {
+        const expiresAt = new Date(institute.planExpiresAt);
+        const now = new Date();
+        const daysUntilExpiry = Math.ceil((expiresAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+
+        // If plan expires in 7 days or less, and it hasn't expired yet
+        if (daysUntilExpiry <= 7 && daysUntilExpiry >= 0) {
+            // Check if we already notified them recently (within the last 7 days)
+            const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const existingNotification = await prisma.userNotification.findFirst({
+                where: {
+                    userId: session.user.id,
+                    entityId: instituteId,
+                    type: "SYSTEM",
+                    createdAt: { gte: sevenDaysAgo }
+                }
+            });
+
+            if (!existingNotification) {
+                await prisma.userNotification.create({
+                    data: {
+                        userId: session.user.id,
+                        entityId: instituteId,
+                        type: "SYSTEM",
+                        title: "Plan Expiring Soon",
+                        body: `Your ${plan} plan for ${institute.name} expires in ${daysUntilExpiry} days. Please renew to keep your premium features active!`,
+                        isRead: false
+                    }
+                });
+            }
+        }
+    }
 
     return (
         <div className="bg-slate-50/50 min-h-screen pb-12">
@@ -110,9 +144,16 @@ export default async function ManagerDashBoardLayout({
                         <h2 className="font-extrabold text-xl text-slate-900 leading-tight">
                             {institute.name}
                         </h2>
-                        <span className="inline-block mt-2 text-[10px] uppercase tracking-wider font-bold bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full">
-                            {plan} PLAN
-                        </span>
+                        <div className="mt-2 flex flex-col gap-1 items-start">
+                            <span className="inline-block text-[10px] uppercase tracking-wider font-bold bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full">
+                                {plan} PLAN
+                            </span>
+                            {plan !== "BASIC" && institute.planExpiresAt && (
+                                <span className="text-[10px] text-slate-500 font-semibold tracking-wide">
+                                    Expires {new Date(institute.planExpiresAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                </span>
+                            )}
+                        </div>
                     </div>
 
                     {/* Navigation Links */}

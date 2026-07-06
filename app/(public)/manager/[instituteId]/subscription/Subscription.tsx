@@ -7,10 +7,11 @@ import { useRouter } from "next/navigation";
 
 interface SubscriptionClientProps {
     currentPlan: string;
+    currentBillingCycle: string;
     instituteId: string;
 }
 
-export default function SubscriptionClient({ currentPlan,instituteId }: SubscriptionClientProps) {
+export default function SubscriptionClient({ currentPlan, currentBillingCycle, instituteId }: SubscriptionClientProps) {
     const [isAnnual, setIsAnnual] = useState(false);
     const [plan,setPlan] = useState();
 
@@ -115,12 +116,13 @@ export default function SubscriptionClient({ currentPlan,instituteId }: Subscrip
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 max-w-5xl mx-auto">
                 {plans.map((plan: any) => {
                     const priceData = isAnnual ? plan.pricing.annual : plan.pricing.monthly;
+                    const isCurrentCycleAndPlan = currentPlan === plan.id && ((isAnnual && currentBillingCycle === "ANNUAL") || (!isAnnual && currentBillingCycle === "MONTHLY"));
 
                     return (
                         <div key={plan.id} className={`relative p-6 rounded-3xl border-2 flex flex-col transition-all duration-300 ${
-                            currentPlan === plan.id ? "border-amber-400 bg-amber-50/20 shadow-md scale-[1.02]" : "border-slate-100 bg-white hover:border-slate-300 hover:shadow-sm"
+                            isCurrentCycleAndPlan ? "border-amber-400 bg-amber-50/20 shadow-md scale-[1.02]" : "border-slate-100 bg-white hover:border-slate-300 hover:shadow-sm"
                         }`}>
-                            {currentPlan === plan.id && (
+                            {isCurrentCycleAndPlan && (
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-amber-400 text-amber-950 px-4 py-1 rounded-full text-[10px] font-extrabold tracking-widest uppercase shadow-sm">
                                     Current Plan
                                 </div>
@@ -153,15 +155,17 @@ export default function SubscriptionClient({ currentPlan,instituteId }: Subscrip
                             </ul>
 
                             <Button onClick={() => handleCheckout(plan.id)} className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${
-                                currentPlan === plan.id || currentPlanRank > (planPriority[plan.id] ?? 0)
+                                isCurrentCycleAndPlan || (!isCurrentCycleAndPlan && currentPlan === plan.id) || currentPlanRank > (planPriority[plan.id] ?? 0)
                                     ? "bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200" 
                                     : "bg-slate-900 text-white hover:bg-blue-600 shadow-sm hover:shadow-md hover:-translate-y-1"
                             }`}>
-                                {currentPlan === plan.id
+                                {isCurrentCycleAndPlan
                                     ? "Active"
-                                    : currentPlanRank > (planPriority[plan.id] ?? 0)
-                                        ? "Included in current plan"
-                                        : "Upgrade Now"}
+                                    : currentPlan === plan.id 
+                                        ? "Active on other cycle"
+                                        : currentPlanRank > (planPriority[plan.id] ?? 0)
+                                            ? "Included in current plan"
+                                            : "Upgrade Now"}
                             </Button>
                         </div>
                     );
