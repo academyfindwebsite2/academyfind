@@ -62,13 +62,13 @@ export function ProfileTabs({
 /* ─── Overview ─────────────────────────────────────────── */
 function OverviewTab({ profile }: { profile: CompletePublicProfile }) {
   const studentMemberships = profile.memberships.filter(
-    (m) => m.role === "STUDENT",
+    (m: { role: string }) => m.role === "STUDENT",
   );
   const teacherMemberships = profile.memberships.filter(
-    (m) => m.role === "TEACHER",
+    (m: { role: string }) => m.role === "TEACHER",
   );
   const managerMemberships = profile.memberships.filter(
-    (m) => m.role === "MANAGER",
+    (m: { role: string }) => m.role === "MANAGER",
   );
 
   if (!profile.memberships.length) {
@@ -135,7 +135,7 @@ function StudentTab({
     );
   }
 
-  const memberships = profile.memberships.filter((m) => m.role === "STUDENT");
+  const memberships = profile.memberships.filter((m: { role: string }) => m.role === "STUDENT");
 
   return (
     <div className="space-y-5">
@@ -197,7 +197,7 @@ function TeacherTab({
     );
   }
 
-  const memberships = profile.memberships.filter((m) => m.role === "TEACHER");
+  const memberships = profile.memberships.filter((m: { role: string }) => m.role === "TEACHER");
 
   return (
     <div className="space-y-5">
