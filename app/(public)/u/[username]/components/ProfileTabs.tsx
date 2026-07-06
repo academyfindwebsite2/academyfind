@@ -24,7 +24,7 @@ export function ProfileTabs({
   profile,
   isOwnProfile = false,
 }: {
-  profile: CompletePublicProfile;
+  profile: any;
   isOwnProfile?: boolean;
 }) {
   const [active, setActive] = useState<Tab>("Overview");
@@ -60,7 +60,7 @@ export function ProfileTabs({
 }
 
 /* ─── Overview ─────────────────────────────────────────── */
-function OverviewTab({ profile }: { profile: CompletePublicProfile }) {
+function OverviewTab({ profile }: { profile: any }) {
   const studentMemberships = profile.memberships.filter(
     (m: { role: string }) => m.role === "STUDENT",
   );
@@ -116,7 +116,7 @@ function StudentTab({
   profile,
   isOwnProfile,
 }: {
-  profile: CompletePublicProfile;
+  profile: any;
   isOwnProfile: boolean;
 }) {
   const sp = profile.studentProfile;
@@ -178,7 +178,7 @@ function TeacherTab({
   profile,
   isOwnProfile,
 }: {
-  profile: CompletePublicProfile;
+  profile: any;
   isOwnProfile: boolean;
 }) {
   const tp = profile.teacherProfile;
@@ -267,7 +267,7 @@ function BlogsTab({
   profile,
   isOwnProfile,
 }: {
-  profile: CompletePublicProfile;
+  profile: any;
   isOwnProfile: boolean;
 }) {
   if (!profile.blogs.length) {
@@ -344,7 +344,7 @@ function BlogsTab({
 }
 
 /* ─── Reviews ───────────────────────────────────────────── */
-function ReviewsTab({ profile }: { profile: CompletePublicProfile }) {
+function ReviewsTab({ profile }: { profile: any }) {
   if (!profile.reviews.length) {
     return <Empty text="No approved reviews yet." />;
   }

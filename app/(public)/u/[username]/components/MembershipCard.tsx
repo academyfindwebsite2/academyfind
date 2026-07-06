@@ -4,7 +4,7 @@ import { ArrowUpRight, BadgeCheck } from "lucide-react";
 
 import type { CompletePublicProfile } from "@/lib/profile/queries";
 
-type Membership = CompletePublicProfile["memberships"][number];
+type Membership = any;
 
 const STATUS_STYLES: Record<string, string> = {
   ACTIVE: "bg-emerald-50 text-emerald-700 border-emerald-200",
