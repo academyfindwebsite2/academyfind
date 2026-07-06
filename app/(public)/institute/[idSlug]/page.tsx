@@ -192,10 +192,10 @@ export default async function InstitutePage({ params }: PageProps) {
   ]);
 
   // Derive membership states per role
-  const studentMembership = userMemberships.find((m) => m.role === "STUDENT") ?? null;
-  const teacherMembership = userMemberships.find((m) => m.role === "TEACHER") ?? null;
-  const isManager = instituteManagers.some((m) => m.user.id === userId);
-  const isMember = userMemberships.some((m) => m.status === "ACTIVE") || isManager || session?.user?.role === "ADMIN";
+  const studentMembership = userMemberships.find((m: any) => m.role === "STUDENT") ?? null;
+  const teacherMembership = userMemberships.find((m: any) => m.role === "TEACHER") ?? null;
+  const isManager = instituteManagers.some((m: any) => m.user.id === userId);
+  const isMember = userMemberships.some((m: any) => m.status === "ACTIVE") || isManager || session?.user?.role === "ADMIN";
 
   const displayRating = institute.googleRating ?? institute.averageRating ?? 0;
   const displayReviewCount = institute.googleReviewCount ?? institute.reviewCount ?? 0;
@@ -956,7 +956,7 @@ export default async function InstitutePage({ params }: PageProps) {
               </Link>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {presentStudents.map((record) => {
+              {presentStudents.map((record: any) => {
                 const user = record.studentProfile?.user;
                 if (!user) return null;
                 return (
@@ -1019,7 +1019,7 @@ export default async function InstitutePage({ params }: PageProps) {
               </Link>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {featuredFaculty.map((record) => {
+              {featuredFaculty.map((record: any) => {
                 const user = record.teacherProfile?.user;
                 if (!user) return null;
                 return (
@@ -1083,7 +1083,7 @@ export default async function InstitutePage({ params }: PageProps) {
                 Be the first to review {institute.name} on our platform!
               </div>
             ) : (
-              institute.reviews.map((review) => (
+              institute.reviews.map((review: any) => (
                 <div key={review.id} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                   <div className="font-semibold text-slate-800">{review.user?.name || "Anonymous User"}</div>
                   <div className="mt-2 text-amber-400">{"⭐".repeat(review.rating)}</div>
@@ -1115,7 +1115,7 @@ export default async function InstitutePage({ params }: PageProps) {
             </div>
 
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {similarInstitutes.map((simInst) => {
+              {similarInstitutes.map((simInst: any) => {
                 const simDisplayLogo = isCloudinaryImage(simInst.imageUrl)
                   ? simInst.imageUrl
                   : (isCloudinaryImage(simInst.logo) ? simInst.logo : "/no_image/coaching_inst.PNG");
