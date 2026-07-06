@@ -4,10 +4,10 @@ import { prisma } from "@/lib/prisma";
 
 export default async function PrivacySettingsPage() {
   const session = await requireAuth();
-  const user = await prisma.user.findUniqueOrThrow({
+  const user = (await prisma.user.findUniqueOrThrow({
     where: { id: session.user.id },
     select: { allowDms: true, isVisible: true, chatSettings: true },
-  });
+  })) as any;
   return (
     <div>
       <h1 className="text-3xl font-bold">Privacy & visibility</h1>
