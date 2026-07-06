@@ -8,10 +8,10 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
       disallow: [
-        '/af-ass-manage/',       
-        '/profile/',     
-        '/api/',         
-        '/manager/',     
+        '/af-ass-manage/',
+        '/profile/',
+        '/api/',
+        '/manager/',
         '/sales_manager/',
         '/user/create-institute',
         '/search',
@@ -19,27 +19,27 @@ export default function robots(): MetadataRoute.Robots {
         '/login',
         '/register',
         '/*/claim',
-        '/*?sort=',       
-        '/*?rating=',      
+        '/*?sort=',
+        '/*?rating=',
         '/*?q=',
       ],
     },
     {
-        userAgent: 'GPTBot',
-        disallow: '/',
-      },
-      {
-        userAgent: 'ClaudeBot',
-        disallow: '/',
-      },
-      {
-        userAgent: 'MJ12bot',
-        crawlDelay: 20
-      },
-      {
-        userAgent: 'AhrefsBot',
-        crawlDelay: 10
-      }
+      userAgent: 'GPTBot',
+      disallow: '/',
+    },
+    {
+      userAgent: 'ClaudeBot',
+      disallow: '/',
+    },
+    {
+      userAgent: 'MJ12bot',
+      crawlDelay: 30
+    },
+    {
+      userAgent: 'AhrefsBot',
+      crawlDelay: 30
+    }
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   }
