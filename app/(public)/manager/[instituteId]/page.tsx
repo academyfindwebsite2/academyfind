@@ -4,21 +4,21 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { 
-    Building2, 
-    MessageSquare, 
-    Star, 
-    Bookmark, 
-    ArrowRight, 
-    Sparkles 
+import {
+    Building2,
+    MessageSquare,
+    Star,
+    Bookmark,
+    ArrowRight,
+    Sparkles
 } from "lucide-react";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Manager Control Panel | AcademyFind",
-  robots: {
-    index: false,
-    follow: false,
-  },
+    title: "Manager Control Panel | AcademyFind",
+    robots: {
+        index: false,
+        follow: false,
+    },
 };
 export default async function InstituteDashboardOverview({
     params
@@ -36,11 +36,9 @@ export default async function InstituteDashboardOverview({
                 select: {
                     reviews: true,
                     shortlistedBy: true,
-                    // enquiries: true // Jab model migration run ho jaye toh uncomment kar lena
+                    enquiries: true
                 }
             },
-            // googleReviewCount: true,
-            // googleRating: true
         }
     });
 
@@ -53,20 +51,24 @@ export default async function InstituteDashboardOverview({
             {/* Top Welcome Banner */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 md:p-8 bg-gradient-to-r from-blue-500 to-slate-700 text-white rounded-3xl shadow-md relative overflow-hidden">
                 <div className="absolute right-0 bottom-0 w-64 h-64 bg-amber-500 rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
-                
+
                 <div className="space-y-2 relative z-10">
                     <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
                         Welcome back, Manager! 👋
                     </h1>
                     <p className="text-slate-300 text-sm max-w-xl">
-                        Aap yahan se **{institute.name}** ki workspace configurations, leads tracker, aur page analytics directly control kar sakte hain.
+                        You can manage your institute's profile, leads, and more from here.
                     </p>
                 </div>
 
-                <div className="shrink-0 relative z-10">
+                <div className="shrink-0 relative z-10 flex flex-col items-end gap-1">
                     <Badge className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-4 py-1.5 rounded-xl uppercase tracking-wider text-xs">
-                        👑 {plan} TIER ACTIVE
                     </Badge>
+                    {plan !== "BASIC" && institute.planExpiresAt && (
+                        <span className="text-[10px] text-amber-100 font-medium tracking-wide">
+                            Expires {new Date(institute.planExpiresAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        </span>
+                    )}
                 </div>
             </div>
 
@@ -81,7 +83,7 @@ export default async function InstituteDashboardOverview({
                     <CardContent>
                         <div className="text-2xl font-bold text-slate-800">
                             {/* {institute.averageRating?.toFixed(1) || "0.0"} / 5.0 */}
-                            {institute.googleRating}
+                            {institute.googleRating} Google Rating
                         </div>
                         <p className="text-xs text-slate-400 mt-1">
                             Based on {institute.googleReviewCount} google reviews
@@ -125,13 +127,13 @@ export default async function InstituteDashboardOverview({
                         <Bookmark className="w-4 h-4 text-red-500" />
                     </CardHeader>
                     <CardContent>
-                        {plan !== "ULTRA" ? (
+                        {plan !== "ULTRA" && plan !== "PREMIUM" ? (
                             <div>
                                 <div className="text-xl font-bold text-slate-400 flex items-center gap-1.5">
-                                    Ultra Only <span>🔒</span>
+                                    Premium/Elite Only <span>🔒</span>
                                 </div>
                                 <p className="text-xs text-slate-400 mt-1">
-                                    Audience analysis needs Ultra Plan
+                                    Audience analysis needs Premium or Elite Plan
                                 </p>
                             </div>
                         ) : (
@@ -176,7 +178,7 @@ export default async function InstituteDashboardOverview({
                         </div>
                         <h3 className="font-bold text-lg text-slate-800">Premium Utilities</h3>
                         <p className="text-slate-500 text-sm leading-relaxed">
-                           If you want to unlock advanced features like lead tracking, audience insights, and more, consider upgrading your subscription plan.
+                            If you want to unlock advanced features like lead tracking, audience insights, and more, consider upgrading your subscription plan.
                         </p>
                     </div>
                     <Button asChild className="w-full justify-between bg-amber-500 hover:bg-amber-600 text-white rounded-xl">
