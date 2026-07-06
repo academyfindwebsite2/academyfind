@@ -79,7 +79,7 @@ function checked(formData: FormData, name: string) {
 function list(formData: FormData, name: string) {
   return String(formData.get(name) ?? "")
     .split(",")
-    .map((value) => value.trim())
+    .map((value: string) => value.trim())
     .filter(Boolean);
 }
 
@@ -227,7 +227,7 @@ export async function updateSocialLinks(
   const session = await requireAuth();
   const parsed = socialSchema.safeParse(
     Object.fromEntries(
-      Object.keys(socialSchema.shape).map((key) => [
+      Object.keys(socialSchema.shape).map((key: string) => [
         key,
         nullableText(formData, key),
       ]),

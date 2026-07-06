@@ -26,7 +26,7 @@ export default function SettingsLayout({
       <aside className="md:sticky md:top-24 md:self-start">
         <h1 className="mb-4 text-2xl font-bold text-slate-950">Settings</h1>
         <nav className="flex gap-2 overflow-x-auto md:flex-col">
-          {links.map(({ href, label, icon: Icon }) => (
+          {links.map(({ href: href, label: label, icon: Icon }) => (
             <Link
               key={href}
               href={href}

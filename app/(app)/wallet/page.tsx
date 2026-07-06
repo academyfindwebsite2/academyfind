@@ -55,8 +55,8 @@ export default async function WalletPage() {
 
   const levelInfo = getLevelInfo(wallet.balance);
   const thisMonthEarned = wallet.transactions
-    .filter(tx => tx.type === "CREDIT" && tx.createdAt.getMonth() === new Date().getMonth())
-    .reduce((sum, tx) => sum + tx.amount, 0);
+    .filter((tx: any) => tx.type === "CREDIT" && tx.createdAt.getMonth() === new Date().getMonth())
+    .reduce((sum: number, tx: any) => sum + tx.amount, 0);
 
   return (
     <div className="container max-w-5xl mx-auto py-10 px-4 space-y-8">
@@ -118,7 +118,7 @@ export default async function WalletPage() {
               {wallet.transactions.length === 0 ? (
                 <div className="p-8 text-center text-slate-500">No transactions yet.</div>
               ) : (
-                wallet.transactions.map((tx) => (
+                wallet.transactions.map((tx: any) => (
                   <div key={tx.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
                     <div className="flex items-center gap-4">
                       <div className={`w-2 h-2 rounded-full ${tx.type === "CREDIT" ? "bg-green-500" : "bg-red-500"}`} />
@@ -157,7 +157,7 @@ export default async function WalletPage() {
                   { icon: Calendar, label: "Attend a demo class", amount: "+15" },
                   { icon: TrendingUp, label: "Answer gets upvoted", amount: "+5" },
                   { icon: Coins, label: "Daily login", amount: "+2" },
-                ].map((item, i) => (
+                ].map((item: any, i: number) => (
                   <div key={i} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
