@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Check, X, UserMinus, Clock, BadgeCheck, Users, GraduationCap, BookOpen } from "lucide-react";
 import { InviteMemberModal } from "@/components/manager/InviteMemberModal";
+import { PremiumLock } from "@/components/manager/PremiumLock";
 
 import { approveMembership, rejectMembership, removeMember } from "./actions";
 
@@ -19,7 +20,7 @@ export default async function ManagerMembersPage({ params }: Props) {
 
   const institute = await prisma.institute.findUnique({
     where: { id: instituteId },
-    select: { id: true, name: true, slug: true },
+    select: { id: true, name: true, slug: true, subscriptionPlan: true },
   });
   if (!institute) notFound();
 
@@ -101,7 +102,16 @@ export default async function ManagerMembersPage({ params }: Props) {
           >
             View public directory →
           </Link>
-          <InviteMemberModal instituteId={instituteId} />
+          {(institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED") ? (
+            <PremiumLock 
+              title="Invites Locked"
+              description="Upgrade to Premium to invite members."
+              isSmall={true}
+              instituteId={institute.id}
+            />
+          ) : (
+            <InviteMemberModal instituteId={instituteId} />
+          )}
         </div>
       </div>
 

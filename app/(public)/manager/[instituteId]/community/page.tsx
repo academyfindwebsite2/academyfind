@@ -4,6 +4,7 @@ import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { MessageCircle, Users } from "lucide-react";
+import { PremiumLock } from "@/components/manager/PremiumLock";
 
 type Props = { params: Promise<{ instituteId: string }> };
 
@@ -14,7 +15,7 @@ export default async function ManagerCommunityPage({ params }: Props) {
 
   const institute = await prisma.institute.findUnique({
     where: { id: instituteId },
-    select: { id: true, name: true },
+    select: { id: true, name: true, subscriptionPlan: true },
   });
   if (!institute) notFound();
 
@@ -59,6 +60,8 @@ export default async function ManagerCommunityPage({ params }: Props) {
     },
   });
 
+  const isLocked = institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED";
+
   return (
     <div className="space-y-8">
       <div>
@@ -66,17 +69,26 @@ export default async function ManagerCommunityPage({ params }: Props) {
         <p className="mt-1 text-sm text-slate-500">
           Manage channels and moderate messages for {institute.name}.
         </p>
-        <div className="mt-3">
-          <Link
-            href={`/chat`}
-            className="text-xs font-semibold text-amber-700 hover:text-amber-800"
-          >
-            Open chat workspace →
-          </Link>
-        </div>
       </div>
 
-      {/* Channels overview */}
+      {isLocked ? (
+        <PremiumLock 
+          title="Institute Chats Locked" 
+          description="Upgrade to Premium or Ultra to unlock institute chats, enabling direct communication between students and teachers."
+          instituteId={institute.id}
+        />
+      ) : (
+        <>
+          <div className="mt-3">
+            <Link
+              href={`/chat`}
+              className="text-xs font-semibold text-amber-700 hover:text-amber-800"
+            >
+              Open chat workspace →
+            </Link>
+          </div>
+
+          {/* Channels overview */}
       <section>
         <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-800">
           <MessageCircle className="size-5 text-violet-500" /> Channels
@@ -177,6 +189,8 @@ export default async function ManagerCommunityPage({ params }: Props) {
           </div>
         )}
       </section>
+        </>
+      )}
     </div>
   );
 }

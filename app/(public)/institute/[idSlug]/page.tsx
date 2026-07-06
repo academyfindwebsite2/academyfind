@@ -8,7 +8,7 @@ import {
   Star, Phone, MapPin, Mail, Globe, CheckCircle, Users, Trophy,
   PlayCircle, User, Presentation, BookOpen, IndianRupee, Clock,
   Home, Award, Calendar, Building, ThumbsUp, ThumbsDown, HelpCircle, Check,
-  BadgeCheck, MessageCircle, ArrowRight, Settings
+  BadgeCheck, MessageCircle, ArrowRight, Settings, Lock
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
 
@@ -319,10 +319,17 @@ export default async function InstitutePage({ params }: PageProps) {
                       </div>
                       <div className="shrink-0 relative z-20 flex items-center gap-2">
                         {isMember && (
-                          <Link href={`/chat?instituteId=${institute.id}`} className="inline-flex h-10 items-center justify-center rounded-lg bg-blue-50 px-4 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-100 border border-blue-200 gap-2">
-                            <MessageCircle className="h-4 w-4" />
-                            <span className="hidden sm:inline">Institute Chat</span>
-                          </Link>
+                          (institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED") ? (
+                            <div className="inline-flex h-10 items-center justify-center rounded-lg bg-amber-50 px-4 text-sm font-semibold text-amber-700 border border-amber-200 gap-2 cursor-not-allowed" title="Chat locked (Available on Premium/Ultra)">
+                              <Lock className="h-4 w-4" />
+                              <span className="hidden sm:inline">Chat Locked</span>
+                            </div>
+                          ) : (
+                            <Link href={`/chat?instituteId=${institute.id}`} className="inline-flex h-10 items-center justify-center rounded-lg bg-blue-50 px-4 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-100 border border-blue-200 gap-2">
+                              <MessageCircle className="h-4 w-4" />
+                              <span className="hidden sm:inline">Institute Chat</span>
+                            </Link>
+                          )
                         )}
                         {isManager && (
                           <Link href={`/manager/${institute.id}`} className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-700 transition-colors hover:bg-slate-200 border border-slate-200">

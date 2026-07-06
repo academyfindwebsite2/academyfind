@@ -4,6 +4,7 @@ import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Clock, IndianRupee, PackageOpen, Users } from "lucide-react";
+import { PremiumLock } from "@/components/manager/PremiumLock";
 
 import { createBatch, toggleBatchActive } from "./actions";
 
@@ -16,7 +17,7 @@ export default async function ManagerBatchesPage({ params }: Props) {
 
   const institute = await prisma.institute.findUnique({
     where: { id: instituteId },
-    select: { id: true, name: true },
+    select: { id: true, name: true, subscriptionPlan: true },
   });
   if (!institute) notFound();
 
@@ -58,10 +59,17 @@ export default async function ManagerBatchesPage({ params }: Props) {
       </div>
 
       {/* Add Batch Form */}
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="mb-5 text-lg font-bold text-slate-900">
-          Create New Batch
-        </h2>
+      {(institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED") ? (
+        <PremiumLock 
+          title="Batch Creation Locked" 
+          description="Upgrade to Premium or Ultra to create and manage batches."
+          instituteId={institute.id}
+        />
+      ) : (
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-5 text-lg font-bold text-slate-900">
+            Create New Batch
+          </h2>
         <form action={createBatchFn} className="grid gap-4 sm:grid-cols-2">
           <FieldGroup>
             <Label>Batch Name *</Label>
@@ -111,13 +119,14 @@ export default async function ManagerBatchesPage({ params }: Props) {
           <div className="sm:col-span-2">
             <button
               type="submit"
-              className="rounded-xl bg-amber-400 px-6 py-2.5 text-sm font-bold text-slate-900 hover:bg-amber-500"
+              className="rounded-xl bg-amber-600 px-6 py-2.5 font-bold text-white hover:bg-amber-700"
             >
-              Create Batch →
+              Create Batch
             </button>
           </div>
         </form>
       </section>
+      )}
 
       {/* Batch list */}
       <section>
