@@ -98,7 +98,7 @@ export async function sendMessage(input: z.input<typeof messageSchema>) {
     select: { userId: true },
   });
   await Promise.all(
-    recipients.map(({ userId }) =>
+    recipients.map(({ userId }: { userId: string }) =>
       notifyUser(
         userId,
         "MESSAGE",

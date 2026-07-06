@@ -46,11 +46,11 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
     }),
   ]);
 
-  const enrolledStudentIds = new Set(batch.studentMembers.map((s) => s.studentRecordId));
-  const enrolledTeacherIds = new Set(batch.teacherMembers.map((t) => t.teacherRecordId));
+  const enrolledStudentIds = new Set(batch.studentMembers.map((s: { studentRecordId: string }) => s.studentRecordId));
+  const enrolledTeacherIds = new Set(batch.teacherMembers.map((t: { teacherRecordId: string }) => t.teacherRecordId));
 
-  const availableStudents = activeStudents.filter((s) => !enrolledStudentIds.has(s.id));
-  const availableTeachers = activeTeachers.filter((t) => !enrolledTeacherIds.has(t.id));
+  const availableStudents = activeStudents.filter((s: { id: string }) => !enrolledStudentIds.has(s.id));
+  const availableTeachers = activeTeachers.filter((t: { id: string }) => !enrolledTeacherIds.has(t.id));
 
   return (
     <div className="space-y-8">
@@ -78,7 +78,7 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
             {batch.teacherMembers.length === 0 ? (
               <p className="text-sm text-slate-500 italic">No teachers assigned.</p>
             ) : (
-              batch.teacherMembers.map((tm) => (
+              batch.teacherMembers.map((tm: any) => (
                 <div key={tm.id} className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-3">
                   <div>
                     <p className="font-semibold text-slate-900">{tm.teacherRecord.teacherProfile?.user?.name || "Unknown Teacher"}</p>
@@ -103,7 +103,7 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
             {availableTeachers.length === 0 ? (
               <p className="text-xs text-slate-400">All available teachers are in this batch.</p>
             ) : (
-              availableTeachers.map((t) => (
+              availableTeachers.map((t: any) => (
                 <div key={t.id} className="flex items-center justify-between rounded-lg border border-slate-100 p-2 text-sm">
                   <span className="truncate">{t.teacherProfile?.user?.name || "Unknown Teacher"}</span>
                   <form action={async () => {
@@ -131,7 +131,7 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
             {batch.studentMembers.length === 0 ? (
               <p className="text-sm text-slate-500 italic">No students assigned.</p>
             ) : (
-              batch.studentMembers.map((sm) => (
+              batch.studentMembers.map((sm: any) => (
                 <div key={sm.id} className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-3">
                   <div>
                     <p className="font-semibold text-slate-900">{sm.studentRecord.studentProfile?.user?.name || "Unknown Student"}</p>
@@ -156,7 +156,7 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
             {availableStudents.length === 0 ? (
               <p className="text-xs text-slate-400">All available students are in this batch.</p>
             ) : (
-              availableStudents.map((s) => (
+              availableStudents.map((s: any) => (
                 <div key={s.id} className="flex items-center justify-between rounded-lg border border-slate-100 p-2 text-sm">
                   <span className="truncate">{s.studentProfile?.user?.name || "Unknown Student"}</span>
                   <form action={async () => {

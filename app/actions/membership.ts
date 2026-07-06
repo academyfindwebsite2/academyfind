@@ -38,7 +38,7 @@ async function notifyManagers(
     select: { userId: true },
   });
   await Promise.all([
-    ...managers.map(({ userId }) =>
+    ...managers.map(({ userId }: { userId: string }) =>
       notifyUser(
         userId,
         "SYSTEM",
