@@ -44,7 +44,7 @@ const INSTITUTE_CHANNELS: Array<{
 
 export async function ensureInstituteChannels(instituteId: string) {
   return Promise.all(
-    INSTITUTE_CHANNELS.map((channel) =>
+    INSTITUTE_CHANNELS.map((channel: any) =>
       prisma.conversation.upsert({
         where: {
           instituteId_channelType: {
@@ -73,7 +73,7 @@ export async function addMemberToInstituteChannels(
   role: "STUDENT" | "TEACHER" | "MANAGER" | "ADMIN",
 ) {
   const channels = await ensureInstituteChannels(instituteId);
-  const allowed = channels.filter(({ channelType }) => {
+  const allowed = channels.filter(({ channelType }: any) => {
     if (channelType === "STAFF") return role === "MANAGER" || role === "ADMIN";
     if (channelType === "TEACHERS") {
       return role === "TEACHER" || role === "MANAGER" || role === "ADMIN";
@@ -82,7 +82,7 @@ export async function addMemberToInstituteChannels(
   });
 
   await Promise.all(
-    allowed.map((conversation) =>
+    allowed.map((conversation: any) =>
       prisma.conversationParticipant.upsert({
         where: {
           conversationId_userId: {
