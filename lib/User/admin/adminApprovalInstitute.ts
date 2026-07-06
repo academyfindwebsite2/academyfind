@@ -87,10 +87,10 @@ export async function approveInstituteRequest(requestId: string) {
         
         if (channels.length > 0) {
             await prisma.conversationParticipant.createMany({
-                data: channels.map(ch => ({
+                data: channels.map((ch: any) => ({
                     conversationId: ch.id,
                     userId: request.userId,
-                    role: 'ADMIN' // manager is admin in channels
+                    role: 'MANAGER' // manager is admin in channels
                 })),
                 skipDuplicates: true
             });
