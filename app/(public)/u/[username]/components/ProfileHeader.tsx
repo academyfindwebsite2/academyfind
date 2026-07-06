@@ -20,7 +20,7 @@ export function ProfileHeader({
   profile,
   isOwnProfile,
 }: {
-  profile: CompletePublicProfile;
+  profile: any;
   isOwnProfile: boolean;
 }) {
   const [copied, setCopied] = useState(false);
