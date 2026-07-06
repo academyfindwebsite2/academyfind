@@ -64,7 +64,7 @@ export default async function AdminMembershipsPage() {
           <EmptyCard text="No pending requests." />
         ) : (
           <div className="space-y-3">
-            {pending.map((m) => (
+            {pending.map((m: any) => (
               <div
                 key={m.id}
                 className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5"
@@ -145,7 +145,7 @@ export default async function AdminMembershipsPage() {
       <section>
         <h2 className="mb-4 text-lg font-bold text-slate-800">Recent Activity</h2>
         <div className="space-y-2">
-          {recent.map((m) => (
+          {recent.map((m: any) => (
             <div
               key={m.id}
               className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-5 py-3"

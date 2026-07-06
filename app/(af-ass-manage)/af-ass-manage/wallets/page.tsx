@@ -88,7 +88,7 @@ export default async function AdminWalletsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {wallets.map((w) => (
+              {wallets.map((w: any) => (
                 <tr key={w.id} className="hover:bg-slate-50/50 transition-colors">
                   <td className="flex items-center gap-3 px-5 py-3">
                     <div className="relative size-8 shrink-0 overflow-hidden rounded-full bg-slate-100">
