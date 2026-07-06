@@ -44,7 +44,7 @@ export async function GET(
                     }
                 }
             });
-            members = members.map(m => ({
+            members = members.map((m: any) => ({
                 id: m.id,
                 courseName: m.courseName,
                 user: m.studentProfile?.user
@@ -76,7 +76,7 @@ export async function GET(
                     }
                 }
             });
-            members = members.map(m => ({
+            members = members.map((m: any) => ({
                 id: m.id,
                 designation: m.designation,
                 user: m.teacherProfile?.user
@@ -96,7 +96,7 @@ export async function GET(
                     }
                 }
             });
-            members = members.map(m => ({
+            members = members.map((m: any) => ({
                 id: m.user.id,
                 user: m.user
             }));

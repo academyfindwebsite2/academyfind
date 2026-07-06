@@ -54,7 +54,7 @@ export async function POST(req: Request) {
 
                 if (channels.length > 0) {
                     await tx.conversationParticipant.createMany({
-                        data: channels.map(ch => ({
+                        data: channels.map((ch: any) => ({
                             conversationId: ch.id,
                             userId: session.user.id,
                             role: membership.role === 'TEACHER' || membership.role === 'MANAGER' ? 'ADMIN' : 'MEMBER'

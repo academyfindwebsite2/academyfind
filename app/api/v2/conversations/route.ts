@@ -62,7 +62,7 @@ export async function GET() {
     },
   });
 
-  const conversations = participants.map((p) => {
+  const conversations = participants.map((p: any) => {
     const conv = p.conversation;
     const isDirect = conv.type === "DIRECT";
     const dmUser = conv.participants[0]?.user ?? null;

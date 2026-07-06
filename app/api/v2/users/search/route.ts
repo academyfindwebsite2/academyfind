@@ -37,7 +37,7 @@ export async function GET(req: Request) {
         });
 
         // Add member / invite status
-        const enrichedUsers = await Promise.all(users.map(async (u) => {
+        const enrichedUsers = await Promise.all(users.map(async (u: any) => {
             const membership = await prisma.instituteMembership.findFirst({
                 where: { userId: u.id, instituteId }
             });
