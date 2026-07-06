@@ -11,7 +11,7 @@ type Props = { params: Promise<{ username: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = await params;
-  const profile = await getPublicProfile(username);
+  const profile = (await getPublicProfile(username)) as any;
   if (!profile) return { title: "Profile not found | AcademyFind" };
 
   const title = `${profile.name ?? `@${username}`} | AcademyFind`;
@@ -36,10 +36,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PublicProfilePage({ params }: Props) {
   const { username } = await params;
-  const [profile, session] = await Promise.all([
+  const [rawProfile, session] = await Promise.all([
     getCompletePublicProfile(username),
     getSession(),
   ]);
+  const profile = rawProfile as any;
   if (!profile) notFound();
 
   const isOwnProfile = session?.user.id === profile.id;
