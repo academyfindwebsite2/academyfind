@@ -78,23 +78,8 @@ export async function approveInstituteRequest(requestId: string) {
         await prisma.$transaction(transactionOperations);
 
         // Also ensure institute channels exist and add manager
-        const { ensureInstituteChannels } = await import("@/lib/chat/ensureInstituteChannels");
-        await ensureInstituteChannels(request.instituteId);
-        
-        const channels = await prisma.conversation.findMany({
-            where: { instituteId: request.instituteId, type: 'INSTITUTE' }
-        });
-        
-        if (channels.length > 0) {
-            await prisma.conversationParticipant.createMany({
-                data: channels.map((ch: any) => ({
-                    conversationId: ch.id,
-                    userId: request.userId,
-                    role: 'MANAGER' // manager is admin in channels
-                })),
-                skipDuplicates: true
-            });
-        }
+        const { addMemberToInstituteChannels } = await import("@/lib/chat/ensureInstituteChannels");
+        await addMemberToInstituteChannels(request.userId, request.instituteId, "MANAGER");
 
         console.log(`Institute ${request.instituteId} approved, Syncing to Meilisearch...`);
         
