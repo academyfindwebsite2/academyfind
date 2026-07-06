@@ -66,7 +66,7 @@ export default async function UserReviewsPage({ params }: Props) {
         </div>
       ) : (
         <div className="mt-8 space-y-4">
-          {reviews.map((review) => (
+          {reviews.map((review: any) => (
             <article
               key={review.id}
               className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
@@ -100,7 +100,7 @@ export default async function UserReviewsPage({ params }: Props) {
                       )}
                     </Link>
                     <div className="flex gap-0.5 text-amber-400">
-                      {Array.from({ length: 5 }).map((_, i) => (
+                      {Array.from({ length: 5 }).map((_, i: number) => (
                         <Star
                           key={i}
                           className={`size-4 ${

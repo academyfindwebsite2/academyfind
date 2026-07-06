@@ -25,8 +25,8 @@ export function MembershipCard({ membership }: { membership: Membership }) {
     membership.studentRecord?.batchYear === currentYear &&
     membership.status === "ACTIVE";
   const batches =
-    membership.studentRecord?.batchMemberships.map(({ batch }) => batch) ??
-    membership.teacherRecord?.batchMemberships.map(({ batch }) => batch) ??
+    membership.studentRecord?.batchMemberships.map(( batch : any ) => batch) ??
+    membership.teacherRecord?.batchMemberships.map(( batch : any) => batch) ??
     [];
 
   const statusStyle =
@@ -117,7 +117,7 @@ export function MembershipCard({ membership }: { membership: Membership }) {
       {/* Batches */}
       {batches.length > 0 ? (
         <div className="mt-3 flex flex-wrap gap-1.5">
-          {batches.map((batch) => (
+          {batches.map((batch: any) => (
             <span
               key={batch.id}
               className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-0.5 text-xs text-slate-600"

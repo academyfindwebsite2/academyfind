@@ -53,7 +53,7 @@ export function ProfileSidebar({
       linkedinUrl: profile.linkedinUrl,
       twitterUrl: profile.twitterUrl,
       instagramUrl: profile.instagramUrl,
-      memberships: profile.memberships.map((m) => ({
+      memberships: profile.memberships.map((m: any) => ({
         status: m.status,
         isActive: m.status === "ACTIVE" || m.status === "ALUMNI",
       })),
@@ -302,7 +302,7 @@ export function ProfileSidebar({
             Institutes
           </h2>
           <ul className="space-y-2">
-            {profile.memberships.slice(0, 5).map((m) => (
+            {profile.memberships.slice(0, 5).map((m: any) => (
               <li key={m.id} className="flex items-center gap-2 text-sm">
                 <Link
                   href={`/institute/${m.institute.id}-${m.institute.slug}`}

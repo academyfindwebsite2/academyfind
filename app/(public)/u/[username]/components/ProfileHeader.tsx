@@ -29,9 +29,9 @@ export function ProfileHeader({
   const headline =
     profile.teacherProfile?.headline ?? profile.studentProfile?.headline;
   const bio = profile.teacherProfile?.bio ?? profile.studentProfile?.bio;
-  const roles = new Set(profile.memberships.map(({ role }) => role));
+  const roles = new Set(profile.memberships.map(({ role }: any) => role));
   const verified = profile.memberships.some(
-    (m) =>
+    (m: any) =>
       m.studentRecord?.isVerified ||
       m.teacherRecord?.isVerified ||
       m.role === "MANAGER",

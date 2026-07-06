@@ -55,7 +55,7 @@ export default async function PublicProfilePage({ params }: Props) {
       profile.instagramUrl,
       profile.youtubeUrl,
     ].filter(Boolean),
-    affiliation: profile.memberships.map(({ institute }) => ({
+    affiliation: profile.memberships.map(({ institute }: { institute: any }) => ({
       "@type": "EducationalOrganization",
       name: institute.name,
       url: `https://academyfind.com/institute/${institute.slug}`,

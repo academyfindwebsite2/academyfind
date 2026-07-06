@@ -33,7 +33,7 @@ export function ProfileTabs({
     <section>
       {/* Tab bar */}
       <div className="mb-5 flex gap-0 overflow-x-auto border-b border-slate-200">
-        {TABS.map((tab) => (
+        {TABS.map((tab: Tab) => (
           <button
             key={tab}
             type="button"
@@ -81,7 +81,7 @@ function OverviewTab({ profile }: { profile: CompletePublicProfile }) {
         <div>
           <SectionHeader icon={GraduationCap} title="Studying At" />
           <div className="mt-4 grid gap-4 md:grid-cols-2">
-            {studentMemberships.map((m) => (
+            {studentMemberships.map((m: any) => (
               <MembershipCard key={m.id} membership={m} />
             ))}
           </div>
@@ -91,7 +91,7 @@ function OverviewTab({ profile }: { profile: CompletePublicProfile }) {
         <div>
           <SectionHeader icon={BookOpen} title="Teaching At" />
           <div className="mt-4 grid gap-4 md:grid-cols-2">
-            {teacherMemberships.map((m) => (
+            {teacherMemberships.map((m: any) => (
               <MembershipCard key={m.id} membership={m} />
             ))}
           </div>
@@ -101,7 +101,7 @@ function OverviewTab({ profile }: { profile: CompletePublicProfile }) {
         <div>
           <SectionHeader icon={Building2} title="Managing" />
           <div className="mt-4 grid gap-4 md:grid-cols-2">
-            {managerMemberships.map((m) => (
+            {managerMemberships.map((m: any) => (
               <MembershipCard key={m.id} membership={m} />
             ))}
           </div>
@@ -162,7 +162,7 @@ function StudentTab({
       {/* Per-institute records */}
       {memberships.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2">
-          {memberships.map((m) => (
+          {memberships.map((m: any) => (
             <MembershipCard key={m.id} membership={m} />
           ))}
         </div>
@@ -228,7 +228,7 @@ function TeacherTab({
               Subjects
             </p>
             <div className="flex flex-wrap gap-2">
-              {tp.subjects.map((s) => (
+              {tp.subjects.map((s: string) => (
                 <Pill key={s} label={s} color="amber" />
               ))}
             </div>
@@ -240,7 +240,7 @@ function TeacherTab({
               Languages
             </p>
             <div className="flex flex-wrap gap-2">
-              {tp.languages.map((l) => (
+              {tp.languages.map((l: string) => (
                 <Pill key={l} label={l} />
               ))}
             </div>
@@ -251,7 +251,7 @@ function TeacherTab({
       {/* Per-institute records */}
       {memberships.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2">
-          {memberships.map((m) => (
+          {memberships.map((m: any) => (
             <MembershipCard key={m.id} membership={m} />
           ))}
         </div>
@@ -287,7 +287,7 @@ function BlogsTab({
 
   return (
     <div className="space-y-3">
-      {profile.blogs.map((post) => (
+      {profile.blogs.map((post: any) => (
         <Link
           key={post.id}
           href={`/blog/${post.slug}`}
@@ -351,7 +351,7 @@ function ReviewsTab({ profile }: { profile: CompletePublicProfile }) {
 
   return (
     <div className="space-y-3">
-      {profile.reviews.map((review) => (
+      {profile.reviews.map((review: any) => (
         <article
           key={review.id}
           className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
@@ -385,7 +385,7 @@ function ReviewsTab({ profile }: { profile: CompletePublicProfile }) {
                   )}
                 </Link>
                 <div className="flex shrink-0 gap-0.5 text-amber-400">
-                  {Array.from({ length: 5 }).map((_, i) => (
+                  {Array.from({ length: 5 }).map((_, i: number) => (
                     <Star
                       key={i}
                       className={`size-3.5 ${
