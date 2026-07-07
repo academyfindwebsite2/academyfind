@@ -131,6 +131,7 @@ export default function BlogEditorForm({
   initialData,
   options,
   management = "author",
+  relatedInstituteId,
 }: BlogEditorFormProps) {
   const router = useRouter();
   const coverInputRef = useRef<HTMLInputElement>(null);
@@ -364,6 +365,7 @@ export default function BlogEditorForm({
         id: postId,
         intent,
         faqs: faqs.map(({ question, answer }) => ({ question, answer })),
+        relatedInstituteId,
         ...(management === "admin" ? { admin: adminControls } : {}),
       };
       const result =
@@ -398,6 +400,12 @@ export default function BlogEditorForm({
         router.replace(`/af-ass-manage/blog/edit/${result.id}`);
       } else if (intent === "publish" && management === "author") {
         router.push(`/blog/${result.slug}`);
+      } else if (management === "manager" && relatedInstituteId) {
+        if (!postId) {
+          router.replace(`/manager/${relatedInstituteId}/blogs/edit/${result.id}`);
+        } else if (intent === "publish") {
+          router.push(`/manager/${relatedInstituteId}/blogs`);
+        }
       }
     });
   };
@@ -415,7 +423,13 @@ export default function BlogEditorForm({
       
       if (res.success) {
         toast.success("Post deleted successfully.");
-        router.push(management === "admin" ? "/af-ass-manage/blog" : "/blog/my-posts");
+        if (management === "admin") {
+          router.push("/af-ass-manage/blog");
+        } else if (management === "manager" && relatedInstituteId) {
+          router.push(`/manager/${relatedInstituteId}/blogs`);
+        } else {
+          router.push("/blog/my-posts");
+        }
       } else {
         toast.error(res.error || "Failed to delete post.");
         setSaveState("unsaved");
@@ -515,6 +529,27 @@ export default function BlogEditorForm({
       </header>
 
       <div className="mx-auto grid max-w-[1500px] gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:px-8">
+        <section aria-labelledby="content-heading" className="space-y-3 lg:col-span-full">
+          <div className="px-1">
+            <h2
+              id="content-heading"
+              className="text-base font-extrabold text-slate-800"
+            >
+              Main content
+            </h2>
+            <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
+              Use the toolbar or slash commands to structure your story.
+            </p>
+          </div>
+          <Editor
+            value={form.contentHtml}
+            onChange={(contentHtml) => updateField("contentHtml", contentHtml)}
+            saveState={saveState}
+            placeholder="Start writing your post…"
+            className="min-h-[700px] rounded-3xl overflow-hidden border border-slate-200 bg-white"
+          />
+        </section>
+
         <div className="min-w-0 space-y-6">
           <SectionCard
             title="Basic information"
@@ -574,26 +609,6 @@ export default function BlogEditorForm({
             </div>
           </SectionCard>
 
-          <section aria-labelledby="content-heading" className="space-y-3">
-            <div className="px-1">
-              <h2
-                id="content-heading"
-                className="text-base font-extrabold text-slate-800"
-              >
-                Main content
-              </h2>
-              <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
-                Use the toolbar or slash commands to structure your story.
-              </p>
-            </div>
-            <Editor
-              value={form.contentHtml}
-              onChange={(contentHtml) => updateField("contentHtml", contentHtml)}
-              saveState={saveState}
-              placeholder="Start writing your post…"
-              className="min-h-[700px] rounded-3xl overflow-hidden border border-slate-200 bg-white"
-            />
-          </section>
 
           <SectionCard
             title="Frequently asked questions"

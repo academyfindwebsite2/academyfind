@@ -11,6 +11,7 @@ import EditorBubbleMenu from "./EditorBubbleMenu";
 import EditorContent from "./EditorContent";
 import EditorWordCount from "./EditorWordCount";
 import EditorFloatingMenu from "./EditorFloatingMenu";
+import EditorTableBubbleMenu from "./EditorTableBubbleMenu";
 
 
 type Props = {
@@ -129,7 +130,7 @@ export default function Editor({
         {editable && (
           <>
             <EditorBubbleMenu editor={editor} />
-            <EditorFloatingMenu editor={editor} />
+            <EditorTableBubbleMenu editor={editor} />
           </>
         )}
 

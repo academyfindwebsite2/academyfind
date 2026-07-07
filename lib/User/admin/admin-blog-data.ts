@@ -67,6 +67,7 @@ export async function getAdminBlogPost(
       allowComments: true,
       scheduledAt: true,
       rejectionReason: true,
+      relatedInstituteId: true,
       tags: {
         select: {
           tag: {

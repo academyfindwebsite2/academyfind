@@ -2,7 +2,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
-import Image from "@tiptap/extension-image";
+import ImageResize from "tiptap-extension-resize-image";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import Typography from "@tiptap/extension-typography";
@@ -17,9 +17,12 @@ import TaskItem from "@tiptap/extension-task-item";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Youtube from "@tiptap/extension-youtube";
 import Color from '@tiptap/extension-color';
+import { TextStyle, FontSize } from '@tiptap/extension-text-style';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import { common, createLowlight } from "lowlight";
+import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
+import FontFamily from '@tiptap/extension-font-family';
 
 // Correct modern lowlight instance creation syntax 
 const lowlight = createLowlight(common);
@@ -52,7 +55,7 @@ export const editorExtensions = (placeholder: string) => [
     },
   }),
 
-  Image.configure({
+  ImageResize.configure({
     inline: false,
     allowBase64: false,
   }),
@@ -94,6 +97,13 @@ export const editorExtensions = (placeholder: string) => [
   }),
 
   Color, // Automatically provisions underlying TextStyles internally in v3
+  TextStyle,
   Subscript,
   Superscript,
+  FontFamily,
+  FontSize,
+  GlobalDragHandle.configure({
+    dragHandleWidth: 20,
+    scrollTreshold: 100,
+  }),
 ];

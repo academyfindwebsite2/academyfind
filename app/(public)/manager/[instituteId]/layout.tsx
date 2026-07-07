@@ -1,7 +1,8 @@
 import { PremiumLock } from "@/components/manager/PremiumLock";
+import { ManagerSidebarWrapper } from "@/components/manager/ManagerSidebarWrapper";
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
-import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound, Users, PackageOpen, MessageCircle } from "lucide-react";
+import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound, Users, PackageOpen, MessageCircle, FileText } from "lucide-react";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
@@ -135,7 +136,7 @@ export default async function ManagerDashBoardLayout({
             <div className="container mx-auto max-w-7xl pt-8 px-4 flex flex-col md:flex-row gap-8">
 
                 {/* --- SIDEBAR --- */}
-                <aside className="w-full md:w-64 shrink-0 space-y-6">
+                <ManagerSidebarWrapper>
                     {/* Header */}
                     <div>
                         <Link href="/manager" className="inline-flex items-center text-xs text-slate-500 hover:text-slate-800 mb-4 transition-colors">
@@ -200,7 +201,12 @@ export default async function ManagerDashBoardLayout({
                         />
                         <SidebarLink href={`/manager/${instituteId}/leads`} icon={<MessageSquare />} label="Student Leads" locked={plan === "BASIC" || plan == "VERIFIED"} />
 
-
+                        <SidebarLink
+                            href={`/manager/${instituteId}/blogs`}
+                            icon={<FileText />}
+                            label="Blogs"
+                            locked={plan === "BASIC" || plan === "VERIFIED"}
+                        />
 
                         <SidebarLink
                             href={`/manager/${instituteId}/metrics`}
@@ -223,7 +229,7 @@ export default async function ManagerDashBoardLayout({
                             className="mt-4 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200/50"
                         />
                     </nav>
-                </aside>
+                </ManagerSidebarWrapper>
 
                 {/* --- MAIN CONTENT AREA --- */}
                 <main className="flex-1 bg-white rounded-3xl border border-slate-100 shadow-sm p-6 md:p-8 min-h-[600px]">

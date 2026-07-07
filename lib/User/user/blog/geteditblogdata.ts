@@ -43,6 +43,7 @@ export async function getEditBlogData(
       allowComments: true,
       scheduledAt: true,
       rejectionReason: true,
+      relatedInstituteId: true,
       tags: {
         select: {
           tag: {

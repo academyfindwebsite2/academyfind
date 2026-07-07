@@ -63,6 +63,7 @@ export default function CodeBlockToolbar({ editor }: Props) {
           type="button"
           variant={isCodeBlockActive ? "default" : "ghost"}
           size="icon"
+          title="Code Block Settings"
         >
           <Code2 className="h-4 w-4" />
         </Button>
@@ -124,12 +125,12 @@ export default function CodeBlockToolbar({ editor }: Props) {
             <DropdownMenuItem
               className="text-red-600"
               onClick={() =>
-                editor.chain().focus().toggleCodeBlock().run()
+                editor.chain().focus().deleteNode("codeBlockLowlight").run()
               }
               onMouseDown={(e) => e.preventDefault()}
             >
               <Trash2 className="mr-2 h-4 w-4" />
-              Remove Code Block
+              Delete Code Block
             </DropdownMenuItem>
           </>
         )}

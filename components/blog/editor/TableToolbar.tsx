@@ -34,6 +34,7 @@ export default function TableToolbar({
           onMouseDown={(e) => e.preventDefault()} // Prevents losing focus on editor
           variant="ghost"
           size="icon"
+          title="Table Settings"
         >
           <Table2 className="h-4 w-4" />
         </Button>

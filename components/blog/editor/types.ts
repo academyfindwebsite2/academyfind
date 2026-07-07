@@ -94,6 +94,7 @@ export type BlogEditorInitialData = Pick<
   | "allowComments"
   | "scheduledAt"
   | "rejectionReason"
+  | "relatedInstituteId"
 > & {
   tags: { tag: Pick<BlogTag, "id" | "name" | "slug"> }[];
   faqs: Pick<BlogFAQ, "id" | "question" | "answer" | "order">[];
@@ -102,7 +103,8 @@ export type BlogEditorInitialData = Pick<
 export type BlogEditorProps = {
   mode: "create" | "edit";
   initialData?: BlogEditorInitialData;
-  management?: "author" | "admin";
+  management?: "author" | "admin" | "manager";
+  relatedInstituteId?: string;
 };
 
 export type BlogEditorOptions = {
@@ -126,6 +128,7 @@ export type BlogEditorSaveInput = {
   focusKeyword: string;
   faqs: { question: string; answer: string }[];
   intent: "draft" | "publish";
+  relatedInstituteId?: string;
   admin?: {
     status:
       | "DRAFT"

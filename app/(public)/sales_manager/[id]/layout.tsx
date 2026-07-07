@@ -10,6 +10,7 @@ import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ManagerSidebarWrapper } from "@/components/manager/ManagerSidebarWrapper";
 
 export const metadata: Metadata = {
   title: "Sales Manager Control Panel | AcademyFind",
@@ -64,7 +65,7 @@ export default async function SalesManagerLayout({
             <div className="container mx-auto max-w-7xl pt-8 px-4 flex flex-col md:flex-row gap-8">
 
                 {/* --- SIDEBAR --- */}
-                <aside className="w-full md:w-64 shrink-0 space-y-6">
+                <ManagerSidebarWrapper title="Sales Dashboard">
                     {/* Header */}
                     <div>
                         <Link href="/" className="inline-flex items-center text-xs text-slate-500 hover:text-slate-800 mb-4 transition-colors">
@@ -80,7 +81,7 @@ export default async function SalesManagerLayout({
                     </div>
 
                     {/* Navigation Links */}
-                    <nav className="flex flex-col gap-1.5">
+                    <nav className="flex flex-col gap-1.5 mt-6">
                         <SidebarLink
                             href={`/sales_manager/${id}`}
                             icon={<LayoutDashboard />}
@@ -97,7 +98,7 @@ export default async function SalesManagerLayout({
                             label="All Institutes"
                         />
                     </nav>
-                </aside>
+                </ManagerSidebarWrapper>
 
                 {/* --- MAIN CONTENT AREA --- */}
                 <main className="flex-1 bg-white rounded-3xl border border-slate-100 shadow-sm p-6 md:p-8 min-h-[600px]">

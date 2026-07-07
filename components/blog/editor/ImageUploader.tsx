@@ -65,6 +65,7 @@ export default function ImageUploader({
         type="button"
         variant="ghost"
         size="icon"
+        title="Insert Image"
         disabled={uploading}
         onClick={() => inputRef.current?.click()}
       >

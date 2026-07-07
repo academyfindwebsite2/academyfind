@@ -91,6 +91,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           variant={editor.isActive("bold") ? "default" : "ghost"}
           size="icon"
           className="h-8 w-8 rounded-lg"
+          title="Bold"
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
           <Bold className="h-3.5 w-3.5" />
@@ -101,6 +102,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           variant={editor.isActive("italic") ? "default" : "ghost"}
           size="icon"
           className="h-8 w-8 rounded-lg"
+          title="Italic"
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
           <Italic className="h-3.5 w-3.5" />
@@ -111,6 +113,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           variant={editor.isActive("underline") ? "default" : "ghost"}
           size="icon"
           className="h-8 w-8 rounded-lg"
+          title="Underline"
           onClick={() => editor.chain().focus().toggleUnderline().run()}
         >
           <Underline className="h-3.5 w-3.5" />
@@ -121,6 +124,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           variant={editor.isActive("strike") ? "default" : "ghost"}
           size="icon"
           className="h-8 w-8 rounded-lg"
+          title="Strikethrough"
           onClick={() => editor.chain().focus().toggleStrike().run()}
         >
           <Strikethrough className="h-3.5 w-3.5" />
@@ -132,6 +136,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           variant={editor.isActive("subscript") ? "default" : "ghost"}
           size="icon"
           className="h-8 w-8 rounded-lg"
+          title="Subscript"
           onClick={() => editor.chain().focus().toggleSubscript().run()}
         >
           <SubscriptIcon className="h-3.5 w-3.5" />
@@ -142,6 +147,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           variant={editor.isActive("superscript") ? "default" : "ghost"}
           size="icon"
           className="h-8 w-8 rounded-lg"
+          title="Superscript"
           onClick={() => editor.chain().focus().toggleSuperscript().run()}
         >
           <SuperscriptIcon className="h-3.5 w-3.5" />
@@ -152,6 +158,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           variant={editor.isActive("code") ? "default" : "ghost"}
           size="icon"
           className="h-8 w-8 rounded-lg"
+          title="Code"
           onClick={() => editor.chain().focus().toggleCode().run()}
         >
           <Code2 className="h-3.5 w-3.5" />
@@ -162,7 +169,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
         {/* Text Color Picker */}
         <Popover>
           <PopoverTrigger asChild>
-            <Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-lg">
+            <Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-lg" title="Text Color">
               <Baseline className="h-3.5 w-3.5" />
             </Button>
           </PopoverTrigger>
@@ -198,6 +205,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
               variant={editor.isActive("highlight") ? "default" : "ghost"}
               size="icon"
               className="h-8 w-8 rounded-lg"
+              title="Highlight Color"
             >
               <Highlighter className="h-3.5 w-3.5" />
             </Button>
@@ -243,6 +251,7 @@ export default function EditorBubbleMenu({ editor }: Props) {
           variant="ghost"
           size="icon"
           className="h-8 w-8 rounded-lg text-red-500 hover:text-red-600 hover:bg-red-50"
+          title="Clear Formatting"
           onClick={() =>
             editor
               .chain()

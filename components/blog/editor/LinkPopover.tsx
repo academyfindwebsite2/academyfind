@@ -98,6 +98,7 @@ export default function LinkPopover({
               : "ghost"
           }
           size="icon"
+          title="Insert Link"
         >
           <Link2 className="h-4 w-4" />
         </Button>

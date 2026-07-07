@@ -36,6 +36,7 @@ const blogEditorSchema = z.object({
     )
     .max(20),
   intent: z.enum(["draft", "publish"]),
+  relatedInstituteId: z.string().optional(),
 });
 
 export type SaveBlogPostResult =
@@ -163,6 +164,7 @@ async function persistBlogPost(
     coverImageAlt: value.title,
     categoryId: value.categoryId || null,
     brandId: value.brandId || null,
+    relatedInstituteId: value.relatedInstituteId || null,
     metaTitle: value.metaTitle || null,
     metaDescription: value.metaDescription || null,
     focusKeyword: value.focusKeyword || null,

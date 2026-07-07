@@ -27,6 +27,7 @@ import {
 import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import type { ReactNode } from "react";
+import { ManagerSidebarWrapper } from "@/components/manager/ManagerSidebarWrapper";
 
 export const metadata: Metadata = {
   title: "Admin Control Panel | AcademyFind",
@@ -97,7 +98,7 @@ export default async function AdminLayout({
             <div className="container mx-auto max-w-350 pt-8 px-4 flex flex-col md:flex-row gap-8">
                 
                 {/* --- ADMIN SIDEBAR --- */}
-                <aside className="w-full md:w-64 shrink-0 space-y-6">
+                <ManagerSidebarWrapper title="Admin Menu">
                     <div>
                         <Link href="/" className="inline-flex items-center text-xs text-slate-500 hover:text-slate-800 mb-4 transition-colors">
                             <ArrowLeft className="w-3 h-3 mr-1" /> Back to Main Site
@@ -141,7 +142,7 @@ export default async function AdminLayout({
                         <SidebarLink href="/af-ass-manage/chat" icon={<MessageCircle />} label="Chat Reports" count={pendingChatReports} />
                         <SidebarLink href="/af-ass-manage/wallets" icon={<Wallet />} label="Wallets" />
                     </nav>
-                </aside>
+                </ManagerSidebarWrapper>
 
                 {/* --- MAIN ADMIN CONTENT AREA --- */}
                 <main className="flex-1 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 min-h-175">

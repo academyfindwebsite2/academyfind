@@ -35,6 +35,7 @@ export default function EditorFloatingMenu({ editor }: Props) {
         if (isForcedHidden) return false;
         if (!currentEditor.isEditable) return false;
         if (!currentEditor.isActive("paragraph")) return false;
+        if (currentEditor.isActive("table")) return false;
 
         const { $from } = currentEditor.state.selection;
 
@@ -51,6 +52,7 @@ export default function EditorFloatingMenu({ editor }: Props) {
           variant="ghost"
           className="h-8 w-8 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg"
           aria-label="Open slash commands menu"
+          title="Add Block"
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => {
             setIsForcedHidden(true);
@@ -75,6 +77,7 @@ export default function EditorFloatingMenu({ editor }: Props) {
           variant="ghost"
           className="h-8 w-8 text-slate-400 cursor-not-allowed hover:bg-transparent rounded-lg"
           aria-label="AI Assistant Options"
+          title="AI Assistant (Coming Soon)"
           onMouseDown={(e) => e.preventDefault()}
           disabled
         >
