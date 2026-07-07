@@ -79,17 +79,17 @@ export default async function ChatIndexPage({
   }
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center p-8">
-      <div className="flex size-20 items-center justify-center rounded-3xl bg-amber-50 border border-amber-200">
-        <MessageCircle className="size-10 text-amber-400" />
+    <div className="hidden md:flex flex-1 flex-col items-center justify-center gap-4 text-center p-8 bg-white/40 backdrop-blur-xl h-full">
+      <div className="flex size-20 items-center justify-center rounded-3xl bg-amber-50/50 border border-amber-200/50 shadow-inner backdrop-blur-md">
+        <MessageCircle className="size-10 text-amber-400 drop-shadow-sm" />
       </div>
       <div>
-        <h2 className="text-xl font-bold text-slate-900">Your messages</h2>
+        <h2 className="text-xl font-bold text-slate-800 drop-shadow-sm">Your messages</h2>
         <p className="mt-2 text-sm text-slate-500 max-w-xs">
           Select a conversation from the sidebar, or start a new direct message.
         </p>
       </div>
-      <div className="mt-4 text-sm text-slate-500">
+      <div className="mt-4 text-sm text-slate-400 bg-white/50 px-4 py-2 rounded-full border border-white/60 shadow-sm backdrop-blur-sm">
         Find institutes in the directory to message their members.
       </div>
     </div>

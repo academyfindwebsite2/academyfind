@@ -173,35 +173,38 @@ export function MessageWindow({
   const isReadOnly = meta?.isReadOnly ?? false;
 
   return (
-    <div className="flex flex-1 flex-col">
-      {/* Header */}
-      <div className="flex items-center gap-3 border-b border-slate-200 bg-white px-5 py-3">
-        <Link href="/chat" className="text-slate-400 hover:text-slate-700 lg:hidden">
+    <div className="flex flex-1 flex-col h-full bg-slate-50/20 backdrop-blur-3xl relative">
+      <div className="absolute inset-0 bg-white/40 pointer-events-none" />
+      {/* Frosted Header */}
+      <div className="flex items-center gap-3 border-b border-white/40 bg-white/60 backdrop-blur-xl px-5 py-3 relative z-10 shadow-sm">
+        <Link href="/chat" className="text-slate-500 hover:text-slate-800 md:hidden bg-white/50 p-2 rounded-full shadow-inner border border-white/60 transition-all hover:scale-105">
           <ArrowLeft className="size-5" />
         </Link>
-        <div className="relative size-9 shrink-0 overflow-hidden rounded-full bg-slate-100">
+        <div className="relative size-10 shrink-0 overflow-hidden rounded-full bg-white shadow-inner border border-white/80">
           {headerImg ? (
             <Image src={headerImg} alt="" fill className="object-cover" />
           ) : (
-            <span className="flex h-full items-center justify-center text-sm font-bold text-slate-400">
+            <span className="flex h-full items-center justify-center text-sm font-extrabold text-slate-500 bg-gradient-to-br from-slate-100 to-slate-200">
               {(headerTitle ?? "?").charAt(0).toUpperCase()}
             </span>
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate font-bold text-slate-900">{headerTitle}</p>
-          <p className="text-xs text-slate-400">{headerSub}</p>
+          <p className="truncate font-extrabold text-slate-800 drop-shadow-sm">{headerTitle}</p>
+          <p className="text-xs text-slate-500 font-medium">{headerSub}</p>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-3 shrink-0">
           {meta?.type !== "DIRECT" && meta?.institute && (
             <Link
               href={`/institute/${meta.institute.id}-${meta.institute.slug}`}
-              className="text-xs font-semibold text-amber-700 hover:text-amber-800 hidden sm:block"
+              className="text-[11px] font-bold text-amber-600 hover:text-amber-700 bg-white/50 px-3 py-1.5 rounded-full shadow-sm border border-white/60 hidden sm:block transition-all hover:bg-white"
             >
               View Institute →
             </Link>
           )}
-          <ChatInfoSidebar conversationId={conversationId} meta={meta} />
+          <div className="bg-white/50 rounded-full shadow-sm border border-white/60">
+            <ChatInfoSidebar conversationId={conversationId} meta={meta} />
+          </div>
         </div>
       </div>
 
@@ -209,10 +212,10 @@ export function MessageWindow({
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="relative flex-1 overflow-y-auto bg-slate-50/50 px-4 py-4"
+        className="relative flex-1 overflow-y-auto px-4 py-4 z-10 custom-scrollbar"
       >
         {messages.length === 0 ? (
-          <div className="flex h-full items-center justify-center text-sm text-slate-400">
+          <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">
             No messages yet. Say hello! 👋
           </div>
         ) : (
@@ -261,26 +264,27 @@ export function MessageWindow({
           <button
             type="button"
             onClick={scrollToBottom}
-            className="sticky bottom-4 float-right rounded-full border border-slate-200 bg-white p-2 shadow-lg"
+            className="absolute bottom-6 right-6 rounded-full border border-white/60 bg-white/80 p-3 shadow-lg backdrop-blur-md hover:scale-110 transition-transform z-20"
           >
-            <ChevronDown className="size-4 text-slate-600" />
+            <ChevronDown className="size-5 text-amber-600 drop-shadow-sm" />
           </button>
         )}
       </div>
 
       {/* Input bar */}
       {!isReadOnly ? (
-        <div className="border-t border-slate-200 bg-white px-4 py-3">
+        <div className="border-t border-white/40 bg-white/60 backdrop-blur-xl px-4 py-3 relative z-10 shadow-[0_-4px_24px_-12px_rgba(0,0,0,0.1)]">
           {/* Reply preview */}
           {replyTo && (
-            <div className="mb-2 flex items-start gap-2 rounded-lg border-l-4 border-amber-400 bg-amber-50 px-3 py-2 text-xs">
-              <div className="flex-1 truncate">
-                <span className="font-semibold text-amber-700">
+            <div className="mb-2 flex items-start gap-2 rounded-xl border border-white/60 bg-white/80 shadow-sm backdrop-blur-md px-3 py-2 text-xs relative overflow-hidden">
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-400"></div>
+              <div className="flex-1 truncate pl-1">
+                <span className="font-bold text-amber-700 drop-shadow-sm">
                   Replying to {replyTo.sender.name}
                 </span>
-                <p className="truncate text-slate-500">{replyTo.content}</p>
+                <p className="truncate text-slate-500 font-medium mt-0.5">{replyTo.content}</p>
               </div>
-              <button type="button" onClick={() => setReplyTo(null)} className="text-slate-400">
+              <button type="button" onClick={() => setReplyTo(null)} className="text-slate-400 hover:text-slate-700 bg-white/50 rounded-full p-1 transition-colors">
                 ✕
               </button>
             </div>
@@ -293,8 +297,8 @@ export function MessageWindow({
               onChange={(e) => setContent(e.target.value)}
               onKeyDown={handleKeyDown}
               rows={1}
-              placeholder="Type a message… (Enter to send, Shift+Enter for new line)"
-              className="flex-1 resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-amber-300 focus:bg-white focus:outline-none max-h-32 overflow-y-auto"
+              placeholder="Type a message..."
+              className="flex-1 resize-none rounded-2xl border border-white/60 bg-white/70 shadow-inner px-4 py-3 text-sm font-medium text-slate-800 placeholder-slate-400 focus:border-amber-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-100/50 max-h-32 overflow-y-auto transition-all custom-scrollbar"
               style={{ height: "auto" }}
               onInput={(e) => {
                 const t = e.currentTarget;
@@ -306,18 +310,18 @@ export function MessageWindow({
               type="button"
               onClick={handleSend}
               disabled={!content.trim() || sending}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-400 text-slate-900 hover:bg-amber-500 disabled:opacity-50"
+              className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-amber-400 text-slate-900 shadow-md hover:bg-amber-500 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:hover:scale-100 transition-all border border-amber-300"
             >
               {sending ? (
-                <Loader2 className="size-4 animate-spin" />
+                <Loader2 className="size-5 animate-spin" />
               ) : (
-                <Send className="size-4" />
+                <Send className="size-5 drop-shadow-sm ml-0.5" />
               )}
             </button>
           </div>
         </div>
       ) : (
-        <div className="border-t border-slate-200 bg-slate-50 px-4 py-3 text-center text-sm text-slate-400">
+        <div className="border-t border-white/40 bg-white/60 backdrop-blur-xl px-4 py-4 text-center text-sm font-bold text-slate-500 relative z-10 shadow-inner">
           🔒 This channel is read-only.
         </div>
       )}
@@ -394,18 +398,21 @@ function MessageBubble({
         )}
 
         {/* Bubble */}
-        <div className="relative group/bubble">
+        <div className="relative group/bubble flex flex-col">
           <div
-            className={`rounded-2xl px-4 py-2.5 text-sm ${isDeleted
-              ? "bg-slate-100 text-slate-400 italic"
+            className={`rounded-2xl px-4 py-2.5 text-sm shadow-sm border transition-all duration-300 hover:shadow-md hover:scale-[1.01] ${isDeleted
+              ? "bg-white/40 backdrop-blur-sm border-white/60 text-slate-400 italic"
               : isMine
-                ? "bg-amber-400 text-slate-900"
-                : "bg-white border border-slate-200 text-slate-900"
+                ? "bg-gradient-to-br from-amber-400 to-amber-500 border-amber-300/50 text-amber-950 font-medium drop-shadow-sm rounded-tr-sm"
+                : "bg-white/80 backdrop-blur-md border-white/80 text-slate-800 font-medium rounded-tl-sm"
               }`}
           >
-            {msg.content}
+            {/* Readability Film for text contrast */}
+            <span className="relative z-10 leading-relaxed">
+              {msg.content}
+            </span>
             {msg.isEdited && !isDeleted && (
-              <span className="ml-2 text-[10px] opacity-60">(edited)</span>
+              <span className="ml-2 text-[10px] opacity-60 font-bold">(edited)</span>
             )}
           </div>
 
