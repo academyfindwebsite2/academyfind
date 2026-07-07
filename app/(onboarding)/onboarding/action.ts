@@ -95,13 +95,15 @@ export async function completeOnboarding(
         });
       }
 
-      // Mark onboarding complete
+      // Mark onboarding complete and set phone
       await tx.user.update({
         where: {
           id: session.user.id,
         },
 
         data: {
+          username: data.username,
+          phone: data.phone,
           onboardingCompleted: true,
         },
       });
@@ -112,8 +114,15 @@ export async function completeOnboarding(
     return {
       success: true,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("[ONBOARDING_COMPLETE]", error);
+    
+    if (error.code === 'P2002' && error.meta?.target?.includes('username')) {
+      return {
+        success: false,
+        error: "This username is already taken. Please choose another one.",
+      };
+    }
 
     return {
       success: false,

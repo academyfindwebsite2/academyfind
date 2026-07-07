@@ -22,28 +22,28 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   // User Details States
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setphone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   // 🚀 Nayi States for frictionless flow
   const [showOtpScreen, setShowOtpScreen] = useState(false);
   const [otp, setOtp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const router = useRouter();
 
-    useEffect(() => {
+  useEffect(() => {
     authClient.getSession().then((res) => {
-      if(res.data?.user){
+      if (res.data?.user) {
         router.replace('/')
       }
     });
-  },[router])
+  }, [router])
 
 
 
@@ -82,10 +82,11 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
         name,
         email,
         password,
+        phone,
       });
 
       if (signUpError) {
-        toast.error("Registration failed" );
+        toast.error("Registration failed");
         setIsLoading(false);
         return;
       }
@@ -96,7 +97,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
       });
 
       if (otpError) {
-        toast.error("Account created, but OTP sending failed " );
+        toast.error("Account created, but OTP sending failed ");
       } else {
         // Step C: UI change karke OTP screen dikhayein (No Redirect)
         setShowOtpScreen(true);
@@ -114,7 +115,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
   async function handleVerifyAndLogin(e: React.FormEvent) {
     e.preventDefault();
     if (otp.length < 6) return;
-    
+
     setIsLoading(true);
 
     try {
@@ -155,7 +156,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
   return (
     <main className="min-h-screen bg-[#f8f8f8] p-4 lg:p-8">
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-7xl overflow-hidden rounded-[32px] bg-white shadow-2xl">
-        
+
         {/* LEFT PANEL */}
         <div className="relative hidden w-1/2 overflow-hidden bg-linear-to-b from-amber-400 to-orange-500 p-12 text-white lg:flex lg:flex-col">
           {/* Logo */}
@@ -204,7 +205,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
         {/* RIGHT PANEL */}
         <div className="flex flex-1 items-center justify-center bg-[#fafafa] px-6 py-10">
           <div className="w-full max-w-md">
-            
+
             {/* Logo Mobile */}
             <div className="mb-8 text-center">
               <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl text-white shadow-lg shadow-amber-500/30">
@@ -218,7 +219,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
 
             {/* 🔥 CONDITIONAL RENDERING STARTS HERE */}
             {showOtpScreen ? (
-              
+
               /* ================= OTP VERIFICATION UI ================= */
               <div className="animate-in fade-in zoom-in duration-300">
                 <div className="mb-8 text-center">
@@ -226,7 +227,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                     Check Your Email
                   </h2>
                   <p className="mt-2 text-sm text-slate-500">
-                    We've sent a 6-digit verification code to <br/> <strong className="text-slate-800">{email}</strong>
+                    We've sent a 6-digit verification code to <br /> <strong className="text-slate-800">{email}</strong>
                   </p>
                 </div>
 
@@ -304,11 +305,12 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
 
                 <form className="space-y-5" onSubmit={handleRegister}>
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">Full Name</label>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">Full Name <span className="text-red-500">*</span></label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                       <input
                         type="text"
+                        required
                         placeholder="Enter your full name"
                         className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                         value={name}
@@ -318,8 +320,24 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                   </div>
 
                   <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">Mobile No.<span className="text-red-500">*</span> </label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                      <input
+                        type="tel"
+                        placeholder="Enter your mobile No."
+                        required
+                        className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
+                        value={phone}
+                        onChange={(e) => setphone(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
                     <label className="mb-2 block text-sm font-medium text-slate-700">
                       {method === "email" ? "Email Address" : "Phone Number"}
+                      <span className="text-red-500"> *</span>
                     </label>
                     <div className="relative">
                       {method === "email" ? (
@@ -330,6 +348,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                       <input
                         type={method === "email" ? "email" : "tel"}
                         placeholder={method === "email" ? "Enter your email" : "Enter mobile number"}
+                        required
                         className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                         value={method === "email" ? email : phone}
                         onChange={(e) => {
@@ -341,12 +360,13 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-700 mb-2 block">Password</label>
+                    <label className="text-sm font-medium text-slate-700 mb-2 block">Password <span className="text-red-500">*</span></label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                       <input
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your password"
+                        required
                         className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-12 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -362,12 +382,13 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-700 mb-2 block">Confirm Password</label>
+                    <label className="text-sm font-medium text-slate-700 mb-2 block">Confirm Password <span className="text-red-500">*</span></label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="Confirm your password"
+                        required
                         className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-12 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}

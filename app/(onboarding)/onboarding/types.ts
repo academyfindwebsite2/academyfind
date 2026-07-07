@@ -18,6 +18,8 @@ export interface OnboardingCity {
 }
 
 export interface StepProps {
+  user: OnboardingUser;
+
   formData: OnboardingInput;
 
   updateForm: (

@@ -19,6 +19,7 @@ async function main() {
       data: {
         name: "AcademyFind Editor",
         email: "editor@academyfind.com",
+        username: "academyfind_editor",
         role: "ADMIN",
         isActive: true,
       },

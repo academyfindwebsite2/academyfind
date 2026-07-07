@@ -35,11 +35,11 @@ export default function LoginComponent() {
 
   useEffect(() => {
     authClient.getSession().then((res) => {
-      if(res.data?.user){
+      if (res.data?.user) {
         router.replace('/')
       }
     });
-  },[router])
+  }, [router])
 
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
@@ -95,11 +95,11 @@ export default function LoginComponent() {
         }
 
         // Agar password galat hai ya koi aur error hai
-        if(error){
+        if (error) {
           toast.error("Some issues in login")
           return;
         }
-        
+
       }
 
       // Login Successful!
@@ -320,6 +320,7 @@ export default function LoginComponent() {
                   <div>
                     <label className="mb-2 block text-sm font-medium text-slate-700">
                       {method === "email" ? "Email Address" : "Phone Number"}
+                      <span className="text-red-500"> *</span>
                     </label>
 
                     <div className="relative">
@@ -350,14 +351,15 @@ export default function LoginComponent() {
                   <div>
                     <div className="mb-2 flex items-center justify-between">
                       <label className="text-sm font-medium text-slate-700">
-                        Password
+                        Password <span className="text-red-500">*</span>
                       </label>
-                      {/* <Link
+
+                      <Link
                         href="/forgot-password"
                         className="text-xs text-amber-400 hover:text-amber-500"
                       >
                         Forgot Password?
-                      </Link> */}
+                      </Link>
                     </div>
 
                     <div className="relative">

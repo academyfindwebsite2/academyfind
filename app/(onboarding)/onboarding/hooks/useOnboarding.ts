@@ -5,6 +5,7 @@ import { useState, useTransition } from "react";
 
 import { completeOnboarding } from "../action";
 import type { OnboardingInput } from "../types";
+import { ONBOARDING_STEPS } from "../registry";
 
 interface UseOnboardingProps {
   totalSteps: number;
@@ -44,24 +45,13 @@ export function useOnboarding({
   function validateStep() {
     setError("");
 
-    switch (currentStep) {
-      case 1:
-        if (formData.categories.length === 0) {
-          setError(
-            "Please select at least one category."
-          );
-          return false;
-        }
-        break;
-
-      case 2:
-        if (formData.cities.length === 0) {
-          setError(
-            "Please select at least one city."
-          );
-          return false;
-        }
-        break;
+    const currentStepDefinition = ONBOARDING_STEPS[currentStep];
+    if (currentStepDefinition.validate) {
+      const errorMsg = currentStepDefinition.validate(formData);
+      if (errorMsg) {
+        setError(errorMsg);
+        return false;
+      }
     }
 
     return true;

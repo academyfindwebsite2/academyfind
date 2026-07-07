@@ -24,6 +24,8 @@ interface OnboardingWizardProps {
 }
 
 const initialData: OnboardingInput = {
+  username: "",
+  phone: "",
   categories: [],
   cities: [],
   notifications: {
@@ -85,6 +87,7 @@ export function OnboardingWizard({
       <div className="mt-10 min-h-[420px]">
         <Currentstep
           key={currentStepDefinition.id}
+          user={user}
           formData={formData}
           updateForm={updateForm}
           categories={categories}

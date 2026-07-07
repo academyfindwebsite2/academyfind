@@ -1,11 +1,14 @@
 import type { ComponentType } from "react";
 import type { OnboardingInput } from "./types";
 import WelcomeStep from "./components/steps/StepWelcome";
+import UsernameStep from "./components/steps/StepUsername";
+import PhoneStep from "./components/steps/StepPhone";
 import CategoriesStep from "./components/steps/StepCategories";
 import CitiesStep from "./components/steps/StepCities";
 import NotificationStep from "./components/steps/StepNotifications";
 import FinishStep from "./components/steps/StepFinish";
 import type { StepProps } from "./types";
+import { checkUsernameAvailability } from "../../../lib/User/user/checkUsernameAvailability";
 
 export interface OnboardingStepDefinition {
   id: string;
@@ -31,6 +34,38 @@ export const ONBOARDING_STEPS: OnboardingStepDefinition[] = [
 
     component: WelcomeStep,
   },
+
+  {
+    id: "username",
+    title: "Choose Username",
+    description: "Personalize your identity",
+    component: UsernameStep,
+    validate(data) {
+      if (!data.username || data.username.length < 3) {
+        return "Please enter a valid username (min 3 characters).";
+      }
+      return null;
+    },
+  },
+
+  {
+    id: "phone",
+
+    title: "Phone Number",
+
+    description: "Contact Information",
+
+    component: PhoneStep,
+
+    validate(data) {
+      if (!data.phone || data.phone.length < 10) {
+        return "Please enter a valid phone number (min 10 digits).";
+      }
+
+      return null;
+    },
+  },
+
 
   {
     id: "categories",
