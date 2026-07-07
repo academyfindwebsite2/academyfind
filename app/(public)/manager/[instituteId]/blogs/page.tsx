@@ -115,7 +115,7 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {blogs.map((blog) => (
+          {blogs.map((blog: any) => (
             <div
               key={blog.id}
               className="group flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xs transition-all hover:shadow-md hover:border-slate-200"
