@@ -53,10 +53,21 @@ export async function GET(_req: Request, { params }: Params) {
 
   if (!conversation) return NextResponse.json({ error: "Not found" }, { status: 404 });
   
+  // Check if current user is admin or manager
+  const isAdmin = session.user.role === "ADMIN";
+  let isManager = false;
+  if (conversation.instituteId) {
+    const manager = await prisma.instituteManager.findFirst({
+      where: { instituteId: conversation.instituteId, userId: session.user.id },
+    });
+    if (manager) isManager = true;
+  }
+  
   // Override memberCount with the actual active participant count
   const payload = {
     ...conversation,
     memberCount: conversation._count.participants,
+    currentUserCanBypassReadOnly: isAdmin || isManager,
   };
   
   return NextResponse.json({ conversation: payload });

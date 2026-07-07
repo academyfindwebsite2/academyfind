@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
-export function ChatInfoSidebar({ conversationId, meta }: { conversationId: string, meta: any }) {
+export function ChatInfoSidebar({ conversationId, meta, children }: { conversationId: string, meta: any, children?: React.ReactNode }) {
     const [open, setOpen] = useState(false);
 
     const { data, isLoading } = useSWR<{ participants: { role: string }[] }>(
@@ -27,9 +27,11 @@ export function ChatInfoSidebar({ conversationId, meta }: { conversationId: stri
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="shrink-0 text-slate-400 hover:text-slate-600 rounded-full h-8 w-8">
-                    <Info className="w-5 h-5" />
-                </Button>
+                {children ? children : (
+                    <Button variant="ghost" size="icon" className="shrink-0 text-slate-400 hover:text-slate-600 rounded-full h-8 w-8">
+                        <Info className="w-5 h-5" />
+                    </Button>
+                )}
             </SheetTrigger>
             <SheetContent side="right" className="w-full sm:max-w-sm bg-slate-50 flex flex-col p-0">
                 <div className="p-6 pb-4 border-b bg-white">

@@ -34,12 +34,6 @@ const INSTITUTE_CHANNELS: Array<{
       isReadOnly: false,
       visibility: "INSTITUTE",
     },
-    {
-      channelType: "STAFF",
-      title: "# Staff",
-      isReadOnly: false,
-      visibility: "INSTITUTE",
-    },
   ];
 
 export async function ensureInstituteChannels(instituteId: string) {
@@ -74,7 +68,6 @@ export async function addMemberToInstituteChannels(
 ) {
   const channels = await ensureInstituteChannels(instituteId);
   const allowed = channels.filter(({ channelType }: any) => {
-    if (channelType === "STAFF") return role === "MANAGER" || role === "ADMIN";
     if (channelType === "TEACHERS") {
       return role === "TEACHER" || role === "MANAGER" || role === "ADMIN";
     }

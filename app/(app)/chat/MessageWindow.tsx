@@ -26,6 +26,15 @@ import {
 
 import { sendMessage, deleteMessage, addReaction, reportMessage } from "@/app/(app)/chat/actions";
 import { ChatInfoSidebar } from "@/app/(app)/chat/components/ChatInfoSidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { User, MessageCircle as MessageCircleIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -52,6 +61,7 @@ interface ConversationMeta {
   title: string | null;
   channelType: string | null;
   isReadOnly: boolean;
+  currentUserCanBypassReadOnly?: boolean;
   memberCount: number;
   institute: { id: string; name: string; logo: string | null; slug: string } | null;
   participants: { user: { id: string; name: string | null; username: string | null; image: string | null } }[];
@@ -170,7 +180,7 @@ export function MessageWindow({
       ? (otherParticipant?.user.image ?? null)
       : (meta?.institute?.logo ?? null);
 
-  const isReadOnly = meta?.isReadOnly ?? false;
+  const isReadOnly = (meta?.isReadOnly ?? false) && !(meta?.currentUserCanBypassReadOnly);
 
   return (
     <div className="flex flex-1 flex-col h-full bg-slate-50/20 backdrop-blur-3xl relative">
@@ -180,19 +190,24 @@ export function MessageWindow({
         <Link href="/chat" className="text-slate-500 hover:text-slate-800 md:hidden bg-white/50 p-2 rounded-full shadow-inner border border-white/60 transition-all hover:scale-105">
           <ArrowLeft className="size-5" />
         </Link>
-        <div className="relative size-10 shrink-0 overflow-hidden rounded-full bg-white shadow-inner border border-white/80">
-          {headerImg ? (
-            <Image src={headerImg} alt="" fill className="object-cover" />
-          ) : (
-            <span className="flex h-full items-center justify-center text-sm font-extrabold text-slate-500 bg-gradient-to-br from-slate-100 to-slate-200">
-              {(headerTitle ?? "?").charAt(0).toUpperCase()}
-            </span>
-          )}
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="truncate font-extrabold text-slate-800 drop-shadow-sm">{headerTitle}</p>
-          <p className="text-xs text-slate-500 font-medium">{headerSub}</p>
-        </div>
+        <ChatInfoSidebar conversationId={conversationId} meta={meta}>
+          <button className="flex-1 flex items-center gap-3 text-left hover:bg-white/40 p-1.5 -ml-1.5 rounded-2xl transition-colors min-w-0">
+            <div className="relative size-10 shrink-0 overflow-hidden rounded-full bg-white shadow-inner border border-white/80">
+              {headerImg ? (
+                <Image src={headerImg} alt="" fill className="object-cover" />
+              ) : (
+                <span className="flex h-full items-center justify-center text-sm font-extrabold text-slate-500 bg-gradient-to-br from-slate-100 to-slate-200">
+                  {(headerTitle ?? "?").charAt(0).toUpperCase()}
+                </span>
+              )}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-extrabold text-slate-800 drop-shadow-sm">{headerTitle}</p>
+              <p className="text-xs text-slate-500 font-medium">{headerSub}</p>
+            </div>
+          </button>
+        </ChatInfoSidebar>
+        
         <div className="flex items-center gap-3 shrink-0">
           {meta?.type !== "DIRECT" && meta?.institute && (
             <Link
@@ -202,9 +217,6 @@ export function MessageWindow({
               View Institute →
             </Link>
           )}
-          <div className="bg-white/50 rounded-full shadow-sm border border-white/60">
-            <ChatInfoSidebar conversationId={conversationId} meta={meta} />
-          </div>
         </div>
       </div>
 
@@ -360,15 +372,38 @@ function MessageBubble({
     >
       {/* Avatar */}
       {!isSameUser ? (
-        <div className={`relative size-8 shrink-0 overflow-hidden rounded-full bg-slate-100 mt-1 ${isMine ? "hidden" : ""}`}>
-          {msg.sender.image ? (
-            <Image src={msg.sender.image} alt="" fill className="object-cover" />
-          ) : (
-            <span className="flex h-full items-center justify-center text-xs font-bold text-slate-400">
-              {(msg.sender.name ?? "?").charAt(0).toUpperCase()}
-            </span>
-          )}
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className={`relative size-8 shrink-0 overflow-hidden rounded-full bg-slate-100 mt-1 hover:ring-2 hover:ring-amber-200 transition-all ${isMine ? "hidden" : ""}`}>
+              {msg.sender.image ? (
+                <Image src={msg.sender.image} alt="" fill className="object-cover" />
+              ) : (
+                <span className="flex h-full items-center justify-center text-xs font-bold text-slate-400">
+                  {(msg.sender.name ?? "?").charAt(0).toUpperCase()}
+                </span>
+              )}
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-48 bg-white/90 backdrop-blur-md rounded-xl shadow-lg border-white/60 p-2">
+            <div className="px-2 py-1.5 text-sm font-bold text-slate-800">
+              {msg.sender.name}
+              <p className="text-[10px] font-medium text-slate-500 font-mono">@{msg.sender.username}</p>
+            </div>
+            <DropdownMenuSeparator className="bg-slate-100" />
+            <DropdownMenuItem asChild className="rounded-lg cursor-pointer hover:bg-amber-50 hover:text-amber-700">
+              <Link href={`/profile/${msg.sender.username}`}>
+                <User className="mr-2 h-4 w-4" />
+                <span>View Profile</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild className="rounded-lg cursor-pointer hover:bg-amber-50 hover:text-amber-700">
+              <Link href={`/chat?userId=${msg.sender.id}`}>
+                <MessageCircleIcon className="mr-2 h-4 w-4" />
+                <span>Message</span>
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       ) : (
         <div className="w-8 shrink-0" />
       )}
