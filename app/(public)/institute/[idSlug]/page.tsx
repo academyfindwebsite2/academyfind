@@ -226,7 +226,7 @@ export default async function InstitutePage({ params }: PageProps) {
     })
   ]);
 
-  const formattedBlogs: BlogCardPost[] = recentBlogs.map((blog) => ({
+  const formattedBlogs: BlogCardPost[] = recentBlogs.map((blog: any) => ({
     ...blog,
     authorProfile: blog.authorProfile ? {
       displayName: blog.authorProfile.displayName,
@@ -1121,7 +1121,7 @@ export default async function InstitutePage({ params }: PageProps) {
               </Link>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {formattedBlogs.map((post) => (
+              {formattedBlogs.map((post: any) => (
                 <BlogCard key={post.id} post={post as BlogCardPost} />
               ))}
             </div>
