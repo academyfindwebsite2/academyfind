@@ -303,7 +303,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                   </button>
                 </div> */}
 
-                <form className="space-y-5" onSubmit={handleRegister}>
+                {/* <form className="space-y-5" onSubmit={handleRegister}>
                   <div>
                     <label className="mb-2 block text-sm font-medium text-slate-700">Full Name <span className="text-red-500">*</span></label>
                     <div className="relative">
@@ -423,7 +423,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                   <div className="h-px flex-1 bg-slate-200" />
                   <span className="mx-4 text-xs text-slate-400">OR</span>
                   <div className="h-px flex-1 bg-slate-200" />
-                </div>
+                </div> */}
 
                 <button
                   type="button"
