@@ -17,6 +17,8 @@ interface OnboardingWizardProps {
     name: string;
     email: string;
     image: string | null;
+    username?: string | null;
+    phone?: string | null;
   };
 
   categories: OnboardingCategory[];
@@ -42,9 +44,15 @@ export function OnboardingWizard({
 }: OnboardingWizardProps) {
   const totalSteps = ONBOARDING_STEPS.length;
 
+  const dynamicInitialData: OnboardingInput = {
+    ...initialData,
+    username: user.username || "",
+    phone: user.phone || "",
+  };
+
   const onboarding = useOnboarding({
     totalSteps,
-    initialData,
+    initialData: dynamicInitialData,
   });
 
   const {

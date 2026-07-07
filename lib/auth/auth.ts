@@ -44,6 +44,10 @@ export const auth = betterAuth({
                 required: false,
                 defaultValue: true,
             },
+            username: {
+                type: "string",
+                required: false,
+            },
         },
     },
     // Optional: Boost performance by allowing Better Auth to use SQL joins (v1.4+)
@@ -53,6 +57,30 @@ export const auth = betterAuth({
     emailAndPassword: {  
         enabled: true,
         requireEmailVerification: true,
+    },
+    databaseHooks: {
+        user: {
+            create: {
+                before: async (user) => {
+                    // Generate a random username if not provided
+                    if (!user.username) {
+                        const emailPrefix = user.email.split("@")[0].replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+                        const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+                        return {
+                            data: {
+                                ...user,
+                                username: `${emailPrefix}${randomSuffix}`,
+                            }
+                        };
+                    }
+                    return { data: user };
+                },
+                after: async (user) => {
+                    const { creditWallet } = await import("@/lib/wallet/credit");
+                    await creditWallet(user.id, 5, "SIGN_UP", "Welcome Bonus for registering!");
+                }
+            }
+        }
     },
 
     plugins:[
@@ -75,7 +103,7 @@ export const auth = betterAuth({
 
                 // 3. Resend ko use karke Email bhejo
                 try {
-                    const data = await resend.emails.send({
+                    const result = await resend.emails.send({
                         from: 'AcademyFind <Verification@academyfind.com>', 
                         to: email,
                         subject: subject,
@@ -91,7 +119,11 @@ export const auth = betterAuth({
                         `,
                     });
 
-                    console.log(`✅ Successfully sent ${type} OTP via Resend to ${email}`);
+                    if (result.error) {
+                        console.error(`❌ Resend API Error:`, result.error);
+                    } else {
+                        console.log(`✅ Successfully sent ${type} OTP via Resend to ${email}`);
+                    }
                     
                 } catch (err) {
                     console.error(`❌ Failed to send ${type} email via Resend:`, err);

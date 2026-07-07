@@ -14,8 +14,8 @@ export async function approveReview(reviewId: string, instituteId: string) {
       data: { status: "APPROVED" },
     });
 
-    // Award +20 coins to the reviewer
-    await creditWallet(updatedReview.userId, 20, "REVIEW", "Review approved", reviewId);
+    // Award +3 coins to the reviewer
+    await creditWallet(updatedReview.userId, 3, "REVIEW", "Review approved", reviewId);
 
     // 2. Sirf "APPROVED" reviews ka average nikalenge
     const stats = await prisma.review.aggregate({

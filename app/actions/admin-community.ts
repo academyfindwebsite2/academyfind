@@ -62,6 +62,8 @@ export async function resolveMessageReport(
   if (!report) return { error: "Report not found." };
 
   if (action === "DELETE") {
+    await creditWallet(report.reporterId, 3, "CONTENT_REPORT", "Report approved");
+
     await prisma.$transaction([
       prisma.message.update({
         where: { id: report.messageId },
@@ -91,6 +93,7 @@ export async function resolveMessageReport(
       },
     });
     if (action === "WARN") {
+      await creditWallet(report.reporterId, 3, "CONTENT_REPORT", "Report approved");
       await notifyUser(
         report.message.senderId,
         "SYSTEM",

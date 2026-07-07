@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import slugify from "slugify";
 import { z } from "zod";
+import { creditWallet } from "@/lib/wallet/credit";
 
 import type { BlogEditorSaveInput } from "@/components/blog/editor/types";
 import { getCachedSession } from "@/lib/auth/session";
@@ -120,7 +121,13 @@ export async function saveAdminBlogPost(
     const existing = value.id
       ? await prisma.blogPost.findUnique({
           where: { id: value.id },
-          select: { id: true, authorProfileId: true, publishedAt: true },
+          select: { 
+            id: true, 
+            authorProfileId: true, 
+            publishedAt: true, 
+            status: true,
+            authorProfile: { select: { userId: true } }
+          },
         })
       : null;
 
@@ -225,6 +232,11 @@ export async function saveAdminBlogPost(
 
     // Sync post to Meilisearch
     await syncBlogPostToMeili(post.id);
+
+    // 🚀 Reward 5 AFC if post is newly published
+    if (requestedStatus === "PUBLISHED" && existing?.status !== "PUBLISHED" && existing?.authorProfile?.userId) {
+      await creditWallet(existing.authorProfile.userId, 5, "BLOG_POST", "Blog post published", post.id);
+    }
 
     revalidatePath("/blog");
     revalidatePath(`/blog/${post.slug}`);

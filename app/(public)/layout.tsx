@@ -5,12 +5,18 @@ import { CursorGlow } from "@/components/ui/cursor-glow";
 import GlobalCallbackFAB from "@/components/User/GlobalCallBack";
 import { AuthPromptModal } from "@/components/layout/auth-prompt-model";
 
+import { redirect } from "next/navigation";
+
 export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const session = await getCachedSession();
+
+  if (session?.user && !session.user.onboardingCompleted) {
+    redirect("/onboarding");
+  }
 
   return (
     <>

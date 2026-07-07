@@ -115,6 +115,12 @@ enum WalletTransactionSource {
   ADMIN
   REFUND
   BONUS
+  SIGN_UP
+  BLOG_POST
+  COMMUNITY_QUESTION
+  COMMUNITY_ANSWER
+  INSTITUTE_MEMBERSHIP
+  CONTENT_REPORT
 }
 
 model WalletTransaction {

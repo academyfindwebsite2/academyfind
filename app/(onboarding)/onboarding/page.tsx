@@ -27,6 +27,8 @@ export default async function OnboardingPage() {
         name: session.user.name ?? "",
         email: session.user.email,
         image: session.user.image ?? null,
+        username: session.user.username ?? "",
+        phone: session.user.phone ?? "",
       }}
     />
   );

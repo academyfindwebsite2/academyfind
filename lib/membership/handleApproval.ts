@@ -74,8 +74,8 @@ export async function handleMembershipApproval(
   await Promise.all([
     creditWallet(
       approved.userId,
-      25,
-      "BONUS",
+      20,
+      "INSTITUTE_MEMBERSHIP",
       "Membership verified",
       membershipId,
     ),

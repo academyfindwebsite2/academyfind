@@ -27,9 +27,9 @@ export async function POST(req: Request) {
       data:  { lastLoginAt: new Date() }
     })
 
-    await creditWallet(session.user.id, 2, 'DAILY_LOGIN', 'Daily login bonus ☀️')
+    await creditWallet(session.user.id, 1, 'DAILY_LOGIN', 'Daily login bonus ☀️')
 
-    return NextResponse.json({ ok: true, coinsAwarded: 2 })
+    return NextResponse.json({ ok: true, coinsAwarded: 1 })
   } catch (error) {
     console.error("[DailyLoginAPI] Error:", error)
     return NextResponse.json({ ok: false, error: "Internal Server Error" }, { status: 500 })

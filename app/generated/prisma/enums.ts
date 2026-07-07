@@ -29,7 +29,13 @@ export const WalletTransactionSource = {
   COURSE_PURCHASE: 'COURSE_PURCHASE',
   ADMIN: 'ADMIN',
   REFUND: 'REFUND',
-  BONUS: 'BONUS'
+  BONUS: 'BONUS',
+  SIGN_UP: 'SIGN_UP',
+  BLOG_POST: 'BLOG_POST',
+  COMMUNITY_QUESTION: 'COMMUNITY_QUESTION',
+  COMMUNITY_ANSWER: 'COMMUNITY_ANSWER',
+  INSTITUTE_MEMBERSHIP: 'INSTITUTE_MEMBERSHIP',
+  CONTENT_REPORT: 'CONTENT_REPORT'
 } as const
 
 export type WalletTransactionSource = (typeof WalletTransactionSource)[keyof typeof WalletTransactionSource]

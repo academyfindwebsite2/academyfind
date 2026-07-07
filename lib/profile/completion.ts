@@ -93,7 +93,7 @@ export function computeProfileCompletion(
     score,
     nextStep: steps.find((step) => !step.done),
     steps,
-    isComplete: score >= 80,
+    isComplete: steps.every((step) => step.done),
   };
 }
 
@@ -126,6 +126,6 @@ export async function checkAndAwardProfileCompletion(userId: string) {
   const { isComplete } = computeProfileCompletion(user as any, studentProfile, teacherProfile);
 
   if (isComplete) {
-    await creditWallet(userId, 30, "PROFILE_COMPLETION", "Profile completed");
+    await creditWallet(userId, 2, "PROFILE_COMPLETION", "Profile completed");
   }
 }

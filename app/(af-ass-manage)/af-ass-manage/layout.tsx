@@ -51,6 +51,10 @@ export default async function AdminLayout({
         redirect('/login');
     }
 
+    if (!session.user.onboardingCompleted) {
+        redirect('/onboarding');
+    }
+
     if (session.user.role !== "ADMIN") {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">

@@ -327,6 +327,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                         type="tel"
                         placeholder="Enter your mobile No."
                         required
+                        maxLength={10}
                         className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                         value={phone}
                         onChange={(e) => setphone(e.target.value)}
