@@ -303,7 +303,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                   </button>
                 </div> */}
 
-                {/* <form className="space-y-5" onSubmit={handleRegister}>
+                <form className="space-y-5" onSubmit={handleRegister}>
                   <div>
                     <label className="mb-2 block text-sm font-medium text-slate-700">Full Name <span className="text-red-500">*</span></label>
                     <div className="relative">
@@ -320,13 +320,12 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">Mobile No.<span className="text-red-500">*</span> </label>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">Mobile No. </label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                       <input
                         type="tel"
                         placeholder="Enter your mobile No."
-                        required
                         maxLength={10}
                         className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                         value={phone}
@@ -423,7 +422,7 @@ export default function RegisterComponent() { // Component ka naam RegisterPage 
                   <div className="h-px flex-1 bg-slate-200" />
                   <span className="mx-4 text-xs text-slate-400">OR</span>
                   <div className="h-px flex-1 bg-slate-200" />
-                </div> */}
+                </div>
 
                 <button
                   type="button"

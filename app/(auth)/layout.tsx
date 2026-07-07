@@ -10,9 +10,9 @@ export default async function AuthLayout({
   const session = await getCachedSession();
 
   if (session?.user) {
-    if (!session.user.onboardingCompleted) {
-      redirect("/onboarding");
-    }
+    // if (!session.user.onboardingCompleted) {
+    //   redirect("/onboarding");
+    // }
 
     redirect("/");
   }

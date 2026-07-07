@@ -11,7 +11,7 @@ export default async function AuthenticatedLayout({
 }) {
   const session = await getSession();
   if (!session?.user) redirect("/login");
-  if (!session.user.onboardingCompleted) redirect("/onboarding");
+  // if (!session.user.onboardingCompleted) redirect("/onboarding");
   if (!session.user.isActive) redirect("/login");
   return (
     <>

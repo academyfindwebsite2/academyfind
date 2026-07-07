@@ -51,9 +51,9 @@ export default async function AdminLayout({
         redirect('/login');
     }
 
-    if (!session.user.onboardingCompleted) {
-        redirect('/onboarding');
-    }
+    // if (!session.user.onboardingCompleted) {
+    //     redirect('/onboarding');
+    // }
 
     if (session.user.role !== "ADMIN") {
         return (

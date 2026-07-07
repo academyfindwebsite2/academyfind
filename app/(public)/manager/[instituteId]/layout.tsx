@@ -204,7 +204,7 @@ export default async function ManagerDashBoardLayout({
                         <SidebarLink
                             href={`/manager/${instituteId}/blogs`}
                             icon={<FileText />}
-                            label="Blogs"
+                            label="Articles"
                             locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
 

@@ -23,6 +23,10 @@ export async function searchBlogPosts({
   sort = "relevance",
 }: SearchBlogPostsParams) {
   try {
+    if (process.env.USE_MEILISEARCH !== 'true') {
+      throw new Error("Meilisearch disabled, fallback to DB");
+    }
+
     const filters = ['type = "blog"'];
 
     if (category) {

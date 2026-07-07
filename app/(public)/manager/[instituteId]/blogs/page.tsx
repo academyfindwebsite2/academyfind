@@ -3,11 +3,11 @@ import { prisma } from "@/lib/prisma";
 import { PremiumLock } from "@/components/manager/PremiumLock";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Plus, Edit2, Clock, CheckCircle2, XCircle } from "lucide-react";
+import { Plus, Edit2, Clock, CheckCircle2, XCircle, FileText } from "lucide-react";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Manage Blogs | Manager Dashboard",
+  title: "Manage Articles | Manager Dashboard",
   robots: { index: false, follow: false },
 };
 
@@ -58,10 +58,10 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
   if (!isPremiumOrUltra) {
     return (
       <div className="p-8">
-        <h1 className="mb-6 text-2xl font-extrabold text-slate-900">Institute Blogs</h1>
+        <h1 className="mb-6 text-2xl font-extrabold text-slate-900">Institute Articles</h1>
         <PremiumLock
-          title="Institute Blogs Locked"
-          description="Upgrade to Premium or Ultra to write blogs for your institute. Share your insights, updates, and articles directly with the student community."
+          title="Institute Articles Locked"
+          description="Upgrade to Premium or Ultra to write articles for your institute. Share your insights, updates, and articles directly with the student community."
           instituteId={instituteId}
         />
       </div>
@@ -87,30 +87,30 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
     <div className="p-4 sm:p-8">
       <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900">Institute Blogs</h1>
+          <h1 className="text-2xl font-extrabold text-slate-900">Institute Articles</h1>
           <p className="mt-1 text-sm text-slate-500">
-            Write and manage blogs to showcase your institute's expertise.
+            Write and manage articles to showcase your institute's expertise.
           </p>
         </div>
         <Button asChild className="bg-amber-500 font-bold text-white hover:bg-amber-600 rounded-xl">
           <Link href={`/manager/${instituteId}/blogs/write`}>
             <Plus className="mr-2 h-4 w-4" />
-            Write New Blog
+            Write New Article
           </Link>
         </Button>
       </div>
 
       {blogs.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-slate-400">
-            <Plus className="h-8 w-8" />
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <FileText className="mb-4 h-12 w-12 text-slate-300" />
+            <h3 className="mb-2 text-lg font-bold text-slate-900">No Articles Yet</h3>
+            <p className="text-sm text-slate-500">
+              You haven't written any articles for this institute yet.
+            </p>
           </div>
-          <h3 className="mb-2 text-xl font-bold text-slate-800">No blogs yet</h3>
-          <p className="mb-6 max-w-md text-slate-500">
-            You haven't written any blogs for this institute. Start sharing your knowledge to attract more students!
-          </p>
           <Button asChild className="bg-slate-900 text-white hover:bg-slate-800 rounded-xl">
-            <Link href={`/manager/${instituteId}/blogs/write`}>Create First Blog</Link>
+            <Link href={`/manager/${instituteId}/blogs/write`}>Create First Article</Link>
           </Button>
         </div>
       ) : (

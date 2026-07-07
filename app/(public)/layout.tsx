@@ -14,9 +14,9 @@ export default async function PublicLayout({
 }) {
   const session = await getCachedSession();
 
-  if (session?.user && !session.user.onboardingCompleted) {
-    redirect("/onboarding");
-  }
+  // if (session?.user && !session.user.onboardingCompleted) {
+  //   redirect("/onboarding");
+  // }
 
   return (
     <>

@@ -29,6 +29,8 @@ import { getCachedInstituteById } from "@/lib/cachedQueries";
 import { LockedOverlay } from "@/components/institutes/LockedOverlay";
 import { JoinActionBar } from "@/app/(public)/institute/[idSlug]/JoinActionBar";
 import { MemberDrawer } from "./components/MemberDrawer";
+import BlogCard from "@/components/blog/cards/BlogCard";
+import { BlogCardPost } from "@/types/BlogCard";
 
 export const revalidate = 0;
 
@@ -118,7 +120,8 @@ export default async function InstitutePage({ params }: PageProps) {
     totalStudents,
     totalTeachers,
     activeBatches,
-    instituteManagers
+    instituteManagers,
+    recentBlogs
   ] = await Promise.all([
     userId
       ? prisma.instituteMembership.findMany({
@@ -188,8 +191,50 @@ export default async function InstitutePage({ params }: PageProps) {
           select: { id: true, name: true, username: true, image: true, allowDms: true, chatSettings: { select: { allowDirectMessages: true } } }
         }
       }
+    }),
+    prisma.blogPost.findMany({
+      where: { relatedInstituteId: id, status: "PUBLISHED" },
+      orderBy: { publishedAt: "desc" },
+      take: 3,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        coverImage: true,
+        coverImageAlt: true,
+        readingTime: true,
+        publishedAt: true,
+        viewCount: true,
+        likeCount: true,
+        commentCount: true,
+        authorProfile: {
+          select: {
+            displayName: true,
+            user: { select: { username: true } },
+            avatarUrl: true,
+            isVerified: true,
+          }
+        },
+        category: {
+          select: { id: true, name: true, slug: true }
+        },
+        brand: {
+          select: { id: true, name: true, slug: true, avatarUrl: true }
+        }
+      }
     })
   ]);
+
+  const formattedBlogs: BlogCardPost[] = recentBlogs.map((blog) => ({
+    ...blog,
+    authorProfile: blog.authorProfile ? {
+      displayName: blog.authorProfile.displayName,
+      username: blog.authorProfile.user.username,
+      avatarUrl: blog.authorProfile.avatarUrl,
+      isVerified: blog.authorProfile.isVerified,
+    } : null,
+  }));
 
   // Derive membership states per role
   const studentMembership = userMemberships.find((m: any) => m.role === "STUDENT") ?? null;
@@ -707,30 +752,7 @@ export default async function InstitutePage({ params }: PageProps) {
           )}
         </section>
 
-        {/* 🚀 MANAGED BY */}
-        {instituteManagers.length > 0 && (
-          <section>
-            <h3 className="text-lg font-bold text-slate-800 mb-4 border-b pb-2">Managed By</h3>
-            <div className="flex flex-wrap gap-4">
-              {instituteManagers.map((manager: any) => {
-                const u = manager.user;
-                const canMessage = userId && userId !== u.id && u.allowDms && u.chatSettings?.allowDirectMessages;
-                return (
-                  <div key={manager.id} className="flex items-center gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm pr-4">
-                    <div className="w-10 h-10 rounded-full border border-slate-200 overflow-hidden shrink-0">
-                      {u.image ? <Image src={u.image} alt={u.name} width={40} height={40} className="w-full h-full object-cover" /> : <User className="w-full h-full p-2 text-slate-400" />}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-sm leading-none">{u.name}</h4>
-                      <p className="text-xs text-slate-500 mt-1">Institute Manager</p>
-                    </div>
-                    {canMessage && <Button size="sm" variant="ghost" className="ml-2 h-7 px-2 text-[10px] bg-amber-50 text-amber-700 hover:bg-amber-100 shrink-0">Message →</Button>}
-                  </div>
-                )
-              })}
-            </div>
-          </section>
-        )}
+
 
         {/* 🚀 NOTABLE ALUMNI */}
         {(!hasUltraAccess || (institute.notablepersons && institute.notablepersons.length > 0)) && (
@@ -1076,6 +1098,40 @@ export default async function InstitutePage({ params }: PageProps) {
                   </div>
                 );
               })}
+            </div>
+          </section>
+        )}
+
+        {/* ── UPDATES & BLOGS ── */}
+        {formattedBlogs.length > 0 && (
+          <section className="relative mt-16">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="p-3 bg-indigo-100 text-indigo-600 rounded-xl"><BookOpen className="w-6 h-6" /></div>
+                <div>
+                  <h2 className="text-3xl font-bold text-slate-900">Updates & Articles</h2>
+                  <p className="mt-1 text-slate-500 text-sm">Read the latest news and insights from {institute.name}</p>
+                </div>
+              </div>
+              <Link
+                href={`/institute/${idSlug}/blogs`}
+                className="text-sm font-bold text-indigo-600 hover:text-indigo-700 hidden sm:block"
+              >
+                View All Articles →
+              </Link>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {formattedBlogs.map((post) => (
+                <BlogCard key={post.id} post={post as BlogCardPost} />
+              ))}
+            </div>
+            <div className="mt-6 sm:hidden flex justify-center">
+              <Link
+                href={`/institute/${idSlug}/blogs`}
+                className="inline-flex w-full items-center justify-center rounded-xl bg-indigo-50 px-4 py-2.5 text-sm font-bold text-indigo-700 hover:bg-indigo-100"
+              >
+                View All Articles
+              </Link>
             </div>
           </section>
         )}

@@ -36,7 +36,10 @@ function formatCount(num: number): string {
 export default async function ExploreByExam() {
   // Query 8 active top-level exam categories with institute counts
   const dbCategories = await prisma.category.findMany({
-    where: { isActive: true },
+    where: { 
+      isActive: true,
+      children: { none: {} }
+    },
     take: 8,
     select: {
       name: true,

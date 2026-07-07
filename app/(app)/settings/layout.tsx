@@ -5,6 +5,7 @@ import {
   LockKeyhole,
   Shield,
   UserRound,
+  ArrowLeft,
 } from "lucide-react";
 
 const links = [
@@ -24,6 +25,13 @@ export default function SettingsLayout({
   return (
     <main className="mx-auto grid max-w-7xl gap-8 px-4 py-10 md:grid-cols-[240px_minmax(0,1fr)]">
       <aside className="md:sticky md:top-24 md:self-start">
+        <Link
+          href="/"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+        >
+          <ArrowLeft className="size-4" />
+          Back to Home
+        </Link>
         <h1 className="mb-4 text-2xl font-bold text-slate-950">Settings</h1>
         <nav className="flex gap-2 overflow-x-auto md:flex-col">
           {links.map(({ href: href, label: label, icon: Icon }) => (

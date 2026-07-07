@@ -78,7 +78,7 @@ return (
           { label: "Search", href: "/" },
           { label: "About Us", href: "/about" },
           { label: "Careers", href: "/careers" },
-          { label: "Blogs", href: "/blog" },
+          { label: "Articles", href: "/blog" },
           { label: "Contact", href: "/contact" },
         ].map((link) => (
           <Link
@@ -185,7 +185,7 @@ return (
                 { label: "Search", href: "/", icon: Search },
                 { label: "About Us", href: "/about", icon: Building2 },
                 { label: "Careers", href: "/careers", icon: IdCard },
-                { label: "Blogs", href: "/blog", icon: FileText },
+                { label: "Articles", href: "/blog", icon: FileText },
                 { label: "Contact Us", href: "/contact", icon: Building2 },
                 { label: "Compare Institutes", href: "/compare", icon: Scale },
                 { label: "List Your Institute", href: "/user/create-institute", icon: Building },
