@@ -68,7 +68,7 @@ export default async function InstituteBlogsPage({ params }: PageProps) {
 
   if (!institute) notFound();
 
-  const formattedBlogs: BlogCardPost[] = rawBlogs.map((blog) => ({
+  const formattedBlogs: BlogCardPost[] = rawBlogs.map((blog: any) => ({
     ...blog,
     authorProfile: blog.authorProfile ? {
       displayName: blog.authorProfile.displayName,
@@ -81,7 +81,7 @@ export default async function InstituteBlogsPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-slate-50/50 pb-20 pt-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Navigation / Header */}
         <div className="mb-10">
           <Link
@@ -118,7 +118,7 @@ export default async function InstituteBlogsPage({ params }: PageProps) {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {formattedBlogs.map((post) => (
+            {formattedBlogs.map((post: any) => (
               <BlogCard key={post.id} post={post as BlogCardPost} />
             ))}
           </div>
