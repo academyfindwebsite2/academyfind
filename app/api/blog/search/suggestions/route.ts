@@ -93,14 +93,14 @@ export async function GET(request: NextRequest) {
       ]);
 
       const suggestions = [
-        ...blogs.map(b => ({
+        ...blogs.map((b: any) => ({
           id: b.id,
           type: "blog",
           title: b.title,
           subtitle: b.category?.name,
           url: `/blog/${b.slug}`,
         })),
-        ...categories.map(c => ({
+        ...categories.map((c: any) => ({
           id: c.id,
           type: "category",
           title: c.name,
