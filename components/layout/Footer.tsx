@@ -77,6 +77,7 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-2">
             <Link
               href="/"
+              prefetch={false}
               className="
                 flex
                 items-center
@@ -196,6 +197,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
+                    prefetch={false}
                     className="transition-colors hover:text-foreground"
                   >
                     {item.name}
@@ -244,6 +246,7 @@ export function Footer() {
             >
               <Link
                 href="/about"
+                prefetch={false}
                 className="transition-colors hover:text-foreground"
               >
                 About
@@ -251,6 +254,7 @@ export function Footer() {
 
               <Link
                 href="/contact"
+                prefetch={false}
                 className="transition-colors hover:text-foreground"
               >
                 Contact Us
@@ -258,6 +262,7 @@ export function Footer() {
 
               <Link
                 href={"/privacy-policy"}
+                prefetch={false}
                 className="transition-colors hover:text-foreground"
               >
                 Privacy
@@ -265,6 +270,7 @@ export function Footer() {
 
               <Link
                   href={"/terms-condition"}
+                  prefetch={false}
                 className="transition-colors hover:text-foreground"
               >
                 Terms
