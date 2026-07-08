@@ -47,7 +47,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     description: seoDescription,
     // Canonical tag is strictly the base route to avoid ?city= duplicate indexing penalty
     alternates: {
-      canonical: "https://www.academyfind.com/categories",
+      canonical: "https://academyfind.com/categories",
     },
     robots: {
       index: true,
@@ -60,13 +60,13 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     openGraph: {
       title: seoTitle,
       description: seoDescription,
-      url: "https://www.academyfind.com/categories",
+      url: "https://academyfind.com/categories",
       siteName: "AcademyFind",
       locale: "en_IN",
       type: "website",
       images: [
         {
-          url: "https://www.academyfind.com/new-logo.png",
+          url: "https://academyfind.com/new-logo.png",
           width: 1200,
           height: 630,
           alt: "AcademyFind Categories",
@@ -78,7 +78,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
       title: seoTitle,
       description: seoDescription,
       site: "@academyfind",
-      images: ["https://www.academyfind.com/new-logo.png"],
+      images: ["https://academyfind.com/new-logo.png"],
     },
     keywords: [
       "education categories",
@@ -107,7 +107,7 @@ interface JsonLdProps {
 }
 
 function JsonLdSchemas({ parentCategories }: JsonLdProps) {
-  const baseUrl = "https://www.academyfind.com";
+  const baseUrl = "https://academyfind.com";
   const pageUrl = `${baseUrl}/categories`;
   const currentYear = new Date().getFullYear();
 
