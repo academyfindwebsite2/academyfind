@@ -96,6 +96,7 @@ export function TrendingDestinations() {
 
           <Link
             href="/categories"
+            prefetch={false}
             className="hidden items-center gap-2 font-medium transition-colors hover:text-amber-500 md:flex"
           >
             View All
@@ -111,6 +112,7 @@ export function TrendingDestinations() {
                 <Link
                   key={item.title}
                   href={item.href}
+                  prefetch={false}
                   className="
                     group
                     flex
@@ -214,6 +216,7 @@ export function TrendingDestinations() {
                   <Link
                     key={category.href}
                     href={category.href}
+                    prefetch={false}
                     className="
                       rounded-full
                       border

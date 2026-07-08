@@ -77,6 +77,7 @@ export function PopularCities() {
 
           <Link
             href="/cities"
+            prefetch={false}
             className="
               hidden
               items-center
@@ -98,6 +99,7 @@ export function PopularCities() {
             <Link
               key={city.name}
               href={city.href}
+              prefetch={false}
               className="
                 group
                 rounded-2xl
@@ -162,6 +164,7 @@ export function PopularCities() {
         <div className="mt-8 flex justify-center md:hidden">
           <Link
             href="/cities"
+            prefetch={false}
             className="
               inline-flex
               items-center

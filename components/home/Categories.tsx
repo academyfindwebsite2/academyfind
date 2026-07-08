@@ -78,6 +78,7 @@ export function ExploreByGoal() {
 
           <Link
             href="/categories"
+            prefetch={false}
             className="hidden md:flex items-center gap-2 font-medium transition-colors hover:text-amber-500"
           >
             View All Categories
@@ -91,7 +92,7 @@ export function ExploreByGoal() {
             const Icon = goal.icon;
 
             return (
-              <Link key={goal.title} href={goal.href}>
+              <Link key={goal.title} href={goal.href} prefetch={false}>
                 <Card
                   className="
                     group
@@ -201,6 +202,7 @@ export function ExploreByGoal() {
         <div className="mt-8 flex justify-center md:hidden">
           <Link
             href="/categories"
+            prefetch={false}
             className="
               inline-flex
               items-center

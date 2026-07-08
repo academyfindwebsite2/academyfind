@@ -181,6 +181,7 @@
                   <Link
                     key={item.slug}
                     href={item.slug}
+                    prefetch={false}
                     className="
                       rounded-full
                       border
@@ -202,6 +203,7 @@
             {/* CTA */}
             <Link
               href="/categories"
+              prefetch={false}
               className="
                 mt-5
                 inline-flex
@@ -222,6 +224,7 @@
             <Link
               href="/user/life-coach" /* Agar aapka path /user/life-coach hai toh isko update kar lena */
               className="inline-flex items-center gap-1 font-bold text-amber-400 transition-colors hover:text-amber-500"
+              prefetch={false}
             >
               Ask our Life Coach
               <ArrowRight className="h-3.5 w-3.5" />

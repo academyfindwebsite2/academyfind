@@ -41,6 +41,7 @@ export async function PopularComparisons() {
 
           <Link
             href="/compare"
+            prefetch={false}
             className="hidden md:flex items-center gap-2 font-medium text-amber-600 hover:text-amber-700 transition-colors"
           >
             View All Comparisons
@@ -55,6 +56,7 @@ export async function PopularComparisons() {
               key={comparison.slug} 
               href={`/compare/${comparison.slug}`} // 👈 Route to the page we built earlier
               className="group block"
+              prefetch={false}
             >
               <Card className="h-full overflow-hidden rounded-2xl border bg-white transition-all duration-300 hover:shadow-lg hover:border-amber-200 hover:-translate-y-1">
                 <CardContent className="p-4 sm:p-5">
@@ -107,6 +109,7 @@ export async function PopularComparisons() {
         <div className="mt-8 flex justify-center md:hidden">
           <Link
             href="/compare"
+            prefetch={false}
             className="inline-flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-6 py-3 font-bold text-amber-700"
           >
             View All Comparisons

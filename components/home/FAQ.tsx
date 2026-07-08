@@ -109,7 +109,7 @@ export function FAQSection() {
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground">
             Still have questions?
-            <Link href={'/contact'} className="ml-1 font-medium text-amber-500">
+            <Link href={'/contact'} className="ml-1 font-medium text-amber-500" prefetch={false}>
               Contact our team.
             </Link>
           </p>

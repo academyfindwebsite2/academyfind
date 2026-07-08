@@ -68,6 +68,7 @@ export default async function HeroCards() {
               <Link
                 href={item.link}
                 key={item.title}
+                prefetch={false}
                 className="group block rounded-3xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-amber-300 cursor-pointer"
               >
                 {CardContent}
