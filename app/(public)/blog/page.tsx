@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { Hero } from "@/components/blog/home/hero/index";
-import FeaturedPosts from "@/components/blog/home/FeaturedPosts";
+import BentoHero from "@/components/blog/home/hero/BentoHero";
 import CategoryTabs from "@/components/blog/home/CategoryTabs";
 import LatestPosts from "@/components/blog/home/LatestPosts";
 import TrendingPosts from "@/components/blog/home/TrendingPosts";
@@ -85,7 +84,7 @@ export default async function BlogPage({ searchParams }: Props) {
   }
 
   // Requirement #12 & #17: Promise.all parallel loading & explicit homepage limits
-  const [categories, featuredPosts, latestPosts, trendingPosts] = await Promise.all([
+  const [categories, featuredPosts, latestPosts, trendingPosts, instituteCount, articleCount, cityCount, categoryCount] = await Promise.all([
     // Active Categories list
     prisma.blogCategory.findMany({
       where: { isActive: true },
@@ -154,19 +153,31 @@ export default async function BlogPage({ searchParams }: Props) {
       ],
       take: 4,
     }),
+
+    // CTA Section Stats
+    prisma.institute.count(),
+    prisma.blogPost.count({ where: { status: "PUBLISHED", visibility: "PUBLIC" } }),
+    prisma.city.count(),
+    prisma.category.count(),
   ]);
+
+  const stats = {
+    institutes: instituteCount,
+    articles: articleCount,
+    cities: cityCount,
+    categories: categoryCount,
+  };
 
   return (
     <>
-      <Hero />
-      <FeaturedPosts posts={featuredPosts} />
+      <BentoHero featuredPosts={featuredPosts} />
       <LatestPosts posts={latestPosts} />
       <TrendingPosts posts={trendingPosts} />
       <ExploreByExam />
       <ExploreByCity />
       <CategoryTabs activeCategorySlug={categorySlug} categories={categories} />
       <Newsletter />
-      <CTASection />
+      <CTASection stats={stats} />
     </>
   );
 }

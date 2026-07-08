@@ -1,7 +1,30 @@
 import Link from "next/link";
 import { ArrowRight, Search, Building2 } from "lucide-react";
 
-export default function CTASection() {
+interface CTASectionProps {
+  stats?: {
+    institutes: number;
+    articles: number;
+    cities: number;
+    categories: number;
+  };
+}
+
+export default function CTASection({ stats }: CTASectionProps) {
+  // Helper to format numbers like 1200 -> 1.2K+
+  const formatStat = (num?: number, fallback: string = "0") => {
+    if (num === undefined || num === null) return fallback;
+    if (num === 0) return "0";
+
+    const formatted = new Intl.NumberFormat("en-US", {
+      notation: "compact",
+      compactDisplay: "short",
+      maximumFractionDigits: 1,
+    }).format(num);
+
+    return `${formatted}+`;
+  };
+
   return (
     <section className="relative overflow-hidden py-24">
       {/* Background */}
@@ -58,7 +81,7 @@ export default function CTASection() {
           <div className="mt-16 grid grid-cols-2 gap-8 border-t border-white/20 pt-10 md:grid-cols-4">
             <div>
               <div className="text-3xl font-black text-white">
-                10K+
+                {formatStat(stats?.institutes, "10K+")}
               </div>
 
               <p className="mt-2 text-white/80">
@@ -68,7 +91,7 @@ export default function CTASection() {
 
             <div>
               <div className="text-3xl font-black text-white">
-                1.2K+
+                {formatStat(stats?.articles, "1.2K+")}
               </div>
 
               <p className="mt-2 text-white/80">
@@ -78,7 +101,7 @@ export default function CTASection() {
 
             <div>
               <div className="text-3xl font-black text-white">
-                500+
+                {formatStat(stats?.cities, "500+")}
               </div>
 
               <p className="mt-2 text-white/80">
@@ -88,7 +111,7 @@ export default function CTASection() {
 
             <div>
               <div className="text-3xl font-black text-white">
-                25+
+                {formatStat(stats?.categories, "25+")}
               </div>
 
               <p className="mt-2 text-white/80">
