@@ -175,3 +175,50 @@ export async function getCompletePublicProfile(username: string) {
 export type CompletePublicProfile = NonNullable<
   Awaited<ReturnType<typeof getCompletePublicProfile>>
 >;
+
+export const getPrivateProfileData = cache(async (userId: string) => {
+  const dbUser = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      role: true,
+      canAddInstitute: true,
+    }
+  });
+
+  if (!dbUser) return null;
+
+  const authorProfile = await prisma.blogAuthorProfile.findUnique({
+    where: { userId },
+    select: { username: true, displayName: true },
+  });
+
+  const shortlistedItems = await prisma.userShortlist.findMany({
+    where: { userId },
+    include: { institute: { include: { city: true } } },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const historyItems = await prisma.userHistory.findMany({
+    where: { userId },
+    include: { institute: { include: { city: true } } },
+    orderBy: { viewedAt: "desc" },
+  });
+
+  const managedInstitutes =
+    dbUser.role === "INSTITUTE_MANAGER" || dbUser.role === "ADMIN"
+      ? await prisma.instituteManager.findMany({
+          where: { userId },
+          include: { institute: { select: { id: true, name: true, slug: true } } },
+        })
+      : [];
+
+  return {
+    canAddInstitute: dbUser.canAddInstitute,
+    role: dbUser.role,
+    authorProfile,
+    shortlistedItems,
+    historyItems,
+    managedInstitutes,
+  };
+});
+

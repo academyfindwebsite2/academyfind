@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getSession } from "@/lib/auth/getSession";
-import { getCompletePublicProfile, getPublicProfile } from "@/lib/profile/queries";
+import { getCompletePublicProfile, getPublicProfile, getPrivateProfileData } from "@/lib/profile/queries";
 import { ProfileHeader } from "@/app/(public)/u/[username]/components/ProfileHeader";
 import { ProfileSidebar } from "@/app/(public)/u/[username]/components/ProfileSidebar";
 import { ProfileTabs } from "@/app/(public)/u/[username]/components/ProfileTabs";
@@ -44,6 +44,8 @@ export default async function PublicProfilePage({ params }: Props) {
   if (!profile) notFound();
 
   const isOwnProfile = session?.user.id === profile.id;
+  const privateData = isOwnProfile ? await getPrivateProfileData(profile.id) : null;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -72,7 +74,7 @@ export default async function PublicProfilePage({ params }: Props) {
       <ProfileHeader profile={profile} isOwnProfile={isOwnProfile} />
       <div className="mt-6 grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
         <ProfileSidebar profile={profile} isOwnProfile={isOwnProfile} />
-        <ProfileTabs profile={profile} />
+        <ProfileTabs profile={profile} isOwnProfile={isOwnProfile} privateData={privateData} />
       </div>
     </main>
   );

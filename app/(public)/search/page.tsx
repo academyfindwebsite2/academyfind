@@ -59,7 +59,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 export default async function SearchPage({ searchParams }: Props) {
   const { 
     q = "", type = "", city = "", category = "", rating = "",
-    lat = "", lng = "", address = "", radius = "5", sort = "nearest", page = "1" 
+    lat = "", lng = "", address = "", radius = "5", sort = "rating", page = "1" 
   } = await searchParams;
 
   const categories = await prisma.category.findMany({ select: { name: true, slug: true }, orderBy: { name: "asc" } });

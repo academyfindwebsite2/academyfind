@@ -37,8 +37,8 @@ export default async function InstituteResults({
   if (rating && rating !== "ALL") searchFilters.push(`googleRating >= ${rating}`);
 
   // 🔥 DEFAULT SORT HANDLING
-  // Agar URL me sort nahi hai, toh by default "nearest_location" maano
-  const activeSort = sort || "nearest_location";
+  // Agar URL me sort nahi hai, toh by default "rating" maano
+  const activeSort = sort || "rating";
 
   // 🔥 ACTIVE LOCATION DECISION
   const isNearestme = activeSort === "nearest_me" && userlat && userlng;
@@ -57,6 +57,8 @@ export default async function InstituteResults({
   // Ab activeSort check kar rahe hain, direct sort nahi
   if (activelat && activelng && (activeSort === "nearest_location" || activeSort === "nearest_me")) {
     sortOptions = [`_geoPoint(${activelat}, ${activelng}):asc`];
+  } else if (activeSort === "rating") {
+    sortOptions = ["googleRating:desc"];
   }
 
   // SEARCH CALL

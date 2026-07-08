@@ -11,23 +11,42 @@ import {
   Eye,
   GraduationCap,
   Star,
+  Bookmark,
+  MapPin,
+  PlusCircle,
+  PenTool,
+  FileText
 } from "lucide-react";
+import { format } from "date-fns";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 import type { CompletePublicProfile } from "@/lib/profile/queries";
 import { MembershipCard } from "@/app/(public)/u/[username]/components/MembershipCard";
 
-type Tab = "Overview" | "Student" | "Teacher" | "Blogs" | "Reviews" | "Activity";
-
-const TABS: Tab[] = ["Overview", "Student", "Teacher", "Blogs", "Reviews", "Activity"];
+type Tab = "Dashboard" | "Overview" | "Student" | "Teacher" | "Blogs" | "Reviews" | "Activity";
 
 export function ProfileTabs({
   profile,
   isOwnProfile = false,
+  privateData = null,
 }: {
   profile: any;
   isOwnProfile?: boolean;
+  privateData?: any;
 }) {
-  const [active, setActive] = useState<Tab>("Overview");
+  const TABS: Tab[] = isOwnProfile 
+    ? ["Dashboard", "Overview", "Student", "Teacher", "Blogs", "Reviews", "Activity"] 
+    : ["Overview", "Student", "Teacher", "Blogs", "Reviews", "Activity"];
+
+  const [active, setActive] = useState<Tab>(isOwnProfile ? "Dashboard" : "Overview");
 
   return (
     <section>
@@ -49,6 +68,7 @@ export function ProfileTabs({
         ))}
       </div>
 
+      {active === "Dashboard" && isOwnProfile && <DashboardTab privateData={privateData} />}
       {active === "Overview" && <OverviewTab profile={profile} />}
       {active === "Student" && <StudentTab profile={profile} isOwnProfile={isOwnProfile} />}
       {active === "Teacher" && <TeacherTab profile={profile} isOwnProfile={isOwnProfile} />}
@@ -481,6 +501,245 @@ function Empty({
     <div className="flex flex-col items-center rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">
       <p>{text}</p>
       {children}
+    </div>
+  );
+}
+
+/* ─── Dashboard (Private) ───────────────────────────────── */
+function DashboardTab({ privateData }: { privateData: any }) {
+  if (!privateData) return null;
+
+  const { canAddInstitute, authorProfile, shortlistedItems, historyItems, managedInstitutes } = privateData;
+  const displayShortlist = shortlistedItems.slice(0, 3);
+  const displayHistory = historyItems.slice(0, 3);
+
+  return (
+    <div className="flex flex-col gap-8 font-sans">
+      {canAddInstitute && (
+          <Card className="rounded-3xl border-emerald-200 shadow-sm bg-gradient-to-br from-emerald-50 via-white to-white overflow-hidden relative border-2 animate-in fade-in zoom-in-95 duration-300">
+              <div className="absolute right-0 top-0 -mr-16 -mt-16 w-48 h-48 bg-emerald-400 rounded-full blur-[80px] opacity-15 pointer-events-none"></div>
+              <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2 mb-1">
+                      <div className="p-2 bg-emerald-100 rounded-xl text-emerald-600 shadow-sm"><PlusCircle className="w-5 h-5" /></div>
+                      <CardTitle className="text-xl text-emerald-950 font-bold">List Your Academy</CardTitle>
+                  </div>
+                  <CardDescription className="text-emerald-700 font-medium">
+                      Admin has unlocked your specialized one-time pass to create an official institute listing.
+                  </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                  <div className="flex-1 w-full text-sm text-slate-600 leading-relaxed">
+                      Fill out your setup details to deploy your dashboard profile. This form configuration automatically establishes your workspace backend once submitted.
+                  </div>
+                  <Button asChild className="w-full sm:w-auto gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md px-6 transition-all transform hover:-translate-y-0.5">
+                      <Link href="/user/create-institute">
+                          Create Listing <ArrowRight className="w-4 h-4" />
+                      </Link>
+                  </Button>
+              </CardContent>
+          </Card>
+      )}
+
+      {managedInstitutes.length > 0 && (
+          <Card className="rounded-3xl border-blue-100 shadow-sm bg-gradient-to-br from-blue-50/50 to-white overflow-hidden relative">
+              <div className="absolute right-0 top-0 -mr-16 -mt-16 w-48 h-48 bg-blue-400 rounded-full blur-[80px] opacity-10 pointer-events-none"></div>
+              <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2 mb-1">
+                      <div className="w-9 h-9 bg-blue-100 rounded-xl text-blue-600 flex items-center justify-center shadow-sm"><Building2 className="w-5 h-5" /></div>
+                      <CardTitle className="text-xl">Manager Workspace</CardTitle>
+                  </div>
+                  <CardDescription>Quick access to the institutes you manage.</CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                  <div className="flex-1 w-full text-sm font-medium text-slate-700">
+                      You currently manage <span className="font-bold text-blue-600">{managedInstitutes.length}</span> academy profile(s).
+                  </div>
+                  <Button asChild className="w-full sm:w-auto gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-sm">
+                      <Link href="/manager">
+                          Go to Dashboard <ArrowRight className="w-4 h-4" />
+                      </Link>
+                  </Button>
+              </CardContent>
+          </Card>
+        )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <Card className="rounded-3xl border-slate-100 shadow-sm flex flex-col justify-between">
+              <CardHeader className="border-b border-slate-50 pb-4">
+                  <div className="flex items-center gap-2">
+                      <div className="p-2 bg-red-50 rounded-lg text-red-500"><Bookmark className="w-5 h-5" /></div>
+                      <div>
+                          <CardTitle className="text-lg">Shortlisted</CardTitle>
+                          <CardDescription className="text-xs">Saved institutes</CardDescription>
+                      </div>
+                  </div>
+              </CardHeader>
+              <CardContent className="p-5 flex-1 flex flex-col justify-start">
+                  {shortlistedItems.length === 0 ? (
+                      <div className="py-8 text-center text-slate-400 text-sm">No saved institutes.</div>
+                  ) : (
+                      <div className="flex flex-col gap-3 w-full">
+                          {displayShortlist.map((item: any) => (
+                              <Link key={item.instituteId} href={`/institute/${item.institute.id}-${item.institute.slug}`} className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
+                                  <div className="w-2.5 h-2.5 rounded-full bg-red-400 shrink-0 mt-1.5"></div>
+                                  <div className="flex-1 min-w-0">
+                                      <p className="text-sm font-semibold text-slate-800 line-clamp-2 text-wrap leading-snug group-hover:text-amber-600 transition-colors">{item.institute.name}</p>
+                                      <p className="text-xs text-slate-400 flex items-center gap-1 mt-1 truncate"><MapPin className="w-3 h-3 shrink-0"/>{item.institute.city.name}</p>
+                                  </div>
+                              </Link>
+                          ))}
+                      </div>
+                  )}
+              </CardContent>
+              {shortlistedItems.length > 3 && (
+                  <div className="p-4 bg-slate-50/50 border-t border-slate-50 rounded-b-3xl">
+                     <Dialog>
+                          <DialogTrigger asChild>
+                              <Button variant="ghost" className="cursor-pointer w-full text-xs text-amber-600 font-semibold hover:bg-amber-50 rounded-xl justify-between">
+                                  View All Saved ({shortlistedItems.length}) <ArrowRight className="w-4 h-4"/>
+                              </Button>
+                          </DialogTrigger>
+                          
+                          <DialogContent 
+                              className="p-5 bg-white border-slate-100 shadow-2xl outline-none"
+                              style={{ width: '92vw', maxWidth: '600px', borderRadius: '1.5rem', maxHeight: '85vh', overflowY: 'auto' }}
+                          >
+                              <DialogHeader className="text-left mb-2 pr-6">
+                                  <DialogTitle className="text-xl font-bold text-slate-800">All Shortlisted Institutes</DialogTitle>
+                              </DialogHeader>
+                              <div className="flex flex-col gap-3">
+                                  {shortlistedItems.map((item: any) => (
+                                      <Link 
+                                          key={item.instituteId} 
+                                          href={`/institute/${item.institute.id}-${item.institute.slug}`} 
+                                          className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-slate-100 hover:border-amber-200 hover:bg-amber-50/50 transition-all group"
+                                      >
+                                          <div className="flex-1 min-w-0">
+                                              <h4 className="font-bold text-[15px] text-slate-800 line-clamp-2 text-wrap leading-snug group-hover:text-amber-600 transition-colors">
+                                                  {item.institute.name}
+                                              </h4>
+                                              <p className="text-xs text-slate-500 mt-1 flex items-center gap-1.5 truncate">
+                                                  <MapPin className="w-3 h-3 shrink-0"/> {item.institute.city.name}
+                                              </p>
+                                          </div>
+                                          <div className="shrink-0 bg-amber-100/50 text-amber-700 px-4 py-2 rounded-full text-xs font-bold group-hover:bg-amber-200/50 transition-colors">
+                                              View
+                                          </div>
+                                      </Link>
+                                  ))}
+                              </div>
+                          </DialogContent>
+                      </Dialog>
+                  </div>
+              )}
+          </Card>
+
+          <Card className="rounded-3xl border-slate-100 shadow-sm flex flex-col justify-between">
+              <CardHeader className="border-b border-slate-50 pb-4">
+                  <div className="flex items-center gap-2">
+                      <div className="p-2 bg-blue-50 rounded-lg text-blue-500"><Clock className="w-5 h-5" /></div>
+                      <div>
+                          <CardTitle className="text-lg">Recently Visited</CardTitle>
+                          <CardDescription className="text-xs">Last 20 views</CardDescription>
+                      </div>
+                  </div>
+              </CardHeader>
+              <CardContent className="p-5 flex-1 flex flex-col justify-start">
+                  {historyItems.length === 0 ? (
+                      <div className="py-8 text-center text-slate-400 text-sm">Browsing history is clear.</div>
+                  ) : (
+                      <div className="flex flex-col gap-3 w-full">
+                          {displayHistory.map((item: any) => (
+                              <Link key={item.id} href={`/institute/${item.institute.id}-${item.institute.slug}`} className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
+                                  <div className="w-2.5 h-2.5 rounded-full bg-blue-400 shrink-0 mt-1.5"></div>
+                                  <div className="flex-1 min-w-0">
+                                      <p className="text-sm font-semibold text-slate-800 line-clamp-2 text-wrap leading-snug group-hover:text-blue-600 transition-colors">{item.institute.name}</p>
+                                      <p className="text-xs text-slate-400 mt-1 truncate"><Clock className="w-3 h-3 inline-block mr-1 shrink-0"/>{format(new Date(item.viewedAt), "do MMM, h:mm a")}</p>
+                                  </div>
+                              </Link>
+                          ))}
+                      </div>
+                  )}
+              </CardContent>
+              {historyItems.length > 3 && (
+                  <div className="p-4 bg-slate-50/50 border-t border-slate-50 rounded-b-3xl">
+                      <Dialog>
+                          <DialogTrigger asChild>
+                              <Button variant="ghost" className="cursor-pointer w-full text-xs text-slate-600 font-semibold hover:bg-slate-100 rounded-xl justify-between">
+                                  View Browsing History ({historyItems.length}) <ArrowRight className="w-4 h-4"/>
+                              </Button>
+                          </DialogTrigger>
+                          
+                          <DialogContent 
+                              className="p-5 bg-white border-slate-100 shadow-2xl outline-none"
+                              style={{ width: '92vw', maxWidth: '600px', borderRadius: '1.5rem', maxHeight: '85vh', overflowY: 'auto' }}
+                          >
+                              <DialogHeader className="text-left mb-2 pr-6">
+                                  <DialogTitle className="text-xl font-bold text-slate-800">Browsing History</DialogTitle>
+                              </DialogHeader>
+                              <div className="flex flex-col gap-3">
+                                  {historyItems.map((item: any) => (
+                                      <Link 
+                                          key={item.id} 
+                                          href={`/institute/${item.institute.id}-${item.institute.slug}`} 
+                                          className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all group"
+                                      >
+                                          <div className="flex-1 min-w-0">
+                                              <h4 className="font-bold text-[15px] text-slate-800 line-clamp-2 text-wrap leading-snug group-hover:text-blue-600 transition-colors">
+                                                  {item.institute.name}
+                                              </h4>
+                                              <p className="text-xs text-slate-500 mt-1 flex items-center gap-1.5 truncate">
+                                                  <Clock className="w-3 h-3 shrink-0"/> Visited: {format(new Date(item.viewedAt), "PPp")}
+                                              </p>
+                                          </div>
+                                          <div className="shrink-0 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-xs font-bold group-hover:bg-blue-100 transition-colors">
+                                              Visit
+                                          </div>
+                                      </Link>
+                                  ))}
+                              </div>
+                          </DialogContent>
+                      </Dialog>
+                  </div>
+              )}
+          </Card>
+      </div>
+
+      <Card className="rounded-3xl border-amber-100 shadow-sm bg-gradient-to-br from-amber-50/50 to-white overflow-hidden relative">
+          <div className="absolute right-0 top-0 -mr-16 -mt-16 w-48 h-48 bg-amber-400 rounded-full blur-[80px] opacity-20 pointer-events-none"></div>
+          <CardHeader className="pb-2">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <div className="p-2 bg-amber-100 rounded-lg text-amber-600"><PenTool className="w-5 h-5" /></div>
+                  <CardTitle className="text-xl">Your Contributions</CardTitle>
+                  {authorProfile?.username && (
+                      <Button asChild size="sm" variant="outline" className="ml-auto rounded-full border-amber-200 bg-white text-amber-700 hover:bg-amber-50">
+                          <Link href={`/blog/author/${authorProfile.username}`}>
+                              Author Profile
+                          </Link>
+                      </Button>
+                  )}
+              </div>
+              <CardDescription>Help other students by sharing your knowledge and experiences.</CardDescription>
+          </CardHeader>
+          <CardContent className="pt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Link href="/blog/write" className="group p-4 rounded-2xl border border-slate-100 bg-white hover:border-amber-200 hover:shadow-md transition-all flex items-start gap-4">
+                      <div className="p-3 bg-slate-50 rounded-xl group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors"><FileText className="w-5 h-5" /></div>
+                      <div className="flex-1">
+                          <h4 className="font-semibold text-slate-800 text-sm flex items-center justify-between">Write a Blog <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-amber-500 transition-transform group-hover:translate-x-1" /></h4>
+                          <p className="text-xs text-slate-500 mt-1">Share tips, preparation strategies, or your success story.</p>
+                      </div>
+                  </Link>
+                  <Link href="/blog/my-posts" className="group p-4 rounded-2xl border border-slate-100 bg-white hover:border-amber-200 hover:shadow-md transition-all flex items-start gap-4">
+                      <div className="p-3 bg-slate-50 rounded-xl group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors"><FileText className="w-5 h-5" /></div>
+                      <div className="flex-1">
+                          <h4 className="font-semibold text-slate-800 text-sm flex items-center justify-between">My Posts <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-amber-500 transition-transform group-hover:translate-x-1" /></h4>
+                          <p className="text-xs text-slate-500 mt-1">Track drafts, published posts, and everything you have saved.</p>
+                      </div>
+                  </Link>
+              </div>
+          </CardContent>
+      </Card>
     </div>
   );
 }

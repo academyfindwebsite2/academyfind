@@ -23,7 +23,7 @@ export default function CategoryFilters({ category }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const currentSort = searchParams.get("sort") || "relevance";
+  const currentSort = searchParams.get("sort") || "rating";
   const currentRating = searchParams.get("rating") || "all";
   const currentFee = searchParams.get("fee") || "all";
   
@@ -33,7 +33,9 @@ export default function CategoryFilters({ category }: Props) {
   const handleFilterChange = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     
-    if (value && value !== "relevance" && value !== "all") {
+    if (key === "sort" && value === "rating") {
+      params.delete(key);
+    } else if (value && value !== "all") {
       params.set(key, value);
     } else {
       params.delete(key);
