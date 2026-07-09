@@ -12,12 +12,18 @@ export async function GET(req: Request) {
     return NextResponse.json([]);
   }
 
-  const result = await meili
-    .index("global_search")
-    .search(q, {
-      limit: 8,
-      attributesToHighlight: ["name"],
-    });
+  try {
+    const result = await meili
+      .index("global_search")
+      .search(q, {
+        limit: 8,
+        attributesToHighlight: ["name"],
+      });
 
-  return NextResponse.json(result.hits);
+    return NextResponse.json(result.hits);
+  } catch (error) {
+    console.error("MeiliSearch Error in suggestions API:", error);
+    // Return empty array instead of crashing if index doesn't exist or Meili is down
+    return NextResponse.json([]);
+  }
 }

@@ -97,7 +97,7 @@ export const CATEGORY_MAP = [
   { keywords: ["cloud", "cloud computing", "azure", "gcp"], slug: "cloud-computing" },
   { keywords: ["aws", "amazon web services"], slug: "aws-training" },
   { keywords: ["devops", "docker", "kubernetes", "jenkins"], slug: "devops-training" },
-  { keywords: ["cyber security","cybersecurity" ,"ethical hacking", "infosec", "penetration testing"], slug: "cyber-security-training" },
+  { keywords: ["cyber security", "cybersecurity", "ethical hacking", "infosec", "penetration testing"], slug: "cyber-security-training" },
   { keywords: ["ui ux", "figma", "user interface", "user experience"], slug: "ui-ux-design" },
   { keywords: ["graphic design", "photoshop", "illustrator", "canva", "coreldraw"], slug: "graphic-design" },
   { keywords: ["video editing", "premiere pro", "after effects", "final cut pro", "vlog editing"], slug: "video-editing" },
@@ -197,11 +197,11 @@ const CITY_MAP = [
   { keywords: ["noida"], slug: "noida" },
   { keywords: ["delhi", "new delhi"], slug: "delhi" },
   { keywords: ["Faridabad"], slug: "faridabad" },
-  { keywords: ["gurugram","gurgaon"], slug: "gurugram" },
+  { keywords: ["gurugram", "gurgaon"], slug: "gurugram" },
   { keywords: ["modinagar"], slug: "modinagar" },
   { keywords: ["sonipat"], slug: "sonipat" },
-  {keywords: ["ghaziabad"], slug: "ghaziabad" },
-  {keywords: ["meerut"], slug: "meerut" },
+  { keywords: ["ghaziabad"], slug: "ghaziabad" },
+  { keywords: ["meerut"], slug: "meerut" },
 ];
 
 export function SearchBar() {
@@ -221,18 +221,18 @@ export function SearchBar() {
   const router = useRouter();
 
   useEffect(() => {
-  function handleClickOutside(event: MouseEvent) {
-    // Agar click wrapperRef (Input + Dropdown) ke BAHAR hua hai
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-      setShowSuggestions(false); // Dropdown band kar do
+    function handleClickOutside(event: MouseEvent) {
+      // Agar click wrapperRef (Input + Dropdown) ke BAHAR hua hai
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false); // Dropdown band kar do
+      }
     }
-  }
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -283,22 +283,22 @@ export function SearchBar() {
     for (const cat of CATEGORY_MAP) {
       for (const kw of cat.keywords) {
         // 🚀 FIX: kw ko pehle escape karein
-        const safeKw = escapeRegExp(kw); 
-        
+        const safeKw = escapeRegExp(kw);
+
         // 🚨 PRO TIP: "c++" jaise words word-boundary (\b) ke sath kaam nahi karte kyunki '+' is not a word.
         // Isiliye agar keyword mein special char hai, toh normal includes() use karein
         const hasSpecialChar = /[.*+?^${}()|[\]\\]/.test(kw);
-        
+
         if (hasSpecialChar) {
-           if (lowerInput.includes(kw)) {
-             matchedCategorySlug = cat.slug;
-             break;
-           }
+          if (lowerInput.includes(kw)) {
+            matchedCategorySlug = cat.slug;
+            break;
+          }
         } else {
-           if (new RegExp(`\\b${safeKw}\\b`, "i").test(lowerInput)) {
-             matchedCategorySlug = cat.slug;
-             break;
-           }
+          if (new RegExp(`\\b${safeKw}\\b`, "i").test(lowerInput)) {
+            matchedCategorySlug = cat.slug;
+            break;
+          }
         }
       }
       if (matchedCategorySlug) break;
@@ -319,18 +319,18 @@ export function SearchBar() {
     // 3. 🧹 Magic Cleaner (Apply escapeRegExp here too)
     let cleanQuery = lowerInput;
     const stopWords = ["best", "top", "in", "near", "me", "coaching", "coachings", "institute", "institutes", "classes", "academy", "academies", "courses"];
-    
+
     stopWords.forEach((kw) => {
       cleanQuery = cleanQuery.replace(new RegExp(`\\b${escapeRegExp(kw)}\\b`, "gi"), "");
     });
-    
+
     if (matchedCategorySlug) {
       CATEGORY_MAP.find(c => c.slug === matchedCategorySlug)?.keywords.forEach(kw => {
         // Special chars wale keywords directly string replace se hatayein
         if (/[.*+?^${}()|[\]\\]/.test(kw)) {
-           cleanQuery = cleanQuery.replace(kw, "");
+          cleanQuery = cleanQuery.replace(kw, "");
         } else {
-           cleanQuery = cleanQuery.replace(new RegExp(`\\b${escapeRegExp(kw)}\\b`, "gi"), "");
+          cleanQuery = cleanQuery.replace(new RegExp(`\\b${escapeRegExp(kw)}\\b`, "gi"), "");
         }
       });
     }
@@ -340,7 +340,7 @@ export function SearchBar() {
         cleanQuery = cleanQuery.replace(new RegExp(`\\b${escapeRegExp(kw)}\\b`, "gi"), "");
       });
     }
-    
+
     cleanQuery = cleanQuery.replace(/\s+/g, " ").trim();
 
 
@@ -352,33 +352,85 @@ export function SearchBar() {
     if (selectedLocation) {
       params.set("lat", selectedLocation.lat.toString());
       params.set("lng", selectedLocation.lng.toString());
-      params.set("address", selectedLocation.address); 
+      params.set("address", selectedLocation.address);
     }
 
-    if(selectedLocation?.lat === 28.4743879 && selectedLocation?.lng === 77.50399039999999){
-      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/greater-noida?${params.toString()}`);
-        else router.push(`/categories?city=greater-noida`);
+    if (selectedLocation?.lat === 28.4743879 && selectedLocation?.lng === 77.50399039999999) {
+      params.delete("lat");
+      params.delete("lng");
+      if (matchedCategorySlug)
+        router.push(`/${matchedCategorySlug}/greater-noida?${params.toString()}`);
+      else {
+        params.set("city", "greater-noida");
+        router.push(`/search?${params.toString()}`);
+      }
     }
-    else if(selectedLocation?.lat === 28.5355161 && selectedLocation?.lng === 77.3910265){
+    else if (selectedLocation?.lat === 28.5355161 && selectedLocation?.lng === 77.3910265) {
+      params.delete("lat");
+      params.delete("lng");
       if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/noida?${params.toString()}`);
-      else router.push(`/categories?city=noida`);
+      else {
+        params.set("city", "noida");
+        router.push(`/search?${params.toString()}`);
+      }
     }
-    else if(selectedLocation?.lat === 28.7040592 && selectedLocation?.lng === 77.10249019999999){
+    else if (selectedLocation?.lat === 28.7040592 && selectedLocation?.lng === 77.10249019999999) {
+      params.delete("lat");
+      params.delete("lng");
       if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/delhi?${params.toString()}`);
-      else router.push(`/categories?city=delhi`);
+      else {
+        params.set("city", "delhi");
+        router.push(`/search?${params.toString()}`);
+      }
     }
-    else if(selectedLocation?.lat === 28.4089123 && selectedLocation?.lng === 77.3177894){
+    else if (selectedLocation?.lat === 28.4089123 && selectedLocation?.lng === 77.3177894) {
+      params.delete("lat");
+      params.delete("lng");
       if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/faridabad?${params.toString()}`);
-      else router.push(`/categories?city=faridabad`);
-    }else if(selectedLocation?.lat === 28.8344396 && selectedLocation?.lng === 77.5698527){
+      else {
+        params.set("city", "faridabad");
+        router.push(`/search?${params.toString()}`);
+      }
+    } else if (selectedLocation?.lat === 28.8344396 && selectedLocation?.lng === 77.5698527) {
+      params.delete("lat");
+      params.delete("lng");
       if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/modinagar?${params.toString()}`);
-      else router.push(`/categories?city=modinagar`);
-    }else if(selectedLocation?.lat === 28.4594965 && selectedLocation?.lng === 77.0266383){
+      else {
+        params.set("city", "modinagar");
+        router.push(`/search?${params.toString()}`);
+      }
+    } else if (selectedLocation?.lat === 28.4594965 && selectedLocation?.lng === 77.0266383) {
+      params.delete("lat");
+      params.delete("lng");
       if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/gurugram?${params.toString()}`);
-      else router.push(`/categories?city=gurugram`);
-    }else if(selectedLocation?.lat === 28.99308229999999 && selectedLocation?.lng === 77.0150735){
+      else {
+        params.set("city", "gurugram");
+        router.push(`/search?${params.toString()}`);
+      }
+    } else if (selectedLocation?.lat === 28.99308229999999 && selectedLocation?.lng === 77.0150735) {
+      params.delete("lat");
+      params.delete("lng");
       if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/sonipat?${params.toString()}`);
-      else router.push(`/categories?city=sonipat`);
+      else {
+        params.set("city", "sonipat");
+        router.push(`/search?${params.toString()}`);
+      }
+    } else if (selectedLocation?.lat === 28.6691565 && selectedLocation?.lng === 77.45375779999999) {
+      params.delete("lat");
+      params.delete("lng");
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/ghaziabad?${params.toString()}`);
+      else {
+        params.set("city", "ghaziabad");
+        router.push(`/search?${params.toString()}`);
+      }
+    } else if (selectedLocation?.lat === 28.9844618 && selectedLocation?.lng === 77.7064137) {
+      params.delete("lat");
+      params.delete("lng");
+      if (matchedCategorySlug) router.push(`/${matchedCategorySlug}/meerut?${params.toString()}`);
+      else {
+        params.set("city", "meerut");
+        router.push(`/search?${params.toString()}`);
+      }
     }
     else if (matchedCategorySlug && matchedCitySlug) {
       router.push(`/${matchedCategorySlug}/${matchedCitySlug}?${params.toString()}`);
@@ -423,10 +475,10 @@ export function SearchBar() {
               if (input.trim().length >= 2) setShowSuggestions(true);
             }}
             onKeyDown={(e) => {
-              if (e.key === "Enter"){
+              if (e.key === "Enter") {
                 setShowSuggestions(false)
                 handleSearch();
-              } 
+              }
             }}
             placeholder="What? (e.g. JEE Coaching, Aakash)"
             className="
@@ -482,7 +534,7 @@ export function SearchBar() {
 
       {/* 🚀 MOBILE FIX: Clear Visual Divider */}
       <div className="h-px w-full bg-slate-200 sm:hidden"></div>
-      
+
       {/* Desktop Divider */}
       <div className="hidden h-8 w-px bg-slate-200 sm:block mx-1"></div>
 
