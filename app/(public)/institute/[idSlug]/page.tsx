@@ -333,15 +333,15 @@ export default async function InstitutePage({ params }: PageProps) {
                           )}
                         </div>
                         <div className="mt-3 flex flex-wrap items-center justify-center md:justify-start gap-3">
-                          <div className="flex flex-wrap justify-center gap-2">
+                          <div className="flex flex-wrap justify-center md:justify-start gap-2">
                             {/* Mode Badge */}
                             {institute.mode && (
-                              <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-bold text-purple-800 tracking-wide uppercase">
+                              <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-bold text-purple-800 tracking-wide uppercase whitespace-nowrap">
                                 {institute.mode}
                               </span>
                             )}
                             {institute.categories.map((item: any) => (
-                              <span key={item.category.id} className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800 tracking-wide uppercase">
+                              <span key={item.category.id} className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800 tracking-wide uppercase whitespace-nowrap">
                                 {item.category.name}
                               </span>
                             ))}
