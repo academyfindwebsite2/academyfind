@@ -1,3 +1,4 @@
+import { formatIST } from "@/lib/utils";
 import { prisma } from "@/lib/prisma";
 import { Check, X, ShieldAlert, MapPin, BadgeIndianRupee, UserCheck, Filter } from "lucide-react";
 import Image from "next/image";
@@ -96,7 +97,7 @@ export default async function AdminApprovalsPage({
                                 <div className="p-4 bg-slate-50 border-b flex flex-wrap justify-between items-center gap-2 text-xs text-slate-500">
                                     <div>Submitted by: <span className="font-bold text-slate-800">{req.user.name}</span> ({req.user.email})</div>
                                     <div className="flex items-center gap-3">
-                                        <div className="font-mono">{new Date(req.createdAt).toLocaleString()}</div>
+                                        <div className="font-mono">{formatIST(req.createdAt)}</div>
                                         {/* 🚀 Status Badge */}
                                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${req.status === 'APPROVED' ? 'bg-green-100 text-green-700 border border-green-200' :
                                             req.status === 'REJECTED' ? 'bg-red-100 text-red-700 border border-red-200' :

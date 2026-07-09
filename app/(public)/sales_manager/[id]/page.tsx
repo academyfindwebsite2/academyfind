@@ -4,6 +4,7 @@ import { SalesStatusBadge } from "@/components/sales/SalesStatusBadge";
 import { Clock, AlertTriangle, ArrowRight, Building2, CalendarDays } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -104,7 +105,7 @@ export default async function SalesManagerDashboardPage({
                                         <p className="font-bold text-sm text-slate-800 truncate">{a.institute.name}</p>
                                         <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
                                             <CalendarDays className="w-3 h-3" />
-                                            Due: {format(new Date(a.deadline!), "MMM dd, yyyy")}
+                                            Due: {formatIST(a.deadline!, "MMM dd, yyyy")}
                                         </p>
                                     </div>
                                     <SalesStatusBadge status={a.contactStatus} />

@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { User, Phone, Mail, Clock, MessageSquare, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import StatusUpdater from "@/components/admin/AdminLifeCoachStatusUpdater";
+import { formatIST } from "@/lib/utils";
 
 export default async function LifeCoachDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -79,7 +80,7 @@ export default async function LifeCoachDetailPage({ params }: { params: Promise<
         </div>
 
         <div className="mt-8 pt-6 border-t border-slate-100 text-xs text-slate-400 flex items-center gap-2">
-          <Clock className="w-4 h-4" /> Requested on {new Date(request.createdAt).toLocaleString()}
+          <Clock className="w-4 h-4" /> Requested on {formatIST(request.createdAt)}
         </div>
 
       </div>

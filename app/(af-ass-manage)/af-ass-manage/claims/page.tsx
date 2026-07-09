@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { updateClaimStatus } from "@/lib/User/admin/adminClaim";
 import { ShieldAlert, Building2, User, Phone, Mail, FileText, CheckCircle, XCircle, Filter } from "lucide-react";
 
@@ -102,7 +103,7 @@ export default async function AdminClaimPage({
 
                     {/* Date */}
                     <td className="p-4 whitespace-nowrap text-sm text-slate-600 font-medium">
-                      {format(new Date(claim.createdAt), "dd MMM yyyy")}
+                      {formatIST(claim.createdAt, "dd MMM yyyy")}
                     </td>
 
                     {/* Institute Details */}

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Mail, Phone, Calendar, ArrowLeft, User, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 
 export default async function LeadDetailedPage({ params }: { params: Promise<{ id: string; instituteId: string }> }) {
     const { id, instituteId } = await params;
@@ -32,7 +33,7 @@ export default async function LeadDetailedPage({ params }: { params: Promise<{ i
                     </div>
                     <div className="text-right text-sm text-slate-500 font-medium flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
                         <Calendar className="w-4 h-4 text-slate-400" />
-                        {format(new Date(enquiry.createdAt), "PPP 'at' p")}
+                        {formatIST(enquiry.createdAt, "PPP 'at' p")}
                     </div>
                 </div>
 

@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { ArrowLeft, Building2, Calendar, MessageSquare, Phone, User, History, Zap, Star, BadgeCheck } from "lucide-react";
 import CallbackControls from "@/components/admin/AdminCallbackControls";
 import LeadDistributionForm from "@/components/admin/AdminLeadDistributionFor";
@@ -44,7 +45,7 @@ export default async function AdminCallbackDetailPage({ params }: { params: Prom
               <User className="w-6 h-6 text-slate-400" /> {callback.name}
             </h1>
             <div className="text-sm font-medium text-slate-500 flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 mt-3 rounded-xl border border-slate-100 w-fit">
-              <Calendar className="w-4 h-4" /> {format(new Date(callback.createdAt), "PPP 'at' p")}
+              <Calendar className="w-4 h-4" /> {formatIST(callback.createdAt)}
             </div>
           </div>
           
@@ -122,7 +123,7 @@ export default async function AdminCallbackDetailPage({ params }: { params: Prom
                           {isIndividual ? '👤 Individual Selection' : '📊 Bulk Distribution'}
                         </p>
                         <p className="text-xs text-slate-500 mt-0.5">
-                          By <b>{log.admin?.name || log.admin?.email || 'Unknown'}</b> • {format(new Date(log.createdAt), "PPP 'at' p")}
+                          By <b>{log.admin?.name || log.admin?.email || 'Unknown'}</b> • {formatIST(log.createdAt)}
                         </p>
                       </div>
                       <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">

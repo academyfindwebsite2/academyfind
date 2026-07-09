@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Users, FileText, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 
 export default async function JobApplicationsPage({ params }: { params: Promise<{ jobid: string }> }) {
     const {jobid} = await params;
@@ -61,7 +62,7 @@ export default async function JobApplicationsPage({ params }: { params: Promise<
                                     <div className="text-xs text-slate-500 mt-0.5">{app.email} • {app.phone}</div>
                                 </td>
                                 <td className="p-4 text-slate-600 font-medium text-xs">
-                                    {format(new Date(app.createdAt), "PPp")}
+                                    {formatIST(app.createdAt, "PPp")}
                                 </td>
                                 <td className="p-4">
                                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${getStatusStyle(app.status)}`}>

@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { ArrowLeft, CheckCircle2, Clock, XCircle, ExternalLink, Image as ImageIcon } from "lucide-react";
 import ActionButtons from "@/components/admin/ActionButton"; // Hum ye abhi banayenge
 
@@ -34,7 +35,7 @@ export default async function PaymentDetailPage({ params }: { params: Promise<{ 
                         
                         <div>
                             <h2 className="text-xl font-bold text-slate-900">Status: {payment.status}</h2>
-                            <p className="text-sm text-slate-600">Submitted on {format(new Date(payment.createdAt), "PPP 'at' p")}</p>
+                            <p className="text-sm text-slate-600">Submitted on {formatIST(payment.createdAt, "PPP 'at' p")}</p>
                         </div>
                     </div>
                     

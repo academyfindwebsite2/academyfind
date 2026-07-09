@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { Users as UsersIcon, Mail, Phone, Calendar, ArrowRight } from "lucide-react" // ArrowRight add kiya
-import { format } from "date-fns"
+import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { RoleSelect, UserStatusToggle } from "@/components/admin/AdminUserClientControl" 
 import UserFilters from "@/components/admin/AdminUserFilters"
 import UserPagination from "@/components/admin/AdminUserPagination"
@@ -115,7 +116,7 @@ export default async function AdminUsersPage({
                                         <td className="p-4 text-slate-500">
                                             <div className="flex items-center gap-1.5">
                                                 <Calendar className="w-4 h-4" />
-                                                {format(new Date(user.createdAt), "MMM dd, yyyy")}
+                                                {formatIST(user.createdAt, "MMM dd, yyyy")}
                                             </div>
                                         </td>
 

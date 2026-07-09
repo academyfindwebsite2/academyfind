@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { Clock, CheckCircle2, XCircle, Eye, IndianRupee, Filter } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
@@ -106,7 +107,7 @@ export default async function AdminPaymentListPage({
                                         <td className="p-4 font-bold text-slate-800">
                                             {payment.institute.name}
                                             <div className="text-xs text-slate-400 font-medium mt-0.5">
-                                                {format(new Date(payment.createdAt), "MMM dd, yyyy - hh:mm a")}
+                                                {formatIST(payment.createdAt, "MMM dd, yyyy - hh:mm a")}
                                             </div>
                                         </td>
 

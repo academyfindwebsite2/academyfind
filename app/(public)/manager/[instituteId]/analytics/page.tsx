@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { Lock, BarChart3, Users, Bookmark, Clock } from "lucide-react";
 import Link from "next/link";
-import { format } from "date-fns"; // Date format karne ke liye
+import { format } from "date-fns";
+import { formatIST } from "@/lib/utils"; // Date format karne ke liye
 
 export default async function AnalyticsPage({ params }: { params: Promise<{ instituteId: string }> }) {
     const { instituteId } = await params;
@@ -161,7 +162,7 @@ function UserListItem({ user, date, actionType }: { user: any, date: Date, actio
                     <Clock className="w-3 h-3" /> {actionType}
                 </p>
                 <p className="text-xs text-slate-600 mt-0.5">
-                    {format(new Date(date), "MMM d, h:mm a")}
+                    {formatIST(date, "MMM d, h:mm a")}
                 </p>
             </div>
         </div>

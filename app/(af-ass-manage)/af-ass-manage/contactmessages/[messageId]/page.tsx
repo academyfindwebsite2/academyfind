@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { ArrowLeft, Mail, Phone, Calendar, MessageSquareQuote } from "lucide-react";
 
 export default async function ContactMessageDetail({ params }: { params: Promise<{ messageId: string }> }) {
@@ -53,10 +54,10 @@ export default async function ContactMessageDetail({ params }: { params: Promise
                         <div className="text-left sm:text-right text-sm text-slate-500 bg-white p-3 rounded-xl border border-slate-200">
                             <div className="flex items-center sm:justify-end gap-1.5 font-medium text-slate-700">
                                 <Calendar className="w-4 h-4 text-slate-400" />
-                                {format(new Date(message.createdAt), "MMMM dd, yyyy")}
+                                {formatIST(message.createdAt, "MMMM dd, yyyy")}
                             </div>
                             <div className="mt-0.5 text-xs">
-                                {format(new Date(message.createdAt), "hh:mm a")}
+                                {formatIST(message.createdAt, "hh:mm a")}
                             </div>
                         </div>
                     </div>

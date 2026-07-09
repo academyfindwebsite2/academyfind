@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { Mail, MessageSquare, CheckCircle2, Circle, ArrowRight } from "lucide-react";
 
 export default async function ContactMessagesPage() {
@@ -78,8 +79,8 @@ export default async function ContactMessagesPage() {
                                         </td>
 
                                         <td className="p-4 text-slate-500 text-xs font-medium">
-                                            {format(new Date(msg.createdAt), "MMM dd, yyyy")} <br />
-                                            <span className="text-slate-400">{format(new Date(msg.createdAt), "hh:mm a")}</span>
+                                            {formatIST(msg.createdAt, "MMM dd, yyyy")} <br />
+                                            <span className="text-slate-400">{formatIST(msg.createdAt, "hh:mm a")}</span>
                                         </td>
 
                                         <td className="p-4 text-right">

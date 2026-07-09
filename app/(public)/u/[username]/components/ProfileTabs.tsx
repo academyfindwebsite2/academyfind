@@ -18,6 +18,7 @@ import {
   FileText
 } from "lucide-react";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -654,7 +655,7 @@ function DashboardTab({ privateData }: { privateData: any }) {
                                   <div className="w-2.5 h-2.5 rounded-full bg-blue-400 shrink-0 mt-1.5"></div>
                                   <div className="flex-1 min-w-0">
                                       <p className="text-sm font-semibold text-slate-800 line-clamp-2 text-wrap leading-snug group-hover:text-blue-600 transition-colors">{item.institute.name}</p>
-                                      <p className="text-xs text-slate-400 mt-1 truncate"><Clock className="w-3 h-3 inline-block mr-1 shrink-0"/>{format(new Date(item.viewedAt), "do MMM, h:mm a")}</p>
+                                      <p className="text-xs text-slate-400 mt-1 truncate"><Clock className="w-3 h-3 inline-block mr-1 shrink-0"/>{formatIST(item.viewedAt, "do MMM, h:mm a")}</p>
                                   </div>
                               </Link>
                           ))}
@@ -689,7 +690,7 @@ function DashboardTab({ privateData }: { privateData: any }) {
                                                   {item.institute.name}
                                               </h4>
                                               <p className="text-xs text-slate-500 mt-1 flex items-center gap-1.5 truncate">
-                                                  <Clock className="w-3 h-3 shrink-0"/> Visited: {format(new Date(item.viewedAt), "PPp")}
+                                                  <Clock className="w-3 h-3 shrink-0"/> Visited: {formatIST(item.viewedAt, "PPp")}
                                               </p>
                                           </div>
                                           <div className="shrink-0 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-xs font-bold group-hover:bg-blue-100 transition-colors">

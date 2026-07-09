@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { MessageSquare, Building2, Eye, Calendar, User, Phone, Filter } from "lucide-react";
 
 export default async function AdminCallbacksPage({
@@ -119,7 +120,7 @@ export default async function AdminCallbacksPage({
                     <td className="p-5 whitespace-nowrap">
                       <div className="flex items-center gap-2 text-slate-700 font-medium">
                         <Calendar className="w-4 h-4 text-slate-400" />
-                        {format(new Date(callback.createdAt), "dd MMM yyyy")}
+                        {formatIST(callback.createdAt, "dd MMM yyyy")}
                       </div>
                     </td>
                     <td className="p-5">

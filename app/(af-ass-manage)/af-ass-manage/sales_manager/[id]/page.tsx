@@ -21,6 +21,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 
 export default async function AdminSalesManagerDetailPage({
     params,
@@ -212,7 +213,7 @@ export default async function AdminSalesManagerDetailPage({
                                     {ca.deadline && (
                                         <span className="text-[10px] text-teal-600 flex items-center gap-0.5">
                                             <CalendarDays className="w-2.5 h-2.5" />
-                                            {format(new Date(ca.deadline), "MMM dd")}
+                                            {formatIST(ca.deadline, "MMM dd")}
                                         </span>
                                     )}
                                     <RemoveAssignmentButton assignmentId={ca.id} type="category" label={ca.category.name} />
@@ -278,7 +279,7 @@ export default async function AdminSalesManagerDetailPage({
                                                 {a.deadline ? (
                                                     <span className={`text-xs flex items-center gap-1 ${isOverdue ? "text-red-600 font-bold" : "text-slate-500"}`}>
                                                         <CalendarDays className="w-3 h-3" />
-                                                        {format(new Date(a.deadline), "MMM dd, yyyy")}
+                                                        {formatIST(a.deadline, "MMM dd, yyyy")}
                                                         {isOverdue && <AlertTriangle className="w-3 h-3 text-red-500" />}
                                                     </span>
                                                 ) : (

@@ -6,6 +6,7 @@ import SalesStatusUpdateForm from "@/components/sales/SalesStatusUpdateForm";
 import SalesAssignmentFilters from "@/components/sales/SalesAssignmentFilters";
 import { ClipboardList, MapPin, CalendarDays, User, Building2, MessageSquare } from "lucide-react";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 
 export default async function SalesAssignmentsPage({
     params,
@@ -144,7 +145,7 @@ export default async function SalesAssignmentsPage({
                                                 {assignment.deadline && (
                                                     <span className={`flex items-center gap-1 ${isOverdue ? "text-red-600 font-bold" : ""}`}>
                                                         <CalendarDays className="w-3 h-3" />
-                                                        Deadline: {format(new Date(assignment.deadline), "MMM dd, yyyy")}
+                                                        Deadline: {formatIST(assignment.deadline, "MMM dd, yyyy")}
                                                     </span>
                                                 )}
                                                 {assignment.institute.phone && (

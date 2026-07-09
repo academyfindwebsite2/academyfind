@@ -9,7 +9,8 @@ import {
     ShieldAlert
 } from "lucide-react"
 import Link from "next/link"
-import { format } from "date-fns"
+import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 
 export default async function AdminDashboardPage() {
     // 🚀 Performance Optimization: Promise.all se saari queries ek saath parallel me chalengi
@@ -144,7 +145,7 @@ export default async function AdminDashboardPage() {
                                             {user.role}
                                         </span>
                                         <p className="text-[10px] text-slate-400 mt-1 flex items-center justify-end gap-1">
-                                            <Clock className="w-3 h-3" /> {format(new Date(user.createdAt), "MMM d")}
+                                            <Clock className="w-3 h-3" /> {formatIST(user.createdAt, "MMM d")}
                                         </p>
                                     </div>
                                 </div>

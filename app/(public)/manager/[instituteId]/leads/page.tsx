@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { Lock, MessageSquare, Phone, Calendar, ArrowRight, Repeat, Info } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { formatIST } from "@/lib/utils";
 import { PLAN_LIMITS, PlanType } from "@/lib/plan_limits";
 
 export default async function EnquiriesPage({ params }: { params: Promise<{ instituteId: string }> }) {
@@ -69,7 +70,7 @@ export default async function EnquiriesPage({ params }: { params: Promise<{ inst
 
                                 <div className="flex flex-col items-end gap-2">
                                     <div className="text-xs text-slate-400 flex items-center gap-1">
-                                        <Calendar className="w-3 h-3" /> {format(new Date(enquiry.createdAt), "PPp")}
+                                        <Calendar className="w-3 h-3" /> {formatIST(enquiry.createdAt, "PPp")}
                                     </div>
                                     <Link
                                         href={`/manager/${instituteId}/leads/${enquiry.id}`}
