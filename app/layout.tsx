@@ -30,14 +30,14 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 // ─── GLOBAL METADATA & FALLBACKS ─────────────────────────────
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://www.academyfind.com"),
-  
+
   title: {
-    template: "%s | AcademyFind", 
+    template: "%s | AcademyFind",
     default: "AcademyFind | India's Most Trusted Education and Non Academic Coaching Directory",
   },
-  
+
   description: "Discover top-rated coaching centers, schools, and hostels across India. Compare fees, read verified reviews, and book free strategy calls on AcademyFind.",
-  
+
   keywords: [
     "education directory India",
     "find coaching institutes",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     "student mentorship",
     "compare coaching fees"
   ],
-  
+
   authors: [{ name: "AcademyFind Team" }],
   creator: "AcademyFind",
   publisher: "AcademyFind",
@@ -76,9 +76,9 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/new-logo.png",
-    shortcut: "/new-logo.png",
-    apple: "/new-logo.png",
+    icon: "/final-logo.png",
+    shortcut: "/final-logo.png",
+    apple: "/final-logo.png",
   },
 
   // 🚀 GOOGLE SEARCH CONSOLE VERIFICATION
@@ -120,9 +120,9 @@ export default async function RootLayout({
         {/* <GlobalCallbackFAB /> */}
         <SpeedInsights />
         <Analytics />
-        <Script 
-          strategy="afterInteractive" 
-          src={`https://www.googletagmanager.com/gtag/js?id=G-DE480Y479E`} 
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-DE480Y479E`}
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
