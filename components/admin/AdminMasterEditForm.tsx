@@ -63,6 +63,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
     const [isVerified, setIsVerified] = useState(institute.isVerified);
     const [isFeatured, setIsFeatured] = useState(institute.isFeatured);
     const [plan, setPlan] = useState(institute.subscriptionPlan || "BASIC");
+    const [planDuration, setPlanDuration] = useState("LIFETIME");
 
     const [hasOnlineClasses, setHasOnlineClasses] = useState(institute.hasOnlineClasses ?? false);
     const [hasHostelFacility, setHasHostelFacility] = useState(institute.hasHostelFacility ?? false);
@@ -130,6 +131,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
         formData.set("isVerified", String(isVerified));
         formData.set("isFeatured", String(isFeatured));
         formData.set("subscriptionPlan", plan);
+        formData.set("planDuration", planDuration);
         formData.set("hasOnlineClasses", String(hasOnlineClasses));
         formData.set("hasHostelFacility", String(hasHostelFacility));
         formData.set("hasDemoClasses", String(hasDemoClasses));
@@ -467,6 +469,18 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                         <option value="PREMIUM">Premium</option>
                                         <option value="ULTRA">Ultra / Elite</option>
                                     </select>
+                                    {plan !== "BASIC" && (
+                                        <div className="pt-2">
+                                            <Label>Subscription Duration</Label>
+                                            <select value={planDuration} onChange={(e) => setPlanDuration(e.target.value)} className="flex h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1">
+                                                <option value="LIFETIME">Lifetime (Never Expires)</option>
+                                                <option value="1_MONTH">1 Month</option>
+                                                <option value="3_MONTHS">3 Months</option>
+                                                <option value="6_MONTHS">6 Months</option>
+                                                <option value="1_YEAR">1 Year</option>
+                                            </select>
+                                        </div>
+                                    )}
                                 </div>
                                 
                                 {/* 📎 5. BROCHURE */}

@@ -116,7 +116,19 @@ export async function updateInstituteByAdmin(
         const googleMapsUrl = formData.get("googleMapsUrl") as string;
         const cityId = formData.get("cityId") as string;
         const subscriptionPlan = formData.get("subscriptionPlan") as any;
+        const planDuration = formData.get("planDuration") as string;
         
+        // 🕒 Calculate Expiration Date based on duration
+        let planExpiresAt: Date | null = null;
+        if (subscriptionPlan !== "BASIC" && planDuration && planDuration !== "LIFETIME") {
+            const now = new Date();
+            if (planDuration === "1_MONTH") now.setMonth(now.getMonth() + 1);
+            else if (planDuration === "3_MONTHS") now.setMonth(now.getMonth() + 3);
+            else if (planDuration === "6_MONTHS") now.setMonth(now.getMonth() + 6);
+            else if (planDuration === "1_YEAR") now.setFullYear(now.getFullYear() + 1);
+            planExpiresAt = now;
+        }
+
         // Social Media Links
         const whatsappUrl = formData.get("whatsappUrl") as string;
         const instagramUrl = formData.get("instagramUrl") as string;
@@ -191,7 +203,7 @@ export async function updateInstituteByAdmin(
             await tx.institute.update({
                 where: { id: instituteId },
                 data: {
-                    name, slug, description, feeInfo, phone, email, website, address, googleMapsUrl, cityId, subscriptionPlan,
+                    name, slug, description, feeInfo, phone, email, website, address, googleMapsUrl, cityId, subscriptionPlan, planExpiresAt,
                     
                     whatsappUrl, instagramUrl, facebookUrl, youtubeUrl, linkedinUrl, twitterUrl, telegramUrl,
                     
