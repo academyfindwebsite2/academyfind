@@ -75,11 +75,7 @@ export const metadata: Metadata = {
     images: ["/final-logo.png"],
   },
 
-  icons: {
-    icon: "/final-logo.png",
-    shortcut: "/final-logo.png",
-    apple: "/final-logo.png",
-  },
+  // Removed manual icons config to use app/icon.png instead
 
   // 🚀 GOOGLE SEARCH CONSOLE VERIFICATION
   verification: {
