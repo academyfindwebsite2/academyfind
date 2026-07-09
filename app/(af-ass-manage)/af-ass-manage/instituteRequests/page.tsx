@@ -28,7 +28,7 @@ export default async function AdminApprovalsPage({
                     city: true,
                     categories: { include: { category: true } },
                     // Fetch Pending claims to display in the card
-                    claims: { where: { status: "PENDING" } } 
+                    claims: { where: { status: "PENDING" } }
                 }
             }
         },
@@ -65,14 +65,14 @@ export default async function AdminApprovalsPage({
                     <Filter className="w-4 h-4" /> Filter:
                 </div>
                 {filterOptions.map((opt: any) => (
-                    <Link 
+                    <Link
                         key={opt.value}
+                        prefetch={false}
                         href={`/af-ass-manage/instituteRequests?status=${opt.value}`}
-                        className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${
-                            currentFilter === opt.value 
-                            ? "bg-slate-800 text-white shadow-sm" 
+                        className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${currentFilter === opt.value
+                            ? "bg-slate-800 text-white shadow-sm"
                             : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
-                        }`}
+                            }`}
                     >
                         {opt.label}
                     </Link>
@@ -81,8 +81,8 @@ export default async function AdminApprovalsPage({
 
             {requests.length === 0 ? (
                 <div className="p-12 text-center border-2 border-dashed rounded-3xl text-slate-400 font-medium bg-slate-50/50">
-                    {currentFilter === 'PENDING' 
-                        ? "Great job! No pending verification requests in the queue." 
+                    {currentFilter === 'PENDING'
+                        ? "Great job! No pending verification requests in the queue."
                         : `No listing requests found for "${currentFilter}".`}
                 </div>
             ) : (
@@ -91,98 +91,98 @@ export default async function AdminApprovalsPage({
                         const claim = req.institute.claims[0]; // Get the attached claim
 
                         return (
-                        <div key={req.id} className="bg-white border rounded-3xl shadow-xs overflow-hidden border-slate-200">
-                            
-                            <div className="p-4 bg-slate-50 border-b flex flex-wrap justify-between items-center gap-2 text-xs text-slate-500">
-                                <div>Submitted by: <span className="font-bold text-slate-800">{req.user.name}</span> ({req.user.email})</div>
-                                <div className="flex items-center gap-3">
-                                    <div className="font-mono">{new Date(req.createdAt).toLocaleString()}</div>
-                                    {/* 🚀 Status Badge */}
-                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
-                                        req.status === 'APPROVED' ? 'bg-green-100 text-green-700 border border-green-200' :
-                                        req.status === 'REJECTED' ? 'bg-red-100 text-red-700 border border-red-200' :
-                                        'bg-amber-100 text-amber-700 border border-amber-200'
-                                    }`}>
-                                        {req.status}
-                                    </span>
-                                </div>
-                            </div>
+                            <div key={req.id} className="bg-white border rounded-3xl shadow-xs overflow-hidden border-slate-200">
 
-                            <div className="p-6 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6">
-                                {/* Banner Preview */}
-                                <div className="w-full h-32 md:h-full rounded-2xl bg-slate-100 relative overflow-hidden border">
-                                    {req.institute.imageUrl ? (
-                                        <Image src={req.institute.imageUrl} alt="preview" fill className="object-cover" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-xs font-bold text-slate-400">No Cover</div>
-                                    )}
+                                <div className="p-4 bg-slate-50 border-b flex flex-wrap justify-between items-center gap-2 text-xs text-slate-500">
+                                    <div>Submitted by: <span className="font-bold text-slate-800">{req.user.name}</span> ({req.user.email})</div>
+                                    <div className="flex items-center gap-3">
+                                        <div className="font-mono">{new Date(req.createdAt).toLocaleString()}</div>
+                                        {/* 🚀 Status Badge */}
+                                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${req.status === 'APPROVED' ? 'bg-green-100 text-green-700 border border-green-200' :
+                                            req.status === 'REJECTED' ? 'bg-red-100 text-red-700 border border-red-200' :
+                                                'bg-amber-100 text-amber-700 border border-amber-200'
+                                            }`}>
+                                            {req.status}
+                                        </span>
+                                    </div>
                                 </div>
 
-                                <div className="space-y-4">
-                                    <div>
-                                        <Link href={`/af-ass-manage/institutes/${req.institute.id}`} className="hover:text-purple-600 transition-colors">
-                                            <h2 className="text-xl font-bold text-slate-900">{req.institute.name}</h2>
-                                        </Link>
-                                        <p className="text-xs text-slate-400 font-mono mt-0.5">slug: {req.institute.slug}</p>
+                                <div className="p-6 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6">
+                                    {/* Banner Preview */}
+                                    <div className="w-full h-32 md:h-full rounded-2xl bg-slate-100 relative overflow-hidden border">
+                                        {req.institute.imageUrl ? (
+                                            <Image src={req.institute.imageUrl} alt="preview" fill className="object-cover" />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-slate-400">No Cover</div>
+                                        )}
                                     </div>
 
-                                    {/* Categories */}
-                                    <div className="flex flex-wrap gap-1.5">
-                                        {req.institute.categories.map((c: any) => (
-                                            <span key={c.category.id} className="text-[10px] uppercase tracking-wide bg-purple-50 text-purple-700 font-bold px-2.5 py-1 rounded-md border border-purple-100">
-                                                {c.category.name}
-                                            </span>
-                                        ))}
-                                    </div>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <Link prefetch={false} href={`/af-ass-manage/institutes/${req.institute.id}`} className="hover:text-purple-600 transition-colors">
+                                                <h2 className="text-xl font-bold text-slate-900">{req.institute.name}</h2>
+                                            </Link>
+                                            <p className="text-xs text-slate-400 font-mono mt-0.5">slug: {req.institute.slug}</p>
+                                        </div>
 
-                                    <p className="text-sm text-slate-600 bg-slate-50/80 p-3 rounded-xl border leading-relaxed line-clamp-2">
-                                        {req.institute.description || "No description provided."}
-                                    </p>
+                                        {/* Categories */}
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {req.institute.categories.map((c: any) => (
+                                                <span key={c.category.id} className="text-[10px] uppercase tracking-wide bg-purple-50 text-purple-700 font-bold px-2.5 py-1 rounded-md border border-purple-100">
+                                                    {c.category.name}
+                                                </span>
+                                            ))}
+                                        </div>
 
-                                    {/* 🚀 SMART UI: Show Claim Info if it exists */}
-                                    {claim && (
-                                        <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl flex items-start gap-3">
-                                            <UserCheck className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-                                            <div>
-                                                <h4 className="text-xs font-bold text-amber-900 uppercase">Attached Claim Request</h4>
-                                                <div className="text-xs text-amber-800 mt-1 grid grid-cols-2 gap-x-4 gap-y-1">
-                                                    <p>Role: <span className="font-semibold">{claim.role}</span></p>
-                                                    <p>Phone: <span className="font-semibold">{claim.phone}</span></p>
-                                                    <p>Name: <span className="font-semibold">{claim.fullName}</span></p>
+                                        <p className="text-sm text-slate-600 bg-slate-50/80 p-3 rounded-xl border leading-relaxed line-clamp-2">
+                                            {req.institute.description || "No description provided."}
+                                        </p>
+
+                                        {/* 🚀 SMART UI: Show Claim Info if it exists */}
+                                        {claim && (
+                                            <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl flex items-start gap-3">
+                                                <UserCheck className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-amber-900 uppercase">Attached Claim Request</h4>
+                                                    <div className="text-xs text-amber-800 mt-1 grid grid-cols-2 gap-x-4 gap-y-1">
+                                                        <p>Role: <span className="font-semibold">{claim.role}</span></p>
+                                                        <p>Phone: <span className="font-semibold">{claim.phone}</span></p>
+                                                        <p>Name: <span className="font-semibold">{claim.fullName}</span></p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    )}
+                                        )}
 
-                                    {(req.ownerName || req.ownerPhone || req.ownerDesignation) && (
-                                        <div className="bg-sky-50 border border-sky-200 p-3 rounded-xl flex items-start gap-3">
-                                            <UserCheck className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
-                                            <div>
-                                                <h4 className="text-xs font-bold text-sky-900 uppercase">Owner Details</h4>
-                                                <div className="text-xs text-sky-800 mt-1 grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-1">
-                                                    <p>Name: <span className="font-semibold">{req.ownerName || "N/A"}</span></p>
-                                                    <p>Phone: <span className="font-semibold">{req.ownerPhone || "N/A"}</span></p>
-                                                    <p>Designation: <span className="font-semibold">{req.ownerDesignation || "N/A"}</span></p>
+                                        {(req.ownerName || req.ownerPhone || req.ownerDesignation) && (
+                                            <div className="bg-sky-50 border border-sky-200 p-3 rounded-xl flex items-start gap-3">
+                                                <UserCheck className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-sky-900 uppercase">Owner Details</h4>
+                                                    <div className="text-xs text-sky-800 mt-1 grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-1">
+                                                        <p>Name: <span className="font-semibold">{req.ownerName || "N/A"}</span></p>
+                                                        <p>Phone: <span className="font-semibold">{req.ownerPhone || "N/A"}</span></p>
+                                                        <p>Designation: <span className="font-semibold">{req.ownerDesignation || "N/A"}</span></p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    )}
+                                        )}
 
-                                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold text-slate-700">
-                                        <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-emerald-500" /> {req.institute.city.name}</div>
-                                        <div className="flex items-center gap-1.5"><BadgeIndianRupee className="w-4 h-4 text-amber-500" /> Fees: {req.institute.feeInfo || "N/A"}</div>
+                                        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold text-slate-700">
+                                            <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-emerald-500" /> {req.institute.city.name}</div>
+                                            <div className="flex items-center gap-1.5"><BadgeIndianRupee className="w-4 h-4 text-amber-500" /> Fees: {req.institute.feeInfo || "N/A"}</div>
+                                        </div>
+
+                                        {/* Only show approval buttons if the request is still PENDING */}
+                                        {req.status === "PENDING" && (
+                                            <div className="pt-2 flex justify-end">
+                                                <ApprovalButtons requestId={req.id} />
+                                            </div>
+                                        )}
                                     </div>
-
-                                    {/* Only show approval buttons if the request is still PENDING */}
-                                    {req.status === "PENDING" && (
-                                        <div className="pt-2 flex justify-end">
-                                            <ApprovalButtons requestId={req.id} />
-                                        </div>
-                                    )}
                                 </div>
                             </div>
-                        </div>
-                    )})}
+                        )
+                    })}
                 </div>
             )}
         </div>

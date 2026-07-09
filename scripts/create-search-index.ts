@@ -47,6 +47,7 @@ async function main() {
     "googleReviewCount",
     "viewCount",
     "compareCount",
+    "planWeight",
     "feeMin",
     "publishedAt",
     "likeCount",

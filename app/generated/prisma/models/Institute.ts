@@ -33,6 +33,7 @@ export type InstituteAvgAggregateOutputType = {
   googleReviewCount: number | null
   averageRating: number | null
   reviewCount: number | null
+  planWeight: number | null
   viewCount: number | null
   compareCount: number | null
   establishedYear: number | null
@@ -49,6 +50,7 @@ export type InstituteSumAggregateOutputType = {
   googleReviewCount: number | null
   averageRating: number | null
   reviewCount: number | null
+  planWeight: number | null
   viewCount: number | null
   compareCount: number | null
   establishedYear: number | null
@@ -85,6 +87,7 @@ export type InstituteMinAggregateOutputType = {
   reviewCount: number | null
   googleMapsUrl: string | null
   subscriptionPlan: $Enums.SubscriptionPlan | null
+  planWeight: number | null
   feeInfo: string | null
   planExpiresAt: Date | null
   facebookUrl: string | null
@@ -141,6 +144,7 @@ export type InstituteMaxAggregateOutputType = {
   reviewCount: number | null
   googleMapsUrl: string | null
   subscriptionPlan: $Enums.SubscriptionPlan | null
+  planWeight: number | null
   feeInfo: string | null
   planExpiresAt: Date | null
   facebookUrl: string | null
@@ -199,6 +203,7 @@ export type InstituteCountAggregateOutputType = {
   placeTypes: number
   gallery: number
   subscriptionPlan: number
+  planWeight: number
   youtubeVideos: number
   classroomImages: number
   feeInfo: number
@@ -244,6 +249,7 @@ export type InstituteAvgAggregateInputType = {
   googleReviewCount?: true
   averageRating?: true
   reviewCount?: true
+  planWeight?: true
   viewCount?: true
   compareCount?: true
   establishedYear?: true
@@ -260,6 +266,7 @@ export type InstituteSumAggregateInputType = {
   googleReviewCount?: true
   averageRating?: true
   reviewCount?: true
+  planWeight?: true
   viewCount?: true
   compareCount?: true
   establishedYear?: true
@@ -296,6 +303,7 @@ export type InstituteMinAggregateInputType = {
   reviewCount?: true
   googleMapsUrl?: true
   subscriptionPlan?: true
+  planWeight?: true
   feeInfo?: true
   planExpiresAt?: true
   facebookUrl?: true
@@ -352,6 +360,7 @@ export type InstituteMaxAggregateInputType = {
   reviewCount?: true
   googleMapsUrl?: true
   subscriptionPlan?: true
+  planWeight?: true
   feeInfo?: true
   planExpiresAt?: true
   facebookUrl?: true
@@ -410,6 +419,7 @@ export type InstituteCountAggregateInputType = {
   placeTypes?: true
   gallery?: true
   subscriptionPlan?: true
+  planWeight?: true
   youtubeVideos?: true
   classroomImages?: true
   feeInfo?: true
@@ -562,6 +572,7 @@ export type InstituteGroupByOutputType = {
   placeTypes: string[]
   gallery: string[]
   subscriptionPlan: $Enums.SubscriptionPlan
+  planWeight: number
   youtubeVideos: string[]
   classroomImages: string[]
   feeInfo: string | null
@@ -650,6 +661,7 @@ export type InstituteWhereInput = {
   placeTypes?: Prisma.StringNullableListFilter<"Institute">
   gallery?: Prisma.StringNullableListFilter<"Institute">
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFilter<"Institute"> | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFilter<"Institute"> | number
   youtubeVideos?: Prisma.StringNullableListFilter<"Institute">
   classroomImages?: Prisma.StringNullableListFilter<"Institute">
   feeInfo?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -743,6 +755,7 @@ export type InstituteOrderByWithRelationInput = {
   placeTypes?: Prisma.SortOrder
   gallery?: Prisma.SortOrder
   subscriptionPlan?: Prisma.SortOrder
+  planWeight?: Prisma.SortOrder
   youtubeVideos?: Prisma.SortOrder
   classroomImages?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -839,6 +852,7 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   placeTypes?: Prisma.StringNullableListFilter<"Institute">
   gallery?: Prisma.StringNullableListFilter<"Institute">
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFilter<"Institute"> | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFilter<"Institute"> | number
   youtubeVideos?: Prisma.StringNullableListFilter<"Institute">
   classroomImages?: Prisma.StringNullableListFilter<"Institute">
   feeInfo?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -932,6 +946,7 @@ export type InstituteOrderByWithAggregationInput = {
   placeTypes?: Prisma.SortOrder
   gallery?: Prisma.SortOrder
   subscriptionPlan?: Prisma.SortOrder
+  planWeight?: Prisma.SortOrder
   youtubeVideos?: Prisma.SortOrder
   classroomImages?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1005,6 +1020,7 @@ export type InstituteScalarWhereWithAggregatesInput = {
   placeTypes?: Prisma.StringNullableListFilter<"Institute">
   gallery?: Prisma.StringNullableListFilter<"Institute">
   subscriptionPlan?: Prisma.EnumSubscriptionPlanWithAggregatesFilter<"Institute"> | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntWithAggregatesFilter<"Institute"> | number
   youtubeVideos?: Prisma.StringNullableListFilter<"Institute">
   classroomImages?: Prisma.StringNullableListFilter<"Institute">
   feeInfo?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
@@ -1069,6 +1085,7 @@ export type InstituteCreateInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -1162,6 +1179,7 @@ export type InstituteUncheckedCreateInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -1253,6 +1271,7 @@ export type InstituteUpdateInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1346,6 +1365,7 @@ export type InstituteUncheckedUpdateInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1438,6 +1458,7 @@ export type InstituteCreateManyInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -1502,6 +1523,7 @@ export type InstituteUpdateManyMutationInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1567,6 +1589,7 @@ export type InstituteUncheckedUpdateManyInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1640,6 +1663,7 @@ export type InstituteCountOrderByAggregateInput = {
   placeTypes?: Prisma.SortOrder
   gallery?: Prisma.SortOrder
   subscriptionPlan?: Prisma.SortOrder
+  planWeight?: Prisma.SortOrder
   youtubeVideos?: Prisma.SortOrder
   classroomImages?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrder
@@ -1683,6 +1707,7 @@ export type InstituteAvgOrderByAggregateInput = {
   googleReviewCount?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   reviewCount?: Prisma.SortOrder
+  planWeight?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   compareCount?: Prisma.SortOrder
   establishedYear?: Prisma.SortOrder
@@ -1719,6 +1744,7 @@ export type InstituteMaxOrderByAggregateInput = {
   reviewCount?: Prisma.SortOrder
   googleMapsUrl?: Prisma.SortOrder
   subscriptionPlan?: Prisma.SortOrder
+  planWeight?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrder
   planExpiresAt?: Prisma.SortOrder
   facebookUrl?: Prisma.SortOrder
@@ -1775,6 +1801,7 @@ export type InstituteMinOrderByAggregateInput = {
   reviewCount?: Prisma.SortOrder
   googleMapsUrl?: Prisma.SortOrder
   subscriptionPlan?: Prisma.SortOrder
+  planWeight?: Prisma.SortOrder
   feeInfo?: Prisma.SortOrder
   planExpiresAt?: Prisma.SortOrder
   facebookUrl?: Prisma.SortOrder
@@ -1811,6 +1838,7 @@ export type InstituteSumOrderByAggregateInput = {
   googleReviewCount?: Prisma.SortOrder
   averageRating?: Prisma.SortOrder
   reviewCount?: Prisma.SortOrder
+  planWeight?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   compareCount?: Prisma.SortOrder
   establishedYear?: Prisma.SortOrder
@@ -2397,6 +2425,7 @@ export type InstituteCreateWithoutCityInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -2488,6 +2517,7 @@ export type InstituteUncheckedCreateWithoutCityInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -2609,6 +2639,7 @@ export type InstituteScalarWhereInput = {
   placeTypes?: Prisma.StringNullableListFilter<"Institute">
   gallery?: Prisma.StringNullableListFilter<"Institute">
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFilter<"Institute"> | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFilter<"Institute"> | number
   youtubeVideos?: Prisma.StringNullableListFilter<"Institute">
   classroomImages?: Prisma.StringNullableListFilter<"Institute">
   feeInfo?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -2673,6 +2704,7 @@ export type InstituteCreateWithoutCategoriesInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -2765,6 +2797,7 @@ export type InstituteUncheckedCreateWithoutCategoriesInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -2871,6 +2904,7 @@ export type InstituteUpdateWithoutCategoriesInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2963,6 +2997,7 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3053,6 +3088,7 @@ export type InstituteCreateWithoutManagersInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -3145,6 +3181,7 @@ export type InstituteUncheckedCreateWithoutManagersInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -3251,6 +3288,7 @@ export type InstituteUpdateWithoutManagersInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3343,6 +3381,7 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3433,6 +3472,7 @@ export type InstituteCreateWithoutReviewsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -3525,6 +3565,7 @@ export type InstituteUncheckedCreateWithoutReviewsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -3631,6 +3672,7 @@ export type InstituteUpdateWithoutReviewsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3723,6 +3765,7 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3813,6 +3856,7 @@ export type InstituteCreateWithoutClaimsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -3905,6 +3949,7 @@ export type InstituteUncheckedCreateWithoutClaimsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -4011,6 +4056,7 @@ export type InstituteUpdateWithoutClaimsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4103,6 +4149,7 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4193,6 +4240,7 @@ export type InstituteCreateWithoutShortlistedByInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -4285,6 +4333,7 @@ export type InstituteUncheckedCreateWithoutShortlistedByInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -4391,6 +4440,7 @@ export type InstituteUpdateWithoutShortlistedByInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4483,6 +4533,7 @@ export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4573,6 +4624,7 @@ export type InstituteCreateWithoutViewHistoryInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -4665,6 +4717,7 @@ export type InstituteUncheckedCreateWithoutViewHistoryInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -4771,6 +4824,7 @@ export type InstituteUpdateWithoutViewHistoryInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4863,6 +4917,7 @@ export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4953,6 +5008,7 @@ export type InstituteCreateWithoutEnquiriesInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -5045,6 +5101,7 @@ export type InstituteUncheckedCreateWithoutEnquiriesInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -5151,6 +5208,7 @@ export type InstituteUpdateWithoutEnquiriesInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5243,6 +5301,7 @@ export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5333,6 +5392,7 @@ export type InstituteCreateWithoutMembershipsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -5425,6 +5485,7 @@ export type InstituteUncheckedCreateWithoutMembershipsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -5531,6 +5592,7 @@ export type InstituteUpdateWithoutMembershipsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5623,6 +5685,7 @@ export type InstituteUncheckedUpdateWithoutMembershipsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5713,6 +5776,7 @@ export type InstituteCreateWithoutStudentRecordsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -5805,6 +5869,7 @@ export type InstituteUncheckedCreateWithoutStudentRecordsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -5911,6 +5976,7 @@ export type InstituteUpdateWithoutStudentRecordsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6003,6 +6069,7 @@ export type InstituteUncheckedUpdateWithoutStudentRecordsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6093,6 +6160,7 @@ export type InstituteCreateWithoutTeacherRecordsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -6185,6 +6253,7 @@ export type InstituteUncheckedCreateWithoutTeacherRecordsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -6291,6 +6360,7 @@ export type InstituteUpdateWithoutTeacherRecordsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6383,6 +6453,7 @@ export type InstituteUncheckedUpdateWithoutTeacherRecordsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6473,6 +6544,7 @@ export type InstituteCreateWithoutConversationsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -6565,6 +6637,7 @@ export type InstituteUncheckedCreateWithoutConversationsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -6671,6 +6744,7 @@ export type InstituteUpdateWithoutConversationsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6763,6 +6837,7 @@ export type InstituteUncheckedUpdateWithoutConversationsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6853,6 +6928,7 @@ export type InstituteCreateWithoutInstituteRequestInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -6945,6 +7021,7 @@ export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -7051,6 +7128,7 @@ export type InstituteUpdateWithoutInstituteRequestInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7143,6 +7221,7 @@ export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7233,6 +7312,7 @@ export type InstituteCreateWithoutPaymentsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -7325,6 +7405,7 @@ export type InstituteUncheckedCreateWithoutPaymentsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -7431,6 +7512,7 @@ export type InstituteUpdateWithoutPaymentsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7523,6 +7605,7 @@ export type InstituteUncheckedUpdateWithoutPaymentsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7613,6 +7696,7 @@ export type InstituteCreateWithoutSalesAssignmentsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -7705,6 +7789,7 @@ export type InstituteUncheckedCreateWithoutSalesAssignmentsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -7811,6 +7896,7 @@ export type InstituteUpdateWithoutSalesAssignmentsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7903,6 +7989,7 @@ export type InstituteUncheckedUpdateWithoutSalesAssignmentsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7993,6 +8080,7 @@ export type InstituteCreateWithoutDailyViewsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -8085,6 +8173,7 @@ export type InstituteUncheckedCreateWithoutDailyViewsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -8191,6 +8280,7 @@ export type InstituteUpdateWithoutDailyViewsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8283,6 +8373,7 @@ export type InstituteUncheckedUpdateWithoutDailyViewsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8373,6 +8464,7 @@ export type InstituteCreateWithoutFacilitiesInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -8465,6 +8557,7 @@ export type InstituteUncheckedCreateWithoutFacilitiesInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -8571,6 +8664,7 @@ export type InstituteUpdateWithoutFacilitiesInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8663,6 +8757,7 @@ export type InstituteUncheckedUpdateWithoutFacilitiesInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8753,6 +8848,7 @@ export type InstituteCreateWithoutBatchesInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -8845,6 +8941,7 @@ export type InstituteUncheckedCreateWithoutBatchesInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -8951,6 +9048,7 @@ export type InstituteUpdateWithoutBatchesInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9043,6 +9141,7 @@ export type InstituteUncheckedUpdateWithoutBatchesInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9133,6 +9232,7 @@ export type InstituteCreateWithoutHighlightStatsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -9225,6 +9325,7 @@ export type InstituteUncheckedCreateWithoutHighlightStatsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -9331,6 +9432,7 @@ export type InstituteUpdateWithoutHighlightStatsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9423,6 +9525,7 @@ export type InstituteUncheckedUpdateWithoutHighlightStatsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9513,6 +9616,7 @@ export type InstituteCreateWithoutAchievementsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -9605,6 +9709,7 @@ export type InstituteUncheckedCreateWithoutAchievementsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -9711,6 +9816,7 @@ export type InstituteUpdateWithoutAchievementsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9803,6 +9909,7 @@ export type InstituteUncheckedUpdateWithoutAchievementsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9893,6 +10000,7 @@ export type InstituteCreateWithoutFaqsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -9985,6 +10093,7 @@ export type InstituteUncheckedCreateWithoutFaqsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -10091,6 +10200,7 @@ export type InstituteUpdateWithoutFaqsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10183,6 +10293,7 @@ export type InstituteUncheckedUpdateWithoutFaqsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10273,6 +10384,7 @@ export type InstituteCreateWithoutOperatingHoursInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -10365,6 +10477,7 @@ export type InstituteUncheckedCreateWithoutOperatingHoursInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -10471,6 +10584,7 @@ export type InstituteUpdateWithoutOperatingHoursInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10563,6 +10677,7 @@ export type InstituteUncheckedUpdateWithoutOperatingHoursInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10653,6 +10768,7 @@ export type InstituteCreateWithoutCompareListItemsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -10745,6 +10861,7 @@ export type InstituteUncheckedCreateWithoutCompareListItemsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -10851,6 +10968,7 @@ export type InstituteUpdateWithoutCompareListItemsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10943,6 +11061,7 @@ export type InstituteUncheckedUpdateWithoutCompareListItemsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11033,6 +11152,7 @@ export type InstituteCreateWithoutCommunityQuestionsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -11125,6 +11245,7 @@ export type InstituteUncheckedCreateWithoutCommunityQuestionsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -11231,6 +11352,7 @@ export type InstituteUpdateWithoutCommunityQuestionsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11323,6 +11445,7 @@ export type InstituteUncheckedUpdateWithoutCommunityQuestionsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11413,6 +11536,7 @@ export type InstituteCreateWithoutNotablepersonsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -11505,6 +11629,7 @@ export type InstituteUncheckedCreateWithoutNotablepersonsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -11611,6 +11736,7 @@ export type InstituteUpdateWithoutNotablepersonsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11703,6 +11829,7 @@ export type InstituteUncheckedUpdateWithoutNotablepersonsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11793,6 +11920,7 @@ export type InstituteCreateWithoutComparisonsAsFirstInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -11885,6 +12013,7 @@ export type InstituteUncheckedCreateWithoutComparisonsAsFirstInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -11980,6 +12109,7 @@ export type InstituteCreateWithoutComparisonsAsSecondInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -12072,6 +12202,7 @@ export type InstituteUncheckedCreateWithoutComparisonsAsSecondInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -12178,6 +12309,7 @@ export type InstituteUpdateWithoutComparisonsAsFirstInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12270,6 +12402,7 @@ export type InstituteUncheckedUpdateWithoutComparisonsAsFirstInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12371,6 +12504,7 @@ export type InstituteUpdateWithoutComparisonsAsSecondInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12463,6 +12597,7 @@ export type InstituteUncheckedUpdateWithoutComparisonsAsSecondInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12553,6 +12688,7 @@ export type InstituteCreateWithoutBlogPostsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -12645,6 +12781,7 @@ export type InstituteUncheckedCreateWithoutBlogPostsInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -12751,6 +12888,7 @@ export type InstituteUpdateWithoutBlogPostsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12843,6 +12981,7 @@ export type InstituteUncheckedUpdateWithoutBlogPostsInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12933,6 +13072,7 @@ export type InstituteCreateManyCityInput = {
   placeTypes?: Prisma.InstituteCreateplaceTypesInput | string[]
   gallery?: Prisma.InstituteCreategalleryInput | string[]
   subscriptionPlan?: $Enums.SubscriptionPlan
+  planWeight?: number
   youtubeVideos?: Prisma.InstituteCreateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteCreateclassroomImagesInput | string[]
   feeInfo?: string | null
@@ -12997,6 +13137,7 @@ export type InstituteUpdateWithoutCityInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13088,6 +13229,7 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13179,6 +13321,7 @@ export type InstituteUncheckedUpdateManyWithoutCityInput = {
   placeTypes?: Prisma.InstituteUpdateplaceTypesInput | string[]
   gallery?: Prisma.InstituteUpdategalleryInput | string[]
   subscriptionPlan?: Prisma.EnumSubscriptionPlanFieldUpdateOperationsInput | $Enums.SubscriptionPlan
+  planWeight?: Prisma.IntFieldUpdateOperationsInput | number
   youtubeVideos?: Prisma.InstituteUpdateyoutubeVideosInput | string[]
   classroomImages?: Prisma.InstituteUpdateclassroomImagesInput | string[]
   feeInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13491,6 +13634,7 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   placeTypes?: boolean
   gallery?: boolean
   subscriptionPlan?: boolean
+  planWeight?: boolean
   youtubeVideos?: boolean
   classroomImages?: boolean
   feeInfo?: boolean
@@ -13585,6 +13729,7 @@ export type InstituteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   placeTypes?: boolean
   gallery?: boolean
   subscriptionPlan?: boolean
+  planWeight?: boolean
   youtubeVideos?: boolean
   classroomImages?: boolean
   feeInfo?: boolean
@@ -13651,6 +13796,7 @@ export type InstituteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   placeTypes?: boolean
   gallery?: boolean
   subscriptionPlan?: boolean
+  planWeight?: boolean
   youtubeVideos?: boolean
   classroomImages?: boolean
   feeInfo?: boolean
@@ -13717,6 +13863,7 @@ export type InstituteSelectScalar = {
   placeTypes?: boolean
   gallery?: boolean
   subscriptionPlan?: boolean
+  planWeight?: boolean
   youtubeVideos?: boolean
   classroomImages?: boolean
   feeInfo?: boolean
@@ -13753,7 +13900,7 @@ export type InstituteSelectScalar = {
   totalStudents?: boolean
 }
 
-export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "youtubeVideos" | "classroomImages" | "feeInfo" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "telegramUrl" | "twitterUrl" | "youtubeUrl" | "linkedinUrl" | "whatsappUrl" | "isPublished" | "mode" | "viewCount" | "affiliations" | "awards" | "brochureUrl" | "compareCount" | "cons" | "establishedYear" | "feeMax" | "feeMin" | "hasCertification" | "hasDemoClasses" | "hasHostelFacility" | "hasOnlineClasses" | "hasScholarship" | "mediumOfInstruction" | "metaDescription" | "metaTitle" | "pros" | "refundPolicy" | "totalBranches" | "totalStudents", ExtArgs["result"]["institute"]>
+export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "planWeight" | "youtubeVideos" | "classroomImages" | "feeInfo" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "telegramUrl" | "twitterUrl" | "youtubeUrl" | "linkedinUrl" | "whatsappUrl" | "isPublished" | "mode" | "viewCount" | "affiliations" | "awards" | "brochureUrl" | "compareCount" | "cons" | "establishedYear" | "feeMax" | "feeMin" | "hasCertification" | "hasDemoClasses" | "hasHostelFacility" | "hasOnlineClasses" | "hasScholarship" | "mediumOfInstruction" | "metaDescription" | "metaTitle" | "pros" | "refundPolicy" | "totalBranches" | "totalStudents", ExtArgs["result"]["institute"]>
 export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
@@ -13853,6 +14000,7 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     placeTypes: string[]
     gallery: string[]
     subscriptionPlan: $Enums.SubscriptionPlan
+    planWeight: number
     youtubeVideos: string[]
     classroomImages: string[]
     feeInfo: string | null
@@ -14366,6 +14514,7 @@ export interface InstituteFieldRefs {
   readonly placeTypes: Prisma.FieldRef<"Institute", 'String[]'>
   readonly gallery: Prisma.FieldRef<"Institute", 'String[]'>
   readonly subscriptionPlan: Prisma.FieldRef<"Institute", 'SubscriptionPlan'>
+  readonly planWeight: Prisma.FieldRef<"Institute", 'Int'>
   readonly youtubeVideos: Prisma.FieldRef<"Institute", 'String[]'>
   readonly classroomImages: Prisma.FieldRef<"Institute", 'String[]'>
   readonly feeInfo: Prisma.FieldRef<"Institute", 'String'>

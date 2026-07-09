@@ -13,12 +13,12 @@ export default async function AdminCallbacksPage({
 
   // 🚀 Sirf Original Leads dikhani hain Admin ko, copies nahi!
   const whereCondition: any = {
-      isForwarded: false 
+    isForwarded: false
   };
-  
+
   if (currentFilter !== 'ALL') {
     if (currentFilter.startsWith('ASSIGNED_TO_')) {
-       // Optional logic here
+      // Optional logic here
     } else {
       whereCondition.status = currentFilter;
     }
@@ -80,14 +80,14 @@ export default async function AdminCallbacksPage({
           <Filter className="w-4 h-4" /> Filter:
         </div>
         {filterOptions.map((opt: any) => (
-          <Link 
+          <Link
             key={opt.value}
+            prefetch={false}
             href={`/af-ass-manage/instituteCallbacks?status=${opt.value}`}
-            className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${
-              currentFilter === opt.value 
-              ? "bg-slate-800 text-white shadow-sm" 
+            className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${currentFilter === opt.value
+              ? "bg-slate-800 text-white shadow-sm"
               : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
-            }`}
+              }`}
           >
             {opt.label}
           </Link>
@@ -123,13 +123,14 @@ export default async function AdminCallbacksPage({
                       </div>
                     </td>
                     <td className="p-5">
-                      <div className="font-bold text-slate-900 flex items-center gap-1.5"><User className="w-3.5 h-3.5 text-slate-400"/> {callback.name}</div>
-                      <div className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-slate-400"/>{callback.phone}</div>
+                      <div className="font-bold text-slate-900 flex items-center gap-1.5"><User className="w-3.5 h-3.5 text-slate-400" /> {callback.name}</div>
+                      <div className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-slate-400" />{callback.phone}</div>
                     </td>
                     <td className="p-5">
                       {callback.institute ? (
-                        <Link 
+                        <Link
                           href={`/af-ass-manage/institutes/${callback.institute.id}`}
+
                           className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-semibold transition"
                         >
                           <Building2 className="w-4 h-4" />
@@ -152,7 +153,7 @@ export default async function AdminCallbacksPage({
                       </span>
                     </td>
                     <td className="p-5 text-right">
-                      <Link href={`/af-ass-manage/instituteCallbacks/${callback.id}`}>
+                      <Link prefetch={false} href={`/af-ass-manage/instituteCallbacks/${callback.id}`}>
                         <button className="p-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-amber-600 hover:border-amber-200 hover:bg-amber-50 transition-all shadow-xs cursor-pointer">
                           <Eye className="w-4 h-4" />
                         </button>

@@ -39,6 +39,7 @@ export async function syncSingleInstituteToMeili(instituteId: string) {
       categorySlugs: inst.categories.map((c) => c.category.slug),
       categoryIds: inst.categories.map((c) => c.categoryId),
       subscriptionPlan: inst.subscriptionPlan,
+      planWeight: inst.planWeight ?? 1,
       isPublished: inst.isPublished,
       averageRating: inst.averageRating ?? 0,
       reviewCount: inst.reviewCount ?? 0,

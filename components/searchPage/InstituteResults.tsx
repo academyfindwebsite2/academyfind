@@ -56,9 +56,9 @@ export default async function InstituteResults({
   
   // Ab activeSort check kar rahe hain, direct sort nahi
   if (activelat && activelng && (activeSort === "nearest_location" || activeSort === "nearest_me")) {
-    sortOptions = [`_geoPoint(${activelat}, ${activelng}):asc`];
+    sortOptions = [`_geoPoint(${activelat}, ${activelng}):asc`, "planWeight:desc", "googleRating:desc"];
   } else if (activeSort === "rating") {
-    sortOptions = ["googleRating:desc"];
+    sortOptions = ["planWeight:desc", "googleRating:desc"];
   }
 
   // SEARCH CALL

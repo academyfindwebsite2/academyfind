@@ -43,6 +43,11 @@ export async function getFeaturedInstitutesForCategory(
       },
     },
     take: 10,
+    orderBy: [
+      { planWeight: 'desc' },
+      { googleRating: 'desc' },
+      { id: 'asc' }
+    ],
     include: {
       city: true,
       reviews: true,

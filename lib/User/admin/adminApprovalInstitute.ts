@@ -23,7 +23,8 @@ export async function approveInstituteRequest(requestId: string) {
                 data: { 
                     isActive: true, 
                     isPublished: true,
-                    subscriptionPlan: "BASIC" 
+                    subscriptionPlan: "BASIC",
+                    planWeight: 1
                 }
             }),
             prisma.instituteRequest.update({

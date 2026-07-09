@@ -60,11 +60,11 @@ export async function getInstitutesByCategoryAndCity(
     }
 
     if (sort === "rating") {
-      searchOptions.sort = ["googleRating:desc"];
+      searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
     } else if (sort === "reviews") {
-      searchOptions.sort = ["googleReviewCount:desc"];
+      searchOptions.sort = ["planWeight:desc", "googleReviewCount:desc"];
     } else if (lat && lng) {
-      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`]; 
+      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"]; 
     }
 
     const searchQuery = q ? q.trim() : "";
@@ -90,9 +90,9 @@ export async function getInstitutesByCategoryAndCity(
         searchOptions.filter.push(`mode IN [${meiliModes}]`);
       }
       
-      if (sort === "rating") searchOptions.sort = ["googleRating:desc"];
-      else if (sort === "reviews") searchOptions.sort = ["googleReviewCount:desc"];
-      else if (lat && lng) searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`];
+      if (sort === "rating") searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
+      else if (sort === "reviews") searchOptions.sort = ["planWeight:desc", "googleReviewCount:desc"];
+      else if (lat && lng) searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"];
       else delete searchOptions.sort;
 
       searchRes = await meili.index("global_search").search(searchQuery, searchOptions);
@@ -148,9 +148,9 @@ export async function getInstitutesByCategoryAndCity(
   // ==========================================
   let orderBy = {};
   switch (sort) {
-    case "rating": orderBy = [{ googleRating: "desc" }, { id: "asc" }]; break;
-    case "reviews": orderBy = [{ googleReviewCount: "desc" }, { id: "asc" }]; break;
-    default: orderBy = [{ googleRating: "desc" }, { id: "asc" }];
+    case "rating": orderBy = [{ planWeight: "desc" }, { googleRating: "desc" }, { id: "asc" }]; break;
+    case "reviews": orderBy = [{ planWeight: "desc" }, { googleReviewCount: "desc" }, { id: "asc" }]; break;
+    default: orderBy = [{ planWeight: "desc" }, { googleRating: "desc" }, { id: "asc" }];
   }
 
   // Prisma Where Clause

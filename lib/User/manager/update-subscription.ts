@@ -7,10 +7,18 @@ export async function updateInstitutePlan(instituteId: string, selectedPlan: "BA
     // 1. Pehle check karo ki jo user change kar raha hai, kya wo sach mein iska manager hai?
     // (Ye validation auth session se user ID nikal kar hogi, abhi ke liye simple check:)
     
+    const planWeights = { "ULTRA": 4, "PREMIUM": 3, "VERIFIED": 2, "BASIC": 1 };
+    
     const updatedInstitute = await prisma.institute.update({
       where: { id: instituteId },
-      data: { subscriptionPlan: selectedPlan }
+      data: { 
+        subscriptionPlan: selectedPlan,
+        planWeight: planWeights[selectedPlan] || 1
+      }
     })
+
+    const { syncSingleInstituteToMeili } = await import("@/scripts/SyncInstitute");
+    await syncSingleInstituteToMeili(instituteId);
 
     
 

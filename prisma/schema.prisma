@@ -331,6 +331,7 @@ model Institute {
   placeTypes          String[]
   gallery             String[]
   subscriptionPlan    SubscriptionPlan           @default(BASIC)
+  planWeight          Int                        @default(1)
   youtubeVideos       String[]
   classroomImages     String[]
   feeInfo             String?
@@ -1064,8 +1065,8 @@ model LifeCoachRequest {
   phone     String
   email     String?
   message   String?
-  status    LifeCoachRequestStatus @default(PENDING)
   notes     String?
+  status    LifeCoachRequestStatus @default(PENDING)
   createdAt DateTime               @default(now())
 }
 

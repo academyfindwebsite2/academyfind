@@ -47,11 +47,11 @@ export async function getInstitutesByCategory(
 
     // Proximity logic or fallback sorting logic
     if (sort === "rating") {
-      searchOptions.sort = ["googleRating:desc"];
+      searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
     } else if (sort === "reviews") {
-      searchOptions.sort = ["googleReviewCount:desc"];
+      searchOptions.sort = ["planWeight:desc", "googleReviewCount:desc"];
     } else {
-      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`]; 
+      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"]; 
     }
 
     const searchQuery = q ? q.trim() : "";
@@ -126,11 +126,11 @@ export async function getInstitutesByCategory(
     whereClause.mode = { in: modesArray as any[] };
   }
 
-  let orderBy: any = [{ googleRating: 'desc' }, { id: 'asc' }];
+  let orderBy: any = [{ planWeight: 'desc' }, { googleRating: 'desc' }, { id: 'asc' }];
   if (sort === "rating") {
-    orderBy = [{ googleRating: 'desc' }, { id: 'asc' }];
+    orderBy = [{ planWeight: 'desc' }, { googleRating: 'desc' }, { id: 'asc' }];
   } else if (sort === "reviews") {
-    orderBy = [{ googleReviewCount: 'desc' }, { id: 'asc' }];
+    orderBy = [{ planWeight: 'desc' }, { googleReviewCount: 'desc' }, { id: 'asc' }];
   }
 
   const [institutes, totalCount] = await prisma.$transaction([

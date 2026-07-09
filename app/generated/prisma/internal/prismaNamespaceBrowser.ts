@@ -344,6 +344,7 @@ export const InstituteScalarFieldEnum = {
   placeTypes: 'placeTypes',
   gallery: 'gallery',
   subscriptionPlan: 'subscriptionPlan',
+  planWeight: 'planWeight',
   youtubeVideos: 'youtubeVideos',
   classroomImages: 'classroomImages',
   feeInfo: 'feeInfo',
@@ -862,8 +863,8 @@ export const LifeCoachRequestScalarFieldEnum = {
   phone: 'phone',
   email: 'email',
   message: 'message',
-  status: 'status',
   notes: 'notes',
+  status: 'status',
   createdAt: 'createdAt'
 } as const
 
