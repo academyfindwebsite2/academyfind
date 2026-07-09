@@ -20,6 +20,9 @@ export async function getInstitutesByCategory(
 ) {
   const skip = (page - 1) * limit;
   const modesArray = mode ? mode.split(",").map(m => m.trim().toUpperCase()) : [];
+  
+  const isHomeTuition = modesArray.includes("HOMETUITION");
+  const pureModes = modesArray.filter(m => m !== "HOMETUITION");
 
   // ==========================================
   // 🚀 SCENARIO 1: MEILISEARCH (Live GPS integration)
@@ -40,9 +43,13 @@ export async function getInstitutesByCategory(
       searchOptions.filter.push(`googleRating >= ${parseFloat(rating)}`);
     }
 
-    if (modesArray.length > 0 && modesArray.length < 3) {
-      const meiliModes = modesArray.map(m => `"${m.toLowerCase()}"`).join(", ");
+    if (pureModes.length > 0 && pureModes.length < 3) {
+      const meiliModes = pureModes.map(m => `"${m.toLowerCase()}"`).join(", ");
       searchOptions.filter.push(`mode IN [${meiliModes}]`);
+    }
+
+    if (isHomeTuition) {
+      searchOptions.filter.push(`categorySlugs = "home-tuition"`);
     }
 
     // Proximity logic or fallback sorting logic
@@ -122,8 +129,23 @@ export async function getInstitutesByCategory(
     whereClause.googleRating = { gte: parseFloat(rating) };
   }
 
-  if (modesArray.length > 0 && modesArray.length < 3) {
-    whereClause.mode = { in: modesArray as any[] };
+  if (pureModes.length > 0 && pureModes.length < 3) {
+    whereClause.mode = { in: pureModes as any[] };
+  }
+
+  if (isHomeTuition) {
+    whereClause.AND = [
+      ...(whereClause.AND || []),
+      {
+        categories: {
+          some: {
+            category: {
+              slug: 'home-tuition'
+            }
+          }
+        }
+      }
+    ];
   }
 
   let orderBy: any = [{ planWeight: 'desc' }, { googleRating: 'desc' }, { id: 'asc' }];

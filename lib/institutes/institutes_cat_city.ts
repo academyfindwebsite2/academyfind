@@ -25,7 +25,9 @@ export async function getInstitutesByCategoryAndCity(
   const radiusInMeters = radius ? radius * 1000 : 5000; 
 
   // 🚀 Parse mode string into array (e.g. "online,hybrid" => ["online", "hybrid"])
-  const modesArray = mode ? mode.split(",").map(m => m.trim()) : [];
+  const modesArray = mode ? mode.split(",").map(m => m.trim().toUpperCase()) : [];
+  const isHomeTuition = modesArray.includes("HOMETUITION");
+  const pureModes = modesArray.filter(m => m !== "HOMETUITION");
 
   // ==========================================
   // 🚀 SCENARIO 1: MEILISEARCH
@@ -50,9 +52,13 @@ export async function getInstitutesByCategoryAndCity(
     }
 
     // 🚀 NEW: Meilisearch Mode Filter using IN operator
-    if (modesArray.length > 0 && modesArray.length < 3) {
-      const meiliModes = modesArray.map(m => `"${m.toLowerCase()}"`).join(", ");
+    if (pureModes.length > 0 && pureModes.length < 3) {
+      const meiliModes = pureModes.map(m => `"${m.toLowerCase()}"`).join(", ");
       searchOptions.filter.push(`mode IN [${meiliModes}]`);
+    }
+
+    if (isHomeTuition) {
+      searchOptions.filter.push(`categorySlugs = "home-tuition"`);
     }
 
     if (lat && lng) {
@@ -85,9 +91,13 @@ export async function getInstitutesByCategoryAndCity(
       if (minRating) searchOptions.filter.push(`googleRating >= ${minRating}`);
       
       // 🚀 NEW: Fallback Meilisearch Mode Filter
-      if (modesArray.length > 0 && modesArray.length < 3) {
-        const meiliModes = modesArray.map(m => `"${m.toLowerCase()}"`).join(", ");
+      if (pureModes.length > 0 && pureModes.length < 3) {
+        const meiliModes = pureModes.map(m => `"${m.toLowerCase()}"`).join(", ");
         searchOptions.filter.push(`mode IN [${meiliModes}]`);
+      }
+      
+      if (isHomeTuition) {
+        searchOptions.filter.push(`categorySlugs = "home-tuition"`);
       }
       
       if (sort === "rating") searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
@@ -166,8 +176,23 @@ export async function getInstitutesByCategoryAndCity(
   }
 
   // 🚀 NEW: Prisma Mode Filter using Enum values
-  if (modesArray.length > 0 && modesArray.length < 3) {
-    prismaWhere.mode = { in: modesArray.map(m => m.toUpperCase()) as any[] };
+  if (pureModes.length > 0 && pureModes.length < 3) {
+    prismaWhere.mode = { in: pureModes as any[] };
+  }
+
+  if (isHomeTuition) {
+    prismaWhere.AND = [
+      ...(prismaWhere.AND || []),
+      {
+        categories: {
+          some: {
+            category: {
+              slug: 'home-tuition'
+            }
+          }
+        }
+      }
+    ];
   }
 
   const [institutes, totalCount] = await Promise.all([

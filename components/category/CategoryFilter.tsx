@@ -121,6 +121,7 @@ export default function CategoryFilters({ category }: Props) {
             { id: "offline", label: "Offline / Classroom" },
             { id: "online", label: "Online / Live Classes" },
             { id: "hybrid", label: "Hybrid Mode" },
+            { id: "hometuition", label: "Home Tuition" },
           ].map((mode) => (
             <div key={mode.id} className="flex items-center space-x-3 group">
               <Checkbox
