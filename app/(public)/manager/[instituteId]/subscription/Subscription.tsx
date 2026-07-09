@@ -13,7 +13,7 @@ interface SubscriptionClientProps {
 
 export default function SubscriptionClient({ currentPlan, currentBillingCycle, instituteId }: SubscriptionClientProps) {
     const [isAnnual, setIsAnnual] = useState(false);
-    const [plan,setPlan] = useState();
+    const [plan, setPlan] = useState();
 
     const planPriority: Record<string, number> = {
         BASIC: 0,
@@ -24,62 +24,68 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
     const currentPlanRank = planPriority[currentPlan] ?? 0;
 
     const plans = [
-        { 
-            id: "VERIFIED", 
-            name: "Verified", 
+        {
+            id: "VERIFIED",
+            name: "Verified",
             pricing: {
                 monthly: { original: 499, offer: 199 },
                 annual: { original: 4999, offer: 1999 }
             },
-            desc: "Build trust and start capturing student leads.", 
+            desc: "Build trust and start capturing student leads.",
             features: [
-                "Edit Your Profile", 
-                "Verified Badge", 
-                "Direct Lead Generation"
-            ] 
+                "Edit Public Profile",
+                "Student Reviews",
+                "Verified Badge",
+                "Direct Student Leads/Inquiries"
+            ]
         },
-        { 
-            id: "PREMIUM", 
-            name: "Premium", 
+        {
+            id: "PREMIUM",
+            name: "Premium",
             pricing: {
                 monthly: { original: 999, offer: 499 },
                 annual: { original: 9999, offer: 4999 }
             },
-            desc: "Showcase faculty, results, and track analytics.", 
+            desc: "Showcase faculty, results, and track analytics.",
             features: [
-                 "Everything in Verified", 
-                "Add Social Media Links",
-                "Visit & Save Analytics", 
-                "Teacher Profiles (Up to 4)", 
-                "Videos Links (Up to 4)",
-                "Result Pics (Up to 4)",
-                "Classroom Pics (Up to 4)"
-            ] 
+                "Everything in Verified",
+                "Rich Media (photos/videos)(upto 4)",
+                "Student Community",
+                "Institute Forum",
+                "Institute Chat Groups",
+                "Blog Publishing",
+                "Reply to Reviews",
+                "Verified Student Profiles Display",
+                "Verified Teacher Profiles Display",
+                "See Who saved your profile",
+                "View Analytics of your public Profile(views + logged in user)",
+                "Add social media links"
+            ]
         },
-        { 
+        {
             id: "ULTRA",
-            name: "Elite", 
+            name: "Elite",
             pricing: {
                 monthly: { original: 2999, offer: 999 },
                 annual: { original: 29999, offer: 9999 }
             },
-            desc: "Maximum visibility and top search rankings.", 
+            desc: "Maximum visibility and top search rankings.",
             features: [
-                "Everything in Premium", 
-                "Top Priority Search Ranking", 
-                "Area-Specific Visibility", 
+                "Everything in Premium",
+                "Top Priority Search Ranking",
+                "Area-Specific Visibility",
                 "Category-Specific Visibility"
-            ] 
+            ]
         },
     ];
 
     const router = useRouter();
     const handleCheckout = (planId: string) => {
-    router.push(
-        `/manager/${instituteId}/subscription/checkout/${planId}?billingCycle=${isAnnual ? "ANNUAL" : "MONTHLY"}`
-    );
+        router.push(
+            `/manager/${instituteId}/subscription/checkout/${planId}?billingCycle=${isAnnual ? "ANNUAL" : "MONTHLY"}`
+        );
     };
-   
+
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
@@ -95,14 +101,14 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
             {/* 🚀 TOGGLE BUTTON: Monthly vs Annually */}
             <div className="flex justify-center mt-6 mb-10">
                 <div className="bg-slate-100 p-1 rounded-full inline-flex relative shadow-inner border border-slate-200">
-                    <button 
-                        onClick={() => setIsAnnual(false)} 
+                    <button
+                        onClick={() => setIsAnnual(false)}
                         className={`relative w-32 py-2 text-sm font-bold rounded-full transition-colors z-10 ${!isAnnual ? 'text-slate-900' : 'text-slate-400 hover:text-slate-600'}`}
                     >
                         Monthly
                     </button>
-                    <button 
-                        onClick={() => setIsAnnual(true)} 
+                    <button
+                        onClick={() => setIsAnnual(true)}
                         className={`relative w-32 py-2 text-sm font-bold rounded-full transition-colors z-10 ${isAnnual ? 'text-slate-900' : 'text-slate-400 hover:text-slate-600'}`}
                     >
                         Annually
@@ -119,17 +125,16 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
                     const isCurrentCycleAndPlan = currentPlan === plan.id && ((isAnnual && currentBillingCycle === "ANNUAL") || (!isAnnual && currentBillingCycle === "MONTHLY"));
 
                     return (
-                        <div key={plan.id} className={`relative p-6 rounded-3xl border-2 flex flex-col transition-all duration-300 ${
-                            isCurrentCycleAndPlan ? "border-amber-400 bg-amber-50/20 shadow-md scale-[1.02]" : "border-slate-100 bg-white hover:border-slate-300 hover:shadow-sm"
-                        }`}>
+                        <div key={plan.id} className={`relative p-6 rounded-3xl border-2 flex flex-col transition-all duration-300 ${isCurrentCycleAndPlan ? "border-amber-400 bg-amber-50/20 shadow-md scale-[1.02]" : "border-slate-100 bg-white hover:border-slate-300 hover:shadow-sm"
+                            }`}>
                             {isCurrentCycleAndPlan && (
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-amber-400 text-amber-950 px-4 py-1 rounded-full text-[10px] font-extrabold tracking-widest uppercase shadow-sm">
                                     Current Plan
                                 </div>
                             )}
-                            
+
                             <h3 className="text-xl font-extrabold text-slate-800">{plan.name}</h3>
-                            
+
                             {/* 🚀 PRICING DISPLAY (Original Strikethrough + Offer) */}
                             <div className="mt-3 mb-1">
                                 <span className="text-lg text-slate-400 line-through font-semibold mr-2">
@@ -142,26 +147,25 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
                                     /{isAnnual ? 'yr' : 'mo'}
                                 </span>
                             </div>
-                            
+
                             <p className="text-xs text-slate-500 mt-2 mb-6 h-8 leading-relaxed font-medium">{plan.desc}</p>
-                            
+
                             <ul className="space-y-3 mb-8 flex-1">
                                 {plan.features.map((feature: any, i: any) => (
                                     <li key={i} className="flex items-start gap-2 text-sm text-slate-700 font-medium">
-                                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" /> 
+                                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                                         <span className="leading-tight">{feature}</span>
                                     </li>
                                 ))}
                             </ul>
 
-                            <Button onClick={() => handleCheckout(plan.id)} className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${
-                                isCurrentCycleAndPlan || (!isCurrentCycleAndPlan && currentPlan === plan.id) || currentPlanRank > (planPriority[plan.id] ?? 0)
-                                    ? "bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200" 
-                                    : "bg-slate-900 text-white hover:bg-blue-600 shadow-sm hover:shadow-md hover:-translate-y-1"
-                            }`}>
+                            <Button onClick={() => handleCheckout(plan.id)} className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${isCurrentCycleAndPlan || (!isCurrentCycleAndPlan && currentPlan === plan.id) || currentPlanRank > (planPriority[plan.id] ?? 0)
+                                ? "bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200"
+                                : "bg-slate-900 text-white hover:bg-blue-600 shadow-sm hover:shadow-md hover:-translate-y-1"
+                                }`}>
                                 {isCurrentCycleAndPlan
                                     ? "Active"
-                                    : currentPlan === plan.id 
+                                    : currentPlan === plan.id
                                         ? "Active on other cycle"
                                         : currentPlanRank > (planPriority[plan.id] ?? 0)
                                             ? "Included in current plan"

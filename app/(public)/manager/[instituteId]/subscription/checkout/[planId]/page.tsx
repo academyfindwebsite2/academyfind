@@ -14,9 +14,10 @@ export default async function CheckoutPage({ params,searchParams }: { params: Pr
             },
             desc: "Build trust and start capturing student leads.", 
             features: [
-                "Edit Your Profile", 
-                "Verified Badge", 
-                "Direct Lead Generation"
+                "Claim Profile", 
+                "Student Reviews", 
+                "Verified Badge",
+                "Teacher Profiles"
             ] 
         },
         { 
@@ -29,9 +30,13 @@ export default async function CheckoutPage({ params,searchParams }: { params: Pr
             desc: "Showcase faculty, results, and track analytics.", 
             features: [
                 "Everything in Verified", 
-                "Visit & Save Analytics", 
-                "Teacher Profiles (Up to 4)", 
-                "Videos & Results (Up to 4)"
+                "Rich Media (photos/videos)",
+                "Student Community", 
+                "Institute Forum", 
+                "Blog Publishing",
+                "Reply to Reviews",
+                "Verified Student Display",
+                "AI Visibility Insights"
             ] 
         },
         { 
@@ -44,9 +49,11 @@ export default async function CheckoutPage({ params,searchParams }: { params: Pr
             desc: "Maximum visibility and top search rankings.", 
             features: [
                 "Everything in Premium", 
-                "Top Priority Search Ranking", 
-                "Area-Specific Visibility", 
-                "Category-Specific Visibility"
+                "Priority Search Ranking", 
+                "Featured Homepage Placement", 
+                "AI Recommended Institute",
+                "AFC Campaign Creation",
+                "Community Analytics"
             ] 
         },
     ];
