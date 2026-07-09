@@ -25,10 +25,11 @@ export async function getInstitutesByCategory(
   const pureModes = modesArray.filter(m => m !== "HOMETUITION");
 
   // ==========================================
-  // 🚀 SCENARIO 1: MEILISEARCH (Live GPS integration)
+  // 🚀 SCENARIO 1: MEILISEARCH (Text Search & Live GPS)
   // ==========================================
-  if (lat && lng) {
+  if ((q && q.trim() !== "") || (lat && lng)) {
     let searchOptions: any = {
+      matchingStrategy: 'all',
       filter: [
         `type = "institute"`,
         `isActive = true`, 
@@ -48,21 +49,22 @@ export async function getInstitutesByCategory(
       searchOptions.filter.push(`mode IN [${meiliModes}]`);
     }
 
-    if (isHomeTuition) {
-      searchOptions.filter.push(`categorySlugs = "home-tuition"`);
-    }
-
     // Proximity logic or fallback sorting logic
     if (sort === "rating") {
       searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
     } else if (sort === "reviews") {
       searchOptions.sort = ["planWeight:desc", "googleReviewCount:desc"];
-    } else {
+    } else if (lat && lng) {
       searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"]; 
     }
 
-    const searchQuery = q ? q.trim() : "";
-    const searchRes = await meili.index("global_search").search(searchQuery, searchOptions);
+    let searchQuery = q ? q.trim() : "";
+    if (isHomeTuition) {
+      searchQuery = searchQuery ? `${searchQuery} home tuition` : "home tuition";
+    }
+
+    let searchRes = await meili.index("global_search").search(searchQuery, searchOptions);
+
     const instituteIds = searchRes.hits.map((hit: any) => hit.prismaId);
 
     if (instituteIds.length === 0) {
@@ -137,13 +139,12 @@ export async function getInstitutesByCategory(
     whereClause.AND = [
       ...(whereClause.AND || []),
       {
-        categories: {
-          some: {
-            category: {
-              slug: 'home-tuition'
-            }
-          }
-        }
+        OR: [
+          { categories: { some: { category: { slug: 'home-tuition' } } } },
+          { name: { contains: 'home tuition', mode: 'insensitive' } },
+          { name: { contains: 'hometuition', mode: 'insensitive' } },
+          { name: { contains: 'tutor', mode: 'insensitive' } },
+        ]
       }
     ];
   }

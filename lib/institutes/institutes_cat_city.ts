@@ -36,6 +36,7 @@ export async function getInstitutesByCategoryAndCity(
     let exactAreaMatch = true;
 
     let searchOptions: any = {
+      matchingStrategy: 'all',
       filter: [
         `type = "institute"`,
         `isActive = true`, 
@@ -57,10 +58,6 @@ export async function getInstitutesByCategoryAndCity(
       searchOptions.filter.push(`mode IN [${meiliModes}]`);
     }
 
-    if (isHomeTuition) {
-      searchOptions.filter.push(`categorySlugs = "home-tuition"`);
-    }
-
     if (lat && lng) {
       searchOptions.filter.push(`_geoRadius(${lat}, ${lng}, ${radiusInMeters})`);
     }
@@ -73,7 +70,11 @@ export async function getInstitutesByCategoryAndCity(
       searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"]; 
     }
 
-    const searchQuery = q ? q.trim() : "";
+    let searchQuery = q ? q.trim() : "";
+    if (isHomeTuition) {
+      searchQuery = searchQuery ? `${searchQuery} home tuition` : "home tuition";
+    }
+
     let searchRes = await meili.index("global_search").search(searchQuery, searchOptions);
 
     if (searchRes.hits.length === 0) {
@@ -96,20 +97,12 @@ export async function getInstitutesByCategoryAndCity(
         searchOptions.filter.push(`mode IN [${meiliModes}]`);
       }
       
-      if (isHomeTuition) {
-        searchOptions.filter.push(`categorySlugs = "home-tuition"`);
-      }
-      
       if (sort === "rating") searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
       else if (sort === "reviews") searchOptions.sort = ["planWeight:desc", "googleReviewCount:desc"];
       else if (lat && lng) searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"];
       else delete searchOptions.sort;
 
       searchRes = await meili.index("global_search").search(searchQuery, searchOptions);
-
-      if (searchRes.hits.length === 0 && searchQuery !== "") {
-         searchRes = await meili.index("global_search").search("", searchOptions);
-      }
     }
 
     const instituteIds = searchRes.hits.map((hit: any) => hit.prismaId);
@@ -184,13 +177,12 @@ export async function getInstitutesByCategoryAndCity(
     prismaWhere.AND = [
       ...(prismaWhere.AND || []),
       {
-        categories: {
-          some: {
-            category: {
-              slug: 'home-tuition'
-            }
-          }
-        }
+        OR: [
+          { categories: { some: { category: { slug: 'home-tuition' } } } },
+          { name: { contains: 'home tuition', mode: 'insensitive' } },
+          { name: { contains: 'hometuition', mode: 'insensitive' } },
+          { name: { contains: 'tutor', mode: 'insensitive' } },
+        ]
       }
     ];
   }
