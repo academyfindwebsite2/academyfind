@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     siteName: "AcademyFind",
     images: [
       {
-        url: "/new-logo.png",
+        url: "/final-logo.png",
         width: 1200,
         height: 630,
         alt: "AcademyFind - Education Directory",
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     title: "AcademyFind | Education Directory",
     description: "Discover top-rated coaching centers, schools, and hostels across India.",
     creator: "@academyfind",
-    images: ["/new-logo.png"],
+    images: ["/final-logo.png"],
   },
 
   icons: {

@@ -47,9 +47,9 @@ interface PageProps {
 }
 
 // ─── 1. METADATA ─────────────────────────────────────────────
-export async function generateMetadata({ params,searchParams  }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { category } = await params;
-  const {page} = await searchParams;
+  const { page } = await searchParams;
   const categoryName = formatSlug(category); // e.g. "IIT JEE Coaching"
 
   const currentYear = new Date().getFullYear();
@@ -81,16 +81,16 @@ export async function generateMetadata({ params,searchParams  }: PageProps): Pro
     robots: currentPage
       ? { index: false, follow: true }
       : {
+        index: true,
+        follow: true,
+        googleBot: {
           index: true,
           follow: true,
-          googleBot: {
-            index: true,
-            follow: true,
-            "max-snippet": -1,
-            "max-image-preview": "large",
-            "max-video-preview": -1,
-          },
+          "max-snippet": -1,
+          "max-image-preview": "large",
+          "max-video-preview": -1,
         },
+      },
 
     // ── Open Graph ──
     openGraph: {
@@ -102,7 +102,7 @@ export async function generateMetadata({ params,searchParams  }: PageProps): Pro
       type: "website",
       images: [
         {
-          url: "https://academyfind.com/new-logo.png",
+          url: "https://academyfind.com/final-logo.png",
           width: 1200,
           height: 630,
           alt: `Best ${categoryName} Institutes in India - AcademyFind`,
@@ -116,7 +116,7 @@ export async function generateMetadata({ params,searchParams  }: PageProps): Pro
       title: seoTitle,
       description: seoDescription,
       site: "@academyfind",
-      images: ["https://www.academyfind.com/new-logo.png"],
+      images: ["https://www.academyfind.com/final-logo.png"],
     },
 
     // ── Keywords ──
@@ -186,13 +186,13 @@ function JsonLdSchemas({ institutes, cities, categoryData, category, totalCount 
     url: pageUrl,
     numberOfItems: institutes.length > 10 ? 10 : institutes.length, // Ensure count matches array length
     itemListElement: institutes.slice(0, 10).map((institute, index) => {
-      
+
       // Inject Rating if it exists
       const reviewSchema = institute.googleRating ? {
         aggregateRating: {
           "@type": "AggregateRating",
           ratingValue: institute.googleRating,
-          reviewCount: institute.googleReviewCount || 1, 
+          reviewCount: institute.googleReviewCount || 1,
         }
       } : {};
 
@@ -272,12 +272,12 @@ function JsonLdSchemas({ institutes, cities, categoryData, category, totalCount 
     name: `Best ${categoryName} Institutes in India ${currentYear}`,
     url: pageUrl,
     description: `Discover and compare the best ${categoryName} institutes across Indian cities. Updated ${currentYear} listings with fees, reviews, and admissions info.`,
-    breadcrumb: { "@id": `${pageUrl}#breadcrumb` }, 
+    breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
     publisher: {
       "@type": "Organization",
       name: "AcademyFind",
       url: baseUrl,
-      logo: { "@type": "ImageObject", url: `${baseUrl}/new-logo.png` },
+      logo: { "@type": "ImageObject", url: `${baseUrl}/final-logo.png` },
     },
     inLanguage: "en-IN",
     hasPart: cities.slice(0, 20).map((city) => ({
@@ -319,22 +319,22 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
 
   const { institutes, totalPages, totalCount } = hasUniqueParams
     ? await getUncachedInstitutesByCategory(
-        category,
-        currentPage,
-        q,
-        sort,
-        rating,
-        mode,
-        parsedLat,
-        parsedLng,
-      )
+      category,
+      currentPage,
+      q,
+      sort,
+      rating,
+      mode,
+      parsedLat,
+      parsedLng,
+    )
     : await getCachedInstitutesByCategory(
-        category,
-        currentPage,
-        sort,
-        rating,
-        mode,
-      );
+      category,
+      currentPage,
+      sort,
+      rating,
+      mode,
+    );
 
   return (
     <main className="max-w-7xl mx-auto px-4 md:px-6 py-10">

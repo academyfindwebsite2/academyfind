@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: "AcademyFind | India's Most Trusted Education & Coaching Directory",
   description: "Discover top-rated coaching centers, schools, and hostels across India. Compare fees, read verified student reviews, and book free strategy calls on AcademyFind.",
   alternates: {
-    canonical: "https://www.academyfind.com",
+    canonical: "https://academyfind.com",
   },
   robots: {
     index: true,
@@ -38,13 +38,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AcademyFind | Find the Best Coaching & Institutes Near You",
     description: "Compare the best coaching institutes, schools, and hostels in India. Make informed educational choices with AcademyFind.",
-    url: "https://www.academyfind.com",
+    url: "https://academyfind.com",
     siteName: "AcademyFind",
     locale: "en_IN",
     type: "website",
     images: [
       {
-        url: "https://www.academyfind.com/new-logo.png", // Replace with a nice Home Banner if you have one
+        url: "https://academyfind.com/final-logo.png", // Replace with a nice Home Banner if you have one
         width: 1200,
         height: 630,
         alt: "AcademyFind Homepage",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     title: "AcademyFind | India's Top Education Directory",
     description: "Discover, compare, and connect with the best educational institutes near you.",
     site: "@academyfind",
-    images: ["https://www.academyfind.com/new-logo.png"],
+    images: ["https://academyfind.com/final-logo.png"],
   },
   keywords: [
     "education directory India",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
 
 // ─── 2. JSON-LD COMPONENT (Sitelinks Search & Organization) ──
 function JsonLdSchemas() {
-  const baseUrl = "https://www.academyfind.com";
+  const baseUrl = "https://academyfind.com";
 
   // a) WebSite Schema with SearchAction (Triggers Sitelink Search Box in Google)
   const websiteSchema = {
@@ -98,7 +98,7 @@ function JsonLdSchemas() {
     "@type": "Organization",
     name: "AcademyFind",
     url: baseUrl,
-    logo: `${baseUrl}/new-logo.png`,
+    logo: `${baseUrl}/final-logo.png`,
     description: "India's premier programmatic education directory helping students discover, compare, and connect with top coaching institutes, schools, and hostels.",
     contactPoint: {
       "@type": "ContactPoint",
@@ -108,7 +108,7 @@ function JsonLdSchemas() {
     },
     sameAs: [
       "https://wa.me/919045699938",
-      "https://www.instagram.com/academyfind", 
+      "https://www.instagram.com/academyfind",
       "https://www.facebook.com/profile.php?id=61561180379260",
       "https://www.linkedin.com/company/academyfind",
       "https://www.youtube.com/channel/UCYiRb6vo_Rr_w3PO746hsKg",
@@ -173,7 +173,7 @@ function JsonLdSchemas() {
 export default async function Home() {
   const session = await getSession();
   const userId = session?.user?.id;
-  
+
   let preferredCityIds: string[] = [];
   let preferredCategoryIds: string[] = [];
 

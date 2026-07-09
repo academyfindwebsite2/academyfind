@@ -99,16 +99,16 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     robots: currentPage
       ? { index: false, follow: true }
       : {
+        index: true,
+        follow: true,
+        googleBot: {
           index: true,
           follow: true,
-          googleBot: {
-            index: true,
-            follow: true,
-            "max-snippet": -1,
-            "max-image-preview": "large",
-            "max-video-preview": -1,
-          },
+          "max-snippet": -1,
+          "max-image-preview": "large",
+          "max-video-preview": -1,
         },
+      },
 
     openGraph: {
       title: seoTitle,
@@ -119,7 +119,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
       type: "website",
       images: [
         {
-          url: "https://academyfind.com/new-logo.png",
+          url: "https://academyfind.com/final-logo.png",
           width: 1200,
           height: 630,
           alt: `Best ${categoryName} in ${cityName} - AcademyFind`,
@@ -132,7 +132,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
       title: seoTitle,
       description: seoDescription,
       site: "@academyfind",
-      images: ["https://www.academyfind.com/new-logo.png"],
+      images: ["https://www.academyfind.com/final-logo.png"],
     },
 
     // Only emit keywords on page 1
@@ -214,10 +214,10 @@ function JsonLdSchemas({
           reviewCount: institute.googleReviewCount || 1, // Default 1 if rating exists but count is 0
         }
       } : {};
-      return{
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
           "@type": "EducationalOrganization",
           url: `${baseUrl}/institute/${institute.id}-${institute.slug}`,
           name: institute.name,
@@ -229,8 +229,8 @@ function JsonLdSchemas({
           },
           ...reviewSchema
         }
-    };
-  }),
+      };
+    }),
   }
   // ── b) BreadcrumbList Schema ──
   const breadcrumbSchema = {
@@ -314,7 +314,7 @@ function JsonLdSchemas({
       url: baseUrl,
       logo: {
         "@type": "ImageObject",
-        url: `${baseUrl}/new-logo.png`,
+        url: `${baseUrl}/final-logo.png`,
       },
     },
     inLanguage: "en-IN",
@@ -362,7 +362,7 @@ function JsonLdSchemas({
 // ─── 3. PAGE COMPONENT ───────────────────────────────────────
 export default async function CategoryCityPage({ params, searchParams }: PageProps) {
   const { category, city } = await params;
-  const { sort = "rating", page, q, lat, lng, address, radius, rating, userLat, userLng, closestUser,mode } =
+  const { sort = "rating", page, q, lat, lng, address, radius, rating, userLat, userLng, closestUser, mode } =
     await searchParams;
 
   const categoryName = formatSlug(category);
@@ -384,25 +384,25 @@ export default async function CategoryCityPage({ params, searchParams }: PagePro
 
   const { institutes, totalPages, totalCount, exactAreaMatch } = hasUniqueParams
     ? await getUncachedInstitutesByCategoryAndCity(
-        category,
-        city,
-        sort,
-        currentPage,
-        q,
-        parsedLat,
-        parsedLng,
-        parsedRadius,
-        minRating,
-        mode
-      )
+      category,
+      city,
+      sort,
+      currentPage,
+      q,
+      parsedLat,
+      parsedLng,
+      parsedRadius,
+      minRating,
+      mode
+    )
     : await getCachedInstitutesByCategoryAndCity(
-        category,
-        city,
-        sort,
-        currentPage,
-        minRating,
-        mode
-      );
+      category,
+      city,
+      sort,
+      currentPage,
+      minRating,
+      mode
+    );
 
   const displayLocationText = address || q || cityName;
 
