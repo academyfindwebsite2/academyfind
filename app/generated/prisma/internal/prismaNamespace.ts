@@ -7082,6 +7082,7 @@ export const LifeCoachRequestScalarFieldEnum = {
   email: 'email',
   message: 'message',
   status: 'status',
+  notes: 'notes',
   createdAt: 'createdAt'
 } as const
 

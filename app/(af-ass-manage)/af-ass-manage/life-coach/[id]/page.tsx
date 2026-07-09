@@ -28,7 +28,7 @@ export default async function LifeCoachDetailPage({ params }: { params: Promise<
             <p className="text-sm text-slate-500 font-mono mt-1">ID: {request.id}</p>
           </div>
           
-          <StatusUpdater requestId={request.id} currentStatus={request.status as any} />
+          <StatusUpdater requestId={request.id} currentStatus={request.status as any} currentNotes={request.notes} />
         </div>
 
         {/* Lead Details Grid */}

@@ -1065,6 +1065,7 @@ model LifeCoachRequest {
   email     String?
   message   String?
   status    LifeCoachRequestStatus @default(PENDING)
+  notes     String?
   createdAt DateTime               @default(now())
 }
 
@@ -1458,6 +1459,8 @@ enum LifeCoachRequestStatus {
   PENDING
   CONTACTED
   RESOLVED
+  JUNK
+  DNP
 }
 
 enum JobApplicationStatus {
