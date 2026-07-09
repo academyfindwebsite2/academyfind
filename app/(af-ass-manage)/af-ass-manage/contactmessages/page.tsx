@@ -7,14 +7,14 @@ export default async function ContactMessagesPage() {
     // Fetch latest 100 messages (Aap chaho toh pagination add kar sakte ho)
     const messages = await prisma.contactMessage.findMany({
         orderBy: { createdAt: 'desc' },
-        take: 100 
+        take: 100
     });
 
     const unreadCount = messages.filter((m: any) => !m.isRead).length;
 
     return (
         <div className="space-y-6 animate-in fade-in duration-500 max-w-7xl mx-auto pb-12">
-            
+
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b">
                 <div>
@@ -47,8 +47,8 @@ export default async function ContactMessagesPage() {
                                 </tr>
                             ) : (
                                 messages.map((msg: any) => (
-                                    <tr 
-                                        key={msg.id} 
+                                    <tr
+                                        key={msg.id}
                                         className={`hover:bg-slate-50 transition-colors group ${!msg.isRead ? 'bg-blue-50/30' : ''}`}
                                     >
                                         <td className="p-4 text-center">
@@ -58,7 +58,7 @@ export default async function ContactMessagesPage() {
                                                 <Circle className="w-4 h-4 fill-blue-500 text-blue-500 mx-auto animate-pulse" />
                                             )}
                                         </td>
-                                        
+
                                         <td className="p-4">
                                             <div className={`text-slate-900 ${!msg.isRead ? 'font-bold' : 'font-medium'}`}>
                                                 {msg.name}
@@ -78,12 +78,13 @@ export default async function ContactMessagesPage() {
                                         </td>
 
                                         <td className="p-4 text-slate-500 text-xs font-medium">
-                                            {format(new Date(msg.createdAt), "MMM dd, yyyy")} <br/>
+                                            {format(new Date(msg.createdAt), "MMM dd, yyyy")} <br />
                                             <span className="text-slate-400">{format(new Date(msg.createdAt), "hh:mm a")}</span>
                                         </td>
 
                                         <td className="p-4 text-right">
-                                            <Link 
+                                            <Link
+                                                prefetch={false}
                                                 href={`/af-ass-manage/contactmessages/${msg.id}`}
                                                 className="inline-flex items-center justify-center px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 transition-all"
                                             >

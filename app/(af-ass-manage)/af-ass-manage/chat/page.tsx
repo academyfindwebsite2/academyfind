@@ -109,11 +109,10 @@ function ReportCard({
 
   return (
     <div
-      className={`rounded-2xl border p-5 ${
-        report.status === "PENDING"
+      className={`rounded-2xl border p-5 ${report.status === "PENDING"
           ? "border-rose-200 bg-rose-50/30"
           : "border-slate-200 bg-white"
-      }`}
+        }`}
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
@@ -125,6 +124,7 @@ function ReportCard({
               in{" "}
               {context.institute ? (
                 <Link
+                  prefetch={false}
                   href={`/institute/${context.institute.id}-${context.institute.slug}`}
                   className="font-semibold text-amber-700 hover:underline"
                 >
@@ -159,11 +159,10 @@ function ReportCard({
           </p>
         </div>
         <span
-          className={`shrink-0 rounded-lg px-2 py-0.5 text-xs font-bold border ${
-            report.status === "PENDING"
+          className={`shrink-0 rounded-lg px-2 py-0.5 text-xs font-bold border ${report.status === "PENDING"
               ? "border-rose-200 bg-rose-50 text-rose-600"
               : "border-emerald-200 bg-emerald-50 text-emerald-700"
-          }`}
+            }`}
         >
           {report.status}
         </span>

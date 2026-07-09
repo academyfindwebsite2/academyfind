@@ -130,7 +130,7 @@ export default async function AdminCallbacksPage({
                       {callback.institute ? (
                         <Link
                           href={`/af-ass-manage/institutes/${callback.institute.id}`}
-
+                          prefetch={false}
                           className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-semibold transition"
                         >
                           <Building2 className="w-4 h-4" />

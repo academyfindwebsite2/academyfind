@@ -62,14 +62,14 @@ export default async function AdminClaimPage({
           <Filter className="w-4 h-4" /> Filter:
         </div>
         {filterOptions.map((opt: any) => (
-          <Link 
+          <Link
             key={opt.value}
+            prefetch={false}
             href={`/af-ass-manage/claims?status=${opt.value}`}
-            className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${
-              currentFilter === opt.value 
-              ? "bg-slate-800 text-white shadow-sm" 
+            className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${currentFilter === opt.value
+              ? "bg-slate-800 text-white shadow-sm"
               : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
-            }`}
+              }`}
           >
             {opt.label}
           </Link>
@@ -99,7 +99,7 @@ export default async function AdminClaimPage({
               ) : (
                 claims.map((claim: any) => (
                   <tr key={claim.id} className="hover:bg-slate-50/50 transition-colors">
-                    
+
                     {/* Date */}
                     <td className="p-4 whitespace-nowrap text-sm text-slate-600 font-medium">
                       {format(new Date(claim.createdAt), "dd MMM yyyy")}
@@ -109,7 +109,7 @@ export default async function AdminClaimPage({
                     <td className="p-4">
                       <div className="font-bold text-slate-800 flex items-center gap-1.5">
                         <Building2 className="w-4 h-4 text-slate-400" />
-                        <Link href={`/af-ass-manage/institutes/${claim.instituteId}`} className="hover:text-blue-600 transition">
+                        <Link prefetch={false} href={`/af-ass-manage/institutes/${claim.instituteId}`} className="hover:text-blue-600 transition">
                           {claim.institute.name}
                         </Link>
                       </div>
@@ -124,8 +124,8 @@ export default async function AdminClaimPage({
                         <User className="w-3.5 h-3.5 text-slate-400" /> {claim.fullName}
                       </div>
                       <div className="text-xs text-slate-500 mt-1 space-y-0.5">
-                        <div className="flex items-center gap-1.5"><Mail className="w-3 h-3"/> {claim.email}</div>
-                        <div className="flex items-center gap-1.5"><Phone className="w-3 h-3"/> {claim.phone}</div>
+                        <div className="flex items-center gap-1.5"><Mail className="w-3 h-3" /> {claim.email}</div>
+                        <div className="flex items-center gap-1.5"><Phone className="w-3 h-3" /> {claim.phone}</div>
                       </div>
                       <span className="inline-block mt-2 text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider border border-indigo-100">
                         Role: {claim.role}
@@ -141,11 +141,10 @@ export default async function AdminClaimPage({
 
                     {/* Status Badge */}
                     <td className="p-4">
-                      <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider border ${
-                        claim.status === "PENDING" ? "bg-amber-50 text-amber-700 border-amber-200" :
+                      <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider border ${claim.status === "PENDING" ? "bg-amber-50 text-amber-700 border-amber-200" :
                         claim.status === "APPROVED" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
-                        "bg-red-50 text-red-700 border-red-200"
-                      }`}>
+                          "bg-red-50 text-red-700 border-red-200"
+                        }`}>
                         {claim.status}
                       </span>
                     </td>
@@ -154,7 +153,7 @@ export default async function AdminClaimPage({
                     <td className="p-4 text-right">
                       {claim.status === "PENDING" ? (
                         <div className="flex justify-end gap-2">
-                          
+
                           {/* Reject Button Form */}
                           <form action={async () => {
                             "use server"

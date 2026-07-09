@@ -74,21 +74,21 @@ export default async function AdminBlogPage({
   const params = await searchParams;
   const page = Math.max(1, Number(params.page) || 1);
   const query = params.query?.trim() ?? "";
-  
+
   const status = Object.values(BlogStatus).includes(params.status as BlogStatus)
     ? (params.status as BlogStatus)
     : undefined;
-    
+
   const brandId = params.brand && params.brand !== ALL ? params.brand : undefined;
 
   const where = {
     ...(query
       ? {
-          OR: [
-            { title: { contains: query, mode: "insensitive" as const } },
-            { slug: { contains: query, mode: "insensitive" as const } },
-          ],
-        }
+        OR: [
+          { title: { contains: query, mode: "insensitive" as const } },
+          { slug: { contains: query, mode: "insensitive" as const } },
+        ],
+      }
       : {}),
     ...(status ? { status } : {}),
     ...(brandId ? { brandId } : {}),
@@ -162,10 +162,10 @@ export default async function AdminBlogPage({
         </div>
         <div className="flex gap-2">
           <Button asChild variant="outline">
-            <Link href="/af-ass-manage/blog/brands">Manage brands</Link>
+            <Link prefetch={false} href="/af-ass-manage/blog/brands">Manage brands</Link>
           </Button>
           <Button asChild className="bg-purple-600 text-white hover:bg-purple-700">
-            <Link href="/af-ass-manage/blog/new">
+            <Link prefetch={false} href="/af-ass-manage/blog/new">
               <Plus className="mr-2 size-4" />
               New brand post
             </Link>
@@ -340,17 +340,17 @@ export default async function AdminBlogPage({
           <div className="flex gap-2">
             {hasPrevious ? (
               <Button asChild variant="outline">
-                <Link href={buildPageHref(page - 1)}>Previous</Link>
+                <Link prefetch={false} href={buildPageHref(page - 1)}>Previous</Link>
               </Button>
             ) : (
               <Button variant="outline" disabled>
                 Previous
               </Button>
             )}
-            
+
             {hasNext ? (
               <Button asChild variant="outline">
-                <Link href={buildPageHref(page + 1)}>Next</Link>
+                <Link prefetch={false} href={buildPageHref(page + 1)}>Next</Link>
               </Button>
             ) : (
               <Button variant="outline" disabled>
