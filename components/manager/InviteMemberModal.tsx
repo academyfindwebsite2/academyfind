@@ -15,11 +15,13 @@ export function InviteMemberModal({ instituteId }: { instituteId: string }) {
     const [loading, setLoading] = useState(false);
     const [invitingId, setInvitingId] = useState<string | null>(null);
     const [role, setRole] = useState<"STUDENT" | "TEACHER">("STUDENT");
+    const [hasSearched, setHasSearched] = useState(false);
 
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!search.trim()) return;
         setLoading(true);
+        setHasSearched(true);
         try {
             const res = await fetch(`/api/v2/users/search?q=${encodeURIComponent(search)}&instituteId=${instituteId}`);
             if (res.ok) {
@@ -92,7 +94,10 @@ export function InviteMemberModal({ instituteId }: { instituteId: string }) {
                         <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                         <Input 
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                setHasSearched(false);
+                            }}
                             placeholder="Search by name, username or email..."
                             className="pl-9 bg-slate-50 border-slate-200"
                         />
@@ -137,7 +142,7 @@ export function InviteMemberModal({ instituteId }: { instituteId: string }) {
                                 </Button>
                             )}
                         </div>
-                    )) : search && !loading ? (
+                    )) : hasSearched && !loading ? (
                         <div className="text-center p-6 text-slate-500 text-sm">
                             No users found matching "{search}".<br/>
                             Make sure they have created an account on AcademyFind first.
