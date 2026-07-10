@@ -3,30 +3,35 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea"; 
+import { Textarea } from "@/components/ui/textarea";
 import toast from "react-hot-toast";
 import { UploadCloud, MapPin, Landmark, CheckCircle, Globe, User, Plus, X, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import LocationAutocomplete from "../search/LocationAutoComplete";
-import { addInstitute } from "@/lib/User/user/create-institute"; 
+import { addInstitute } from "@/lib/User/user/create-institute";
 
-export default function CreateInstituteForm({ 
+
+export default function CreateInstituteForm({
     userId,
-    allCities, 
-    allCategories 
-}: { 
+    allCities,
+    allCategories,
+    defaultName,
+    defaultPhone
+}: {
     userId: string;
-    allCities: any[]; 
+    allCities: any[];
     allCategories: any[];
+    defaultName?: string | null;
+    defaultPhone?: string | null;
 }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-    
+
     // Image State
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string>("");
-    
+
     // Location State
     const [location, setLocation] = useState({ lat: 0, lng: 0, address: "" });
 
@@ -48,7 +53,7 @@ export default function CreateInstituteForm({
         }
 
         setImageFile(file);
-        setImagePreview(URL.createObjectURL(file)); 
+        setImagePreview(URL.createObjectURL(file));
     };
 
     const handleCategoryToggle = (categoryId: string) => {
@@ -65,7 +70,7 @@ export default function CreateInstituteForm({
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (selectedCategories.length === 0) {
             toast.error("Please select at least one core category.");
             return;
@@ -73,14 +78,14 @@ export default function CreateInstituteForm({
 
         setIsLoading(true);
         const formData = new FormData(e.currentTarget);
-        
+
         if (imageFile) {
             formData.append("imageFile", imageFile);
         }
 
         try {
             const result = await addInstitute(userId, formData, selectedCategories);
-            
+
             if (result.success) {
                 toast.success("Institute profile submitted for review!", { icon: '🎉' });
                 router.push(`/user/create-institute`);
@@ -96,7 +101,7 @@ export default function CreateInstituteForm({
     };
 
     // Filter categories based on search
-    const filteredCategories = allCategories.filter(cat => 
+    const filteredCategories = allCategories.filter(cat =>
         cat.name.toLowerCase().includes(categorySearch.toLowerCase())
     );
 
@@ -117,7 +122,7 @@ export default function CreateInstituteForm({
             </div>
 
             <div className="space-y-12">
-                
+
                 {/* --- Section 1: Owner Details --- */}
                 <div className="relative bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
                     <div className="absolute -top-4 left-8 bg-amber-500 text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-widest uppercase shadow-sm">
@@ -130,18 +135,18 @@ export default function CreateInstituteForm({
                             <p className="text-xs text-slate-500 mt-1">These details are kept private for verification purposes.</p>
                         </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Full Name *</label>
-                            <Input maxLength={60} name="ownerName" required placeholder="e.g. Rahul Sharma" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Full Name <span className="text-red-500">*</span></label>
+                            <Input maxLength={60} name="ownerName" required placeholder="e.g. Rahul Sharma" defaultValue={defaultName || ""} className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Phone Number *</label>
-                            <Input maxLength={10} name="ownerPhone" type="tel" required placeholder="e.g. 9876543210" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Phone Number <span className="text-red-500">*</span></label>
+                            <Input maxLength={10} name="ownerPhone" type="tel" required placeholder="e.g. 9876543210" defaultValue={defaultPhone || ""} className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Designation *</label>
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Designation <span className="text-red-500">*</span></label>
                             <Input maxLength={60} name="ownerDesignation" required placeholder="e.g. Founder / Director" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                     </div>
@@ -149,7 +154,7 @@ export default function CreateInstituteForm({
 
                 {/* --- Section 2: Banner Image --- */}
                 <div className="relative bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-                     <div className="absolute -top-4 left-8 bg-amber-500 text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-widest uppercase shadow-sm">
+                    <div className="absolute -top-4 left-8 bg-amber-500 text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-widest uppercase shadow-sm">
                         Step 2
                     </div>
                     <div className="flex items-center gap-3 mb-8">
@@ -205,14 +210,14 @@ export default function CreateInstituteForm({
                             <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Registered Institute Name *</label>
                             <Input name="name" required placeholder="e.g. Allen Career Institute" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl text-lg py-6" />
                         </div>
-                        
+
                         <div className="space-y-2.5">
                             <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">About the Academy *</label>
-                            <Textarea 
-                                name="description" 
-                                required 
-                                placeholder="Describe your teaching methodology, faculty experience, past results, and why students should join you..." 
-                                className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl min-h-[160px] resize-none leading-relaxed" 
+                            <Textarea
+                                name="description"
+                                required
+                                placeholder="Describe your teaching methodology, faculty experience, past results, and why students should join you..."
+                                className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl min-h-[160px] resize-none leading-relaxed"
                             />
                         </div>
                     </div>
@@ -286,10 +291,10 @@ export default function CreateInstituteForm({
                         <label className="text-xs font-bold text-slate-600 uppercase tracking-wide mb-3 block">Complete Address *</label>
                         <div className="space-y-4">
                             <LocationAutocomplete onLocationSelect={handleLocationSelect} />
-                            <Input name="address" value={location.address} onChange={(e) => setLocation({...location, address: e.target.value})} required placeholder="Floor, Building, Street, Landmark..." className="bg-white border-slate-200 focus-visible:ring-amber-400" />
+                            <Input name="address" value={location.address} onChange={(e) => setLocation({ ...location, address: e.target.value })} required placeholder="Floor, Building, Street, Landmark..." className="bg-white border-slate-200 focus-visible:ring-amber-400" />
                             <div className="grid grid-cols-2 gap-4 hidden">
-                                <Input name="latitude" type="number" step="any" value={location.lat} onChange={(e) => setLocation({...location, lat: parseFloat(e.target.value)})} />
-                                <Input name="longitude" type="number" step="any" value={location.lng} onChange={(e) => setLocation({...location, lng: parseFloat(e.target.value)})} />
+                                <Input name="latitude" type="number" step="any" value={location.lat} onChange={(e) => setLocation({ ...location, lat: parseFloat(e.target.value) })} />
+                                <Input name="longitude" type="number" step="any" value={location.lng} onChange={(e) => setLocation({ ...location, lng: parseFloat(e.target.value) })} />
                             </div>
                         </div>
                     </div>
@@ -298,13 +303,13 @@ export default function CreateInstituteForm({
                     <div>
                         <div className="flex items-center justify-between mb-4">
                             <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Core Categories * <span className="normal-case text-[10px] text-slate-400 font-medium ml-2">(Max 5)</span></label>
-                            
+
                             {/* Search Categories */}
                             <div className="relative w-48">
                                 <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                                <input 
-                                    type="text" 
-                                    placeholder="Search..." 
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
                                     value={categorySearch}
                                     onChange={(e) => setCategorySearch(e.target.value)}
                                     className="w-full text-xs py-2 pl-8 pr-3 rounded-lg border border-slate-200 bg-white outline-none focus:border-amber-400"
@@ -320,15 +325,14 @@ export default function CreateInstituteForm({
                                     {filteredCategories.map((cat: { id: string; name: string }) => {
                                         const isSelected = selectedCategories.includes(cat.id);
                                         return (
-                                            <button 
+                                            <button
                                                 type="button"
-                                                key={cat.id} 
+                                                key={cat.id}
                                                 onClick={() => handleCategoryToggle(cat.id)}
-                                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${
-                                                    isSelected 
-                                                    ? 'bg-amber-100 border-amber-300 text-amber-900 shadow-xs' 
+                                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${isSelected
+                                                    ? 'bg-amber-100 border-amber-300 text-amber-900 shadow-xs'
                                                     : 'bg-white border-slate-200 text-slate-600 hover:border-amber-400'
-                                                }`}
+                                                    }`}
                                             >
                                                 {isSelected ? <CheckCircle className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5 text-slate-400" />}
                                                 {cat.name}
@@ -347,12 +351,11 @@ export default function CreateInstituteForm({
             <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/80 backdrop-blur-md border-t border-slate-200 flex justify-center">
                 <div className="w-full max-w-4xl flex items-center justify-between">
                     <p className="hidden sm:block text-sm text-slate-500 font-medium">Review your details before submitting.</p>
-                    <Button 
-                        type="submit" 
-                        disabled={isLoading} 
-                        className={`w-full sm:w-auto py-6 px-10 text-base font-bold rounded-2xl shadow-lg transition-all ${
-                            isLoading ? 'bg-slate-400' : 'bg-linear-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white hover:shadow-amber-500/25'
-                        }`}
+                    <Button
+                        type="submit"
+                        disabled={isLoading}
+                        className={`w-full sm:w-auto py-6 px-10 text-base font-bold rounded-2xl shadow-lg transition-all ${isLoading ? 'bg-slate-400' : 'bg-linear-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white hover:shadow-amber-500/25'
+                            }`}
                     >
                         {isLoading ? (
                             <span className="flex items-center gap-2">

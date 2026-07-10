@@ -9,11 +9,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "List Your Institute | AcademyFind",
-  robots: {
-    index: false,
-    follow: false,
-  },
+    title: "List Your Institute | AcademyFind",
+    robots: {
+        index: false,
+        follow: false,
+    },
 };
 
 export default async function UserCreateInstitutePage() {
@@ -28,7 +28,7 @@ export default async function UserCreateInstitutePage() {
     const user = await prisma.user.findUnique({
         where: { id: session.user.id },
         include: {
-            managedInstitutes: true 
+            managedInstitutes: true
         }
     });
 
@@ -84,7 +84,7 @@ export default async function UserCreateInstitutePage() {
                         </div>
                     ) : null}
                 </div>
-                
+
                 {/* Pricing Link - visible even when request is pending */}
                 <div className="flex justify-center mt-6">
                     <PricingModal>
@@ -146,8 +146,8 @@ export default async function UserCreateInstitutePage() {
                 </p>
             </div>
         );
-    } 
-    
+    }
+
     else if (latestStatus === "APPROVED") {
         const isAlreadyManager = latestReq
             ? user.managedInstitutes.some(
@@ -193,12 +193,14 @@ export default async function UserCreateInstitutePage() {
                         </button>
                     </PricingModal>
                 </div>
-                
+
                 {latestStatus !== "PENDING" && (
-                    <CreateInstituteForm 
-                        userId={user.id} 
-                        allCities={allCities} 
-                        allCategories={allCategories} 
+                    <CreateInstituteForm
+                        userId={user.id}
+                        allCities={allCities}
+                        allCategories={allCategories}
+                        defaultName={user?.name}
+                        defaultPhone={user?.phone}
                     />
                 )}
             </div>
