@@ -16,6 +16,8 @@ import ViewTracker from "@/components/blog/article/ViewTracker";
 import { getCachedSession } from "@/lib/auth/session";
 import { getBlogPostBySlug, getisBookmarked, getRelatedInstitute, getUserReaction, getRelatedPosts } from "@/lib/User/user/blog/blogpost";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import Script from "next/script";
 
 type Props = {
   params: Promise<{
@@ -28,6 +30,40 @@ type TOCItem = {
   text: string;
   level: number;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+
+  if (!post) {
+    return { title: "Blog Not Found | AcademyFind" };
+  }
+
+  const title = `${post.title} | AcademyFind Blog`;
+  const description = post.excerpt || `Read ${post.title} on AcademyFind.`;
+  const url = `https://academyfind.com/blog/${post.slug}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "article",
+      publishedTime: post.createdAt?.toISOString(),
+      modifiedTime: post.updatedAt?.toISOString(),
+      images: post.coverImage ? [post.coverImage] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: post.coverImage ? [post.coverImage] : [],
+    },
+  };
+}
 
 export default async function BlogDetailPage({
   params,
@@ -51,8 +87,36 @@ export default async function BlogDetailPage({
     getRelatedPosts(post.id || "", post.categoryId || ""),
   ]);
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt || "",
+    "image": post.coverImage ? [post.coverImage] : [],
+    "datePublished": post.createdAt,
+    "dateModified": post.updatedAt,
+    "author": [{
+      "@type": "Person",
+      "name": post.authorProfile?.name || "AcademyFind Team",
+      "url": post.authorProfile?.username ? `https://academyfind.com/u/${post.authorProfile.username}` : "https://academyfind.com"
+    }]
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://academyfind.com" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://academyfind.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": post.category?.name || "Uncategorized", "item": `https://academyfind.com/blog/category/${post.category?.slug || ""}` },
+      { "@type": "ListItem", "position": 4, "name": post.title, "item": `https://academyfind.com/blog/${post.slug}` }
+    ]
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <Script id="schema-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <Script id="schema-breadcrumb-blog" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <ViewTracker postId={post.id} />
       <ReadingProgress />
 

@@ -332,6 +332,18 @@ function JsonLdSchemas({
       },
     },
   };
+  // ── e) CollectionPage Schema (🔥 GOD LEVEL: Defines the page purpose) ──
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Best ${categoryName} in ${cityName} ${currentYear}`,
+    description: `Top ${estimateCount(totalCount)} ${categoryName} in ${cityName} with fees, reviews, and contact details.`,
+    url: pageUrl,
+    about: {
+      "@type": "Thing",
+      name: `${categoryName} in ${cityName}`
+    }
+  };
 
   return (
     <>
@@ -354,6 +366,11 @@ function JsonLdSchemas({
         id="schema-webpage"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <Script
+        id="schema-collection"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
       />
     </>
   );

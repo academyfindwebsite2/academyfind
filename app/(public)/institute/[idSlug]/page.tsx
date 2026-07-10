@@ -268,10 +268,26 @@ export default async function InstitutePage({ params }: PageProps) {
     ? institute.googleMapsUrl
     : `https://www.google.com/maps/search/?api=1&query=$?q=${encodeURIComponent(`${institute.name}, ${institute.address || institute.city.name}`)}`;
 
+  // Extract top reviews for schema
+  const reviewsSchema = institute.reviews?.slice(0, 5).map((rev: any) => ({
+    "@type": "Review",
+    "author": {
+      "@type": "Person",
+      "name": rev.user?.name || "Student"
+    },
+    "datePublished": rev.createdAt,
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": rev.rating,
+      "bestRating": "5"
+    },
+    "reviewBody": rev.content || ""
+  })) || [];
+
   // ── 3. JSON-LD ──
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "EducationalOrganization"],
     "name": institute.name,
     "image": safeSchemaImage,
     "address": {
@@ -282,11 +298,13 @@ export default async function InstitutePage({ params }: PageProps) {
     },
     "telephone": institute.phone || "",
     "url": institute.website || `https://academyfind.com/institute/${idSlug}`,
+    "priceRange": "₹₹",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": displayRating > 0 ? displayRating : 4.5,
       "reviewCount": displayReviewCount > 0 ? displayReviewCount : 1
-    }
+    },
+    ...(reviewsSchema.length > 0 && { "review": reviewsSchema })
   };
 
   const validClassroomImages = institute.classroomImages?.filter(isCloudinaryImage) || [];

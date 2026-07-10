@@ -287,12 +287,26 @@ function JsonLdSchemas({ institutes, cities, categoryData, category, totalCount 
     })),
   };
 
+  // ── d) CollectionPage Schema (🔥 GOD LEVEL: Defines the page purpose) ──
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Best ${categoryName} Institutes in India ${currentYear}`,
+    description: categoryData.description || `Top ${categoryName} institutes across India with fees, reviews, and contact details.`,
+    url: pageUrl,
+    about: {
+      "@type": "Thing",
+      name: categoryName
+    }
+  };
+
   return (
     <>
       <Script id="schema-itemlist" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Script id="schema-webpage" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
+      <Script id="schema-collection" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }} />
     </>
   );
 }

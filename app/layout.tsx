@@ -68,16 +68,16 @@ export const metadata: Metadata = {
         url: "/final-logo.png",
         width: 1200,
         height: 630,
-        alt: "AcademyFind - Education Directory",
+        alt: "AcademyFind Banner",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "AcademyFind | Education Directory",
-    description: "Discover top-rated coaching centers, schools, and hostels across India.",
-    creator: "@academyfind",
+    site: "@academyfind",
+    title: "AcademyFind | Find the Best Coaching & Institutes",
+    description: "Discover top-rated coaching centers, schools, and hostels.",
     images: ["/final-logo.png"],
   },
 
