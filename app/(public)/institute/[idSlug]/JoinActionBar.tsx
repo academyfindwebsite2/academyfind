@@ -400,7 +400,7 @@ function SelectField({
         className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
       >
         <option value="">Select year</option>
-        {options.map((y) => (
+        {options.map((y: any) => (
           <option key={y} value={y}>
             {y}
           </option>

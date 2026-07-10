@@ -26,7 +26,7 @@ const teacherJoinSchema = z.object({
     .transform((s) =>
       (s ?? "")
         .split(",")
-        .map((t) => t.trim())
+        .map((t: any) => t.trim())
         .filter(Boolean),
     ),
   bio: z.string().trim().max(500).optional(),
@@ -115,7 +115,7 @@ export async function requestStudentJoin(
   });
 
   await Promise.all([
-    ...institute.managers.map((mgr) =>
+    ...institute.managers.map((mgr: any) =>
       notifyUser(
         mgr.userId,
         "SYSTEM",
@@ -209,7 +209,7 @@ export async function requestTeacherJoin(
   });
 
   await Promise.all([
-    ...institute.managers.map((mgr) =>
+    ...institute.managers.map((mgr: any) =>
       notifyUser(
         mgr.userId,
         "SYSTEM",

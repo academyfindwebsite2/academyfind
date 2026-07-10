@@ -238,7 +238,7 @@ export default async function InstitutePage({ params }: PageProps) {
             select: { batchId: true }
           })
         ]).then(([students, teachers]) => {
-          return new Set([...students.map(s => s.batchId), ...teachers.map(t => t.batchId)]);
+          return new Set([...students.map((s: any) => s.batchId), ...teachers.map((t: any) => t.batchId)]);
         })
       : Promise.resolve(new Set<string>())
   ]);
