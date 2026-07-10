@@ -32,7 +32,10 @@ export default async function PublicLayout({
 
       <Footer />
 
-      <GlobalCallbackFAB />
+      <GlobalCallbackFAB
+        defaultName={session?.user?.name || ""}
+        defaultPhone={session?.user?.phone || ""}
+      />
     </>
   );
 }
