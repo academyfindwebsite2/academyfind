@@ -24,7 +24,7 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-12 lg:grid-rows-[auto_auto] lg:gap-8">
-          
+
           {/* Main Hero Copy - Spans 7 cols on Desktop */}
           <div className="flex flex-col justify-center rounded-3xl bg-white/5 p-8 backdrop-blur-xl ring-1 ring-white/10 lg:col-span-7 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="inline-flex items-center gap-2 self-start rounded-full bg-amber-500/20 px-4 py-2 text-sm font-semibold text-amber-400 ring-1 ring-amber-500/30">
@@ -32,7 +32,7 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
               The AcademyFind Blog
             </div>
             <h1 className="mt-8 text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Fuel your <br/>
+              Fuel your <br />
               <span className="bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
                 Curiosity.
               </span>
@@ -40,14 +40,14 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-slate-300">
               Discover the absolute best coaching reviews, expert preparation strategies, and deep dives into the Indian education system.
             </p>
-            
+
             <div className="mt-10">
               {/* Inherits search bar but we wrap it to restrict width if needed */}
               <div className="[&>form]:mx-0 [&>form]:max-w-xl [&_input]:text-white [&_input]:placeholder-slate-400 [&_.group]:bg-slate-900/50 [&_.group]:ring-1 [&_.group]:ring-white/10 [&_.group]:backdrop-blur-md">
                 <SearchBar />
               </div>
             </div>
-            
+
             <div className="mt-8 [&_.text-slate-500]:text-slate-400 [&_a]:bg-white/10 [&_a]:text-slate-300 [&_a:hover]:bg-amber-500/20 [&_a:hover]:text-amber-300">
               <TrendingTopics />
             </div>
@@ -55,18 +55,19 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
 
           {/* Main Featured Post - Spans 5 cols */}
           {mainPost ? (
-            <Link 
+            <Link
               href={`/blog/${mainPost.slug}`}
+              prefetch={false}
               className="group relative flex min-h-[400px] flex-col justify-end overflow-hidden rounded-3xl ring-1 ring-white/10 lg:col-span-5 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150"
             >
-              <Image 
+              <Image
                 src={mainPost.coverImage || DEFAULT_IMAGE}
                 alt={mainPost.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
-              
+
               <div className="relative z-10 p-8">
                 <span className="mb-4 inline-block rounded-full bg-amber-500 px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-950">
                   {mainPost.category?.name || "Featured"}
@@ -90,18 +91,19 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
 
           {/* Secondary Featured Post 1 - Spans 6 cols */}
           {sidePost1 && (
-            <Link 
+            <Link
               href={`/blog/${sidePost1.slug}`}
+              prefetch={false}
               className="group relative flex min-h-[250px] flex-col justify-end overflow-hidden rounded-3xl ring-1 ring-white/10 lg:col-span-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300"
             >
-              <Image 
+              <Image
                 src={sidePost1.coverImage || DEFAULT_IMAGE}
                 alt={sidePost1.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
-              
+
               <div className="relative z-10 flex h-full flex-col justify-between p-6">
                 <div className="self-end rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-md ring-1 ring-white/20">
                   {sidePost1.category?.name}
@@ -122,18 +124,19 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
 
           {/* Secondary Featured Post 2 - Spans 6 cols */}
           {sidePost2 && (
-            <Link 
+            <Link
               href={`/blog/${sidePost2.slug}`}
+              prefetch={false}
               className="group relative flex min-h-[250px] flex-col justify-end overflow-hidden rounded-3xl ring-1 ring-white/10 lg:col-span-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500"
             >
-              <Image 
+              <Image
                 src={sidePost2.coverImage || DEFAULT_IMAGE}
                 alt={sidePost2.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
-              
+
               <div className="relative z-10 flex h-full flex-col justify-between p-6">
                 <div className="self-end rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-md ring-1 ring-white/20">
                   {sidePost2.category?.name}

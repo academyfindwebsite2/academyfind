@@ -22,7 +22,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
     <section className="bg-white py-24 relative overflow-hidden">
       {/* Decorative Blur */}
       <div className="pointer-events-none absolute left-0 top-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-amber-100/50 blur-[120px]" />
-      
+
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
@@ -39,6 +39,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
 
           <Link
             href="/blog/search"
+            prefetch={false}
             className="group inline-flex items-center gap-3 self-start rounded-full bg-slate-950 px-6 py-3 font-semibold text-white transition-all hover:bg-amber-500 hover:shadow-xl hover:shadow-amber-500/20 md:self-auto"
           >
             Explore All
@@ -55,6 +56,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
             </p>
             <Link
               href="/blog"
+              prefetch={false}
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-amber-400 px-8 py-4 font-bold text-slate-900 transition hover:bg-amber-500 hover:scale-105 active:scale-95"
             >
               Reset Filters
@@ -67,14 +69,15 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
               {posts.map((post, i) => {
                 // Make every 1st and 6th post span 2 columns on tablet/desktop for an editorial look
                 const isLarge = i === 0 || i === 5;
-                const spanClasses = isLarge 
-                  ? "md:col-span-2 lg:col-span-2 flex-col md:flex-row" 
+                const spanClasses = isLarge
+                  ? "md:col-span-2 lg:col-span-2 flex-col md:flex-row"
                   : "col-span-1 flex-col";
 
                 return (
                   <Link
                     key={post.id}
                     href={`/blog/${post.slug}`}
+                    prefetch={false}
                     className={`group relative flex overflow-hidden rounded-[2.5rem] bg-slate-50 border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(245,158,11,0.15)] ${spanClasses}`}
                     style={{ animationDelay: `${i * 100}ms` }}
                   >
@@ -87,7 +90,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-slate-900/10 transition-colors group-hover:bg-transparent" />
-                      
+
                       <div className="absolute left-6 top-6 rounded-full bg-white/90 backdrop-blur-md px-4 py-2 text-xs font-black uppercase tracking-widest text-amber-600 shadow-sm">
                         {post.category?.name || "Education"}
                       </div>
@@ -135,6 +138,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
             <div className="mt-20 flex justify-center">
               <Link
                 href="/blog/search"
+                prefetch={false}
                 className="group inline-flex items-center gap-3 rounded-full border-2 border-slate-200 bg-white px-8 py-4 font-bold text-slate-700 transition-all hover:border-amber-400 hover:bg-amber-50 hover:text-amber-600 hover:shadow-xl hover:shadow-amber-100"
               >
                 Discover More Stories

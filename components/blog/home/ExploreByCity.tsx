@@ -58,7 +58,8 @@ export default async function ExploreByCity() {
             return (
               <Link
                 key={city.slug}
-                href={`/city/${city.slug}`}
+                prefetch={false}
+                href={`/categories?city=${city.slug}`}
                 className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
               >
                 <div
@@ -91,6 +92,7 @@ export default async function ExploreByCity() {
         <div className="mt-14 flex justify-center">
           <Link
             href="/cities"
+            prefetch={false}
             className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-7 py-4 font-semibold text-slate-700 shadow-sm transition hover:border-amber-300 hover:bg-amber-50 hover:text-amber-700 hover:shadow-lg"
           >
             View All Cities

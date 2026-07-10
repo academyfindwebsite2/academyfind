@@ -36,7 +36,7 @@ function formatCount(num: number): string {
 export default async function ExploreByExam() {
   // Query 8 active top-level exam categories with institute counts
   const dbCategories = await prisma.category.findMany({
-    where: { 
+    where: {
       isActive: true,
       children: { none: {} }
     },
@@ -79,6 +79,7 @@ export default async function ExploreByExam() {
             return (
               <Link
                 key={exam.slug}
+                prefetch={false}
                 href={`/${exam.slug}`}
                 className="group rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-amber-300 hover:shadow-xl"
               >
@@ -112,6 +113,7 @@ export default async function ExploreByExam() {
         <div className="mt-14 flex justify-center">
           <Link
             href="/categories"
+            prefetch={false}
             className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-7 py-4 font-semibold text-slate-700 shadow-sm transition-all hover:border-amber-300 hover:bg-amber-50 hover:text-amber-700 hover:shadow-lg"
           >
             View All Categories

@@ -43,6 +43,7 @@ export default function TrendingPosts({ posts }: TrendingPostsProps) {
 
           <Link
             href="/blog/search?sort=popular"
+            prefetch={false}
             className="group hidden items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-3 font-semibold text-white backdrop-blur-md transition-all hover:bg-amber-500 hover:text-slate-950 md:inline-flex"
           >
             Explore All
@@ -56,6 +57,7 @@ export default function TrendingPosts({ posts }: TrendingPostsProps) {
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
+              prefetch={false}
               className="group relative flex flex-col overflow-hidden rounded-3xl bg-white/5 ring-1 ring-white/10 transition-all duration-500 hover:-translate-y-2 hover:bg-white/10 hover:ring-amber-500/50 hover:shadow-[0_0_30px_rgb(245,158,11,0.2)]"
               style={{ animationDelay: `${index * 150}ms` }}
             >
@@ -72,7 +74,7 @@ export default function TrendingPosts({ posts }: TrendingPostsProps) {
                   className="object-cover transition duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent" />
-                
+
                 <div className="absolute bottom-4 left-4 rounded-full bg-amber-500 px-3 py-1 text-xs font-black uppercase tracking-wider text-slate-950 shadow-lg">
                   {post.category?.name || "Education"}
                 </div>
@@ -89,7 +91,7 @@ export default function TrendingPosts({ posts }: TrendingPostsProps) {
                     {post.title}
                   </h3>
                 </div>
-                
+
                 <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-4">
                   <span className="text-sm font-medium text-slate-400">
                     {post.authorProfile?.displayName || "Editorial"}
@@ -102,11 +104,12 @@ export default function TrendingPosts({ posts }: TrendingPostsProps) {
             </Link>
           ))}
         </div>
-        
+
         {/* Mobile View All Button */}
         <div className="mt-12 flex justify-center md:hidden">
           <Link
             href="/blog/search?sort=popular"
+            prefetch={false}
             className="group inline-flex items-center gap-3 rounded-full bg-amber-500 px-8 py-4 font-bold text-slate-950 transition-all hover:bg-amber-400"
           >
             Explore All Trending

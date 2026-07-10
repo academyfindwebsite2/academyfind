@@ -58,7 +58,8 @@ export default function CTASection({ stats }: CTASectionProps) {
 
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
-              href="/search"
+              href="/"
+              prefetch={false}
               className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-white px-8 font-semibold text-slate-900 transition-all duration-300 hover:-translate-y-1 hover:bg-slate-100"
             >
               <Search className="h-5 w-5" />
@@ -70,6 +71,7 @@ export default function CTASection({ stats }: CTASectionProps) {
 
             <Link
               href="/compare"
+              prefetch={false}
               className="inline-flex h-14 items-center justify-center rounded-2xl border border-white/30 bg-white/10 px-8 font-semibold text-white backdrop-blur transition-all duration-300 hover:bg-white/20"
             >
               Compare Coaching
