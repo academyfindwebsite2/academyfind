@@ -6,14 +6,14 @@ import { auth } from "@/lib/auth/auth";
 import extractId from "@/lib/extractId"; // 👈 ID extract karne ka function
 import { Metadata } from "next";
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ idSlug: string }> 
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ idSlug: string }>
 }): Promise<Metadata> {
   const { idSlug } = await params;
   const id = extractId(idSlug);
-  
+
   // Tab title ke liye institute ka naam nikal rahe hain
   const institute = await prisma.institute.findUnique({
     where: { id: id },
@@ -26,7 +26,7 @@ export async function generateMetadata({
     // 🛑 Strictly blocking search engines from indexing this form
     robots: {
       index: false,
-      follow: false, 
+      follow: false,
     },
   };
 }
@@ -55,7 +55,7 @@ export default async function ClaimInstitutePage({
   const institute = await prisma.institute.findUnique({
     where: { id: id },
     select: { id: true, name: true },
-    
+
   });
 
   if (!institute) {
@@ -69,10 +69,13 @@ export default async function ClaimInstitutePage({
   return (
     <div className="min-h-screen bg-slate-50/50 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center font-sans">
       <div className="w-full max-w-5xl">
-        <ClaimForm 
-          instituteId={institute.id} 
-          instituteName={institute.name}
-          userId={userId} 
+        <ClaimForm
+          instituteId={institute?.id}
+          instituteName={institute?.name}
+          userId={userId}
+          defaultName={session?.user?.name}
+          defaultEmail={session?.user?.email}
+          defaultPhone={session?.user?.phone}
         />
       </div>
     </div>

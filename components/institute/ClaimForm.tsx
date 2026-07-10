@@ -19,9 +19,12 @@ interface ClaimFormProps {
   instituteId: string;
   instituteName: string;
   userId: string;
+  defaultName?: string | null;
+  defaultEmail?: string | null;
+  defaultPhone?: string | null;
 }
 
-export default function ClaimForm({ instituteId, instituteName, userId }: ClaimFormProps) {
+export default function ClaimForm({ instituteId, instituteName, userId, defaultName, defaultEmail, defaultPhone }: ClaimFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -31,10 +34,10 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMsg("");
-    
+
     const formData = new FormData(e.currentTarget);
     const res = await submitClaimRequest(formData);
-    
+
     if (res.success) {
       setSuccess(true);
     } else {
@@ -53,7 +56,7 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
         <p className="text-slate-500 mb-8 leading-relaxed">
           Thank you for claiming <strong className="text-slate-800">{instituteName}</strong>. Our admin team will verify your details and grant you access shortly.
         </p>
-        <button 
+        <button
           onClick={() => router.push('/')}
           className="w-full py-3.5 bg-amber-400 text-white rounded-xl font-semibold hover:bg-amber-500 transition-all shadow-md shadow-amber-500/20"
         >
@@ -65,12 +68,12 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
 
   return (
     <div className="bg-white rounded-3xl shadow-2xl shadow-amber-900/5 overflow-hidden flex flex-col lg:flex-row border border-amber-100/60">
-      
+
       {/* LEFT PANEL: Soft Amber Theme with Your Illustration */}
       <div className="lg:w-5/12 bg-amber-50 p-10 lg:p-12 flex flex-col justify-between relative overflow-hidden border-r border-amber-100/50">
         {/* Soft background glow */}
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-amber-200 rounded-full blur-[80px] opacity-40"></div>
-        
+
         <div className="relative z-10">
           <h1 className="text-3xl lg:text-4xl font-extrabold text-amber-950 mb-2 tracking-tight">
             Claim Profile
@@ -78,7 +81,7 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
           <p className="text-lg font-bold text-amber-600 mb-4 pb-4 border-b border-amber-200">
             {instituteName}
           </p>
-          
+
           <p className="text-amber-900/70 leading-relaxed text-sm font-medium">
             Take official ownership of your AcademyFind listing. Unlock powerful tools to grow your institute's presence, update courses, and attract more students.
           </p>
@@ -86,11 +89,11 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
 
         {/* The Magic Image Integration */}
         <div className="mt-10 relative z-10 flex justify-center items-center">
-          <Image 
-            src="/claim-illustration.PNG" 
-            alt="Claim Institute Illustration" 
-            width={500} 
-            height={500} 
+          <Image
+            src="/claim-illustration.PNG"
+            alt="Claim Institute Illustration"
+            width={500}
+            height={500}
             priority
             // mix-blend-multiply image ke white background ko hide karke amber bg se blend kar dega
             className="object-contain mix-blend-multiply drop-shadow-sm transition-transform hover:scale-105 duration-700 ease-out"
@@ -100,27 +103,27 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
 
       {/* RIGHT PANEL: Clean Form */}
       <div className="lg:w-7/12 p-10 lg:p-12 bg-white">
-      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      {/* Left Side: Headings */}
-      <div>
-        <h2 className="text-2xl font-bold text-slate-800">Your Details</h2>
-        <p className="text-slate-500 mt-1 text-sm">
-          Please provide your official contact information.
-        </p>
-      </div>
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          {/* Left Side: Headings */}
+          <div>
+            <h2 className="text-2xl font-bold text-slate-800">Your Details</h2>
+            <p className="text-slate-500 mt-1 text-sm">
+              Please provide your official contact information.
+            </p>
+          </div>
 
-      {/* Right Side: View Pricing Link */}
-      <div className="sm:text-right">
-        <PricingModal>
-    <button className="inline-flex items-center gap-1 text-sm font-medium text-amber-500 transition-colors hover:text-amber-600 cursor-pointer">
-      View Pricing
-      <ArrowRight className="h-4 w-4" />
-    </button>
-  </PricingModal>
-      </div>
-    </div>
-        
-        
+          {/* Right Side: View Pricing Link */}
+          <div className="sm:text-right">
+            <PricingModal>
+              <button className="inline-flex items-center gap-1 text-sm font-medium text-amber-500 transition-colors hover:text-amber-600 cursor-pointer">
+                View Pricing
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </PricingModal>
+          </div>
+        </div>
+
+
         {errorMsg && (
           <div className="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
@@ -135,10 +138,11 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-slate-700">Full Name <span className="text-red-500">*</span></label>
-              <input 
-                type="text" 
-                name="fullName" 
+              <input
+                type="text"
+                name="fullName"
                 required
+                defaultValue={defaultName || ""}
                 className="w-full px-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all"
                 placeholder="John Doe"
               />
@@ -146,11 +150,12 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
 
             <div className="space-y-2">
               <label className="text-sm font-semibold text-slate-700">Phone Number <span className="text-red-500">*</span></label>
-              <input 
-                type="tel" 
-                name="phone" 
+              <input
+                type="tel"
+                name="phone"
                 required
                 maxLength={10}
+                defaultValue={defaultPhone || ""}
                 className="w-full px-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all"
                 placeholder="+91 98765 43210"
               />
@@ -159,10 +164,11 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
 
           <div className="space-y-2">
             <label className="text-sm font-semibold text-slate-700">Official Email ID <span className="text-red-500">*</span></label>
-            <input 
-              type="email" 
-              name="email" 
+            <input
+              type="email"
+              name="email"
               required
+              defaultValue={defaultEmail || ""}
               className="w-full px-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all"
               placeholder="contact@yourinstitute.com"
             />
@@ -185,16 +191,16 @@ export default function ClaimForm({ instituteId, instituteName, userId }: ClaimF
 
           <div className="space-y-2">
             <label className="text-sm font-semibold text-slate-700">Additional Information</label>
-            <textarea 
-              name="message" 
+            <textarea
+              name="message"
               rows={3}
               className="w-full px-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all resize-none"
               placeholder="Any links (website, social media) to help us verify faster..."
             ></textarea>
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isSubmitting}
             className="w-full py-4 bg-amber-400 text-white font-bold rounded-xl hover:bg-amber-500 transition-all shadow-lg shadow-amber-500/25 disabled:opacity-70 disabled:cursor-not-allowed mt-2 flex justify-center items-center gap-2"
           >
