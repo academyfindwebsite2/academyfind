@@ -90,9 +90,15 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             <div className="text-center max-w-2xl mx-auto">
-                <h2 className="text-3xl font-extrabold text-slate-900 flex items-center justify-center gap-2">
+                <h2 className="text-3xl font-extrabold text-slate-900 flex items-center justify-center gap-2 mb-2">
                     <CreditCard className="w-7 h-7 text-amber-500" /> Subscription Plans
                 </h2>
+                
+                {/* 🚀 PROMO BANNER */}
+                <div className="mb-4 mt-2 inline-flex bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 text-amber-800 px-6 py-2 rounded-full text-sm font-bold shadow-sm items-center justify-center gap-2">
+                    🎉 <span className="text-amber-900">Early Bird Offer:</span> Special pricing valid only till <span className="bg-amber-200/50 px-2 py-0.5 rounded-md">31st July</span>!
+                </div>
+
                 <p className="text-sm text-slate-500 mt-2">
                     Upgrade your plan to generate more admissions, track performance, and unlock priority ranking.
                 </p>
