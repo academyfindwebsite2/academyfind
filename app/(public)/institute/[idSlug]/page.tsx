@@ -31,6 +31,7 @@ import { JoinActionBar } from "@/app/(public)/institute/[idSlug]/JoinActionBar";
 import { MemberDrawer } from "./components/MemberDrawer";
 import BlogCard from "@/components/blog/cards/BlogCard";
 import { BlogCardPost } from "@/types/BlogCard";
+import { OpenBatchChatButton } from "@/components/manager/OpenBatchChatButton";
 
 export const revalidate = 0;
 
@@ -121,7 +122,8 @@ export default async function InstitutePage({ params }: PageProps) {
     totalTeachers,
     activeBatches,
     instituteManagers,
-    recentBlogs
+    recentBlogs,
+    userBatchIds,
   ] = await Promise.all([
     userId
       ? prisma.instituteMembership.findMany({
@@ -224,7 +226,21 @@ export default async function InstitutePage({ params }: PageProps) {
           select: { id: true, name: true, slug: true, avatarUrl: true }
         }
       }
-    })
+    }),
+    userId
+      ? Promise.all([
+          prisma.batchStudent.findMany({
+            where: { studentRecord: { studentProfile: { userId }, instituteId: id } },
+            select: { batchId: true }
+          }),
+          prisma.batchTeacher.findMany({
+            where: { teacherRecord: { teacherProfile: { userId }, instituteId: id } },
+            select: { batchId: true }
+          })
+        ]).then(([students, teachers]) => {
+          return new Set([...students.map(s => s.batchId), ...teachers.map(t => t.batchId)]);
+        })
+      : Promise.resolve(new Set<string>())
   ]);
 
   const formattedBlogs: BlogCardPost[] = recentBlogs.map((blog: any) => ({
@@ -618,7 +634,18 @@ export default async function InstitutePage({ params }: PageProps) {
                             </div>
                           ))}
                         </div>
-                        <Button size="sm" variant="ghost" className="text-amber-600 hover:text-amber-700 hover:bg-amber-50 h-8 text-xs font-semibold">Enquire →</Button>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="ghost" className="text-amber-600 hover:text-amber-700 hover:bg-amber-50 h-8 text-xs font-semibold">Enquire →</Button>
+                          {(isManager || userBatchIds.has(batch.id)) && (
+                            <OpenBatchChatButton instituteId={id} batchId={batch.id} batchName={batch.name} />
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {!(batch.teachers?.length > 0) && (isManager || userBatchIds.has(batch.id)) && (
+                      <div className="mt-4 pt-4 border-t border-slate-100 flex justify-end">
+                        <OpenBatchChatButton instituteId={id} batchId={batch.id} batchName={batch.name} />
                       </div>
                     )}
                   </div>

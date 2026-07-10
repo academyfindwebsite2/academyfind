@@ -302,3 +302,32 @@ export async function respondToInvite(
     return { success: true, message: "Invite declined." };
   }
 }
+
+export async function getOrJoinBatchConversation(instituteId: string, batchId: string, batchName: string) {
+  const session = await requireAuth();
+  const userId = session.user.id;
+
+  // Verify access: Is Manager OR is BatchStudent OR is BatchTeacher
+  const [manager, studentInBatch, teacherInBatch] = await Promise.all([
+    prisma.instituteManager.findUnique({ where: { userId_instituteId: { userId, instituteId } } }),
+    prisma.batchStudent.findFirst({ where: { batchId, studentRecord: { studentProfile: { userId }, instituteId } } }),
+    prisma.batchTeacher.findFirst({ where: { batchId, teacherRecord: { teacherProfile: { userId }, instituteId } } })
+  ]);
+
+  const hasAccess = !!manager || !!studentInBatch || !!teacherInBatch;
+  
+  if (!hasAccess) {
+    return { success: false, message: "Unauthorized" };
+  }
+
+  const { ensureBatchConversation } = await import("@/lib/chat/ensureBatchConversation");
+  const conv = await ensureBatchConversation(instituteId, batchId, batchName);
+
+  await prisma.conversationParticipant.upsert({
+    where: { conversationId_userId: { conversationId: conv.id, userId } },
+    create: { conversationId: conv.id, userId, role: manager ? "MANAGER" : teacherInBatch ? "ADMIN" : "MEMBER" },
+    update: { status: "ACTIVE", leftAt: null, isHidden: false },
+  });
+
+  return { success: true, conversationId: conv.id };
+}

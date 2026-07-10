@@ -113,16 +113,43 @@ export async function addBatchStudent(instituteId: string, batchId: string, stud
   await prisma.batchStudent.create({
     data: { batchId, studentRecordId }
   });
+
+  const batch = await prisma.instituteBatch.findUnique({ where: { id: batchId } });
+  const studentRecord = await prisma.studentInstituteRecord.findUnique({ where: { id: studentRecordId }, include: { studentProfile: true } });
+  if (batch && studentRecord?.studentProfile?.userId) {
+    const { ensureBatchConversation } = await import("@/lib/chat/ensureBatchConversation");
+    const conv = await ensureBatchConversation(instituteId, batchId, batch.name);
+    await prisma.conversationParticipant.upsert({
+      where: { conversationId_userId: { conversationId: conv.id, userId: studentRecord.studentProfile.userId } },
+      create: { conversationId: conv.id, userId: studentRecord.studentProfile.userId, role: "MEMBER" },
+      update: { status: "ACTIVE", leftAt: null, isHidden: false },
+    });
+  }
+
   revalidatePath(`/manager/${instituteId}/batches/${batchId}`);
 }
 
 export async function removeBatchStudent(instituteId: string, batchStudentId: string) {
   const session = await requireAuth();
   await assertManagerAccess(session.user.id, instituteId);
+  
+  const batchStudent = await prisma.batchStudent.findUnique({
+    where: { id: batchStudentId },
+    include: { studentRecord: { include: { studentProfile: true } } }
+  });
+
   await prisma.batchStudent.delete({
     where: { id: batchStudentId }
   });
-  // TODO revalidate path
+
+  if (batchStudent?.batchId && batchStudent.studentRecord?.studentProfile?.userId) {
+    const conv = await prisma.conversation.findFirst({ where: { batchId: batchStudent.batchId, type: "BATCH" } });
+    if (conv) {
+      await prisma.conversationParticipant.deleteMany({
+        where: { conversationId: conv.id, userId: batchStudent.studentRecord.studentProfile.userId }
+      });
+    }
+  }
 }
 
 export async function addBatchTeacher(instituteId: string, batchId: string, teacherRecordId: string) {
@@ -131,14 +158,41 @@ export async function addBatchTeacher(instituteId: string, batchId: string, teac
   await prisma.batchTeacher.create({
     data: { batchId, teacherRecordId }
   });
+
+  const batch = await prisma.instituteBatch.findUnique({ where: { id: batchId } });
+  const teacherRecord = await prisma.teacherInstituteRecord.findUnique({ where: { id: teacherRecordId }, include: { teacherProfile: true } });
+  if (batch && teacherRecord?.teacherProfile?.userId) {
+    const { ensureBatchConversation } = await import("@/lib/chat/ensureBatchConversation");
+    const conv = await ensureBatchConversation(instituteId, batchId, batch.name);
+    await prisma.conversationParticipant.upsert({
+      where: { conversationId_userId: { conversationId: conv.id, userId: teacherRecord.teacherProfile.userId } },
+      create: { conversationId: conv.id, userId: teacherRecord.teacherProfile.userId, role: "ADMIN" },
+      update: { status: "ACTIVE", leftAt: null, isHidden: false },
+    });
+  }
+
   revalidatePath(`/manager/${instituteId}/batches/${batchId}`);
 }
 
 export async function removeBatchTeacher(instituteId: string, batchTeacherId: string) {
   const session = await requireAuth();
   await assertManagerAccess(session.user.id, instituteId);
+  
+  const batchTeacher = await prisma.batchTeacher.findUnique({
+    where: { id: batchTeacherId },
+    include: { teacherRecord: { include: { teacherProfile: true } } }
+  });
+
   await prisma.batchTeacher.delete({
     where: { id: batchTeacherId }
   });
-  // TODO revalidate path
+
+  if (batchTeacher?.batchId && batchTeacher.teacherRecord?.teacherProfile?.userId) {
+    const conv = await prisma.conversation.findFirst({ where: { batchId: batchTeacher.batchId, type: "BATCH" } });
+    if (conv) {
+      await prisma.conversationParticipant.deleteMany({
+        where: { conversationId: conv.id, userId: batchTeacher.teacherRecord.teacherProfile.userId }
+      });
+    }
+  }
 }

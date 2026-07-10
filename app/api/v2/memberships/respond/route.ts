@@ -52,9 +52,19 @@ export async function POST(req: Request) {
                     where: { instituteId: membership.instituteId, type: 'INSTITUTE' }
                 });
 
-                if (channels.length > 0) {
+                const allowedChannels = channels.filter((ch: any) => {
+                    if (ch.channelType === "TEACHERS") {
+                        return membership.role === "TEACHER" || membership.role === "MANAGER" || membership.role === "ADMIN";
+                    }
+                    if (ch.channelType === "STAFF") {
+                        return membership.role === "MANAGER" || membership.role === "ADMIN";
+                    }
+                    return true;
+                });
+
+                if (allowedChannels.length > 0) {
                     await tx.conversationParticipant.createMany({
-                        data: channels.map((ch: any) => ({
+                        data: allowedChannels.map((ch: any) => ({
                             conversationId: ch.id,
                             userId: session.user.id,
                             role: membership.role === 'TEACHER' || membership.role === 'MANAGER' ? 'ADMIN' : 'MEMBER'

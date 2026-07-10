@@ -37,6 +37,19 @@ export default async function ManagerCommunityPage({ params }: Props) {
     },
   });
 
+  // Calculate dynamic member counts for display
+  const [activeStudents, activeTeachers, managers] = await Promise.all([
+    prisma.studentInstituteRecord.count({
+      where: { instituteId, isVerified: true, membership: { status: "ACTIVE" } },
+    }),
+    prisma.teacherInstituteRecord.count({
+      where: { instituteId, isVerified: true, membership: { status: "ACTIVE" } },
+    }),
+    prisma.instituteManager.count({
+      where: { instituteId },
+    })
+  ]);
+
   // Fetch reported messages
   const reports = await prisma.messageReport.findMany({
     where: {
@@ -125,7 +138,16 @@ export default async function ManagerCommunityPage({ params }: Props) {
                 <div className="mt-3 flex gap-4 text-sm text-slate-500">
                   <span className="flex items-center gap-1">
                     <Users className="size-3.5" />
-                    {ch.memberCount} members
+                    {(() => {
+                      if (["GENERAL", "ANNOUNCEMENTS", "QNA", "STUDENTS"].includes(ch.channelType || "")) {
+                        return activeStudents + activeTeachers + managers;
+                      } else if (ch.channelType === "TEACHERS") {
+                        return activeTeachers + managers;
+                      } else if (ch.channelType === "STAFF") {
+                        return managers;
+                      }
+                      return ch.memberCount;
+                    })()} members
                   </span>
                 </div>
                 {ch.lastMessage && (

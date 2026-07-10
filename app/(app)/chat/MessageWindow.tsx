@@ -168,12 +168,12 @@ export function MessageWindow({
   const headerTitle =
     meta?.type === "DIRECT"
       ? (otherParticipant?.user.name ?? "Direct Message")
-      : (meta?.institute?.name ?? meta?.title ?? `#${meta?.channelType?.toLowerCase() ?? "channel"}`);
+      : (meta?.title ?? `#${meta?.channelType?.toLowerCase() ?? "channel"}`);
 
   const headerSub =
     meta?.type === "DIRECT"
       ? `@${otherParticipant?.user.username}`
-      : `${meta?.memberCount ?? 0} members`;
+      : (meta?.institute ? `${meta.institute.name} • ` : "") + `${meta?.memberCount ?? 0} members`;
 
   const headerImg =
     meta?.type === "DIRECT"
