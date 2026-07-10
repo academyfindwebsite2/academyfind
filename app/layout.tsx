@@ -29,7 +29,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 // ─── GLOBAL METADATA & FALLBACKS ─────────────────────────────
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://www.academyfind.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://academyfind.com"),
 
   title: {
     template: "%s | AcademyFind",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://www.academyfind.com",
+    url: "https://academyfind.com",
     title: "AcademyFind | Find the Best Coaching & Institutes",
     description: "Discover top-rated coaching centers, schools, and hostels.",
     siteName: "AcademyFind",
