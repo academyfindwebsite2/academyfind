@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Script from "next/script";
 import BentoHero from "@/components/blog/home/hero/BentoHero";
 import CategoryTabs from "@/components/blog/home/CategoryTabs";
 import LatestPosts from "@/components/blog/home/LatestPosts";
@@ -42,7 +43,7 @@ export async function generateMetadata({
           category.description ||
           `Explore the latest ${category.name} guides, preparation hacks and study updates.`,
         alternates: {
-          canonical: `https://www.academyfind.com/blog?category=${categorySlug}`,
+          canonical: `https://academyfind.com/blog?category=${categorySlug}`,
         },
       };
     }
@@ -53,12 +54,12 @@ export async function generateMetadata({
     description:
       "Read the latest insights, expert interviews, exam tips, and study hacks on the AcademyFind blog. Discover helpful preparation guides and coaching reviews.",
     alternates: {
-      canonical: "https://www.academyfind.com/blog",
+      canonical: "https://academyfind.com/blog",
     },
     openGraph: {
       title: "AcademyFind Blog",
       description: "Expert educational insights and study hacks are brewing. Stay tuned!",
-      url: "https://www.academyfind.com/blog",
+      url: "https://academyfind.com/blog",
       type: "website",
     },
   };
@@ -168,8 +169,17 @@ export default async function BlogPage({ searchParams }: Props) {
     categories: categoryCount,
   };
 
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "AcademyFind Blog - Educational Resources & Study Hacks",
+    description: "Read the latest insights, expert interviews, exam tips, and study hacks on the AcademyFind blog.",
+    url: "https://academyfind.com/blog",
+  };
+
   return (
     <>
+      <Script id="schema-blog-collection" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }} />
       <BentoHero featuredPosts={featuredPosts} />
       <LatestPosts posts={latestPosts} />
       <TrendingPosts posts={trendingPosts} />

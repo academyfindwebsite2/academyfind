@@ -179,6 +179,15 @@ function JsonLdSchemas({ parentCategories }: JsonLdProps) {
     ],
   };
 
+  // ── d) CollectionPage Schema (🔥 GOD LEVEL) ──
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Explore Educational Categories | AcademyFind",
+    description: "Browse various educational categories including coaching for JEE, NEET, UPSC, school tuitions, and more on AcademyFind.",
+    url: "https://academyfind.com/categories",
+  };
+
   return (
     <>
       <Script
@@ -195,6 +204,11 @@ function JsonLdSchemas({ parentCategories }: JsonLdProps) {
         id="schema-faq-cats"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <Script
+        id="schema-collection-cats"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
       />
     </>
   );

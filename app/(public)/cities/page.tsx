@@ -126,11 +126,21 @@ function JsonLdSchemas({ cities }: JsonLdProps) {
     ],
   };
 
+  // ── d) CollectionPage Schema (🔥 GOD LEVEL) ──
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Browse Top Coaching Institutes by City | AcademyFind",
+    description: "Explore AcademyFind's comprehensive directory of coaching centers, schools, and hostels across major cities in India.",
+    url: "https://academyfind.com/cities",
+  };
+
   return (
     <>
       <Script id="schema-itemlist-cities" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <Script id="schema-breadcrumb-cities" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Script id="schema-faq-cities" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <Script id="schema-collection-cities" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }} />
     </>
   );
 }
