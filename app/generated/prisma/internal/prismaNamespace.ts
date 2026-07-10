@@ -6536,6 +6536,7 @@ export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[k
 
 export const InstituteScalarFieldEnum = {
   id: 'id',
+  providerType: 'providerType',
   name: 'name',
   slug: 'slug',
   description: 'description',
@@ -7799,6 +7800,20 @@ export type EnumReputationSourceFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'ReputationSource[]'
  */
 export type ListEnumReputationSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReputationSource[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProviderType'
+ */
+export type EnumProviderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProviderType'>
+    
+
+
+/**
+ * Reference to a field of type 'ProviderType[]'
+ */
+export type ListEnumProviderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProviderType[]'>
     
 
 

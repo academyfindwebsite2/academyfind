@@ -23,6 +23,7 @@ type Props = {
     radius?: string;
     sort?: string;
     page?: string;
+    providerType?: string;
   }>;
 };
 
@@ -59,7 +60,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 export default async function SearchPage({ searchParams }: Props) {
   const { 
     q = "", type = "", city = "", category = "", rating = "",
-    lat = "", lng = "", address = "", radius = "5", sort = "rating", page = "1" 
+    lat = "", lng = "", address = "", radius = "5", sort = "rating", page = "1",
+    providerType = "" 
   } = await searchParams;
 
   const categories = await prisma.category.findMany({ select: { name: true, slug: true }, orderBy: { name: "asc" } });
@@ -87,6 +89,7 @@ export default async function SearchPage({ searchParams }: Props) {
             currentLng={lng}
             currentRadius={radius}
             currentSort={sort}
+            currentProviderType={providerType}
           />
 
           <div className="space-y-14">
@@ -101,7 +104,7 @@ export default async function SearchPage({ searchParams }: Props) {
             <InstituteResults 
                query={q} type={type} city={city} category={category} 
                rating={rating} lat={lat} lng={lng} radius={radius} 
-               sort={sort} page={page} 
+               sort={sort} page={page} providerType={providerType}
             />
 
             <RelatedCategories />

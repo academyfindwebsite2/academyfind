@@ -317,6 +317,7 @@ export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[k
 
 export const InstituteScalarFieldEnum = {
   id: 'id',
+  providerType: 'providerType',
   name: 'name',
   slug: 'slug',
   description: 'description',

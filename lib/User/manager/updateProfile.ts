@@ -60,6 +60,7 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
 
         // 5. NEW SCHEMA FIELDS (Numbers & Strings)
         const mode = formData.get("mode") as "OFFLINE" | "ONLINE" | "HYBRID"; 
+        const providerType = formData.get("providerType") as "INSTITUTE" | "INDIVIDUAL" | null;
         
         const establishedYear = formData.get("establishedYear") ? parseInt(formData.get("establishedYear") as string) : null;
         const totalStudents = formData.get("totalStudents") ? parseInt(formData.get("totalStudents") as string) : null;
@@ -139,6 +140,7 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
                     hasDemoClasses,
                     hasScholarship,
                     hasCertification,
+                    ...(providerType && { providerType }),
                     pros,
                     cons,
                     affiliations,

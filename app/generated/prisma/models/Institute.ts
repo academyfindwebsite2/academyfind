@@ -62,6 +62,7 @@ export type InstituteSumAggregateOutputType = {
 
 export type InstituteMinAggregateOutputType = {
   id: string | null
+  providerType: $Enums.ProviderType | null
   name: string | null
   slug: string | null
   description: string | null
@@ -119,6 +120,7 @@ export type InstituteMinAggregateOutputType = {
 
 export type InstituteMaxAggregateOutputType = {
   id: string | null
+  providerType: $Enums.ProviderType | null
   name: string | null
   slug: string | null
   description: string | null
@@ -176,6 +178,7 @@ export type InstituteMaxAggregateOutputType = {
 
 export type InstituteCountAggregateOutputType = {
   id: number
+  providerType: number
   name: number
   slug: number
   description: number
@@ -278,6 +281,7 @@ export type InstituteSumAggregateInputType = {
 
 export type InstituteMinAggregateInputType = {
   id?: true
+  providerType?: true
   name?: true
   slug?: true
   description?: true
@@ -335,6 +339,7 @@ export type InstituteMinAggregateInputType = {
 
 export type InstituteMaxAggregateInputType = {
   id?: true
+  providerType?: true
   name?: true
   slug?: true
   description?: true
@@ -392,6 +397,7 @@ export type InstituteMaxAggregateInputType = {
 
 export type InstituteCountAggregateInputType = {
   id?: true
+  providerType?: true
   name?: true
   slug?: true
   description?: true
@@ -545,6 +551,7 @@ export type InstituteGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type InstituteGroupByOutputType = {
   id: string
+  providerType: $Enums.ProviderType
   name: string
   slug: string
   description: string | null
@@ -634,6 +641,7 @@ export type InstituteWhereInput = {
   OR?: Prisma.InstituteWhereInput[]
   NOT?: Prisma.InstituteWhereInput | Prisma.InstituteWhereInput[]
   id?: Prisma.StringFilter<"Institute"> | string
+  providerType?: Prisma.EnumProviderTypeFilter<"Institute"> | $Enums.ProviderType
   name?: Prisma.StringFilter<"Institute"> | string
   slug?: Prisma.StringFilter<"Institute"> | string
   description?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -728,6 +736,7 @@ export type InstituteWhereInput = {
 
 export type InstituteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  providerType?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -826,6 +835,7 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.InstituteWhereInput | Prisma.InstituteWhereInput[]
   OR?: Prisma.InstituteWhereInput[]
   NOT?: Prisma.InstituteWhereInput | Prisma.InstituteWhereInput[]
+  providerType?: Prisma.EnumProviderTypeFilter<"Institute"> | $Enums.ProviderType
   name?: Prisma.StringFilter<"Institute"> | string
   slug?: Prisma.StringFilter<"Institute"> | string
   description?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -919,6 +929,7 @@ export type InstituteWhereUniqueInput = Prisma.AtLeast<{
 
 export type InstituteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  providerType?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -993,6 +1004,7 @@ export type InstituteScalarWhereWithAggregatesInput = {
   OR?: Prisma.InstituteScalarWhereWithAggregatesInput[]
   NOT?: Prisma.InstituteScalarWhereWithAggregatesInput | Prisma.InstituteScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Institute"> | string
+  providerType?: Prisma.EnumProviderTypeWithAggregatesFilter<"Institute"> | $Enums.ProviderType
   name?: Prisma.StringWithAggregatesFilter<"Institute"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Institute"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Institute"> | string | null
@@ -1059,6 +1071,7 @@ export type InstituteScalarWhereWithAggregatesInput = {
 
 export type InstituteCreateInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -1152,6 +1165,7 @@ export type InstituteCreateInput = {
 
 export type InstituteUncheckedCreateInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -1245,6 +1259,7 @@ export type InstituteUncheckedCreateInput = {
 
 export type InstituteUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1338,6 +1353,7 @@ export type InstituteUpdateInput = {
 
 export type InstituteUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1431,6 +1447,7 @@ export type InstituteUncheckedUpdateInput = {
 
 export type InstituteCreateManyInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -1497,6 +1514,7 @@ export type InstituteCreateManyInput = {
 
 export type InstituteUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1562,6 +1580,7 @@ export type InstituteUpdateManyMutationInput = {
 
 export type InstituteUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1636,6 +1655,7 @@ export type StringNullableListFilter<$PrismaModel = never> = {
 
 export type InstituteCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  providerType?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -1719,6 +1739,7 @@ export type InstituteAvgOrderByAggregateInput = {
 
 export type InstituteMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  providerType?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -1776,6 +1797,7 @@ export type InstituteMaxOrderByAggregateInput = {
 
 export type InstituteMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  providerType?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -1902,6 +1924,10 @@ export type InstituteCreatemediumOfInstructionInput = {
 
 export type InstituteCreateprosInput = {
   set: string[]
+}
+
+export type EnumProviderTypeFieldUpdateOperationsInput = {
+  set?: $Enums.ProviderType
 }
 
 export type NullableFloatFieldUpdateOperationsInput = {
@@ -2399,6 +2425,7 @@ export type InstituteUpdateOneWithoutBlogPostsNestedInput = {
 
 export type InstituteCreateWithoutCityInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -2491,6 +2518,7 @@ export type InstituteCreateWithoutCityInput = {
 
 export type InstituteUncheckedCreateWithoutCityInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -2612,6 +2640,7 @@ export type InstituteScalarWhereInput = {
   OR?: Prisma.InstituteScalarWhereInput[]
   NOT?: Prisma.InstituteScalarWhereInput | Prisma.InstituteScalarWhereInput[]
   id?: Prisma.StringFilter<"Institute"> | string
+  providerType?: Prisma.EnumProviderTypeFilter<"Institute"> | $Enums.ProviderType
   name?: Prisma.StringFilter<"Institute"> | string
   slug?: Prisma.StringFilter<"Institute"> | string
   description?: Prisma.StringNullableFilter<"Institute"> | string | null
@@ -2678,6 +2707,7 @@ export type InstituteScalarWhereInput = {
 
 export type InstituteCreateWithoutCategoriesInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -2770,6 +2800,7 @@ export type InstituteCreateWithoutCategoriesInput = {
 
 export type InstituteUncheckedCreateWithoutCategoriesInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -2878,6 +2909,7 @@ export type InstituteUpdateToOneWithWhereWithoutCategoriesInput = {
 
 export type InstituteUpdateWithoutCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2970,6 +3002,7 @@ export type InstituteUpdateWithoutCategoriesInput = {
 
 export type InstituteUncheckedUpdateWithoutCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3062,6 +3095,7 @@ export type InstituteUncheckedUpdateWithoutCategoriesInput = {
 
 export type InstituteCreateWithoutManagersInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -3154,6 +3188,7 @@ export type InstituteCreateWithoutManagersInput = {
 
 export type InstituteUncheckedCreateWithoutManagersInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -3262,6 +3297,7 @@ export type InstituteUpdateToOneWithWhereWithoutManagersInput = {
 
 export type InstituteUpdateWithoutManagersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3354,6 +3390,7 @@ export type InstituteUpdateWithoutManagersInput = {
 
 export type InstituteUncheckedUpdateWithoutManagersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3446,6 +3483,7 @@ export type InstituteUncheckedUpdateWithoutManagersInput = {
 
 export type InstituteCreateWithoutReviewsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -3538,6 +3576,7 @@ export type InstituteCreateWithoutReviewsInput = {
 
 export type InstituteUncheckedCreateWithoutReviewsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -3646,6 +3685,7 @@ export type InstituteUpdateToOneWithWhereWithoutReviewsInput = {
 
 export type InstituteUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3738,6 +3778,7 @@ export type InstituteUpdateWithoutReviewsInput = {
 
 export type InstituteUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3830,6 +3871,7 @@ export type InstituteUncheckedUpdateWithoutReviewsInput = {
 
 export type InstituteCreateWithoutClaimsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -3922,6 +3964,7 @@ export type InstituteCreateWithoutClaimsInput = {
 
 export type InstituteUncheckedCreateWithoutClaimsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -4030,6 +4073,7 @@ export type InstituteUpdateToOneWithWhereWithoutClaimsInput = {
 
 export type InstituteUpdateWithoutClaimsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4122,6 +4166,7 @@ export type InstituteUpdateWithoutClaimsInput = {
 
 export type InstituteUncheckedUpdateWithoutClaimsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4214,6 +4259,7 @@ export type InstituteUncheckedUpdateWithoutClaimsInput = {
 
 export type InstituteCreateWithoutShortlistedByInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -4306,6 +4352,7 @@ export type InstituteCreateWithoutShortlistedByInput = {
 
 export type InstituteUncheckedCreateWithoutShortlistedByInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -4414,6 +4461,7 @@ export type InstituteUpdateToOneWithWhereWithoutShortlistedByInput = {
 
 export type InstituteUpdateWithoutShortlistedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4506,6 +4554,7 @@ export type InstituteUpdateWithoutShortlistedByInput = {
 
 export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4598,6 +4647,7 @@ export type InstituteUncheckedUpdateWithoutShortlistedByInput = {
 
 export type InstituteCreateWithoutViewHistoryInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -4690,6 +4740,7 @@ export type InstituteCreateWithoutViewHistoryInput = {
 
 export type InstituteUncheckedCreateWithoutViewHistoryInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -4798,6 +4849,7 @@ export type InstituteUpdateToOneWithWhereWithoutViewHistoryInput = {
 
 export type InstituteUpdateWithoutViewHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4890,6 +4942,7 @@ export type InstituteUpdateWithoutViewHistoryInput = {
 
 export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4982,6 +5035,7 @@ export type InstituteUncheckedUpdateWithoutViewHistoryInput = {
 
 export type InstituteCreateWithoutEnquiriesInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -5074,6 +5128,7 @@ export type InstituteCreateWithoutEnquiriesInput = {
 
 export type InstituteUncheckedCreateWithoutEnquiriesInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -5182,6 +5237,7 @@ export type InstituteUpdateToOneWithWhereWithoutEnquiriesInput = {
 
 export type InstituteUpdateWithoutEnquiriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5274,6 +5330,7 @@ export type InstituteUpdateWithoutEnquiriesInput = {
 
 export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5366,6 +5423,7 @@ export type InstituteUncheckedUpdateWithoutEnquiriesInput = {
 
 export type InstituteCreateWithoutMembershipsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -5458,6 +5516,7 @@ export type InstituteCreateWithoutMembershipsInput = {
 
 export type InstituteUncheckedCreateWithoutMembershipsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -5566,6 +5625,7 @@ export type InstituteUpdateToOneWithWhereWithoutMembershipsInput = {
 
 export type InstituteUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5658,6 +5718,7 @@ export type InstituteUpdateWithoutMembershipsInput = {
 
 export type InstituteUncheckedUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5750,6 +5811,7 @@ export type InstituteUncheckedUpdateWithoutMembershipsInput = {
 
 export type InstituteCreateWithoutStudentRecordsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -5842,6 +5904,7 @@ export type InstituteCreateWithoutStudentRecordsInput = {
 
 export type InstituteUncheckedCreateWithoutStudentRecordsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -5950,6 +6013,7 @@ export type InstituteUpdateToOneWithWhereWithoutStudentRecordsInput = {
 
 export type InstituteUpdateWithoutStudentRecordsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6042,6 +6106,7 @@ export type InstituteUpdateWithoutStudentRecordsInput = {
 
 export type InstituteUncheckedUpdateWithoutStudentRecordsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6134,6 +6199,7 @@ export type InstituteUncheckedUpdateWithoutStudentRecordsInput = {
 
 export type InstituteCreateWithoutTeacherRecordsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -6226,6 +6292,7 @@ export type InstituteCreateWithoutTeacherRecordsInput = {
 
 export type InstituteUncheckedCreateWithoutTeacherRecordsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -6334,6 +6401,7 @@ export type InstituteUpdateToOneWithWhereWithoutTeacherRecordsInput = {
 
 export type InstituteUpdateWithoutTeacherRecordsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6426,6 +6494,7 @@ export type InstituteUpdateWithoutTeacherRecordsInput = {
 
 export type InstituteUncheckedUpdateWithoutTeacherRecordsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6518,6 +6587,7 @@ export type InstituteUncheckedUpdateWithoutTeacherRecordsInput = {
 
 export type InstituteCreateWithoutConversationsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -6610,6 +6680,7 @@ export type InstituteCreateWithoutConversationsInput = {
 
 export type InstituteUncheckedCreateWithoutConversationsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -6718,6 +6789,7 @@ export type InstituteUpdateToOneWithWhereWithoutConversationsInput = {
 
 export type InstituteUpdateWithoutConversationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6810,6 +6882,7 @@ export type InstituteUpdateWithoutConversationsInput = {
 
 export type InstituteUncheckedUpdateWithoutConversationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6902,6 +6975,7 @@ export type InstituteUncheckedUpdateWithoutConversationsInput = {
 
 export type InstituteCreateWithoutInstituteRequestInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -6994,6 +7068,7 @@ export type InstituteCreateWithoutInstituteRequestInput = {
 
 export type InstituteUncheckedCreateWithoutInstituteRequestInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -7102,6 +7177,7 @@ export type InstituteUpdateToOneWithWhereWithoutInstituteRequestInput = {
 
 export type InstituteUpdateWithoutInstituteRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7194,6 +7270,7 @@ export type InstituteUpdateWithoutInstituteRequestInput = {
 
 export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7286,6 +7363,7 @@ export type InstituteUncheckedUpdateWithoutInstituteRequestInput = {
 
 export type InstituteCreateWithoutPaymentsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -7378,6 +7456,7 @@ export type InstituteCreateWithoutPaymentsInput = {
 
 export type InstituteUncheckedCreateWithoutPaymentsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -7486,6 +7565,7 @@ export type InstituteUpdateToOneWithWhereWithoutPaymentsInput = {
 
 export type InstituteUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7578,6 +7658,7 @@ export type InstituteUpdateWithoutPaymentsInput = {
 
 export type InstituteUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7670,6 +7751,7 @@ export type InstituteUncheckedUpdateWithoutPaymentsInput = {
 
 export type InstituteCreateWithoutSalesAssignmentsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -7762,6 +7844,7 @@ export type InstituteCreateWithoutSalesAssignmentsInput = {
 
 export type InstituteUncheckedCreateWithoutSalesAssignmentsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -7870,6 +7953,7 @@ export type InstituteUpdateToOneWithWhereWithoutSalesAssignmentsInput = {
 
 export type InstituteUpdateWithoutSalesAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7962,6 +8046,7 @@ export type InstituteUpdateWithoutSalesAssignmentsInput = {
 
 export type InstituteUncheckedUpdateWithoutSalesAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8054,6 +8139,7 @@ export type InstituteUncheckedUpdateWithoutSalesAssignmentsInput = {
 
 export type InstituteCreateWithoutDailyViewsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -8146,6 +8232,7 @@ export type InstituteCreateWithoutDailyViewsInput = {
 
 export type InstituteUncheckedCreateWithoutDailyViewsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -8254,6 +8341,7 @@ export type InstituteUpdateToOneWithWhereWithoutDailyViewsInput = {
 
 export type InstituteUpdateWithoutDailyViewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8346,6 +8434,7 @@ export type InstituteUpdateWithoutDailyViewsInput = {
 
 export type InstituteUncheckedUpdateWithoutDailyViewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8438,6 +8527,7 @@ export type InstituteUncheckedUpdateWithoutDailyViewsInput = {
 
 export type InstituteCreateWithoutFacilitiesInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -8530,6 +8620,7 @@ export type InstituteCreateWithoutFacilitiesInput = {
 
 export type InstituteUncheckedCreateWithoutFacilitiesInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -8638,6 +8729,7 @@ export type InstituteUpdateToOneWithWhereWithoutFacilitiesInput = {
 
 export type InstituteUpdateWithoutFacilitiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8730,6 +8822,7 @@ export type InstituteUpdateWithoutFacilitiesInput = {
 
 export type InstituteUncheckedUpdateWithoutFacilitiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8822,6 +8915,7 @@ export type InstituteUncheckedUpdateWithoutFacilitiesInput = {
 
 export type InstituteCreateWithoutBatchesInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -8914,6 +9008,7 @@ export type InstituteCreateWithoutBatchesInput = {
 
 export type InstituteUncheckedCreateWithoutBatchesInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -9022,6 +9117,7 @@ export type InstituteUpdateToOneWithWhereWithoutBatchesInput = {
 
 export type InstituteUpdateWithoutBatchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9114,6 +9210,7 @@ export type InstituteUpdateWithoutBatchesInput = {
 
 export type InstituteUncheckedUpdateWithoutBatchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9206,6 +9303,7 @@ export type InstituteUncheckedUpdateWithoutBatchesInput = {
 
 export type InstituteCreateWithoutHighlightStatsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -9298,6 +9396,7 @@ export type InstituteCreateWithoutHighlightStatsInput = {
 
 export type InstituteUncheckedCreateWithoutHighlightStatsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -9406,6 +9505,7 @@ export type InstituteUpdateToOneWithWhereWithoutHighlightStatsInput = {
 
 export type InstituteUpdateWithoutHighlightStatsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9498,6 +9598,7 @@ export type InstituteUpdateWithoutHighlightStatsInput = {
 
 export type InstituteUncheckedUpdateWithoutHighlightStatsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9590,6 +9691,7 @@ export type InstituteUncheckedUpdateWithoutHighlightStatsInput = {
 
 export type InstituteCreateWithoutAchievementsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -9682,6 +9784,7 @@ export type InstituteCreateWithoutAchievementsInput = {
 
 export type InstituteUncheckedCreateWithoutAchievementsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -9790,6 +9893,7 @@ export type InstituteUpdateToOneWithWhereWithoutAchievementsInput = {
 
 export type InstituteUpdateWithoutAchievementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9882,6 +9986,7 @@ export type InstituteUpdateWithoutAchievementsInput = {
 
 export type InstituteUncheckedUpdateWithoutAchievementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9974,6 +10079,7 @@ export type InstituteUncheckedUpdateWithoutAchievementsInput = {
 
 export type InstituteCreateWithoutFaqsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -10066,6 +10172,7 @@ export type InstituteCreateWithoutFaqsInput = {
 
 export type InstituteUncheckedCreateWithoutFaqsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -10174,6 +10281,7 @@ export type InstituteUpdateToOneWithWhereWithoutFaqsInput = {
 
 export type InstituteUpdateWithoutFaqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10266,6 +10374,7 @@ export type InstituteUpdateWithoutFaqsInput = {
 
 export type InstituteUncheckedUpdateWithoutFaqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10358,6 +10467,7 @@ export type InstituteUncheckedUpdateWithoutFaqsInput = {
 
 export type InstituteCreateWithoutOperatingHoursInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -10450,6 +10560,7 @@ export type InstituteCreateWithoutOperatingHoursInput = {
 
 export type InstituteUncheckedCreateWithoutOperatingHoursInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -10558,6 +10669,7 @@ export type InstituteUpdateToOneWithWhereWithoutOperatingHoursInput = {
 
 export type InstituteUpdateWithoutOperatingHoursInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10650,6 +10762,7 @@ export type InstituteUpdateWithoutOperatingHoursInput = {
 
 export type InstituteUncheckedUpdateWithoutOperatingHoursInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10742,6 +10855,7 @@ export type InstituteUncheckedUpdateWithoutOperatingHoursInput = {
 
 export type InstituteCreateWithoutCompareListItemsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -10834,6 +10948,7 @@ export type InstituteCreateWithoutCompareListItemsInput = {
 
 export type InstituteUncheckedCreateWithoutCompareListItemsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -10942,6 +11057,7 @@ export type InstituteUpdateToOneWithWhereWithoutCompareListItemsInput = {
 
 export type InstituteUpdateWithoutCompareListItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11034,6 +11150,7 @@ export type InstituteUpdateWithoutCompareListItemsInput = {
 
 export type InstituteUncheckedUpdateWithoutCompareListItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11126,6 +11243,7 @@ export type InstituteUncheckedUpdateWithoutCompareListItemsInput = {
 
 export type InstituteCreateWithoutCommunityQuestionsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -11218,6 +11336,7 @@ export type InstituteCreateWithoutCommunityQuestionsInput = {
 
 export type InstituteUncheckedCreateWithoutCommunityQuestionsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -11326,6 +11445,7 @@ export type InstituteUpdateToOneWithWhereWithoutCommunityQuestionsInput = {
 
 export type InstituteUpdateWithoutCommunityQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11418,6 +11538,7 @@ export type InstituteUpdateWithoutCommunityQuestionsInput = {
 
 export type InstituteUncheckedUpdateWithoutCommunityQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11510,6 +11631,7 @@ export type InstituteUncheckedUpdateWithoutCommunityQuestionsInput = {
 
 export type InstituteCreateWithoutNotablepersonsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -11602,6 +11724,7 @@ export type InstituteCreateWithoutNotablepersonsInput = {
 
 export type InstituteUncheckedCreateWithoutNotablepersonsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -11710,6 +11833,7 @@ export type InstituteUpdateToOneWithWhereWithoutNotablepersonsInput = {
 
 export type InstituteUpdateWithoutNotablepersonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11802,6 +11926,7 @@ export type InstituteUpdateWithoutNotablepersonsInput = {
 
 export type InstituteUncheckedUpdateWithoutNotablepersonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11894,6 +12019,7 @@ export type InstituteUncheckedUpdateWithoutNotablepersonsInput = {
 
 export type InstituteCreateWithoutComparisonsAsFirstInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -11986,6 +12112,7 @@ export type InstituteCreateWithoutComparisonsAsFirstInput = {
 
 export type InstituteUncheckedCreateWithoutComparisonsAsFirstInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -12083,6 +12210,7 @@ export type InstituteCreateOrConnectWithoutComparisonsAsFirstInput = {
 
 export type InstituteCreateWithoutComparisonsAsSecondInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -12175,6 +12303,7 @@ export type InstituteCreateWithoutComparisonsAsSecondInput = {
 
 export type InstituteUncheckedCreateWithoutComparisonsAsSecondInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -12283,6 +12412,7 @@ export type InstituteUpdateToOneWithWhereWithoutComparisonsAsFirstInput = {
 
 export type InstituteUpdateWithoutComparisonsAsFirstInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12375,6 +12505,7 @@ export type InstituteUpdateWithoutComparisonsAsFirstInput = {
 
 export type InstituteUncheckedUpdateWithoutComparisonsAsFirstInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12478,6 +12609,7 @@ export type InstituteUpdateToOneWithWhereWithoutComparisonsAsSecondInput = {
 
 export type InstituteUpdateWithoutComparisonsAsSecondInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12570,6 +12702,7 @@ export type InstituteUpdateWithoutComparisonsAsSecondInput = {
 
 export type InstituteUncheckedUpdateWithoutComparisonsAsSecondInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12662,6 +12795,7 @@ export type InstituteUncheckedUpdateWithoutComparisonsAsSecondInput = {
 
 export type InstituteCreateWithoutBlogPostsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -12754,6 +12888,7 @@ export type InstituteCreateWithoutBlogPostsInput = {
 
 export type InstituteUncheckedCreateWithoutBlogPostsInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -12862,6 +12997,7 @@ export type InstituteUpdateToOneWithWhereWithoutBlogPostsInput = {
 
 export type InstituteUpdateWithoutBlogPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12954,6 +13090,7 @@ export type InstituteUpdateWithoutBlogPostsInput = {
 
 export type InstituteUncheckedUpdateWithoutBlogPostsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13046,6 +13183,7 @@ export type InstituteUncheckedUpdateWithoutBlogPostsInput = {
 
 export type InstituteCreateManyCityInput = {
   id?: string
+  providerType?: $Enums.ProviderType
   name: string
   slug: string
   description?: string | null
@@ -13111,6 +13249,7 @@ export type InstituteCreateManyCityInput = {
 
 export type InstituteUpdateWithoutCityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13203,6 +13342,7 @@ export type InstituteUpdateWithoutCityInput = {
 
 export type InstituteUncheckedUpdateWithoutCityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13295,6 +13435,7 @@ export type InstituteUncheckedUpdateWithoutCityInput = {
 
 export type InstituteUncheckedUpdateManyWithoutCityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerType?: Prisma.EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13607,6 +13748,7 @@ export type InstituteCountOutputTypeCountConversationsArgs<ExtArgs extends runti
 
 export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  providerType?: boolean
   name?: boolean
   slug?: boolean
   description?: boolean
@@ -13702,6 +13844,7 @@ export type InstituteSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type InstituteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  providerType?: boolean
   name?: boolean
   slug?: boolean
   description?: boolean
@@ -13769,6 +13912,7 @@ export type InstituteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 
 export type InstituteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  providerType?: boolean
   name?: boolean
   slug?: boolean
   description?: boolean
@@ -13836,6 +13980,7 @@ export type InstituteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 
 export type InstituteSelectScalar = {
   id?: boolean
+  providerType?: boolean
   name?: boolean
   slug?: boolean
   description?: boolean
@@ -13900,7 +14045,7 @@ export type InstituteSelectScalar = {
   totalStudents?: boolean
 }
 
-export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "planWeight" | "youtubeVideos" | "classroomImages" | "feeInfo" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "telegramUrl" | "twitterUrl" | "youtubeUrl" | "linkedinUrl" | "whatsappUrl" | "isPublished" | "mode" | "viewCount" | "affiliations" | "awards" | "brochureUrl" | "compareCount" | "cons" | "establishedYear" | "feeMax" | "feeMin" | "hasCertification" | "hasDemoClasses" | "hasHostelFacility" | "hasOnlineClasses" | "hasScholarship" | "mediumOfInstruction" | "metaDescription" | "metaTitle" | "pros" | "refundPolicy" | "totalBranches" | "totalStudents", ExtArgs["result"]["institute"]>
+export type InstituteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "providerType" | "name" | "slug" | "description" | "phone" | "email" | "website" | "address" | "latitude" | "longitude" | "logo" | "coverImage" | "googlePlaceId" | "googleRating" | "googleReviewCount" | "cityId" | "isVerified" | "isFeatured" | "isActive" | "createdAt" | "updatedAt" | "imageUrl" | "averageRating" | "reviewCount" | "googleMapsUrl" | "placeTypes" | "gallery" | "subscriptionPlan" | "planWeight" | "youtubeVideos" | "classroomImages" | "feeInfo" | "planExpiresAt" | "facebookUrl" | "instagramUrl" | "telegramUrl" | "twitterUrl" | "youtubeUrl" | "linkedinUrl" | "whatsappUrl" | "isPublished" | "mode" | "viewCount" | "affiliations" | "awards" | "brochureUrl" | "compareCount" | "cons" | "establishedYear" | "feeMax" | "feeMin" | "hasCertification" | "hasDemoClasses" | "hasHostelFacility" | "hasOnlineClasses" | "hasScholarship" | "mediumOfInstruction" | "metaDescription" | "metaTitle" | "pros" | "refundPolicy" | "totalBranches" | "totalStudents", ExtArgs["result"]["institute"]>
 export type InstituteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   city?: boolean | Prisma.CityDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Institute$categoriesArgs<ExtArgs>
@@ -13973,6 +14118,7 @@ export type $InstitutePayload<ExtArgs extends runtime.Types.Extensions.InternalA
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    providerType: $Enums.ProviderType
     name: string
     slug: string
     description: string | null
@@ -14487,6 +14633,7 @@ export interface Prisma__InstituteClient<T, Null = never, ExtArgs extends runtim
  */
 export interface InstituteFieldRefs {
   readonly id: Prisma.FieldRef<"Institute", 'String'>
+  readonly providerType: Prisma.FieldRef<"Institute", 'ProviderType'>
   readonly name: Prisma.FieldRef<"Institute", 'String'>
   readonly slug: Prisma.FieldRef<"Institute", 'String'>
   readonly description: Prisma.FieldRef<"Institute", 'String'>

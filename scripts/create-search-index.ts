@@ -20,6 +20,7 @@ async function main() {
 
   const filterableTask = await index.updateFilterableAttributes([
     "type",
+    "providerType",
     "citySlug",
     "categorySlugs",
     "_geo",

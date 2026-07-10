@@ -43,6 +43,7 @@ export async function addInstitute(userId: string, formData: FormData,selectedCa
         const ownerName = (formData.get("ownerName") as string)?.trim();
         const ownerPhone = (formData.get("ownerPhone") as string)?.trim();
         const ownerDesignation = (formData.get("ownerDesignation") as string)?.trim();
+        const providerType = (formData.get("providerType") as string) === "INDIVIDUAL" ? "INDIVIDUAL" : "INSTITUTE";
 
         const latitude = formData.get("latitude") ? parseFloat(formData.get("latitude") as string) : null;
         const longitude = formData.get("longitude") ? parseFloat(formData.get("longitude") as string) : null;
@@ -72,6 +73,7 @@ export async function addInstitute(userId: string, formData: FormData,selectedCa
                 data: {
                     name, slug, description, phone, email, website, address, feeInfo,
                     googleMapsUrl, cityId, latitude, longitude,
+                    providerType,
                     isActive: false,
                     subscriptionPlan: "BASIC",
                     imageUrl: secureUrl

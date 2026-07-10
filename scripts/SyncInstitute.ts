@@ -41,6 +41,7 @@ export async function syncSingleInstituteToMeili(instituteId: string) {
       subscriptionPlan: inst.subscriptionPlan,
       planWeight: inst.planWeight ?? 1,
       isPublished: inst.isPublished,
+      providerType: inst.providerType,
       averageRating: inst.averageRating ?? 0,
       reviewCount: inst.reviewCount ?? 0,
       googleRating: inst.googleRating,             

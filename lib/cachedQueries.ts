@@ -26,6 +26,7 @@ export const getCachedInstitutesByCategoryAndCity = unstable_cache(
     page: number = 1,
     minRating?: number,
     mode?: string,
+    providerType?: string,
   ) => {
     const safePage = Math.max(1, Math.floor(page) || 1); // defense-in-depth guard
     return getInstitutesByCategoryAndCity(
@@ -39,6 +40,7 @@ export const getCachedInstitutesByCategoryAndCity = unstable_cache(
       undefined,   // radius
       minRating,
       mode,
+      providerType,
     );
   },
   ["institutes-by-cat-city"],
@@ -57,10 +59,11 @@ export async function getUncachedInstitutesByCategoryAndCity(
   radius?: number,
   minRating?: number,
   mode?: string,
+  providerType?: string,
 ) {
   const safePage = Math.max(1, Math.floor(page) || 1);
   return getInstitutesByCategoryAndCity(
-    categorySlug, citySlug, sort, safePage, q, lat, lng, radius, minRating, mode
+    categorySlug, citySlug, sort, safePage, q, lat, lng, radius, minRating, mode, providerType
   );
 }
 
@@ -74,10 +77,11 @@ export const getCachedInstitutesByCategory = unstable_cache(
     sort?: string,
     rating?: string,
     mode?: string,
+    providerType?: string,
   ) => {
     const safePage = Math.max(1, Math.floor(page) || 1);
     return getInstitutesByCategory(
-      categorySlug, safePage, undefined, sort, rating, mode, undefined, undefined
+      categorySlug, safePage, undefined, sort, rating, mode, undefined, undefined, providerType
     );
   },
   ["institutes-by-category"],
@@ -93,7 +97,8 @@ export async function getUncachedInstitutesByCategory(
   mode?: string,
   lat?: number,
   lng?: number,
+  providerType?: string,
 ) {
   const safePage = Math.max(1, Math.floor(page) || 1);
-  return getInstitutesByCategory(categorySlug, safePage, q, sort, rating, mode, lat, lng);
+  return getInstitutesByCategory(categorySlug, safePage, q, sort, rating, mode, lat, lng, providerType);
 }

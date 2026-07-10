@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
-      bodySizeLimit: '10mb', // 🚀 Isko 5mb ya 10mb kar dein
+      bodySizeLimit: "10mb",
     },
   },
   images: {
@@ -29,6 +29,14 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/educator/:path*",
+        destination: "/institute/:path*",
+      },
+    ];
   },
 };
 

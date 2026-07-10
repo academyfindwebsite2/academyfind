@@ -243,6 +243,13 @@ export type EnumReputationSourceWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumReputationSourceFilter<$PrismaModel>
 }
 
+export type EnumProviderTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProviderType | Prisma.EnumProviderTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProviderType[] | Prisma.ListEnumProviderTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProviderType[] | Prisma.ListEnumProviderTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProviderTypeFilter<$PrismaModel> | $Enums.ProviderType
+}
+
 export type FloatNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
@@ -277,6 +284,16 @@ export type EnumInstituteModeFilter<$PrismaModel = never> = {
   in?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
   notIn?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumInstituteModeFilter<$PrismaModel> | $Enums.InstituteMode
+}
+
+export type EnumProviderTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProviderType | Prisma.EnumProviderTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProviderType[] | Prisma.ListEnumProviderTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProviderType[] | Prisma.ListEnumProviderTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProviderTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProviderType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProviderTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProviderTypeFilter<$PrismaModel>
 }
 
 export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -1032,6 +1049,13 @@ export type NestedEnumReputationSourceWithAggregatesFilter<$PrismaModel = never>
   _max?: Prisma.NestedEnumReputationSourceFilter<$PrismaModel>
 }
 
+export type NestedEnumProviderTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProviderType | Prisma.EnumProviderTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProviderType[] | Prisma.ListEnumProviderTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProviderType[] | Prisma.ListEnumProviderTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProviderTypeFilter<$PrismaModel> | $Enums.ProviderType
+}
+
 export type NestedFloatNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
@@ -1055,6 +1079,16 @@ export type NestedEnumInstituteModeFilter<$PrismaModel = never> = {
   in?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
   notIn?: $Enums.InstituteMode[] | Prisma.ListEnumInstituteModeFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumInstituteModeFilter<$PrismaModel> | $Enums.InstituteMode
+}
+
+export type NestedEnumProviderTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProviderType | Prisma.EnumProviderTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProviderType[] | Prisma.ListEnumProviderTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProviderType[] | Prisma.ListEnumProviderTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProviderTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProviderType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProviderTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProviderTypeFilter<$PrismaModel>
 }
 
 export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {

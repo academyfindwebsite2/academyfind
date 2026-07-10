@@ -123,7 +123,12 @@ export default async function AdminInstitutesPage({
                                 institutes.map((institute: any) => (
                                     <tr key={institute.id} className={`hover:bg-slate-50/50 transition-colors ${!institute.isActive ? 'opacity-70' : ''}`}>
                                         <td className="p-4">
-                                            <div className="font-bold text-slate-800 text-base">{institute.name}</div>
+                                            <div className="flex items-center gap-2">
+                                                <div className="font-bold text-slate-800 text-base">{institute.name}</div>
+                                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${institute.providerType === 'INDIVIDUAL' ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700'}`}>
+                                                    {institute.providerType || 'INSTITUTE'}
+                                                </span>
+                                            </div>
                                             <div className="text-xs text-slate-500 mt-0.5">{institute.email || "No Email"}</div>
 
                                             <div className="flex items-center gap-1.5 mt-2 text-xs font-semibold text-slate-600 bg-slate-100 w-fit px-2 py-1 rounded-md">

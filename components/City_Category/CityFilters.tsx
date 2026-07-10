@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { 
   ArrowDownUp, MapPin, Star, IndianRupee, Navigation, 
-  Loader2, MonitorSmartphone, Filter, Sparkles 
+  Loader2, MonitorSmartphone, Filter, Sparkles, UserCircle 
 } from "lucide-react";
 import { Button } from "../ui/button";
 
@@ -36,6 +36,7 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
   const currentRating = searchParams.get("rating") || "all";
   const currentFee = searchParams.get("fee") || "all";
   const currentMode= searchParams.get("mode");
+  const currentProviderType = searchParams.get("providerType") || "ALL";
 
   const currentModes = currentMode ? currentMode.split(",") : ["offline", "online", "hybrid"];
   
@@ -182,6 +183,20 @@ export default function CityFilters({ category, city, hasLocation }: Props) {
           <SelectItem value="4.5" className="cursor-pointer">4.5+ Stars</SelectItem>
           <SelectItem value="4.0" className="cursor-pointer">4.0+ Stars</SelectItem>
           <SelectItem value="3.5" className="cursor-pointer">3.5+ Stars</SelectItem>
+        </SelectContent>
+      </Select>
+
+      <Select value={currentProviderType} onValueChange={(val) => handleFilterChange("providerType", val)}>
+        <SelectTrigger className={`w-full ${triggerClasses}`}>
+          <div className="flex items-center gap-2 font-medium text-slate-700">
+            <UserCircle className="h-4 w-4 text-amber-400" />
+            <SelectValue placeholder="Institute / Mentor" />
+          </div>
+        </SelectTrigger>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[200]" position="popper" side="bottom" sideOffset={5}>
+          <SelectItem value="ALL" className="cursor-pointer">All Institutes & Tutors</SelectItem>
+          <SelectItem value="INSTITUTE" className="cursor-pointer">Coaching Institutes</SelectItem>
+          <SelectItem value="INDIVIDUAL" className="cursor-pointer">Individual Tutors</SelectItem>
         </SelectContent>
       </Select>
 

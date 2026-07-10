@@ -304,8 +304,16 @@ export default function EditProfileForm({
                             <CardHeader><CardTitle>Basic Details</CardTitle><CardDescription>Update your academy's primary information.</CardDescription></CardHeader>
                             <CardContent className="space-y-5">
                                 <div className="space-y-2">
-                                    <Label>Institute Name <span className="text-red-500">*</span></Label>
+                                    <Label>Institute / Mentor Name <span className="text-red-500">*</span></Label>
                                     <Input name="name" defaultValue={institute.name || ""} required />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label>Listing Type <span className="text-red-500">*</span></Label>
+                                    <select name="providerType" defaultValue={institute.providerType || "INSTITUTE"} className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                                        <option value="INSTITUTE">Coaching Institute</option>
+                                        <option value="INDIVIDUAL">Individual Mentor / Tutor</option>
+                                    </select>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

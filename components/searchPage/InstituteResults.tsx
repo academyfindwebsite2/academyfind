@@ -18,10 +18,11 @@ type Props = {
   address?: string;
   userlat?: string; // 👈 Make sure URL aur SearchPage se yahi exact spelling (lowercase ya camelCase) aa rahi ho
   userlng?: string;
+  providerType?: string;
 };
 
 export default async function InstituteResults({ 
-  query, type, city, category, rating, lat, lng, radius, sort, page, address, userlat, userlng 
+  query, type, city, category, rating, lat, lng, radius, sort, page, address, userlat, userlng, providerType 
 }: Props) {
   
   const searchFilters: string[] = [];
@@ -35,6 +36,7 @@ export default async function InstituteResults({
   if (city && city !== "ALL") searchFilters.push(`citySlug = "${city}"`);
   if (category && category !== "ALL") searchFilters.push(`categorySlugs = "${category}"`); 
   if (rating && rating !== "ALL") searchFilters.push(`googleRating >= ${rating}`);
+  if (providerType && providerType !== "ALL") searchFilters.push(`providerType = "${providerType}"`);
 
   // 🔥 DEFAULT SORT HANDLING
   // Agar URL me sort nahi hai, toh by default "rating" maano
@@ -98,6 +100,7 @@ export default async function InstituteResults({
     if (city) params.set("city", city);
     if (category) params.set("category", category);
     if (rating) params.set("rating", rating);
+    if (providerType) params.set("providerType", providerType);
     
     // Original lat/lng apni jagah
     if (lat) params.set("lat", lat);

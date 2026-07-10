@@ -79,10 +79,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const safeOgImage = getSafeImageUrl(institute.logo, institute.imageUrl);
 
+  const baseUrl = institute.providerType === 'INDIVIDUAL' ? '/educator' : '/institute';
+
   return {
     title,
     description,
-    alternates: { canonical: `https://academyfind.com/institute/${idSlug}` },
+    alternates: { canonical: `https://academyfind.com${baseUrl}/${idSlug}` },
     keywords: [
       `${institute.name} ${institute.city.name}`,
       `${institute.name} fees`,
@@ -714,7 +716,7 @@ export default async function InstitutePage({ params }: PageProps) {
               )}
 
               {/* TEACHERS */}
-              {featuredFaculty.length > 0 && (
+              {institute.providerType !== 'INDIVIDUAL' && featuredFaculty.length > 0 && (
                 <div>
                   <div className="flex justify-between items-end mb-4">
                     <h3 className="text-xl font-bold text-slate-800">Faculty</h3>

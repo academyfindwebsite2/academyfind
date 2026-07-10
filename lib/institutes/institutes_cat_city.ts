@@ -19,6 +19,7 @@ export async function getInstitutesByCategoryAndCity(
   radius?: number,    
   minRating?: number, 
   mode?: string,       // 🚀 NAYA ADD KIYA: mode parameter
+  providerType?: string,
   limit: number = 12
 ) {
   const skip = (page - 1) * limit;
@@ -58,6 +59,10 @@ export async function getInstitutesByCategoryAndCity(
       searchOptions.filter.push(`mode IN [${meiliModes}]`);
     }
 
+    if (providerType && providerType !== "ALL") {
+      searchOptions.filter.push(`providerType = "${providerType}"`);
+    }
+
     if (lat && lng) {
       searchOptions.filter.push(`_geoRadius(${lat}, ${lng}, ${radiusInMeters})`);
     }
@@ -95,6 +100,10 @@ export async function getInstitutesByCategoryAndCity(
       if (pureModes.length > 0 && pureModes.length < 3) {
         const meiliModes = pureModes.map(m => `"${m.toLowerCase()}"`).join(", ");
         searchOptions.filter.push(`mode IN [${meiliModes}]`);
+      }
+      
+      if (providerType && providerType !== "ALL") {
+        searchOptions.filter.push(`providerType = "${providerType}"`);
       }
       
       if (sort === "rating") searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
@@ -171,6 +180,10 @@ export async function getInstitutesByCategoryAndCity(
   // 🚀 NEW: Prisma Mode Filter using Enum values
   if (pureModes.length > 0 && pureModes.length < 3) {
     prismaWhere.mode = { in: pureModes as any[] };
+  }
+
+  if (providerType && providerType !== "ALL") {
+    prismaWhere.providerType = providerType;
   }
 
   if (isHomeTuition) {

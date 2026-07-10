@@ -304,6 +304,7 @@ model Verification {
 
 model Institute {
   id                  String                     @id @default(cuid())
+  providerType        ProviderType               @default(INSTITUTE)
   name                String
   slug                String
   description         String?
@@ -2162,3 +2163,9 @@ model BlogBrand {
   @@index([slug])
   @@map("blog_brand")
 }
+
+enum ProviderType {
+  INSTITUTE
+  INDIVIDUAL
+}
+

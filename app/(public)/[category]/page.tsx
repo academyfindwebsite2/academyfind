@@ -43,6 +43,7 @@ interface PageProps {
     userLat?: string;
     userLng?: string;
     closestUser?: string;
+    providerType?: string;
   }>;
 }
 
@@ -314,7 +315,7 @@ function JsonLdSchemas({ institutes, cities, categoryData, category, totalCount 
 // ─── 3. PAGE COMPONENT ───────────────────────────────────────
 export default async function CategoryPage({ params, searchParams }: PageProps) {
   const { category } = await params;
-  const { page, q, sort = "rating", rating, mode, userLat, userLng, closestUser } = await searchParams;
+  const { page, q, sort = "rating", rating, mode, userLat, userLng, closestUser, providerType } = await searchParams;
 
   const categoryData = await getCategoryBySlug(category);
   if (!categoryData) {
@@ -341,6 +342,7 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
       mode,
       parsedLat,
       parsedLng,
+      providerType,
     )
     : await getCachedInstitutesByCategory(
       category,
@@ -348,6 +350,7 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
       sort,
       rating,
       mode,
+      providerType,
     );
 
   return (

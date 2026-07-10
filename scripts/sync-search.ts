@@ -65,6 +65,7 @@ async function main() {
       categoryIds: inst.categories.map((c) => c.categoryId),  // ← ADD THIS
       subscriptionPlan: inst.subscriptionPlan,  // ← ADD THIS
       isPublished: inst.isPublished,
+      providerType: inst.providerType,
       averageRating: inst.averageRating ?? 0,
       reviewCount: inst.reviewCount ?? 0,
       googleRating: inst.googleRating,             

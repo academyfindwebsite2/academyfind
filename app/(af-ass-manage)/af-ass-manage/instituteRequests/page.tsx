@@ -123,7 +123,12 @@ export default async function AdminApprovalsPage({
                                             <Link prefetch={false} href={`/af-ass-manage/institutes/${req.institute.id}`} className="hover:text-purple-600 transition-colors">
                                                 <h2 className="text-xl font-bold text-slate-900">{req.institute.name}</h2>
                                             </Link>
-                                            <p className="text-xs text-slate-400 font-mono mt-0.5">slug: {req.institute.slug}</p>
+                                            <div className="flex items-center gap-3 mt-1">
+                                                <p className="text-xs text-slate-400 font-mono">slug: {req.institute.slug}</p>
+                                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${req.institute.providerType === 'INDIVIDUAL' ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700'}`}>
+                                                    {req.institute.providerType || 'INSTITUTE'}
+                                                </span>
+                                            </div>
                                         </div>
 
                                         {/* Categories */}

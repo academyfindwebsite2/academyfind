@@ -181,8 +181,8 @@ export default async function UserCreateInstitutePage() {
             <div className="max-w-4xl mx-auto">
                 <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h1 className="text-3xl font-bold mb-2 text-slate-800">List Your Institute</h1>
-                        <p className="text-slate-500 mb-8">Fill up the form parameters below to propose a new corporate institute request listing.</p>
+                        <h1 className="text-3xl font-bold mb-2 text-slate-800">Create a Listing</h1>
+                        <p className="text-slate-500 mb-8">Fill up the form parameters below to propose a new profile listing on AcademyFind.</p>
                     </div>
                     <PricingModal>
                         <button className="inline-flex items-center gap-1 text-sm font-medium text-amber-500 transition-colors hover:text-amber-600 cursor-pointer">

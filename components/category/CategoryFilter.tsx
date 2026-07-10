@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { ArrowDownUp, Star, IndianRupee, MonitorSmartphone, Filter, Sparkles } from "lucide-react";
+import { ArrowDownUp, Star, IndianRupee, MonitorSmartphone, Filter, Sparkles, UserCircle } from "lucide-react";
 
 interface Props {
   category: string;
@@ -26,6 +26,7 @@ export default function CategoryFilters({ category }: Props) {
   const currentSort = searchParams.get("sort") || "rating";
   const currentRating = searchParams.get("rating") || "all";
   const currentFee = searchParams.get("fee") || "all";
+  const currentProviderType = searchParams.get("providerType") || "ALL";
   
   const currentModeParam = searchParams.get("mode");
   const currentModes = currentModeParam ? currentModeParam.split(",") : ["offline", "online", "hybrid"];
@@ -78,6 +79,20 @@ export default function CategoryFilters({ category }: Props) {
           <SelectItem value="relevance" className="cursor-pointer">Relevance</SelectItem>
           <SelectItem value="rating" className="cursor-pointer">Top Rated</SelectItem>
           <SelectItem value="reviews" className="cursor-pointer">Most Reviewed</SelectItem>
+        </SelectContent>
+      </Select>
+
+      <Select value={currentProviderType} onValueChange={(val) => handleFilterChange("providerType", val)}>
+        <SelectTrigger className={`w-full ${triggerClasses}`}>
+          <div className="flex items-center gap-2 font-medium text-slate-700">
+            <UserCircle className="h-4 w-4 text-amber-500" />
+            <SelectValue placeholder="Institute / Mentor" />
+          </div>
+        </SelectTrigger>
+        <SelectContent className="rounded-xl border-slate-100 shadow-xl z-[200]" position="popper" side="bottom" sideOffset={5}>
+          <SelectItem value="ALL" className="cursor-pointer">All Institutes & Tutors</SelectItem>
+          <SelectItem value="INSTITUTE" className="cursor-pointer">Coaching Institutes</SelectItem>
+          <SelectItem value="INDIVIDUAL" className="cursor-pointer">Individual Tutors</SelectItem>
         </SelectContent>
       </Select>
 

@@ -324,3 +324,11 @@ export const ReportReason = {
 } as const
 
 export type ReportReason = (typeof ReportReason)[keyof typeof ReportReason]
+
+
+export const ProviderType = {
+  INSTITUTE: 'INSTITUTE',
+  INDIVIDUAL: 'INDIVIDUAL'
+} as const
+
+export type ProviderType = (typeof ProviderType)[keyof typeof ProviderType]

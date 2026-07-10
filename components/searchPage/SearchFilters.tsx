@@ -24,10 +24,11 @@ type FilterProps = {
   currentLng?: string;
   currentRadius?: string;
   currentSort?: string;
+  currentProviderType?: string;
 };
 
 export default function SearchFilters({ 
-  categories, cities, currentType, currentCity, currentCategory, currentRating, currentLat, currentLng, currentRadius, currentSort
+  categories, cities, currentType, currentCity, currentCategory, currentRating, currentLat, currentLng, currentRadius, currentSort, currentProviderType
 }: FilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -151,6 +152,21 @@ const FiltersContent = (
                 <SelectItem value="institute" className="cursor-pointer font-medium">Institutes</SelectItem>
                 <SelectItem value="job" className="cursor-pointer font-medium">Careers & Jobs</SelectItem>
                 <SelectItem value="blog" className="cursor-pointer font-medium">Blogs & Articles</SelectItem>
+              </SelectContent>
+            </Select>
+        </div>
+
+        {/* PROVIDER TYPE FILTER */}
+        <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Institute / Mentor</label>
+            <Select value={currentProviderType || "ALL"} onValueChange={(val) => handleFilterChange("providerType", val)}>
+              <SelectTrigger className={triggerClasses}>
+                <SelectValue placeholder="All" />
+              </SelectTrigger>
+              <SelectContent position="popper" sideOffset={5} className="rounded-xl border-slate-200 shadow-xl bg-white/95 backdrop-blur-xl z-[999]">
+                <SelectItem value="ALL" className="cursor-pointer font-medium">All Institutes & Tutors</SelectItem>
+                <SelectItem value="INSTITUTE" className="cursor-pointer font-medium">Coaching Institutes</SelectItem>
+                <SelectItem value="INDIVIDUAL" className="cursor-pointer font-medium">Individual Tutors</SelectItem>
               </SelectContent>
             </Select>
         </div>

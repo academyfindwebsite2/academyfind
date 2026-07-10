@@ -27,6 +27,7 @@ export default function CreateInstituteForm({
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [providerType, setProviderType] = useState<"INSTITUTE" | "INDIVIDUAL">("INSTITUTE");
 
     // Image State
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -116,12 +117,44 @@ export default function CreateInstituteForm({
                 <div>
                     <h2 className="text-xl font-extrabold text-slate-900">Partner with AcademyFind</h2>
                     <p className="text-sm text-slate-600 mt-1.5 leading-relaxed max-w-2xl">
-                        Add your academy details below. Once submitted, your profile will be securely stored and locked. Our team will review the details to ensure authenticity before making it live to thousands of students.
+                        {providerType === "INDIVIDUAL" 
+                            ? "Add your educator details below. Once submitted, your profile will be securely stored and locked. Our team will review the details to ensure authenticity before making it live to thousands of students."
+                            : "Add your academy details below. Once submitted, your profile will be securely stored and locked. Our team will review the details to ensure authenticity before making it live to thousands of students."
+                        }
                     </p>
                 </div>
             </div>
 
+            <input type="hidden" name="providerType" value={providerType} />
+
             <div className="space-y-12">
+
+                {/* --- Section 0: Provider Type --- */}
+                <div className="relative bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
+                    <div className="flex items-center gap-3 mb-6">
+                        <User className="w-6 h-6 text-slate-400" />
+                        <div>
+                            <h3 className="text-xl font-bold text-slate-900">What are you listing?</h3>
+                            <p className="text-xs text-slate-500 mt-1">Select the type of profile you want to create.</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div 
+                            onClick={() => setProviderType("INSTITUTE")}
+                            className={`cursor-pointer rounded-2xl border-2 p-5 transition-all ${providerType === "INSTITUTE" ? "border-amber-500 bg-amber-50/50 shadow-sm" : "border-slate-200 hover:border-amber-300"}`}
+                        >
+                            <h4 className="font-bold text-slate-900">Institute / Coaching</h4>
+                            <p className="text-xs text-slate-500 mt-1">For organizations, coaching centers, and academies.</p>
+                        </div>
+                        <div 
+                            onClick={() => setProviderType("INDIVIDUAL")}
+                            className={`cursor-pointer rounded-2xl border-2 p-5 transition-all ${providerType === "INDIVIDUAL" ? "border-amber-500 bg-amber-50/50 shadow-sm" : "border-slate-200 hover:border-amber-300"}`}
+                        >
+                            <h4 className="font-bold text-slate-900">Individual Educator</h4>
+                            <p className="text-xs text-slate-500 mt-1">For 1:1 Mentors, Tutors, and Independent Teachers.</p>
+                        </div>
+                    </div>
+                </div>
 
                 {/* --- Section 1: Owner Details --- */}
                 <div className="relative bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
@@ -131,7 +164,9 @@ export default function CreateInstituteForm({
                     <div className="flex items-center gap-3 mb-8">
                         <User className="w-6 h-6 text-slate-400" />
                         <div>
-                            <h3 className="text-xl font-bold text-slate-900">Owner Information</h3>
+                            <h3 className="text-xl font-bold text-slate-900">
+                                {providerType === "INDIVIDUAL" ? "Personal Details" : "Owner Information"}
+                            </h3>
                             <p className="text-xs text-slate-500 mt-1">These details are kept private for verification purposes.</p>
                         </div>
                     </div>
@@ -146,8 +181,10 @@ export default function CreateInstituteForm({
                             <Input maxLength={10} name="ownerPhone" type="tel" required placeholder="e.g. 9876543210" defaultValue={defaultPhone || ""} className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Designation <span className="text-red-500">*</span></label>
-                            <Input maxLength={60} name="ownerDesignation" required placeholder="e.g. Founder / Director" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">
+                                {providerType === "INDIVIDUAL" ? "Title / Qualifications *" : "Designation *"}
+                            </label>
+                            <Input maxLength={60} name="ownerDesignation" required placeholder={providerType === "INDIVIDUAL" ? "e.g. M.Sc Mathematics" : "e.g. Founder / Director"} className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                     </div>
                 </div>
@@ -160,8 +197,12 @@ export default function CreateInstituteForm({
                     <div className="flex items-center gap-3 mb-8">
                         <UploadCloud className="w-6 h-6 text-slate-400" />
                         <div>
-                            <h3 className="text-xl font-bold text-slate-900">Cover Presentation</h3>
-                            <p className="text-xs text-slate-500 mt-1">Upload a high-quality image of your campus or logo.</p>
+                            <h3 className="text-xl font-bold text-slate-900">
+                                {providerType === "INDIVIDUAL" ? "Profile Photo / Cover" : "Cover Presentation"}
+                            </h3>
+                            <p className="text-xs text-slate-500 mt-1">
+                                {providerType === "INDIVIDUAL" ? "Upload a high-quality professional photo." : "Upload a high-quality image of your campus or logo."}
+                            </p>
                         </div>
                     </div>
 
@@ -200,19 +241,25 @@ export default function CreateInstituteForm({
                     <div className="flex items-center gap-3 mb-8">
                         <Landmark className="w-6 h-6 text-slate-400" />
                         <div>
-                            <h3 className="text-xl font-bold text-slate-900">Institute Profile</h3>
+                            <h3 className="text-xl font-bold text-slate-900">
+                                {providerType === "INDIVIDUAL" ? "Educator Profile" : "Institute Profile"}
+                            </h3>
                             <p className="text-xs text-slate-500 mt-1">What do students see when they visit your page?</p>
                         </div>
                     </div>
 
                     <div className="space-y-6">
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Registered Institute Name *</label>
-                            <Input name="name" required placeholder="e.g. Allen Career Institute" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl text-lg py-6" />
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">
+                                {providerType === "INDIVIDUAL" ? "Your Name / Brand Name *" : "Registered Institute Name *"}
+                            </label>
+                            <Input name="name" required placeholder={providerType === "INDIVIDUAL" ? "e.g. Rahul Sharma Maths" : "e.g. Allen Career Institute"} className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl text-lg py-6" />
                         </div>
 
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">About the Academy *</label>
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">
+                                {providerType === "INDIVIDUAL" ? "About You *" : "About the Academy *"}
+                            </label>
                             <Textarea
                                 name="description"
                                 required
@@ -238,14 +285,18 @@ export default function CreateInstituteForm({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Official Phone *</label>
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">
+                                {providerType === "INDIVIDUAL" ? "Contact Number *" : "Official Phone *"}
+                            </label>
                             <div className="relative">
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">+91</span>
                                 <Input name="phone" type="tel" required placeholder="9876543210" maxLength={10} className="pl-12 bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                             </div>
                         </div>
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Support Email *</label>
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">
+                                {providerType === "INDIVIDUAL" ? "Public Email *" : "Support Email *"}
+                            </label>
                             <Input name="email" type="email" required placeholder="contact@institute.com" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                         <div className="space-y-2.5">
@@ -274,14 +325,18 @@ export default function CreateInstituteForm({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Base City *</label>
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">
+                                {providerType === "INDIVIDUAL" ? "Your City *" : "Base City *"}
+                            </label>
                             <select name="cityId" required className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-700 outline-none focus:ring-2 focus:ring-amber-400 appearance-none">
                                 <option value="">Select your city...</option>
                                 {allCities.map((c: { id: string; name: string }) => <option key={c.id} value={c.id}>{c.name}</option>)}
                             </select>
                         </div>
                         <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Base Fees *</label>
+                            <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">
+                                {providerType === "INDIVIDUAL" ? "Typical Fees *" : "Base Fees *"}
+                            </label>
                             <Input name="feeInfo" required placeholder="e.g. ₹5,000 to ₹10,000 / month" className="bg-slate-50/50 border-slate-200 focus-visible:ring-amber-400 rounded-xl" />
                         </div>
                     </div>

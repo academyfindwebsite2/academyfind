@@ -16,6 +16,7 @@ export async function getInstitutesByCategory(
   mode?: string,         
   lat?: number,          // 🚀 NAYA PARAMETER
   lng?: number,          // 🚀 NAYA PARAMETER
+  providerType?: string,
   limit: number = 12
 ) {
   const skip = (page - 1) * limit;
@@ -42,6 +43,10 @@ export async function getInstitutesByCategory(
 
     if (rating && rating !== "all") {
       searchOptions.filter.push(`googleRating >= ${parseFloat(rating)}`);
+    }
+
+    if (providerType && providerType !== "ALL") {
+      searchOptions.filter.push(`providerType = "${providerType}"`);
     }
 
     if (pureModes.length > 0 && pureModes.length < 3) {
@@ -129,6 +134,10 @@ export async function getInstitutesByCategory(
 
   if (rating && rating !== "all") {
     whereClause.googleRating = { gte: parseFloat(rating) };
+  }
+
+  if (providerType && providerType !== "ALL") {
+    whereClause.providerType = providerType;
   }
 
   if (pureModes.length > 0 && pureModes.length < 3) {
