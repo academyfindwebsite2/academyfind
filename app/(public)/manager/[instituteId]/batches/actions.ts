@@ -88,6 +88,9 @@ export async function updateBatch(
   });
 
   revalidatePath(`/manager/${instituteId}/batches`);
+  revalidatePath(`/manager/${instituteId}/batches/${batchId}`);
+  
+  return { success: true };
 }
 
 export async function toggleBatchActive(

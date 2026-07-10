@@ -32,7 +32,6 @@ import ClassroomImages from "./EditClassroomImages";
 import EditAchievements from "./EditAchievements";
 import EditFAQs from "./EditFAQS";
 import EditNotablePersons from "./EditNotablePersons";
-import EditBatches from "./EditBatches";
 import EditOperatingHours from "./EditOperatingHours";
 
 type Facility = { id: string; name: string; available: boolean };
@@ -694,12 +693,7 @@ export default function EditProfileForm({
                         <LockedFeatureCard icon={<Users className="w-4 h-4 text-emerald-500" />} title="Faculty Profiles" desc="Introduce your experienced faculty members, their qualifications, and subjects taught." instituteId={institute.id} />
                     )}
 
-                    {/* Batches & Fees — NEW: InstituteBatch */}
-                    {isPremiumOrUltra ? (
-                        <EditBatches instituteId={institute.id} currentBatches={institute.batches || []} maxLimit={15} />
-                    ) : (
-                        <LockedFeatureCard icon={<GraduationCap className="w-4 h-4 text-blue-500" />} title="Batches & Fee Structure" desc="List your batches with duration, fees, timings and seats — powers comparison pages." instituteId={institute.id} />
-                    )}
+                    {/* Batches removed from here to favor dedicated route */}
 
                     {/* FAQs — NEW: InstituteFAQ */}
                     {isPremiumOrUltra ? (

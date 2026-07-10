@@ -4,6 +4,7 @@ import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowLeft, Users, PackageOpen, Plus, UserMinus } from "lucide-react";
+import { EditBatchModal } from "./EditBatchModal";
 
 type Props = { params: Promise<{ instituteId: string; batchId: string }> };
 
@@ -61,7 +62,10 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
         >
           <ArrowLeft className="mr-1 size-4" /> Back to Batches
         </Link>
-        <h1 className="text-2xl font-bold text-slate-900">{batch.name} - Members</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-slate-900">{batch.name} - Members</h1>
+          <EditBatchModal instituteId={instituteId} batch={batch} />
+        </div>
         <p className="mt-1 text-sm text-slate-500">
           Add or remove students and teachers for this batch.
         </p>
