@@ -116,7 +116,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
       title: seoTitle,
       description: seoDescription,
       site: "@academyfind",
-      images: ["https://www.academyfind.com/final-logo.png"],
+      images: ["https://academyfind.com/final-logo.png"],
     },
 
     // ── Keywords ──
@@ -170,7 +170,7 @@ interface JsonLdProps {
 }
 
 function JsonLdSchemas({ institutes, cities, categoryData, category, totalCount }: JsonLdProps) {
-  const baseUrl = "https://www.academyfind.com";
+  const baseUrl = "https://academyfind.com";
   const pageUrl = `${baseUrl}/${category}`;
   const currentYear = new Date().getFullYear();
   const categoryName = categoryData.name;
