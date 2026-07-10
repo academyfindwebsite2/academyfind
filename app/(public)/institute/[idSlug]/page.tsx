@@ -171,6 +171,7 @@ export default async function InstitutePage({ params }: PageProps) {
     prisma.instituteBatch.findMany({
       where: { instituteId: id, isActive: true },
       include: {
+        _count: { select: { studentMembers: true } },
         teacherMembers: {
           include: {
             teacherRecord: {
@@ -571,7 +572,10 @@ export default async function InstitutePage({ params }: PageProps) {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {activeBatches.map((batch: any) => {
-                const pct = batch.seatsTotal && batch.seatsTotal > 0 ? (batch.seatsLeft ?? 0) / batch.seatsTotal : null;
+                const calculatedSeatsLeft = batch.seatsTotal && batch.seatsTotal > 0 
+                  ? Math.max(0, batch.seatsTotal - (batch._count?.studentMembers || 0))
+                  : null;
+                const pct = (batch.seatsTotal && batch.seatsTotal > 0 && calculatedSeatsLeft !== null) ? calculatedSeatsLeft / batch.seatsTotal : null;
                 return (
                   <div key={batch.id} className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition">
                     <div className="flex justify-between items-start mb-4">
@@ -590,17 +594,14 @@ export default async function InstitutePage({ params }: PageProps) {
                     {pct !== null && (
                       <div className="mt-4 pt-4 border-t border-slate-100">
                         <div className="flex justify-between text-xs font-semibold mb-2">
-                          <span>Seats: {batch.seatsLeft} / {batch.seatsTotal} remaining</span>
+                          <span>Seats: {calculatedSeatsLeft} / {batch.seatsTotal} remaining</span>
                           {pct === 0 && <span className="text-rose-600">Full</span>}
-                          {pct > 0 && pct < 0.3 && <span className="text-rose-600">Only {batch.seatsLeft} seats left 🔴</span>}
+                          {pct > 0 && pct < 0.3 && <span className="text-rose-600">Only {calculatedSeatsLeft} seats left 🔴</span>}
                           {pct >= 0.3 && pct < 0.6 && <span className="text-amber-600">Filling fast</span>}
                         </div>
                         <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
                           <div className="h-full bg-amber-400 rounded-full" style={{ width: `${(1 - pct) * 100}%` }}></div>
                         </div>
-                        {pct === 0 && (
-                          <Button variant="outline" className="w-full mt-3 text-rose-600 border-rose-200 bg-rose-50 hover:bg-rose-100">Join Waitlist</Button>
-                        )}
                       </div>
                     )}
 
