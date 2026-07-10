@@ -14,6 +14,7 @@ export function InviteMemberModal({ instituteId }: { instituteId: string }) {
     const [results, setResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [invitingId, setInvitingId] = useState<string | null>(null);
+    const [role, setRole] = useState<"STUDENT" | "TEACHER">("STUDENT");
 
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -38,7 +39,7 @@ export function InviteMemberModal({ instituteId }: { instituteId: string }) {
             const res = await fetch(`/api/v2/memberships/invite`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId, instituteId, role: "STUDENT" }) // default role
+                body: JSON.stringify({ userId, instituteId, role })
             });
             const data = await res.json();
             if (res.ok) {
@@ -65,6 +66,27 @@ export function InviteMemberModal({ instituteId }: { instituteId: string }) {
                 <DialogHeader>
                     <DialogTitle className="text-xl font-bold text-slate-800">Invite a Member</DialogTitle>
                 </DialogHeader>
+
+                <div className="flex items-center gap-4 mt-2">
+                    <span className="text-sm font-medium text-slate-700">Invite as:</span>
+                    <div className="flex bg-slate-100 rounded-lg p-1">
+                        <button 
+                            type="button"
+                            onClick={() => setRole("STUDENT")} 
+                            className={`px-3 py-1 text-sm rounded-md font-medium transition-colors ${role === "STUDENT" ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-200" : "text-slate-500 hover:text-slate-700"}`}
+                        >
+                            Student
+                        </button>
+                        <button 
+                            type="button"
+                            onClick={() => setRole("TEACHER")} 
+                            className={`px-3 py-1 text-sm rounded-md font-medium transition-colors ${role === "TEACHER" ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-200" : "text-slate-500 hover:text-slate-700"}`}
+                        >
+                            Teacher
+                        </button>
+                    </div>
+                </div>
+
                 <form onSubmit={handleSearch} className="flex gap-2 mt-2">
                     <div className="relative flex-1">
                         <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
