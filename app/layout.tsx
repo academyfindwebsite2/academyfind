@@ -50,6 +50,10 @@ export const metadata: Metadata = {
   creator: "AcademyFind",
   publisher: "AcademyFind",
 
+  icons: {
+    icon: '/favicon-new.png',
+  },
+
   openGraph: {
     type: "website",
     locale: "en_IN",
