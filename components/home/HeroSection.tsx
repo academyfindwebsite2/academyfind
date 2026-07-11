@@ -1,38 +1,41 @@
-  import Link from "next/link";
-  import { ArrowRight, LifeBuoy } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, LifeBuoy } from "lucide-react";
 
-  import { SearchBar } from "@/components/search/SearchBar";
-  import TypingHeading from "./TypingHeading";
+import { SearchBar } from "@/components/search/SearchBar";
+import TypingHeading from "./TypingHeading";
 
 
-  const trendingSearches = [
-    {
-      title:"Dance Classes in Noida",
-      slug: "dance-classes/noida"
-    },
-    {
-      title:"JEE Coaching in Delhi",
-      slug:"jee-coaching/delhi",
-    },
-    {
-      title:"Swimming Classes in Faridabad",
-      slug:"swimming-classes/faridabad"
-    },
-    {
-      title:"CLAT Coaching in Noida",
-      slug:"clat-coaching/noida"
-    
-    }
-    
-    
-  ];
+const trendingSearches = [
+  {
+    title: "Dance Classes in Noida",
+    slug: "dance-classes/noida"
+  },
+  {
+    title: "JEE Coaching in Delhi",
+    slug: "jee-coaching/delhi",
+  },
+  {
+    title: "Swimming Classes in Faridabad",
+    slug: "swimming-classes/faridabad"
+  },
+  {
+    title: "CLAT Coaching in Noida",
+    slug: "clat-coaching/noida"
+  },
+  {
+    title: "Class 9 tuitions in Gurgaon",
+    slug: "class-9-tuition/gurugram"
+  }
 
-  export function HeroSection() {
-    return (
-      <section className="relative border-b bg-linear-to-b from-amber-50 via-background to-background">
-        {/* Background Glow */}
-        <div
-          className="
+
+];
+
+export function HeroSection() {
+  return (
+    <section className="relative border-b bg-linear-to-b from-amber-50 via-background to-background">
+      {/* Background Glow */}
+      <div
+        className="
             absolute
             left-1/2
             top-10
@@ -47,13 +50,13 @@
             sm:h-96
             sm:w-96
           "
-        />
+      />
 
-        <div className="container mx-auto px-4 py-10 sm:py-8 lg:py-12">
-          <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
-            {/* Badge */}
-            <div
-              className="
+      <div className="container mx-auto px-4 py-10 sm:py-8 lg:py-12">
+        <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
+          {/* Badge */}
+          <div
+            className="
                 mb-3
                 rounded-full
                 border
@@ -65,26 +68,26 @@
                 shadow-sm
                 backdrop-blur
               "
-            >
-              India's Coaching Discovery Platform
-            </div>
+          >
+            India's Coaching Discovery Platform
+          </div>
 
-            {/* Heading */}
-            <h1
-              className="
+          {/* Heading */}
+          <h1
+            className="
                 font-extrabold
                 tracking-tight
                 leading-[1.05]
                 text-[clamp(1.9rem,4.5vw,4.25rem)]
               "
-            >
-              Find the Right
-              <TypingHeading />
-            </h1>
+          >
+            Find the Right
+            <TypingHeading />
+          </h1>
 
-            {/* Description */}
-            <p
-              className="
+          {/* Description */}
+          <p
+            className="
                 mt-3
                 max-w-xl
                 text-xs
@@ -93,13 +96,13 @@
                 sm:text-sm
                 lg:text-base
               "
-            >
-              Discover coaching institutes, tuition centers, skill-development programs, and extracurricular classes for your preparation journey. 
-            </p>
+          >
+            Discover coaching institutes, tuition centers, skill-development programs, and extracurricular classes for your preparation journey.
+          </p>
 
-            {/* Search Label */}
-            <p
-              className="
+          {/* Search Label */}
+          <p
+            className="
                 mt-6
                 mb-3
                 text-xs
@@ -110,15 +113,15 @@
 
                 sm:text-sm
               "
-            >
-              Search by Exam, Institute or City
-            </p>
+          >
+            Search by Exam, Institute or City
+          </p>
 
-            {/* Search */}
-            <div className="relative w-full max-w-4xl">
-              {/* Outer Glow */}
-              <div
-                className="
+          {/* Search */}
+          <div className="relative w-full max-w-4xl">
+            {/* Outer Glow */}
+            <div
+              className="
                   pointer-events-none
                   absolute
                   inset-0
@@ -131,11 +134,11 @@
                   to-amber-300/25
                   blur-3xl
                 "
-              />
+            />
 
-              {/* Secondary Glow */}
-              <div
-                className="
+            {/* Secondary Glow */}
+            <div
+              className="
                   pointer-events-none
                   absolute
                   left-1/2
@@ -149,11 +152,11 @@
                   bg-amber-400/10
                   blur-3xl
                 "
-              />
+            />
 
-              {/* Search Card */}
-              <div
-                className="
+            {/* Search Card */}
+            <div
+              className="
                   relative
                   rounded-[2rem]
                   border
@@ -165,24 +168,24 @@
                   overflow-visible
                   sm:p-4
                 "
-              >
-                <SearchBar />
-              </div>
+            >
+              <SearchBar />
             </div>
+          </div>
 
-            {/* Trending */}
-            <div className="mt-6">
-              <p className="mb-3 text-sm font-medium text-muted-foreground">
-                🔥 Trending Today
-              </p>
+          {/* Trending */}
+          <div className="mt-6">
+            <p className="mb-3 text-sm font-medium text-muted-foreground">
+              🔥 Trending Today
+            </p>
 
-              <div className="flex flex-wrap justify-center gap-2">
-                {trendingSearches.map((item) => (
-                  <Link
-                    key={item.slug}
-                    href={item.slug}
-                    prefetch={false}
-                    className="
+            <div className="flex flex-wrap justify-center gap-2">
+              {trendingSearches.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={item.slug}
+                  prefetch={false}
+                  className="
                       rounded-full
                       border
                       bg-background
@@ -193,18 +196,18 @@
                       hover:border-amber-200
                       hover:bg-amber-50
                     "
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
+                >
+                  {item.title}
+                </Link>
+              ))}
             </div>
+          </div>
 
-            {/* CTA */}
-            <Link
-              href="/categories"
-              prefetch={false}
-              className="
+          {/* CTA */}
+          <Link
+            href="/categories"
+            prefetch={false}
+            className="
                 mt-5
                 inline-flex
                 items-center
@@ -214,12 +217,12 @@
                 transition-colors
                 hover:text-amber-600
               "
-            >
-              Browse All Categories
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+          >
+            Browse All Categories
+            <ArrowRight className="h-4 w-4" />
+          </Link>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-5 py-2.5 text-sm shadow-sm transition-all hover:border-amber-300 hover:bg-amber-100/80">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-5 py-2.5 text-sm shadow-sm transition-all hover:border-amber-300 hover:bg-amber-100/80">
             <span className="text-slate-600">Confused about what to choose in life?</span>
             <Link
               href="/user/life-coach" /* Agar aapka path /user/life-coach hai toh isko update kar lena */
@@ -230,8 +233,8 @@
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
-          </div>
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
+}
