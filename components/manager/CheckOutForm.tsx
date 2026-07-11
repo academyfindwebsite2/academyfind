@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { format, addDays, addYears } from "date-fns";
-import { CreditCard, QrCode, UploadCloud, Loader2, Ticket, CheckCircle2, X, ArrowDownCircle } from "lucide-react";
+import { CreditCard, QrCode, UploadCloud, Loader2, Ticket, CheckCircle2, X, ArrowDownCircle, Landmark } from "lucide-react";
 import toast from "react-hot-toast";
 import { submitPaymentProof } from "@/lib/User/manager/subscription";
 import { Button } from "../ui/button";
@@ -13,17 +13,27 @@ export default function CheckoutForm({
   plan,
   BillingCycle = "MONTHLY",
   upiId,
+  bankDetails,
 }: {
   instituteId: string;
   plan: any;
   BillingCycle?: "MONTHLY" | "ANNUAL";
   upiId: string;
+  bankDetails?: {
+    bankName: string;
+    accountName: string;
+    accountNumber: string;
+    ifscCode: string;
+  };
 }) {
   const [mounted, setMounted] = useState(false);
   const [isAnnual, setIsAnnual] = useState(BillingCycle === "ANNUAL");
   const [isLoading, setIsLoading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
+
+  // Payment Method State
+  const [paymentMethod, setPaymentMethod] = useState<"QR" | "BANK">("QR");
 
   // Coupon States
   const [couponInput, setCouponInput] = useState("");
@@ -39,36 +49,36 @@ export default function CheckoutForm({
     const start = mounted ? new Date() : new Date(0); // Dummy date for SSR
     const end = isAnnual ? addYears(start, 1) : addDays(start, 30);
     const amount = isAnnual ? plan.pricing.annual.offer : plan.pricing.monthly.offer;
-    
+
 
     const discountPercent = appliedCoupon === "NOIDA10" ? 10 : 0;
     const discountVal = (amount * discountPercent) / 100;
     const discountedAmount = amount - discountVal;
 
-    return { 
-        startDate: start, 
-        expiryDate: end, 
-        basePrice: amount, 
-        finalPrice: Math.round(discountedAmount),
-        discountAmount: Math.round(discountVal)
+    return {
+      startDate: start,
+      expiryDate: end,
+      basePrice: amount,
+      finalPrice: Math.round(discountedAmount),
+      discountAmount: Math.round(discountVal)
     };
   }, [isAnnual, plan, appliedCoupon, mounted]);
 
   const handleApplyCoupon = () => {
     if (!couponInput.trim()) return;
-    
+
     if (couponInput.trim().toUpperCase() === "NOIDA10") {
-        setAppliedCoupon("NOIDA10");
-        toast.success("Coupon applied! 10% discount added.");
+      setAppliedCoupon("NOIDA10");
+      toast.success("Coupon applied! 10% discount added.");
     } else {
-        toast.error("Invalid or expired coupon code.");
+      toast.error("Invalid or expired coupon code.");
     }
   };
 
   const handleRemoveCoupon = () => {
-      setAppliedCoupon(null);
-      setCouponInput("");
-      toast.success("Coupon removed.");
+    setAppliedCoupon(null);
+    setCouponInput("");
+    toast.success("Coupon removed.");
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -88,17 +98,17 @@ export default function CheckoutForm({
     } else {
       toast.error(res.error || "Can't submit payment info");
     }
-     setIsLoading(false);
+    setIsLoading(false);
   };
 
   if (!mounted) {
-      return <div className="p-10 text-center text-slate-500">Initializing checkout...</div>;
+    return <div className="p-10 text-center text-slate-500">Initializing checkout...</div>;
   }
 
   return (
     // 🚀 Container padding and gap reduced (gap-10 -> gap-8, py-12 -> py-8)
     <div className="flex flex-col gap-8 max-w-3xl w-full mx-auto py-8 px-4 sm:px-6">
-      
+
       {/* 🟢 STEP 1: Order Summary (Scaled Down) */}
       <div className="rounded-3xl border border-slate-200 bg-white shadow-sm p-6 md:p-8">
         <div className="flex items-center justify-between mb-6">
@@ -134,107 +144,166 @@ export default function CheckoutForm({
 
           {/* Text size reduced (text-base -> text-sm, font-bold -> font-semibold) */}
           <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                  <span className="text-slate-500 font-medium">Start Date</span>
-                  <span className="font-semibold text-slate-900">{format(startDate, "PPP")}</span>
-              </div>
-              <div className="flex justify-between">
-                  <span className="text-slate-500 font-medium">Expiry Date</span>
-                  <span className="font-semibold text-emerald-600">{format(expiryDate, "PPP")}</span>
-              </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500 font-medium">Start Date</span>
+              <span className="font-semibold text-slate-900">{format(startDate, "PPP")}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500 font-medium">Expiry Date</span>
+              <span className="font-semibold text-emerald-600">{format(expiryDate, "PPP")}</span>
+            </div>
           </div>
         </div>
 
         {/* 🚀 COUPON SECTION (Inputs scaled down) */}
         <div className="mt-6">
-            {!appliedCoupon ? (
-                <div className="flex flex-col sm:flex-row gap-2">
-                    <div className="relative flex-1">
-                        <Ticket className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                        <input 
-                            type="text" 
-                            value={couponInput}
-                            onChange={(e) => setCouponInput(e.target.value)}
-                            placeholder="Have a coupon code?" 
-                            // Input padding/font reduced (py-4 -> py-2.5, text-base -> text-sm)
-                            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold uppercase placeholder:normal-case outline-none focus:border-blue-500 transition-colors"
-                        />
-                    </div>
-                    <Button onClick={handleApplyCoupon} size="sm" className="h-auto rounded-xl px-6 font-bold text-sm">Apply Code</Button>
-                </div>
-            ) : (
-                <div className="flex items-center justify-between bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
-                    <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                        <span className="text-sm font-bold text-emerald-800 uppercase tracking-wider">{appliedCoupon} Applied</span>
-                    </div>
-                    <button onClick={handleRemoveCoupon} className="p-1.5 hover:bg-emerald-100 rounded-full transition-colors">
-                        <X className="w-4 h-4 text-emerald-700" />
-                    </button>
-                </div>
-            )}
+          {!appliedCoupon ? (
+            <div className="flex flex-col sm:flex-row gap-2">
+              <div className="relative flex-1">
+                <Ticket className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  value={couponInput}
+                  onChange={(e) => setCouponInput(e.target.value)}
+                  placeholder="Have a coupon code?"
+                  // Input padding/font reduced (py-4 -> py-2.5, text-base -> text-sm)
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold uppercase placeholder:normal-case outline-none focus:border-blue-500 transition-colors"
+                />
+              </div>
+              <Button onClick={handleApplyCoupon} size="sm" className="h-auto rounded-xl px-6 font-bold text-sm">Apply Code</Button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                <span className="text-sm font-bold text-emerald-800 uppercase tracking-wider">{appliedCoupon} Applied</span>
+              </div>
+              <button onClick={handleRemoveCoupon} className="p-1.5 hover:bg-emerald-100 rounded-full transition-colors">
+                <X className="w-4 h-4 text-emerald-700" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* TOTALS (Text size reduced) */}
         <div className="mt-6 space-y-2">
-            <div className="flex justify-between text-sm">
-                <span className="text-slate-500 font-medium">Base Price</span>
-                <span className="font-semibold text-slate-700">₹{basePrice.toLocaleString("en-IN")}</span>
+          <div className="flex justify-between text-sm">
+            <span className="text-slate-500 font-medium">Base Price</span>
+            <span className="font-semibold text-slate-700">₹{basePrice.toLocaleString("en-IN")}</span>
+          </div>
+          {appliedCoupon && (
+            <div className="flex justify-between text-sm text-emerald-600 font-bold bg-emerald-50 p-1.5 rounded px-3 -mx-3">
+              <span>Discount (10%)</span>
+              <span>- ₹{discountAmount.toLocaleString("en-IN")}</span>
             </div>
-            {appliedCoupon && (
-                <div className="flex justify-between text-sm text-emerald-600 font-bold bg-emerald-50 p-1.5 rounded px-3 -mx-3">
-                    <span>Discount (10%)</span>
-                    <span>- ₹{discountAmount.toLocaleString("en-IN")}</span>
-                </div>
-            )}
-            {/* Total Price text reduced (text-5xl -> text-3xl, pt-6 -> pt-4) */}
-            <div className="flex justify-between items-center border-t border-slate-100 pt-4 mt-3">
-                <span className="font-bold text-slate-800 text-lg">Total To Pay</span>
-                <span className="text-3xl font-black text-blue-600">₹{finalPrice.toLocaleString("en-IN")}</span>
-            </div>
+          )}
+          {/* Total Price text reduced (text-5xl -> text-3xl, pt-6 -> pt-4) */}
+          <div className="flex justify-between items-center border-t border-slate-100 pt-4 mt-3">
+            <span className="font-bold text-slate-800 text-lg">Total To Pay</span>
+            <span className="text-3xl font-black text-blue-600">₹{finalPrice.toLocaleString("en-IN")}</span>
+          </div>
         </div>
       </div>
 
       {/* 🟡 STEP 2: BIG QR CODE CARD (Keeping this Big & Prominent) */}
       <div className="rounded-3xl border border-slate-200 bg-slate-900 shadow-xl p-8 md:p-10 text-center relative overflow-hidden">
-          {/* Glow reduced a bit */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 bg-blue-500/20 blur-[80px] rounded-full pointer-events-none"></div>
+        {/* Glow reduced a bit */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 bg-blue-500/20 blur-[80px] rounded-full pointer-events-none"></div>
 
-          <div className="relative z-10 flex flex-col items-center">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-blue-300 bg-blue-900/50 px-2.5 py-0.5 rounded-full mb-5 border border-blue-700/50">Step 2 of 3</span>
-              <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center gap-2.5">
-                  <QrCode className="w-7 h-7 text-blue-400" /> Scan & Pay Securely
-              </h2>
-              
+        <div className="relative z-10 flex flex-col items-center">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-blue-300 bg-blue-900/50 px-2.5 py-0.5 rounded-full mb-5 border border-blue-700/50">Step 2 of 3</span>
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center gap-2.5">
+            <CreditCard className="w-7 h-7 text-blue-400" /> Pay Securely
+          </h2>
+
+          {/* PAYMENT METHOD TOGGLE */}
+          <div className="flex bg-slate-800 p-1.5 rounded-xl mb-8 border border-slate-700 w-full max-w-sm">
+            <button
+              type="button"
+              onClick={() => setPaymentMethod("QR")}
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-colors ${paymentMethod === "QR" ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'}`}
+            >
+              <QrCode className="w-4 h-4" /> Scan QR
+            </button>
+            <button
+              type="button"
+              onClick={() => setPaymentMethod("BANK")}
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-bold rounded-lg transition-colors ${paymentMethod === "BANK" ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'}`}
+            >
+              <Landmark className="w-4 h-4" /> Net Banking
+            </button>
+          </div>
+
+          {paymentMethod === "QR" ? (
+            <>
               {/* 🚀 KEEPING QR CONTAINER BIG (Original sizes) */}
               <div className="bg-white p-5 rounded-3xl mx-auto w-full max-w-90 sm:max-w-md aspect-square shadow-2xl">
-                  <Image
-                      src="/payment_qr/payment.jpeg"
-                      width={500}
-                      height={500}
-                      alt="Payment QR"
-                      className="w-full h-full object-contain rounded-2xl"
-                  />
+                <Image
+                  src="/payment_qr/payment.jpeg"
+                  width={500}
+                  height={500}
+                  alt="Payment QR"
+                  className="w-full h-full object-contain rounded-2xl"
+                />
               </div>
 
-              <div className="mt-8 space-y-2 w-full">
-                  <p className="text-xs text-slate-400 font-semibold uppercase tracking-widest">Official UPI ID</p>
-                  <div className="bg-slate-800/80 border border-slate-700 p-3 rounded-xl w-full mx-auto overflow-hidden">
-                      {/* Text size slightly reduced to fit box better */}
-                      <p className="font-mono text-xl font-bold text-white tracking-wider select-all cursor-pointer hover:text-blue-300 transition-colors break-all">
-                          {upiId}
-                      </p>
-                  </div>
-              </div>
-
-              {/* Scroll instruction line (Text size reduced to standard) */}
-              <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-center gap-3 bg-amber-500/10 border border-amber-500/20 p-4 rounded-xl w-full max-w-lg mx-auto text-center sm:text-left">
-                  <ArrowDownCircle className="w-7 h-7 text-amber-400 animate-bounce shrink-0" />
-                  <p className="text-sm font-semibold text-amber-300 leading-tight">
-                      After payment, scroll below to submit your payment proof for verification.
+              <div className="mt-8 space-y-2 w-full max-w-md mx-auto">
+                <p className="text-xs text-slate-400 font-semibold uppercase tracking-widest">Official UPI ID</p>
+                <div className="bg-slate-800/80 border border-slate-700 p-3 rounded-xl w-full mx-auto overflow-hidden">
+                  {/* Text size slightly reduced to fit box better */}
+                  <p className="font-mono text-xl font-bold text-white tracking-wider select-all cursor-pointer hover:text-blue-300 transition-colors break-all">
+                    {upiId}
                   </p>
+                </div>
               </div>
+            </>
+          ) : (
+            <>
+              {/* BANK DETAILS UI */}
+              <div className="bg-slate-800/80 border border-slate-700 rounded-2xl w-full max-w-md mx-auto overflow-hidden text-left shadow-2xl mb-4">
+                <div className="bg-blue-900/40 p-4 border-b border-slate-700 flex items-center gap-3">
+                  <div className="bg-blue-500/20 p-2 rounded-lg">
+                    <Landmark className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-lg">{bankDetails?.bankName}</h3>
+                    <p className="text-blue-300 text-xs uppercase tracking-wider font-semibold">Official Bank Account</p>
+                  </div>
+                </div>
+                <div className="p-5 space-y-5">
+                  <div>
+                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-widest mb-1.5">Account Name</p>
+                    <p className="font-mono text-sm sm:text-base font-bold text-white tracking-wide select-all cursor-pointer hover:text-blue-300 transition-colors">
+                      {bankDetails?.accountName}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <p className="text-xs text-slate-400 font-semibold uppercase tracking-widest mb-1.5">Account Number</p>
+                      <p className="font-mono text-base font-bold text-white tracking-wider select-all cursor-pointer hover:text-blue-300 transition-colors break-all">
+                        {bankDetails?.accountNumber}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-400 font-semibold uppercase tracking-widest mb-1.5">IFSC Code</p>
+                      <p className="font-mono text-base font-bold text-white tracking-wider select-all cursor-pointer hover:text-blue-300 transition-colors">
+                        {bankDetails?.ifscCode}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Scroll instruction line (Text size reduced to standard) */}
+          <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-center gap-3 bg-amber-500/10 border border-amber-500/20 p-4 rounded-xl w-full max-w-lg mx-auto text-center sm:text-left">
+            <ArrowDownCircle className="w-7 h-7 text-amber-400 animate-bounce shrink-0" />
+            <p className="text-sm font-semibold text-amber-300 leading-tight">
+              After payment, scroll below to submit your payment proof for verification.
+            </p>
           </div>
+        </div>
       </div>
 
       {/* 🟢 STEP 3: Verification Form (Scaled Down) */}
@@ -288,11 +357,11 @@ export default function CheckoutForm({
                 // inner text scaled down (text-lg -> text-sm)
                 <div className="space-y-3 py-4">
                   <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm border border-slate-200">
-                      <UploadCloud className="text-blue-500 w-6 h-6" />
+                    <UploadCloud className="text-blue-500 w-6 h-6" />
                   </div>
                   <div>
-                      <p className="text-sm font-bold text-slate-700">Click to upload receipt</p>
-                      <p className="text-xs text-slate-400 mt-1">PNG, JPG up to 5MB</p>
+                    <p className="text-sm font-bold text-slate-700">Click to upload receipt</p>
+                    <p className="text-xs text-slate-400 mt-1">PNG, JPG up to 5MB</p>
                   </div>
                 </div>
               )}

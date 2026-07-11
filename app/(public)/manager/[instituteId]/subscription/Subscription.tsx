@@ -95,8 +95,8 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
                 </h2>
                 
                 {/* 🚀 PROMO BANNER */}
-                <div className="mb-4 mt-2 inline-flex bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 text-amber-800 px-6 py-2 rounded-full text-sm font-bold shadow-sm items-center justify-center gap-2">
-                    🎉 <span className="text-amber-900">Early Bird Offer:</span> Special pricing valid only till <span className="bg-amber-200/50 px-2 py-0.5 rounded-md">31st July</span>!
+                <div className="mb-4 mt-2 inline-block bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 text-amber-800 px-6 py-2.5 rounded-full text-sm font-bold shadow-sm max-w-full">
+                    🎉 <span className="text-amber-900">Early Bird Offer:</span> Special pricing valid only till <span className="bg-amber-200/50 px-2 py-0.5 rounded-md whitespace-nowrap mx-1">31st July</span>!
                 </div>
 
                 <p className="text-sm text-slate-500 mt-2">
