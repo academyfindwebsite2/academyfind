@@ -87,7 +87,7 @@ export function Footer() {
               "
             >
               <Image
-                src="/square-logo.png"
+                src="/favicon-new.png"
                 alt="AcademyFind Logo"
                 width={36}
                 height={36} />
