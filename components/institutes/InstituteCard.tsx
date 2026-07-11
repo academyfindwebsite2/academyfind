@@ -38,19 +38,19 @@ export default function InstituteCard({
   distance,
   category
 }: InstituteCardProps) {
-  
+
   const isCloudinaryImage = image?.includes("cloudinary.com");
-  
+
   // Priority: googleRating > averageRating > null
   const displayRating = googleRating ?? averageRating;
   console.log(googleRating)
   const displayReviewCount = googleReviewCount ?? reviewCount ?? 0;
 
   const getFallBackImage = (category: string) => {
-    if(!category)
+    if (!category)
       return "/no_image/coaching_inst.PNG";
 
-    switch(category){
+    switch (category) {
       case "jee-coaching":
         return "/no_image/jee_neet.PNG"
       case "neet-coaching":
@@ -177,13 +177,14 @@ export default function InstituteCard({
         return "/no_image/abacus_math.PNG"
       default:
         return "/no_image/coaching_inst.PNG"
-      
+
     }
   }
 
   return (
     <Link
       href={`/institute/${id}-${slug}`}
+      prefetch={false}
       className="
         group
         block
@@ -214,15 +215,15 @@ export default function InstituteCard({
               group-hover:scale-105
             "
           />
-        // ) : image ? (
-        //   <img 
-        //     src={image} 
-        //     alt={name} 
-        //     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        //   />
+          // ) : image ? (
+          //   <img 
+          //     src={image} 
+          //     alt={name} 
+          //     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          //   />
         ) : (
           <div className="flex h-full items-center justify-center bg-muted">
-            <Image src={getFallBackImage(category || "")} alt="No Image" width={400} height={400}/>
+            <Image src={getFallBackImage(category || "")} alt="No Image" width={400} height={400} />
           </div>
         )}
 
@@ -291,6 +292,6 @@ export default function InstituteCard({
           <span className="text-sm font-medium text-amber-500">View Profile</span>
         </div>
       </div>
-  </Link>
-        );
+    </Link>
+  );
 }

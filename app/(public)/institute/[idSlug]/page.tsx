@@ -473,13 +473,16 @@ export default async function InstitutePage({ params }: PageProps) {
 
                 {!isAlreadyClaimed && (
                   <div className="mt-5 p-5 bg-amber-50 border border-amber-100 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="space-y-1">
+                    <div className="space-y-2">
                       <p className="text-amber-900 font-bold flex items-center gap-1.5 text-sm md:text-base">
                         <CheckCircle className="w-4 h-4 text-amber-500" /> Are you the owner or representative?
                       </p>
                       <p className="text-amber-700 text-xs md:text-sm leading-relaxed">
                         Don't miss out on student leads! Claim your profile now to manage enquiries, update details, and get real-time insights on who visits or saves your page.
                       </p>
+                      <div className="inline-flex bg-amber-200/50 text-amber-900 px-3 py-1 rounded-md text-xs font-bold items-center gap-1.5 mt-1 border border-amber-200">
+                        🎉 Early Bird Offer: Free/Discounted pricing valid only till 31st July!
+                      </div>
                     </div>
 
                     <Link href={`/institute/${institute.id}-${institute.slug}/claim`} className="shrink-0 w-full sm:w-auto">
