@@ -22,10 +22,10 @@ const PROVIDERS = [
 export default function IntegrationsPage({ params }: { params: Promise<{ instituteId: string }> }) {
   const unwrappedParams = use(params);
   const instituteId = unwrappedParams.instituteId;
-  
+
   const [integrations, setIntegrations] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -142,8 +142,8 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
               <div className="md:col-span-2">
                 <label className="block text-sm font-semibold text-slate-700 mb-4">Select CRM Provider</label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                  {PROVIDERS.map(p => (
-                    <div 
+                  {PROVIDERS.map((p: any) => (
+                    <div
                       key={p.id}
                       onClick={() => setFormData({ ...formData, provider: p.id })}
                       className={`cursor-pointer border-2 rounded-xl p-4 flex flex-col items-center justify-center transition-all ${formData.provider === p.id ? 'border-blue-600 bg-blue-50/50 shadow-sm' : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
@@ -158,7 +158,7 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
               </div>
               <div className="md:col-span-2">
                 <label className="block text-sm font-semibold text-slate-700 mb-2">Webhook URL</label>
-                <input 
+                <input
                   type="url"
                   placeholder="https://crm.zoho.com/api/v2/Leads/webhook/..."
                   className="w-full border-slate-200 bg-slate-50 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-colors"
@@ -174,9 +174,9 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
               <h3 className="font-semibold text-slate-800 mb-4">Select Events to Forward</h3>
               <div className="space-y-3">
                 <label className="flex items-start gap-3 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
-                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500" 
+                  <input
+                    type="checkbox"
+                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
                     checked={formData.sendEnquiries}
                     onChange={(e) => setFormData({ ...formData, sendEnquiries: e.target.checked })}
                   />
@@ -185,11 +185,11 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
                     <span className="text-xs text-slate-500">Sent instantly when a user submits an enquiry for your institute.</span>
                   </div>
                 </label>
-                
+
                 <label className="flex items-start gap-3 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
-                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500" 
+                  <input
+                    type="checkbox"
+                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
                     checked={formData.sendUserSaves}
                     onChange={(e) => setFormData({ ...formData, sendUserSaves: e.target.checked })}
                   />
@@ -200,9 +200,9 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
                 </label>
 
                 <label className="flex items-start gap-3 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
-                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500" 
+                  <input
+                    type="checkbox"
+                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
                     checked={formData.sendUserVisits}
                     onChange={(e) => setFormData({ ...formData, sendUserVisits: e.target.checked })}
                   />
@@ -240,7 +240,7 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
         )
       ) : (
         <div className="space-y-4">
-          {integrations.map((intg) => (
+          {integrations.map((intg: any) => (
             <div key={intg.id} className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row gap-5 items-start md:items-center justify-between shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center gap-4">
                 <div className={`p-3 rounded-xl ${intg.isActive ? 'bg-emerald-50' : 'bg-slate-100'}`}>
@@ -248,7 +248,7 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-800 text-lg flex items-center gap-2">
-                    {intg.provider} 
+                    {intg.provider}
                     {!intg.isActive && <span className="text-[10px] uppercase bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full">Disabled</span>}
                   </h4>
                   <p className="text-xs text-slate-500 font-mono mt-1 max-w-[200px] sm:max-w-xs md:max-w-md truncate">{intg.webhookUrl}</p>
@@ -261,21 +261,21 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
                   {intg.sendUserSaves && <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-bold px-2 py-1 rounded-md">Saves</span>}
                   {intg.sendUserVisits && <span className="bg-purple-50 text-purple-700 border border-purple-200 text-[10px] font-bold px-2 py-1 rounded-md">Visits</span>}
                 </div>
-                
+
                 <div className="flex items-center gap-2 ml-auto">
-                  <button 
+                  <button
                     onClick={() => handleToggle(intg.id, intg.isActive)}
                     className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-colors ${intg.isActive ? 'border-amber-200 text-amber-700 hover:bg-amber-50' : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'}`}
                   >
                     {intg.isActive ? 'Disable' : 'Enable'}
                   </button>
-                  <button 
+                  <button
                     onClick={() => openEdit(intg)}
                     className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   >
                     <Edit2 className="w-5 h-5" />
                   </button>
-                  <button 
+                  <button
                     onClick={() => handleDelete(intg.id)}
                     className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
