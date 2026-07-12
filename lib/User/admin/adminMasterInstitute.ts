@@ -119,8 +119,14 @@ export async function updateInstituteByAdmin(
         const planDuration = formData.get("planDuration") as string;
         
         // 🕒 Calculate Expiration Date based on duration
-        let planExpiresAt: Date | null = null;
-        if (subscriptionPlan !== "BASIC" && planDuration && planDuration !== "LIFETIME") {
+        let planExpiresAt: Date | null | undefined = undefined; // undefined = don't update db field
+        if (subscriptionPlan === "BASIC") {
+            planExpiresAt = null; 
+        } else if (planDuration === "KEEP_EXISTING") {
+            planExpiresAt = undefined;
+        } else if (planDuration === "LIFETIME") {
+            planExpiresAt = null;
+        } else if (planDuration) {
             const now = new Date();
             if (planDuration === "1_MONTH") now.setMonth(now.getMonth() + 1);
             else if (planDuration === "3_MONTHS") now.setMonth(now.getMonth() + 3);

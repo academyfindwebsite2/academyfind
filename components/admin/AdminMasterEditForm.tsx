@@ -63,7 +63,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
     const [isVerified, setIsVerified] = useState(institute.isVerified);
     const [isFeatured, setIsFeatured] = useState(institute.isFeatured);
     const [plan, setPlan] = useState(institute.subscriptionPlan || "BASIC");
-    const [planDuration, setPlanDuration] = useState("LIFETIME");
+    const [planDuration, setPlanDuration] = useState("KEEP_EXISTING");
 
     const [hasOnlineClasses, setHasOnlineClasses] = useState(institute.hasOnlineClasses ?? false);
     const [hasHostelFacility, setHasHostelFacility] = useState(institute.hasHostelFacility ?? false);
@@ -459,6 +459,19 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
 
                                 {/* 💳 4. SUBSCRIPTION PLAN */}
                                 <div className="p-5 bg-white rounded-xl border border-slate-200 space-y-3">
+                                    <div className="mb-4 p-4 bg-purple-50 rounded-lg border border-purple-100 flex justify-between items-center">
+                                        <div>
+                                            <p className="text-xs text-purple-600 font-bold uppercase tracking-wide">Current Plan</p>
+                                            <p className="text-lg font-bold text-slate-900 mt-0.5">{institute.subscriptionPlan || "BASIC"}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-xs text-purple-600 font-bold uppercase tracking-wide">Valid Until</p>
+                                            <p className="text-sm font-medium text-slate-700 mt-0.5">
+                                                {institute.subscriptionPlan === "BASIC" ? "N/A" : (institute.planExpiresAt ? new Date(institute.planExpiresAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : "Lifetime (Never Expires)")}
+                                            </p>
+                                        </div>
+                                    </div>
+
                                     <div>
                                         <Label>Subscription Plan (Manual Override)</Label>
                                         <p className="text-[11px] text-slate-500 mt-1 mb-3">Manually upgrade or downgrade the institute's tier to unlock/lock features for the manager.</p>
@@ -473,6 +486,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                         <div className="pt-2">
                                             <Label>Subscription Duration</Label>
                                             <select value={planDuration} onChange={(e) => setPlanDuration(e.target.value)} className="flex h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1">
+                                                <option value="KEEP_EXISTING">Keep Current Validity</option>
                                                 <option value="LIFETIME">Lifetime (Never Expires)</option>
                                                 <option value="1_MONTH">1 Month</option>
                                                 <option value="3_MONTHS">3 Months</option>

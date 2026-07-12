@@ -63,6 +63,7 @@ export default async function InstituteDashboardOverview({
 
                 <div className="shrink-0 relative z-10 flex flex-col items-end gap-1">
                     <Badge className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-4 py-1.5 rounded-xl uppercase tracking-wider text-xs">
+                        {plan} PLAN
                     </Badge>
                     {plan !== "BASIC" && institute.planExpiresAt && (
                         <span className="text-[10px] text-amber-100 font-medium tracking-wide">
