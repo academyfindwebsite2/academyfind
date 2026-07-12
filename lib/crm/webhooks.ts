@@ -9,10 +9,10 @@ export async function triggerCRMWebhooks(
 ) {
   try {
     // Determine which flag to check based on event type
-    const flagField = 
+    const flagField =
       eventType === "ENQUIRY" ? "sendEnquiries" :
-      eventType === "USER_SAVE" ? "sendUserSaves" :
-      "sendUserVisits";
+        eventType === "USER_SAVE" ? "sendUserSaves" :
+          "sendUserVisits";
 
     // Find active integrations for this institute that have this event enabled
     const integrations = await prisma.cRMIntegration.findMany({
@@ -32,7 +32,7 @@ export async function triggerCRMWebhooks(
     };
 
     // Fire webhooks in background (fire-and-forget style)
-    integrations.forEach(async (integration) => {
+    integrations.forEach(async (integration: any) => {
       try {
         await fetch(integration.webhookUrl, {
           method: "POST",
