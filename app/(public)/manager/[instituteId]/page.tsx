@@ -81,14 +81,30 @@ export default async function InstituteDashboardOverview({
                         <CardTitle className="text-sm font-medium text-slate-500">Public Rating</CardTitle>
                         <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
                     </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold text-slate-800">
-                            {/* {institute.averageRating?.toFixed(1) || "0.0"} / 5.0 */}
-                            {institute.googleRating} Google Rating
+                    <CardContent className="space-y-4 pt-2">
+                        {/* Platform Rating */}
+                        <div>
+                            <div className="text-xl font-bold text-slate-800 flex items-baseline gap-1">
+                                {(institute.averageRating || 0).toFixed(1)}
+                                <span className="text-sm font-medium text-slate-500">/ 5.0</span>
+                            </div>
+                            <p className="text-[11px] text-slate-400 mt-0.5">
+                                Based on {institute.reviewCount || 0} platform reviews
+                            </p>
                         </div>
-                        <p className="text-xs text-slate-400 mt-1">
-                            Based on {institute.googleReviewCount} google reviews
-                        </p>
+                        
+                        <div className="h-px bg-slate-100" />
+                        
+                        {/* Google Rating */}
+                        <div>
+                            <div className="text-sm font-bold text-slate-600 flex items-baseline gap-1">
+                                {institute.googleRating ? institute.googleRating.toFixed(1) : "0.0"} 
+                                <span className="text-xs font-medium text-slate-400">/ 5.0</span>
+                            </div>
+                            <p className="text-[11px] text-slate-400 mt-0.5">
+                                Based on {institute.googleReviewCount || 0} Google reviews
+                            </p>
+                        </div>
                     </CardContent>
                 </Card>
 
@@ -111,10 +127,10 @@ export default async function InstituteDashboardOverview({
                         ) : (
                             <div>
                                 <div className="text-2xl font-bold text-slate-800">
-                                    Active Leads
+                                    {institute._count.enquiries} Active Leads
                                 </div>
                                 <p className="text-xs text-slate-400 mt-1">
-                                    Check your dynamic enquiries tab
+                                    Total enquiries received via platform
                                 </p>
                             </div>
                         )}
@@ -172,22 +188,42 @@ export default async function InstituteDashboardOverview({
                 </Card>
 
                 {/* Plan Promotion Prompt */}
-                <Card className="rounded-2xl border-amber-100 p-6 flex flex-col justify-between space-y-4 shadow-sm bg-gradient-to-br from-amber-50/30 to-white">
-                    <div className="space-y-2">
-                        <div className="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
-                            <Sparkles className="w-5 h-5" />
+                {plan === "PREMIUM" || plan === "ULTRA" ? (
+                    <Card className="rounded-2xl border-purple-100 p-6 flex flex-col justify-between space-y-4 shadow-sm bg-gradient-to-br from-purple-50/30 to-white">
+                        <div className="space-y-2">
+                            <div className="w-10 h-10 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center">
+                                <Sparkles className="w-5 h-5" />
+                            </div>
+                            <h3 className="font-bold text-lg text-slate-800">Premium Analytics</h3>
+                            <p className="text-slate-500 text-sm leading-relaxed">
+                                Profile visibility and reach on AcademyFind.
+                            </p>
                         </div>
-                        <h3 className="font-bold text-lg text-slate-800">Premium Utilities</h3>
-                        <p className="text-slate-500 text-sm leading-relaxed">
-                            If you want to unlock advanced features like lead tracking, audience insights, and more, consider upgrading your subscription plan.
-                        </p>
-                    </div>
-                    <Button asChild className="w-full justify-between bg-amber-500 hover:bg-amber-600 text-white rounded-xl">
-                        <Link href={`/manager/${instituteId}/subscription`}>
-                            View Plans & Pricing <ArrowRight className="w-4 h-4" />
-                        </Link>
-                    </Button>
-                </Card>
+                        <div className="bg-purple-50/50 p-4 rounded-xl border border-purple-100">
+                            <div className="text-3xl font-black text-purple-600">{institute.viewCount}</div>
+                            <p className="text-xs font-bold text-purple-800 uppercase tracking-wide mt-1">
+                                Total Page Views
+                            </p>
+                        </div>
+                    </Card>
+                ) : (
+                    <Card className="rounded-2xl border-amber-100 p-6 flex flex-col justify-between space-y-4 shadow-sm bg-gradient-to-br from-amber-50/30 to-white">
+                        <div className="space-y-2">
+                            <div className="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
+                                <Sparkles className="w-5 h-5" />
+                            </div>
+                            <h3 className="font-bold text-lg text-slate-800">Premium Utilities</h3>
+                            <p className="text-slate-500 text-sm leading-relaxed">
+                                If you want to unlock advanced features like lead tracking, audience insights, and more, consider upgrading your subscription plan.
+                            </p>
+                        </div>
+                        <Button asChild className="w-full justify-between bg-amber-500 hover:bg-amber-600 text-white rounded-xl cursor-pointer">
+                            <Link href={`/manager/${instituteId}/subscription`}>
+                                View Plans & Pricing <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        </Button>
+                    </Card>
+                )}
             </div>
         </div>
     );

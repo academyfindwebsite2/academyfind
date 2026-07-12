@@ -12,17 +12,16 @@ export default async function AnalyticsPage({ params }: { params: Promise<{ inst
         where: { id: instituteId },
         include: {
             _count: { select: { viewHistory: true, shortlistedBy: true } },
-            // Latest 30 students jinhone save/shortlist kiya
+            // Latest students jinhone save/shortlist kiya (ALL)
             shortlistedBy: {
-                include: { user: { select: { name: true, email: true, image: true } } },
-                orderBy: { createdAt: 'desc' },
-                take: 30 
+                include: { user: { select: { name: true, email: true, image: true, username: true } } },
+                orderBy: { createdAt: 'desc' }
             },
-            // Latest 30 students jinhone profile view ki
+            // Latest 50 students jinhone profile view ki
             viewHistory: {
-                include: { user: { select: { name: true, email: true, image: true } } },
+                include: { user: { select: { name: true, email: true, image: true, username: true } } },
                 orderBy: { viewedAt: 'desc' },
-                take: 30 
+                take: 50 
             }
         }
     });
@@ -86,9 +85,9 @@ export default async function AnalyticsPage({ params }: { params: Promise<{ inst
                     <div className="p-5 border-b bg-slate-50 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <Bookmark className="w-5 h-5 text-red-500" />
-                            <h3 className="font-bold text-slate-800">Recently Shortlisted By</h3>
+                            <h3 className="font-bold text-slate-800">Shortlisted By</h3>
                         </div>
-                        <span className="text-xs font-bold text-slate-400 bg-slate-200/50 px-2 py-1 rounded-md">Latest 30</span>
+                        <span className="text-xs font-bold text-slate-400 bg-slate-200/50 px-2 py-1 rounded-md">All Time ({institute.shortlistedBy.length})</span>
                     </div>
                     <div className="p-4 overflow-y-auto flex-1 space-y-2">
                         {institute.shortlistedBy.length === 0 ? (
@@ -115,7 +114,7 @@ export default async function AnalyticsPage({ params }: { params: Promise<{ inst
                             <Users className="w-5 h-5 text-blue-500" />
                             <h3 className="font-bold text-slate-800">Recent Profile Viewers</h3>
                         </div>
-                        <span className="text-xs font-bold text-slate-400 bg-slate-200/50 px-2 py-1 rounded-md">Latest 30</span>
+                        <span className="text-xs font-bold text-slate-400 bg-slate-200/50 px-2 py-1 rounded-md">Latest 50</span>
                     </div>
                     <div className="p-4 overflow-y-auto flex-1 space-y-2">
                         {institute.viewHistory.length === 0 ? (
@@ -142,7 +141,8 @@ export default async function AnalyticsPage({ params }: { params: Promise<{ inst
 
 // 🚀 HELPER COMPONENT: User ki details dikhane ke liye (Isi file me sabse niche rakhein)
 function UserListItem({ user, date, actionType }: { user: any, date: Date, actionType: string }) {
-    return (
+    if (!user) return null;
+    const content = (
         <div className="flex items-center justify-between gap-3 p-3 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all">
             <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 overflow-hidden shrink-0 border shadow-sm">
@@ -167,4 +167,14 @@ function UserListItem({ user, date, actionType }: { user: any, date: Date, actio
             </div>
         </div>
     );
+
+    if (user.username) {
+        return (
+            <Link href={`/u/${user.username}`} target="_blank" className="block">
+                {content}
+            </Link>
+        );
+    }
+
+    return content;
 }
