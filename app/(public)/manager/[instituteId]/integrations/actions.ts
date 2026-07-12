@@ -3,6 +3,19 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+export async function getInstitutePlan(instituteId: string) {
+  try {
+    const institute = await prisma.institute.findUnique({
+      where: { id: instituteId },
+      select: { subscriptionPlan: true },
+    });
+    return institute?.subscriptionPlan || "BASIC";
+  } catch (error) {
+    console.error("Error fetching institute plan:", error);
+    return "BASIC";
+  }
+}
+
 export async function getIntegrations(instituteId: string) {
   try {
     const integrations = await prisma.cRMIntegration.findMany({
