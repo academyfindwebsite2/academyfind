@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
-import { Plus, Trash2, Webhook, Zap, Loader2, CheckCircle2, Target, BarChart, Crosshair, Flame, Edit2 } from "lucide-react";
+import { Plus, Trash2, Webhook, Zap, Loader2, CheckCircle2, Target, BarChart, Crosshair, Flame, Edit2, Lock } from "lucide-react";
 import { SiZoho, SiSalesforce, SiHubspot, SiZendesk } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { getIntegrations, createIntegration, updateIntegration, deleteIntegration, toggleIntegration } from "./actions";
 import toast from "react-hot-toast";
+import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 const PROVIDERS = [
   { id: "ZOHO", name: "Zoho CRM", logo: <SiZoho className="w-5 h-5" />, brandColor: "text-[#1161d7]" },
@@ -19,8 +21,8 @@ const PROVIDERS = [
   { id: "CUSTOM", name: "Custom Webhook", logo: <Webhook className="w-5 h-5" />, brandColor: "text-slate-700" },
 ];
 
-export default function IntegrationsPage({ params }: { params: Promise<{ instituteId: string }> }) {
-  const unwrappedParams = use(params);
+export default async function IntegrationsPage({ params }: { params: Promise<{ instituteId: string }> }) {
+  const unwrappedParams = await params;
   const instituteId = unwrappedParams.instituteId;
 
   const [integrations, setIntegrations] = useState<any[]>([]);
@@ -115,6 +117,42 @@ export default function IntegrationsPage({ params }: { params: Promise<{ institu
       toast.error("Failed to update status");
     }
   };
+
+  const institute = await prisma.institute.findUnique({
+    where: { id: instituteId },
+    select: {
+      id: true,
+      name: true,
+      subscriptionPlan: true,
+      viewCount: true,
+      _count: {
+        select: {
+          shortlistedBy: true,
+          enquiries: true,
+          reviews: true,
+        }
+      }
+    }
+  });
+
+  if (!institute) return <div className="p-8 text-center font-bold">Institute not found!</div>;
+
+  if (institute.subscriptionPlan === "BASIC" || institute.subscriptionPlan === "VERIFIED") {
+    return (
+      <div className="min-h-[500px] flex flex-col items-center justify-center text-center p-8 bg-slate-50/50 rounded-3xl border border-dashed border-slate-200">
+        <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-6">
+          <Lock className="w-8 h-8" />
+        </div>
+        <h2 className="text-2xl font-bold text-slate-800 mb-2">Audience Analytics Locked</h2>
+        <p className="text-slate-500 max-w-md mb-6">
+          Want to see exactly how many students view and save your academy profile? Upgrade to the <b>Ultra Plan</b> for deep insights.
+        </p>
+        <Link href={`/manager/${instituteId}/subscription`} className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl font-medium transition">
+          Get Ultra Plan
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl p-6">
