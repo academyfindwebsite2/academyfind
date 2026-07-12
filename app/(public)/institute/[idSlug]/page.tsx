@@ -338,28 +338,54 @@ export default async function InstitutePage({ params }: PageProps) {
       />
       <ViewTracker instituteId={institute.id} />
 
-      <section className="relative overflow-hidden border-b bg-linear-to-b from-amber-50 via-white to-white">
-        <div className="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-amber-300/20 blur-3xl pointer-events-none" />
+      <section className="relative w-full bg-slate-50 pb-10">
+        {/* Immersive Cover Banner */}
+        {institute.coverImage ? (
+          <div className="absolute top-0 left-0 w-full h-[380px] md:h-[450px] z-0 overflow-hidden">
+            <Image 
+              src={institute.coverImage} 
+              alt={`${institute.name} Cover`} 
+              fill
+              className="object-cover"
+              priority
+            />
+            {/* Smooth gradient fade into the background */}
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-slate-50" />
+          </div>
+        ) : (
+          <div className="absolute top-0 left-0 w-full h-[380px] md:h-[450px] z-0 overflow-hidden bg-slate-900">
+            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay"></div>
+            <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-amber-500/20 blur-[100px] pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-50" />
+          </div>
+        )}
 
-        <div className="mx-auto max-w-7xl px-4 py-10">
-          <Breadcrumb
-            items={[
-              { label: institute.categories[0]?.category.name || "Institute", href: `/${institute.categories[0]?.category.slug}` },
-              { label: institute.city.name, href: `/${institute.categories[0]?.category.slug}/${institute.city.slug}` },
-              { label: institute.name, href: "#" },
-            ]}
-          />
+        {/* Content Container */}
+        <div className="mx-auto max-w-7xl px-4 relative z-10 pt-8 md:pt-12">
+          {/* Breadcrumbs (Light text for dark background) */}
+          <div className="mb-8 drop-shadow-md brightness-0 invert opacity-90">
+            <Breadcrumb
+              items={[
+                { label: institute.categories[0]?.category.name || "Institute", href: `/${institute.categories[0]?.category.slug}` },
+                { label: institute.city.name, href: `/${institute.categories[0]?.category.slug}/${institute.city.slug}` },
+                { label: institute.name, href: "#" },
+              ]}
+            />
+          </div>
 
-          <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_350px]">
-            <div>
-              <div className="rounded-3xl border bg-white p-6 md:p-8 shadow-sm">
-                <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-3xl border shadow-sm mx-auto md:mx-0 bg-white">
-                    <Image src={mainLogo} alt={institute.name} width={128} height={128} className="h-full w-full object-contain p-2" />
-                  </div>
+          <div className="grid gap-8 lg:grid-cols-[1fr_350px]">
+            {/* Left Column - Main Profile Card */}
+            <div className="space-y-8">
+              {/* Profile Card */}
+              <div className="rounded-[2.5rem] bg-white/95 backdrop-blur-xl p-6 md:p-10 shadow-2xl shadow-slate-200/50 border border-white relative mt-10 md:mt-16">
+                
+                {/* Floating Logo */}
+                <div className="absolute -top-16 left-6 md:left-10 h-32 w-32 flex items-center justify-center overflow-hidden rounded-[2rem] border-4 border-white shadow-xl bg-white">
+                  <Image src={mainLogo} alt={institute.name} width={128} height={128} className="h-full w-full object-contain p-2" />
+                </div>
 
-                  <div className="flex-1 text-center md:text-left">
-                    <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
+                <div className="mt-16 md:mt-2">
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                       <div>
                         <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
                           <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">{institute.name}</h1>
@@ -453,7 +479,6 @@ export default async function InstitutePage({ params }: PageProps) {
                       )}
                     </div>
                   </div>
-                </div>
 
                 {/* Quick Amenities Toggles */}
                 <div className="mt-6 flex flex-wrap gap-2">
