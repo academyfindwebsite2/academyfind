@@ -380,11 +380,11 @@ export default async function InstitutePage({ params }: PageProps) {
               <div className="rounded-[2.5rem] bg-white/95 backdrop-blur-xl p-6 md:p-10 shadow-2xl shadow-slate-200/50 border border-white relative mt-10 md:mt-16">
                 
                 {/* Floating Logo */}
-                <div className="absolute -top-16 left-6 md:left-10 h-32 w-32 flex items-center justify-center overflow-hidden rounded-[2rem] border-4 border-white shadow-xl bg-white">
-                  <Image src={mainLogo} alt={institute.name} width={128} height={128} className="h-full w-full object-contain p-2" />
+                <div className="absolute -top-16 md:-top-20 left-6 md:left-10 h-32 w-32 md:h-40 md:w-40 flex items-center justify-center overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border-4 border-white shadow-xl bg-white">
+                  <Image src={mainLogo} alt={institute.name} width={160} height={160} className="h-full w-full object-cover" />
                 </div>
 
-                <div className="mt-16 md:mt-2">
+                <div className="mt-16 md:mt-20">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                       <div>
                         <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">

@@ -38,7 +38,8 @@ export async function approvePayment(paymentId: string) {
                 where: { id: payment.instituteId },
                 data: {
                     subscriptionPlan: payment.planRequested as any,
-                    planExpiresAt: expiryDate
+                    planExpiresAt: expiryDate,
+                    isVerified: true
                 }
             })
         ]);
