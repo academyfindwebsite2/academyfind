@@ -231,17 +231,17 @@ export default async function InstitutePage({ params }: PageProps) {
     }),
     userId
       ? Promise.all([
-          prisma.batchStudent.findMany({
-            where: { studentRecord: { studentProfile: { userId }, instituteId: id } },
-            select: { batchId: true }
-          }),
-          prisma.batchTeacher.findMany({
-            where: { teacherRecord: { teacherProfile: { userId }, instituteId: id } },
-            select: { batchId: true }
-          })
-        ]).then(([students, teachers]) => {
-          return new Set([...students.map((s: any) => s.batchId), ...teachers.map((t: any) => t.batchId)]);
+        prisma.batchStudent.findMany({
+          where: { studentRecord: { studentProfile: { userId }, instituteId: id } },
+          select: { batchId: true }
+        }),
+        prisma.batchTeacher.findMany({
+          where: { teacherRecord: { teacherProfile: { userId }, instituteId: id } },
+          select: { batchId: true }
         })
+      ]).then(([students, teachers]) => {
+        return new Set([...students.map((s: any) => s.batchId), ...teachers.map((t: any) => t.batchId)]);
+      })
       : Promise.resolve(new Set<string>())
   ]);
 
@@ -266,8 +266,8 @@ export default async function InstitutePage({ params }: PageProps) {
   const isAlreadyClaimed = institute.managers && institute.managers.length > 0;
   const plan = institute.subscriptionPlan || "BASIC";
 
-  const hasPremiumAccess = ["PREMIUM", "ULTRA", "VERIFIED"].includes(plan);
-  const hasUltraAccess = ["ULTRA", "VERIFIED"].includes(plan);
+  const hasVerifiedAccess = ["PREMIUM", "ULTRA", "VERIFIED"].includes(plan);
+  const hasUltraAccess = ["ULTRA", "PREMIUM"].includes(plan);
 
   // Similar Institutes
   let similarInstitutes: any[] = [];
@@ -593,7 +593,7 @@ export default async function InstitutePage({ params }: PageProps) {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {activeBatches.map((batch: any) => {
-                const calculatedSeatsLeft = batch.seatsTotal && batch.seatsTotal > 0 
+                const calculatedSeatsLeft = batch.seatsTotal && batch.seatsTotal > 0
                   ? Math.max(0, batch.seatsTotal - (batch._count?.studentMembers || 0))
                   : null;
                 const pct = (batch.seatsTotal && batch.seatsTotal > 0 && calculatedSeatsLeft !== null) ? calculatedSeatsLeft / batch.seatsTotal : null;
@@ -647,7 +647,7 @@ export default async function InstitutePage({ params }: PageProps) {
                         </div>
                       </div>
                     )}
-                    
+
                     {!(batch.teachers?.length > 0) && (isManager || userBatchIds.has(batch.id)) && (
                       <div className="mt-4 pt-4 border-t border-slate-100 flex justify-end">
                         <OpenBatchChatButton instituteId={id} batchId={batch.id} batchName={batch.name} />
@@ -670,7 +670,7 @@ export default async function InstitutePage({ params }: PageProps) {
             </div>
           </div>
 
-          {!hasPremiumAccess ? (
+          {!hasUltraAccess ? (
             userId ? (
               <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center flex flex-col items-center justify-center space-y-3">
                 <div className="p-4 bg-slate-100 rounded-full"><Users className="w-8 h-8 text-slate-400" /></div>

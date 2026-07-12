@@ -227,6 +227,9 @@ export default function EditProfileForm({
                             <CardTitle className="flex items-center gap-2 text-base text-slate-800">
                                 <ImageIcon className="w-5 h-5 text-blue-600" /> Logo / Display Image
                             </CardTitle>
+                            <CardDescription className="text-xs">
+                                Appears everywhere as your square profile picture (e.g. search results).
+                            </CardDescription>
                         </CardHeader>
                         <CardContent className="p-5 flex flex-col items-center justify-center space-y-4">
                             <div className="w-full h-44 rounded-2xl border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden relative shadow-inner p-3 text-center">
@@ -258,6 +261,9 @@ export default function EditProfileForm({
                             <CardTitle className="flex items-center gap-2 text-base text-slate-800">
                                 <ImageIcon className="w-5 h-5 text-amber-600" /> Cover / Banner Image
                             </CardTitle>
+                            <CardDescription className="text-xs">
+                                Large horizontal banner shown at the top of your detailed profile page.
+                            </CardDescription>
                         </CardHeader>
                         <CardContent className="p-5 flex flex-col items-center justify-center space-y-4">
                             <div className="w-full h-44 rounded-2xl border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden relative shadow-inner p-3 text-center">
@@ -472,6 +478,14 @@ export default function EditProfileForm({
                                 <div className="space-y-2">
                                     <Label>Total Branches</Label>
                                     <Input name="totalBranches" type="number" defaultValue={institute.totalBranches || ""} placeholder="e.g. 12" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Minimum Estimated Fee (₹)</Label>
+                                    <Input name="feeMin" type="number" defaultValue={institute.feeMin || ""} placeholder="e.g. 5000" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>Maximum Estimated Fee (₹)</Label>
+                                    <Input name="feeMax" type="number" defaultValue={institute.feeMax || ""} placeholder="e.g. 50000" />
                                 </div>
                             </CardContent>
                         </Card>

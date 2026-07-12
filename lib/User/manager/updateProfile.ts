@@ -39,6 +39,7 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
         const rawLat = formData.get("latitude") as string;
         const rawLng = formData.get("longitude") as string;
         const latitude = (rawLat && !isNaN(parseFloat(rawLat))) ? parseFloat(rawLat) : null;
+        
         const longitude = (rawLng && !isNaN(parseFloat(rawLng))) ? parseFloat(rawLng) : null;
         
         // 2. Social Links
@@ -65,6 +66,8 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
         const establishedYear = formData.get("establishedYear") ? parseInt(formData.get("establishedYear") as string) : null;
         const totalStudents = formData.get("totalStudents") ? parseInt(formData.get("totalStudents") as string) : null;
         const totalBranches = formData.get("totalBranches") ? parseInt(formData.get("totalBranches") as string) : null;
+        const feeMin = formData.get("feeMin") ? parseInt(formData.get("feeMin") as string) : null;
+        const feeMax = formData.get("feeMax") ? parseInt(formData.get("feeMax") as string) : null;
         const refundPolicy = formData.get("refundPolicy") as string;
         const brochureUrl = formData.get("brochureUrl") as string;
 
@@ -132,6 +135,8 @@ export async function updateInstituteProfile(instituteId: string, formData: Form
                     establishedYear,
                     totalStudents,
                     totalBranches,
+                    feeMin,
+                    feeMax,
                     refundPolicy,
                     brochureUrl,
                     isPublished,
