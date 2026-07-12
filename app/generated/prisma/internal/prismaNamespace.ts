@@ -462,7 +462,8 @@ export const ModelName = {
   BlogComment: 'BlogComment',
   BlogReaction: 'BlogReaction',
   BlogFAQ: 'BlogFAQ',
-  BlogBrand: 'BlogBrand'
+  BlogBrand: 'BlogBrand',
+  CRMIntegration: 'CRMIntegration'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -478,7 +479,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userWallet" | "walletTransaction" | "userReputation" | "userPreference" | "userPreferredCategory" | "userPreferenceCity" | "reputationLog" | "session" | "account" | "verification" | "institute" | "city" | "category" | "categoryCityContent" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "studentProfile" | "instituteMembership" | "studentInstituteRecord" | "teacherInstituteRecord" | "conversation" | "conversationParticipant" | "message" | "messageAttachment" | "messageReaction" | "messageRead" | "messageReport" | "chatSettings" | "userNotification" | "userBlock" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume" | "instituteDailyView" | "instituteFacility" | "instituteBatch" | "batchStudent" | "batchTeacher" | "instituteHighlightStat" | "instituteAchievement" | "instituteFAQ" | "instituteOperatingHour" | "userCompareList" | "compareListInstitute" | "communityQuestion" | "communityAnswer" | "notablePersons" | "instituteComparisonCache" | "leadDistributionLog" | "blogAuthorProfile" | "blogCategory" | "blogTag" | "blogPost" | "blogSlugHistory" | "blogRevision" | "blogView" | "blogBookmark" | "blogAuthorFollower" | "blogSubscriber" | "blogReport" | "blogPostTag" | "blogComment" | "blogReaction" | "blogFAQ" | "blogBrand"
+    modelProps: "user" | "userWallet" | "walletTransaction" | "userReputation" | "userPreference" | "userPreferredCategory" | "userPreferenceCity" | "reputationLog" | "session" | "account" | "verification" | "institute" | "city" | "category" | "categoryCityContent" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "studentProfile" | "instituteMembership" | "studentInstituteRecord" | "teacherInstituteRecord" | "conversation" | "conversationParticipant" | "message" | "messageAttachment" | "messageReaction" | "messageRead" | "messageReport" | "chatSettings" | "userNotification" | "userBlock" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume" | "instituteDailyView" | "instituteFacility" | "instituteBatch" | "batchStudent" | "batchTeacher" | "instituteHighlightStat" | "instituteAchievement" | "instituteFAQ" | "instituteOperatingHour" | "userCompareList" | "compareListInstitute" | "communityQuestion" | "communityAnswer" | "notablePersons" | "instituteComparisonCache" | "leadDistributionLog" | "blogAuthorProfile" | "blogCategory" | "blogTag" | "blogPost" | "blogSlugHistory" | "blogRevision" | "blogView" | "blogBookmark" | "blogAuthorFollower" | "blogSubscriber" | "blogReport" | "blogPostTag" | "blogComment" | "blogReaction" | "blogFAQ" | "blogBrand" | "cRMIntegration"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6328,6 +6329,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CRMIntegration: {
+      payload: Prisma.$CRMIntegrationPayload<ExtArgs>
+      fields: Prisma.CRMIntegrationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CRMIntegrationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CRMIntegrationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>
+        }
+        findFirst: {
+          args: Prisma.CRMIntegrationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CRMIntegrationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>
+        }
+        findMany: {
+          args: Prisma.CRMIntegrationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>[]
+        }
+        create: {
+          args: Prisma.CRMIntegrationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>
+        }
+        createMany: {
+          args: Prisma.CRMIntegrationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CRMIntegrationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>[]
+        }
+        delete: {
+          args: Prisma.CRMIntegrationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>
+        }
+        update: {
+          args: Prisma.CRMIntegrationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CRMIntegrationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CRMIntegrationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CRMIntegrationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CRMIntegrationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CRMIntegrationPayload>
+        }
+        aggregate: {
+          args: Prisma.CRMIntegrationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCRMIntegration>
+        }
+        groupBy: {
+          args: Prisma.CRMIntegrationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CRMIntegrationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CRMIntegrationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CRMIntegrationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -7651,6 +7726,22 @@ export const BlogBrandScalarFieldEnum = {
 export type BlogBrandScalarFieldEnum = (typeof BlogBrandScalarFieldEnum)[keyof typeof BlogBrandScalarFieldEnum]
 
 
+export const CRMIntegrationScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  provider: 'provider',
+  webhookUrl: 'webhookUrl',
+  isActive: 'isActive',
+  sendEnquiries: 'sendEnquiries',
+  sendUserSaves: 'sendUserSaves',
+  sendUserVisits: 'sendUserVisits',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CRMIntegrationScalarFieldEnum = (typeof CRMIntegrationScalarFieldEnum)[keyof typeof CRMIntegrationScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -8180,6 +8271,20 @@ export type EnumReactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 export type ListEnumReactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReactionType[]'>
     
 
+
+/**
+ * Reference to a field of type 'CRMProvider'
+ */
+export type EnumCRMProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CRMProvider'>
+    
+
+
+/**
+ * Reference to a field of type 'CRMProvider[]'
+ */
+export type ListEnumCRMProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CRMProvider[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -8369,6 +8474,7 @@ export type GlobalOmitConfig = {
   blogReaction?: Prisma.BlogReactionOmit
   blogFAQ?: Prisma.BlogFAQOmit
   blogBrand?: Prisma.BlogBrandOmit
+  cRMIntegration?: Prisma.CRMIntegrationOmit
 }
 
 /* Types for Logging */

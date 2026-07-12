@@ -325,6 +325,7 @@ model Institute {
   isActive            Boolean                    @default(true)
   createdAt           DateTime                   @default(now())
   updatedAt           DateTime                   @updatedAt
+  crmIntegrations     CRMIntegration[]
   imageUrl            String?
   averageRating       Float?                     @default(0)
   reviewCount         Int                        @default(0)
@@ -2167,5 +2168,35 @@ model BlogBrand {
 enum ProviderType {
   INSTITUTE
   INDIVIDUAL
+}
+
+
+enum CRMProvider {
+  ZOHO
+  SALESFORCE
+  HUBSPOT
+  PIPEDRIVE
+  LEADSQUARED
+  NOCRM
+  ZENDESK
+  FRESHSALES
+  CUSTOM
+}
+
+model CRMIntegration {
+  id              String      @id @default(cuid())
+  instituteId     String
+  provider        CRMProvider @default(CUSTOM)
+  webhookUrl      String
+  isActive        Boolean     @default(true)
+  sendEnquiries   Boolean     @default(true)
+  sendUserSaves   Boolean     @default(false)
+  sendUserVisits  Boolean     @default(false)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  institute       Institute   @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  @@map("crm_integration")
 }
 

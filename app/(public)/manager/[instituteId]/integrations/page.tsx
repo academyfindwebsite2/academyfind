@@ -1,0 +1,292 @@
+"use client";
+
+import { useState, useEffect, use } from "react";
+import { Plus, Trash2, Webhook, Zap, Loader2, CheckCircle2, Target, BarChart, Crosshair, Flame, Edit2 } from "lucide-react";
+import { SiZoho, SiSalesforce, SiHubspot, SiZendesk } from "react-icons/si";
+import { Button } from "@/components/ui/button";
+import { getIntegrations, createIntegration, updateIntegration, deleteIntegration, toggleIntegration } from "./actions";
+import toast from "react-hot-toast";
+
+const PROVIDERS = [
+  { id: "ZOHO", name: "Zoho CRM", logo: <SiZoho className="w-5 h-5" />, brandColor: "text-[#1161d7]" },
+  { id: "SALESFORCE", name: "Salesforce", logo: <SiSalesforce className="w-5 h-5" />, brandColor: "text-[#00a1e0]" },
+  { id: "HUBSPOT", name: "HubSpot", logo: <SiHubspot className="w-5 h-5" />, brandColor: "text-[#ff7a59]" },
+  { id: "PIPEDRIVE", name: "Pipedrive", logo: <Target className="w-5 h-5" />, brandColor: "text-[#00aa55]" },
+  { id: "LEADSQUARED", name: "LeadSquared", logo: <BarChart className="w-5 h-5" />, brandColor: "text-[#2a52be]" },
+  { id: "NOCRM", name: "noCRM", logo: <Crosshair className="w-5 h-5" />, brandColor: "text-[#e31c26]" },
+  { id: "ZENDESK", name: "Zendesk", logo: <SiZendesk className="w-5 h-5" />, brandColor: "text-[#03363d]" },
+  { id: "FRESHSALES", name: "Freshsales", logo: <Flame className="w-5 h-5" />, brandColor: "text-[#ff4f4f]" },
+  { id: "CUSTOM", name: "Custom Webhook", logo: <Webhook className="w-5 h-5" />, brandColor: "text-slate-700" },
+];
+
+export default function IntegrationsPage({ params }: { params: Promise<{ instituteId: string }> }) {
+  const unwrappedParams = use(params);
+  const instituteId = unwrappedParams.instituteId;
+  
+  const [integrations, setIntegrations] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const [showForm, setShowForm] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    provider: "ZOHO",
+    webhookUrl: "",
+    sendEnquiries: true,
+    sendUserSaves: false,
+    sendUserVisits: false,
+  });
+
+  useEffect(() => {
+    fetchIntegrations();
+  }, [instituteId]);
+
+  const fetchIntegrations = async () => {
+    setIsLoading(true);
+    const data = await getIntegrations(instituteId);
+    setIntegrations(data);
+    setIsLoading(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.webhookUrl.trim()) return toast.error("Webhook URL is required");
+    if (!formData.webhookUrl.startsWith("http")) return toast.error("Please enter a valid HTTP/HTTPS URL");
+
+    setIsSubmitting(true);
+    let res;
+    if (editId) {
+      res = await updateIntegration(editId, instituteId, formData);
+    } else {
+      res = await createIntegration({
+        instituteId: instituteId,
+        ...formData,
+      });
+    }
+
+    if (res.success) {
+      toast.success(editId ? "Integration updated!" : "Integration added successfully!");
+      setShowForm(false);
+      setEditId(null);
+      setFormData({
+        provider: "ZOHO",
+        webhookUrl: "",
+        sendEnquiries: true,
+        sendUserSaves: false,
+        sendUserVisits: false,
+      });
+      fetchIntegrations();
+    } else {
+      toast.error(res.error || "Failed to save integration");
+    }
+    setIsSubmitting(false);
+  };
+
+  const openEdit = (intg: any) => {
+    setFormData({
+      provider: intg.provider,
+      webhookUrl: intg.webhookUrl,
+      sendEnquiries: intg.sendEnquiries,
+      sendUserSaves: intg.sendUserSaves,
+      sendUserVisits: intg.sendUserVisits,
+    });
+    setEditId(intg.id);
+    setShowForm(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this integration?")) return;
+    const toastId = toast.loading("Deleting...");
+    const res = await deleteIntegration(id, instituteId);
+    if (res.success) {
+      toast.success("Deleted successfully", { id: toastId });
+      fetchIntegrations();
+    } else {
+      toast.error("Failed to delete", { id: toastId });
+    }
+  };
+
+  const handleToggle = async (id: string, isActive: boolean) => {
+    const res = await toggleIntegration(id, !isActive, instituteId);
+    if (res.success) {
+      toast.success(`Integration ${!isActive ? "Enabled" : "Disabled"}`);
+      fetchIntegrations();
+    } else {
+      toast.error("Failed to update status");
+    }
+  };
+
+  return (
+    <div className="max-w-4xl p-6">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
+            <Zap className="w-8 h-8 text-blue-600" />
+            CRM Integrations
+          </h1>
+          <p className="text-slate-500 mt-2">Automatically forward your leads to Zoho, Salesforce, or any CRM using Webhooks.</p>
+        </div>
+        {!showForm && (
+          <Button onClick={() => setShowForm(true)} className="rounded-xl px-6 font-bold shadow-md">
+            <Plus className="w-4 h-4 mr-2" />
+            New Integration
+          </Button>
+        )}
+      </div>
+
+      {showForm && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 mb-8 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-800 mb-6">{editId ? "Edit Integration" : "Add Webhook Connection"}</h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="md:col-span-2">
+                <label className="block text-sm font-semibold text-slate-700 mb-4">Select CRM Provider</label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                  {PROVIDERS.map(p => (
+                    <div 
+                      key={p.id}
+                      onClick={() => setFormData({ ...formData, provider: p.id })}
+                      className={`cursor-pointer border-2 rounded-xl p-4 flex flex-col items-center justify-center transition-all ${formData.provider === p.id ? 'border-blue-600 bg-blue-50/50 shadow-sm' : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`}
+                    >
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg mb-2 ${formData.provider === p.id ? 'bg-blue-600 text-white' : `bg-slate-100 ${p.brandColor}`}`}>
+                        {p.logo}
+                      </div>
+                      <span className="text-xs font-semibold text-slate-700 text-center">{p.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Webhook URL</label>
+                <input 
+                  type="url"
+                  placeholder="https://crm.zoho.com/api/v2/Leads/webhook/..."
+                  className="w-full border-slate-200 bg-slate-50 rounded-xl px-4 py-3 outline-none focus:border-blue-500 transition-colors"
+                  value={formData.webhookUrl}
+                  onChange={(e) => setFormData({ ...formData, webhookUrl: e.target.value })}
+                  required
+                />
+                <p className="text-xs text-slate-500 mt-2">Generate a webhook URL from your CRM dashboard and paste it here.</p>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <h3 className="font-semibold text-slate-800 mb-4">Select Events to Forward</h3>
+              <div className="space-y-3">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input 
+                    type="checkbox" 
+                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500" 
+                    checked={formData.sendEnquiries}
+                    onChange={(e) => setFormData({ ...formData, sendEnquiries: e.target.checked })}
+                  />
+                  <div>
+                    <span className="block font-semibold text-slate-700 group-hover:text-blue-600 transition-colors">Institute Enquiries (Hot Leads)</span>
+                    <span className="text-xs text-slate-500">Sent instantly when a user submits an enquiry for your institute.</span>
+                  </div>
+                </label>
+                
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input 
+                    type="checkbox" 
+                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500" 
+                    checked={formData.sendUserSaves}
+                    onChange={(e) => setFormData({ ...formData, sendUserSaves: e.target.checked })}
+                  />
+                  <div>
+                    <span className="block font-semibold text-slate-700 group-hover:text-blue-600 transition-colors">Profile Saves (Warm Leads)</span>
+                    <span className="text-xs text-slate-500">Sent when a logged-in user saves your institute profile to their list.</span>
+                  </div>
+                </label>
+
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input 
+                    type="checkbox" 
+                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500" 
+                    checked={formData.sendUserVisits}
+                    onChange={(e) => setFormData({ ...formData, sendUserVisits: e.target.checked })}
+                  />
+                  <div>
+                    <span className="block font-semibold text-slate-700 group-hover:text-blue-600 transition-colors">Profile Visits</span>
+                    <span className="text-xs text-slate-500">Sent when a logged-in user visits your page. (May cause high data volume)</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 pt-2">
+              <Button type="button" variant="ghost" onClick={() => { setShowForm(false); setEditId(null); }} className="rounded-xl">Cancel</Button>
+              <Button type="submit" disabled={isSubmitting} className="rounded-xl px-8 font-bold">
+                {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
+                {editId ? "Update Integration" : "Save Integration"}
+              </Button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {isLoading ? (
+        <div className="flex justify-center items-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+        </div>
+      ) : integrations.length === 0 ? (
+        !showForm && (
+          <div className="text-center py-20 bg-slate-50 rounded-3xl border border-dashed border-slate-300">
+            <Webhook className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-slate-700">No Integrations Found</h3>
+            <p className="text-slate-500 mt-2 max-w-sm mx-auto">Connect your favorite CRM to automatically receive leads from AcademyFind.</p>
+            <Button onClick={() => setShowForm(true)} variant="outline" className="mt-6 rounded-xl">Add Connection</Button>
+          </div>
+        )
+      ) : (
+        <div className="space-y-4">
+          {integrations.map((intg) => (
+            <div key={intg.id} className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row gap-5 items-start md:items-center justify-between shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-4">
+                <div className={`p-3 rounded-xl ${intg.isActive ? 'bg-emerald-50' : 'bg-slate-100'}`}>
+                  <Webhook className={`w-6 h-6 ${intg.isActive ? 'text-emerald-600' : 'text-slate-400'}`} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-800 text-lg flex items-center gap-2">
+                    {intg.provider} 
+                    {!intg.isActive && <span className="text-[10px] uppercase bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full">Disabled</span>}
+                  </h4>
+                  <p className="text-xs text-slate-500 font-mono mt-1 max-w-[200px] sm:max-w-xs md:max-w-md truncate">{intg.webhookUrl}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 w-full md:w-auto border-t border-slate-100 md:border-none pt-4 md:pt-0">
+                <div className="flex gap-2 flex-1 md:flex-none">
+                  {intg.sendEnquiries && <span className="bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold px-2 py-1 rounded-md">Enquiries</span>}
+                  {intg.sendUserSaves && <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-bold px-2 py-1 rounded-md">Saves</span>}
+                  {intg.sendUserVisits && <span className="bg-purple-50 text-purple-700 border border-purple-200 text-[10px] font-bold px-2 py-1 rounded-md">Visits</span>}
+                </div>
+                
+                <div className="flex items-center gap-2 ml-auto">
+                  <button 
+                    onClick={() => handleToggle(intg.id, intg.isActive)}
+                    className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-colors ${intg.isActive ? 'border-amber-200 text-amber-700 hover:bg-amber-50' : 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'}`}
+                  >
+                    {intg.isActive ? 'Disable' : 'Enable'}
+                  </button>
+                  <button 
+                    onClick={() => openEdit(intg)}
+                    className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  >
+                    <Edit2 className="w-5 h-5" />
+                  </button>
+                  <button 
+                    onClick={() => handleDelete(intg.id)}
+                    className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

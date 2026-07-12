@@ -436,3 +436,8 @@ export type BlogFAQ = Prisma.BlogFAQModel
  * 
  */
 export type BlogBrand = Prisma.BlogBrandModel
+/**
+ * Model CRMIntegration
+ * 
+ */
+export type CRMIntegration = Prisma.CRMIntegrationModel

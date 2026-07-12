@@ -332,3 +332,18 @@ export const ProviderType = {
 } as const
 
 export type ProviderType = (typeof ProviderType)[keyof typeof ProviderType]
+
+
+export const CRMProvider = {
+  ZOHO: 'ZOHO',
+  SALESFORCE: 'SALESFORCE',
+  HUBSPOT: 'HUBSPOT',
+  PIPEDRIVE: 'PIPEDRIVE',
+  LEADSQUARED: 'LEADSQUARED',
+  NOCRM: 'NOCRM',
+  ZENDESK: 'ZENDESK',
+  FRESHSALES: 'FRESHSALES',
+  CUSTOM: 'CUSTOM'
+} as const
+
+export type CRMProvider = (typeof CRMProvider)[keyof typeof CRMProvider]

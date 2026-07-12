@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { triggerCRMWebhooks } from "@/lib/crm/webhooks";
 
 export const trackVisitHistory = async (userId: string, instituteId: string) => {
   try {
@@ -33,6 +34,21 @@ export const trackVisitHistory = async (userId: string, instituteId: string) => 
         });
       }
     }
+
+    // Fire CRM Webhooks
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { name: true, email: true, phone: true }
+    });
+    
+    if (user) {
+      triggerCRMWebhooks(instituteId, "USER_VISIT", {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        source: "AcademyFind Profile Visit (Logged In)",
+      });
+    }
   } catch (error) {
     console.error("Error tracking visit history:", error);
   }
@@ -53,6 +69,22 @@ export const toggleShortlist = async (userId: string, instituteId: string) => {
       await prisma.userShortlist.create({
         data: { userId, instituteId },
       });
+
+      // Fire CRM Webhooks
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { name: true, email: true, phone: true }
+      });
+      
+      if (user) {
+        triggerCRMWebhooks(instituteId, "USER_SAVE", {
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          source: "AcademyFind Profile Saved (Warm Lead)",
+        });
+      }
+
       return { success: true, status: "added" };
     }
   } catch (error) {

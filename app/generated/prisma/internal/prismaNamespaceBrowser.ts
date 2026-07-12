@@ -129,7 +129,8 @@ export const ModelName = {
   BlogComment: 'BlogComment',
   BlogReaction: 'BlogReaction',
   BlogFAQ: 'BlogFAQ',
-  BlogBrand: 'BlogBrand'
+  BlogBrand: 'BlogBrand',
+  CRMIntegration: 'CRMIntegration'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1430,6 +1431,22 @@ export const BlogBrandScalarFieldEnum = {
 } as const
 
 export type BlogBrandScalarFieldEnum = (typeof BlogBrandScalarFieldEnum)[keyof typeof BlogBrandScalarFieldEnum]
+
+
+export const CRMIntegrationScalarFieldEnum = {
+  id: 'id',
+  instituteId: 'instituteId',
+  provider: 'provider',
+  webhookUrl: 'webhookUrl',
+  isActive: 'isActive',
+  sendEnquiries: 'sendEnquiries',
+  sendUserSaves: 'sendUserSaves',
+  sendUserVisits: 'sendUserVisits',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CRMIntegrationScalarFieldEnum = (typeof CRMIntegrationScalarFieldEnum)[keyof typeof CRMIntegrationScalarFieldEnum]
 
 
 export const SortOrder = {

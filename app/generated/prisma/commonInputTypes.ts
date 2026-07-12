@@ -807,6 +807,23 @@ export type EnumReactionTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumReactionTypeFilter<$PrismaModel>
 }
 
+export type EnumCRMProviderFilter<$PrismaModel = never> = {
+  equals?: $Enums.CRMProvider | Prisma.EnumCRMProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.CRMProvider[] | Prisma.ListEnumCRMProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CRMProvider[] | Prisma.ListEnumCRMProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel> | $Enums.CRMProvider
+}
+
+export type EnumCRMProviderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CRMProvider | Prisma.EnumCRMProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.CRMProvider[] | Prisma.ListEnumCRMProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CRMProvider[] | Prisma.ListEnumCRMProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCRMProviderWithAggregatesFilter<$PrismaModel> | $Enums.CRMProvider
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1573,6 +1590,23 @@ export type NestedEnumReactionTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumReactionTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumReactionTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumCRMProviderFilter<$PrismaModel = never> = {
+  equals?: $Enums.CRMProvider | Prisma.EnumCRMProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.CRMProvider[] | Prisma.ListEnumCRMProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CRMProvider[] | Prisma.ListEnumCRMProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel> | $Enums.CRMProvider
+}
+
+export type NestedEnumCRMProviderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CRMProvider | Prisma.EnumCRMProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.CRMProvider[] | Prisma.ListEnumCRMProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CRMProvider[] | Prisma.ListEnumCRMProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCRMProviderWithAggregatesFilter<$PrismaModel> | $Enums.CRMProvider
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel>
 }
 
 
