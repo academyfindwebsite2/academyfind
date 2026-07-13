@@ -116,7 +116,7 @@ export default async function AdminUsersPage({
                                         <td className="p-4 text-slate-500">
                                             <div className="flex items-center gap-1.5">
                                                 <Calendar className="w-4 h-4" />
-                                                {formatIST(user.createdAt, "MMM dd, yyyy")}
+                                                {formatIST(user.createdAt, "MMM dd, yyyy, hh:mm a")}
                                             </div>
                                         </td>
 

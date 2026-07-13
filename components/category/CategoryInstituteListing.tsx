@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function InstituteListing({
-  institutes,category
+  institutes, category
 }: Props) {
   if (!institutes.length) {
     return (
@@ -51,7 +51,7 @@ export default function InstituteListing({
         <MapToggleSection institutes={institutes} />
       </div>
 
-      
+
 
 
       {/* Grid Layout */}

@@ -14,6 +14,7 @@ import { Analytics } from "@vercel/analytics/next";
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from 'react-hot-toast'
 import GlobalCallbackFAB from "@/components/User/GlobalCallBack";
+import UserActivityTracker from "@/components/User/UserActivityTracker";
 import Script from "next/script";
 import { getCachedSession } from "@/lib/auth/session";
 
@@ -115,6 +116,7 @@ export default async function RootLayout({
           </main>
         </GoogleMapsProvider>
 
+        <UserActivityTracker />
         <Toaster position="top-center" reverseOrder={false} />
         {/* <AuthPromptModal isAuthenticated={Boolean(session?.user)} />
         

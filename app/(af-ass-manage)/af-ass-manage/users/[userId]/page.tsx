@@ -67,7 +67,10 @@ export default async function UserDetailsPage({ params }: { params: Promise<{ us
                         <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm text-stone-500 font-medium">
                             <span className="flex items-center gap-1.5"><Mail className="w-4 h-4 text-stone-400" /> {user.email}</span>
                             <span className="flex items-center gap-1.5"><ShieldAlert className={`w-4 h-4 ${user.emailVerified ? "text-emerald-500" : "text-amber-500"}`} /> {user.emailVerified ? "Verified Email" : "Unverified Email"}</span>
-                            <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-stone-400" /> Joined: {new Date(user.createdAt).toLocaleDateString()}</span>
+                            <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-stone-400" /> Joined: {new Date(user.createdAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" })}</span>
+                            <span className="flex items-center gap-1.5">
+                                <Clock className="w-4 h-4 text-stone-400" /> Last Active: {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" }) : "Never"}
+                            </span>
                         </div>
                     </div>
                 </CardContent>
