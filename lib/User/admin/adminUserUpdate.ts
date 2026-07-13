@@ -41,6 +41,23 @@ export async function addManagerRelation(userId: string, instituteId: string) {
             data: { userId, instituteId }
         });
 
+        // 1.5. Create Membership relation as ADMIN so they show up in Team
+        const existingMembership = await prisma.instituteMembership.findFirst({
+            where: { userId, instituteId, role: 'ADMIN' }
+        });
+
+        if (!existingMembership) {
+            await prisma.instituteMembership.create({
+                data: {
+                    userId,
+                    instituteId,
+                    role: 'ADMIN',
+                    status: 'ACTIVE',
+                    joinedAt: new Date()
+                }
+            });
+        }
+
         // 2. Agar user normal 'USER' hai, toh usko auto-upgrade karke 'INSTITUTE_MANAGER' bana do
         const user = await prisma.user.findUnique({ where: { id: userId } });
         if (user && user.role === 'USER') {
