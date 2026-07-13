@@ -65,11 +65,11 @@ export default async function AdminCategoriesPage({
             <CategoryFilters />
 
             {/* Main Content Area */}
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            <div className="bg-white/80 backdrop-blur-xl border border-stone-100/60 rounded-[2rem] shadow-sm overflow-hidden">
                 
                 {/* SCENARIO A: Search Results (Flat Table List) */}
                 {search ? (
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto w-full">
                         <table className="w-full text-sm text-left">
                             <thead className="bg-indigo-50 text-indigo-800 font-semibold border-b border-indigo-100">
                                 <tr>
@@ -79,7 +79,7 @@ export default async function AdminCategoriesPage({
                                     <th className="p-4 text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-100">
+                            <tbody className="divide-y divide-stone-100/50">
                                 {searchResults.length === 0 ? (
                                     <tr><td colSpan={4} className="p-8 text-center text-slate-400">No categories found matching "{search}".</td></tr>
                                 ) : (

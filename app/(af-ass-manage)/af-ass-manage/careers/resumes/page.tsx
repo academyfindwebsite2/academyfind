@@ -8,7 +8,7 @@ export default async function GeneralResumesPage() {
     });
 
     return (
-        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8">
+        <div className="p-6 md:p-10 w-full space-y-8">
             <div>
                 <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-2 tracking-tight">
                     <FileText className="w-8 h-8 text-purple-600" /> Talent Pool Resumes

@@ -47,7 +47,7 @@ export default async function AdminWalletsPage() {
         <StatCard
           label="Total Coins Circulating"
           value={totalBalance.toLocaleString("en-IN")}
-          icon={<Wallet className="size-5 text-amber-600" />}
+          icon={<Wallet className="size-5 text-stone-600" />}
           color="amber"
         />
         <StatCard
@@ -87,7 +87,7 @@ export default async function AdminWalletsPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100/50">
               {wallets.map((w: any) => (
                 <tr key={w.id} className="hover:bg-slate-50/50 transition-colors">
                   <td className="flex items-center gap-3 px-5 py-3">
@@ -143,7 +143,7 @@ function StatCard({
   color: "amber" | "emerald" | "rose";
 }) {
   const bg = {
-    amber: "bg-amber-50 border-amber-100",
+    amber: "bg-stone-50 border-stone-100",
     emerald: "bg-emerald-50 border-emerald-100",
     rose: "bg-rose-50 border-rose-100",
   };

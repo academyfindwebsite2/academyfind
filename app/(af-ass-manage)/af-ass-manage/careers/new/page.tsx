@@ -50,7 +50,7 @@ export default function PostNewJobPage() {
                     <Briefcase className="w-6 h-6" />
                 </div>
                 <div>
-                    <h1 className="text-2xl font-extrabold text-slate-900">Post a New Job</h1>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Post a New Job</h1>
                     <p className="text-sm text-slate-500">Fill in the details to publish a new career opportunity.</p>
                 </div>
             </div>

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { formatIST } from "@/lib/utils";
 import { ArrowLeft, Mail, Phone, Calendar, MessageSquareQuote } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 export default async function ContactMessageDetail({ params }: { params: Promise<{ messageId: string }> }) {
     const {messageId} = await params;
@@ -22,76 +24,77 @@ export default async function ContactMessageDetail({ params }: { params: Promise
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 pb-12 font-sans animate-in fade-in duration-300">
+        <div className="max-w-4xl mx-auto space-y-6 pb-12 font-sans w-full p-4 md:p-8">
             
             {/* Back Button */}
-            <Link href="/af-ass-manage/contactmessages" className="inline-flex items-center text-sm font-semibold text-slate-500 hover:text-blue-600 transition-colors bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm">
+            <Link href="/af-ass-manage/contactmessages" className="inline-flex items-center text-sm font-semibold text-stone-500 hover:text-stone-800 transition-colors">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Back to Inbox
             </Link>
 
-            <div className="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
+            <Card className="border-stone-200 shadow-sm overflow-hidden bg-white">
                 
                 {/* Email Header Style */}
-                <div className="bg-slate-50 p-6 md:p-8 border-b border-slate-200">
-                    <h1 className="text-2xl font-extrabold text-slate-900 mb-6">
+                <CardHeader className="bg-stone-50 p-6 md:p-8 border-b border-stone-100">
+                    <h1 className="text-3xl font-black text-stone-800 tracking-tight mb-6">
                         {message.subject || "(No Subject Provided)"}
                     </h1>
                     
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl shrink-0">
+                            <div className="w-12 h-12 bg-stone-200 text-stone-600 rounded-full flex items-center justify-center font-bold text-xl shrink-0 shadow-inner border border-stone-300">
                                 {message.name.charAt(0).toUpperCase()}
                             </div>
                             <div>
-                                <div className="font-bold text-slate-800 text-lg leading-tight">{message.name}</div>
-                                <div className="text-sm text-slate-500 flex items-center gap-1.5 mt-0.5">
+                                <div className="font-bold text-stone-800 text-lg leading-tight">{message.name}</div>
+                                <div className="text-sm text-stone-500 flex items-center gap-1.5 mt-1 font-medium">
                                     <Mail className="w-3.5 h-3.5" /> 
-                                    <a href={`mailto:${message.email}`} className="hover:text-blue-600 hover:underline">{message.email}</a>
+                                    <a href={`mailto:${message.email}`} className="hover:text-stone-800 hover:underline">{message.email}</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="text-left sm:text-right text-sm text-slate-500 bg-white p-3 rounded-xl border border-slate-200">
-                            <div className="flex items-center sm:justify-end gap-1.5 font-medium text-slate-700">
-                                <Calendar className="w-4 h-4 text-slate-400" />
+                        <div className="text-left sm:text-right text-sm text-stone-500 bg-white p-3 rounded-xl border border-stone-200 shadow-sm">
+                            <div className="flex items-center sm:justify-end gap-1.5 font-bold text-stone-700">
+                                <Calendar className="w-4 h-4 text-stone-400" />
                                 {formatIST(message.createdAt, "MMMM dd, yyyy")}
                             </div>
-                            <div className="mt-0.5 text-xs">
+                            <div className="mt-1 text-xs font-medium text-stone-400">
                                 {formatIST(message.createdAt, "hh:mm a")}
                             </div>
                         </div>
                     </div>
-                </div>
+                </CardHeader>
 
                 {/* Optional Phone Number Strip */}
                 {message.phone && (
-                    <div className="bg-blue-50/50 px-6 py-3 border-b border-slate-100 flex items-center gap-2 text-sm text-slate-700">
-                        <Phone className="w-4 h-4 text-blue-500" />
-                        <strong>Phone Number Provided:</strong> 
-                        <a href={`tel:${message.phone}`} className="text-blue-600 hover:underline font-mono">{message.phone}</a>
+                    <div className="bg-stone-100/50 px-6 py-3 border-b border-stone-100 flex items-center gap-2 text-sm text-stone-700 font-medium">
+                        <Phone className="w-4 h-4 text-stone-500" />
+                        <strong className="text-stone-800">Phone Number Provided:</strong> 
+                        <a href={`tel:${message.phone}`} className="text-emerald-700 hover:underline font-mono font-bold bg-white px-2 py-0.5 rounded border border-stone-200 shadow-sm">{message.phone}</a>
                     </div>
                 )}
 
                 {/* Message Body */}
-                <div className="p-6 md:p-8">
-                    <div className="flex items-center gap-2 text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">
+                <CardContent className="p-6 md:p-8">
+                    <div className="flex items-center gap-2 text-sm font-bold text-stone-400 uppercase tracking-wider mb-4">
                         <MessageSquareQuote className="w-4 h-4" /> User Message
                     </div>
-                    <div className="text-slate-700 leading-relaxed whitespace-pre-wrap text-base bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <div className="text-stone-700 leading-relaxed whitespace-pre-wrap text-base bg-stone-50 p-6 rounded-2xl border border-stone-100 shadow-inner font-medium">
                         {message.message}
                     </div>
-                </div>
+                </CardContent>
+                <Separator className="bg-stone-100" />
 
                 {/* Action Footer */}
-                <div className="p-6 bg-slate-50 border-t border-slate-200 flex gap-3 justify-end">
+                <CardFooter className="p-6 bg-stone-50 flex gap-3 justify-end">
                     <a 
                         href={`mailto:${message.email}?subject=Reply to: ${message.subject || 'Your Inquiry on AcademyFind'}`}
-                        className="inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-xl transition-all shadow-sm"
+                        className="inline-flex justify-center items-center bg-stone-800 hover:bg-stone-900 text-stone-50 font-bold px-6 py-2.5 rounded-xl transition-all shadow-sm border border-stone-900"
                     >
                         <Mail className="w-4 h-4 mr-2" /> Reply via Email
                     </a>
-                </div>
-            </div>
+                </CardFooter>
+            </Card>
 
         </div>
     );

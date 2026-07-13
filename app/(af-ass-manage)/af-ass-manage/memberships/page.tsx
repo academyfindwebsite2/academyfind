@@ -53,7 +53,7 @@ export default async function AdminMembershipsPage() {
       {/* Pending */}
       <section>
         <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-800">
-          <Clock className="size-5 text-amber-500" /> Pending Requests
+          <Clock className="size-5 text-stone-500" /> Pending Requests
           {pending.length > 0 && (
             <span className="rounded-full bg-rose-500 px-2.5 py-0.5 text-xs font-bold text-white">
               {pending.length}
@@ -80,7 +80,7 @@ export default async function AdminMembershipsPage() {
                       <span className="text-slate-400 text-xs">at</span>
                       <Link
                         href={`/institute/${m.institute.id}-${m.institute.slug}`}
-                        className="text-sm font-semibold text-amber-700 hover:underline"
+                        className="text-sm font-semibold text-stone-700 hover:underline"
                       >
                         {m.institute.name}
                       </Link>
@@ -159,7 +159,7 @@ export default async function AdminMembershipsPage() {
                   <span className="text-slate-400">at</span>{" "}
                   <Link
                     href={`/institute/${m.institute.id}-${m.institute.slug}`}
-                    className="text-sm font-medium text-amber-700 hover:underline"
+                    className="text-sm font-medium text-stone-700 hover:underline"
                   >
                     {m.institute.name}
                   </Link>
@@ -201,7 +201,7 @@ function UserAvatar({
 function RoleBadge({ role }: { role: string }) {
   const styles: Record<string, string> = {
     STUDENT: "bg-blue-50 text-blue-700 border-blue-200",
-    TEACHER: "bg-amber-50 text-amber-700 border-amber-200",
+    TEACHER: "bg-stone-50 text-stone-700 border-stone-200",
     MANAGER: "bg-violet-50 text-violet-700 border-violet-200",
   };
   return (
@@ -217,7 +217,7 @@ function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
     ACTIVE: "bg-emerald-50 text-emerald-700",
     ALUMNI: "bg-slate-100 text-slate-500",
-    PENDING: "bg-amber-50 text-amber-700",
+    PENDING: "bg-stone-50 text-stone-700",
     REMOVED: "bg-rose-50 text-rose-600",
     REJECTED: "bg-rose-50 text-rose-600",
   };

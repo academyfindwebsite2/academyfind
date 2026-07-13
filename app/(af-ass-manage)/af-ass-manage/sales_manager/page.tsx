@@ -153,8 +153,8 @@ export default async function AdminSalesManagerPage({
             <SalesManagerFilters />
 
             {/* Managers Table */}
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                <div className="overflow-x-auto">
+            <div className="bg-white/80 backdrop-blur-xl border border-stone-100/60 rounded-[2rem] shadow-sm overflow-hidden">
+                <div className="overflow-x-auto w-full">
                     <table className="w-full text-sm text-left">
                         <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
                             <tr>
@@ -166,7 +166,7 @@ export default async function AdminSalesManagerPage({
                                 <th className="p-4 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-stone-100/50">
                             {sortedManagers.length === 0 ? (
                                 <tr>
                                     <td colSpan={6} className="p-8 text-center text-slate-400">
@@ -237,7 +237,7 @@ export default async function AdminSalesManagerPage({
                                                 </div>
                                                 <div className="flex items-center gap-3 text-[10px] font-bold text-slate-500">
                                                     <span className="flex items-center gap-0.5">
-                                                        <Clock className="w-2.5 h-2.5 text-amber-500" />
+                                                        <Clock className="w-2.5 h-2.5 text-stone-500" />
                                                         {manager.contacted}
                                                     </span>
                                                     <span className="flex items-center gap-0.5">

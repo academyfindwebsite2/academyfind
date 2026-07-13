@@ -72,7 +72,9 @@ export async function getInstitutesByCategoryAndCity(
     } else if (sort === "reviews") {
       searchOptions.sort = ["planWeight:desc", "googleReviewCount:desc"];
     } else if (lat && lng) {
-      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"]; 
+      searchOptions.sort = ["planWeight:desc", `_geoPoint(${lat}, ${lng}):asc`, "googleRating:desc"]; 
+    } else {
+      searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
     }
 
     let searchQuery = q ? q.trim() : "";
@@ -108,8 +110,8 @@ export async function getInstitutesByCategoryAndCity(
       
       if (sort === "rating") searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
       else if (sort === "reviews") searchOptions.sort = ["planWeight:desc", "googleReviewCount:desc"];
-      else if (lat && lng) searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"];
-      else delete searchOptions.sort;
+      else if (lat && lng) searchOptions.sort = ["planWeight:desc", `_geoPoint(${lat}, ${lng}):asc`, "googleRating:desc"];
+      else searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
 
       searchRes = await meili.index("global_search").search(searchQuery, searchOptions);
     }

@@ -29,6 +29,7 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 import {
   Card,
   CardContent,
@@ -137,6 +138,7 @@ export default function BlogEditorForm({
   const coverInputRef = useRef<HTMLInputElement>(null);
   const [isPending, startTransition] = useTransition();
   const [isUploading, setIsUploading] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [postId, setPostId] = useState(initialData?.id);
   const [saveState, setSaveState] = useState<
     "saved" | "saving" | "unsaved"
@@ -411,11 +413,8 @@ export default function BlogEditorForm({
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this article? This action cannot be undone.")) {
-      return;
-    }
-
     setSaveState("saving");
+    setIsConfirmOpen(false);
     try {
       const res = management === "admin"
         ? await deleteAdminBlogPost(postId!)
@@ -448,7 +447,7 @@ export default function BlogEditorForm({
           variant="ghost"
           size="lg"
           disabled={isPending || isUploading}
-          onClick={handleDelete}
+          onClick={() => setIsConfirmOpen(true)}
           className="text-red-500 hover:bg-red-50 hover:text-red-600 border border-transparent hover:border-red-100 font-semibold rounded-2xl transition-all duration-200 cursor-pointer text-sm"
         >
           <Trash2 className="h-4 w-4" />
@@ -1109,6 +1108,16 @@ export default function BlogEditorForm({
       <div className="sticky bottom-0 z-20 flex gap-2 border-t border-slate-100 bg-white/80 backdrop-blur-md p-4 sm:hidden">
         <div className="grid w-full grid-cols-2 gap-2">{actionButtons}</div>
       </div>
+      
+      <ConfirmModal 
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={handleDelete}
+        title="Delete this article?"
+        description="This action cannot be undone."
+        destructive={true}
+        confirmText="Delete Post"
+      />
     </main>
   );
 }

@@ -23,7 +23,7 @@ export default async function AdminNotificationsPage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-200">
                 <div>
                     <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-3">
-                        <Bell className="w-8 h-8 text-amber-500" /> 
+                        <Bell className="w-8 h-8 text-stone-500" /> 
                         Notifications
                         {unreadCount > 0 && (
                             <span className="bg-red-500 text-white text-xs px-2.5 py-1 rounded-full animate-pulse">
@@ -61,7 +61,7 @@ export default async function AdminNotificationsPage() {
                             className={`flex flex-col sm:flex-row gap-4 justify-between sm:items-center p-5 rounded-2xl border transition-all ${
                                 notification.isRead 
                                     ? "bg-white border-slate-200 opacity-70 hover:opacity-100" 
-                                    : "bg-amber-50/50 border-amber-200 shadow-sm"
+                                    : "bg-stone-50/50 border-stone-200 shadow-sm"
                             }`}
                         >
                             <div className="flex items-start gap-4">
@@ -70,7 +70,7 @@ export default async function AdminNotificationsPage() {
                                     {notification.isRead ? (
                                         <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
                                     ) : (
-                                        <div className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+                                        <div className="w-2.5 h-2.5 rounded-full bg-stone-500 animate-pulse" />
                                     )}
                                 </div>
                                 

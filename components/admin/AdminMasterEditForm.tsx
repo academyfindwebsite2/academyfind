@@ -19,15 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-// 🚀 IMPORT PORTFOLIO COMPONENTS
-import EditTeachers from "@/app/(public)/manager/[instituteId]/profile/edit/EditTeacherProfile";
-import EditResultImages from "@/app/(public)/manager/[instituteId]/profile/edit/EditResultImages";
-import EditVideoLinks from "@/app/(public)/manager/[instituteId]/profile/edit/EditVideoLinks";
-import ClassroomImages from "@/app/(public)/manager/[instituteId]/profile/edit/EditClassroomImages";
-import EditBatches from "@/app/(public)/manager/[instituteId]/profile/edit/EditBatches";
-import EditFAQs from "@/app/(public)/manager/[instituteId]/profile/edit/EditFAQS";
-import EditAchievements from "@/app/(public)/manager/[instituteId]/profile/edit/EditAchievements";
-import EditNotablePersons from "@/app/(public)/manager/[instituteId]/profile/edit/EditNotablePersons";
+
 import EditOperatingHours from "@/app/(public)/manager/[instituteId]/profile/edit/EditOperatingHours";
 
 type Facility = { id: string; name: string; available: boolean };
@@ -170,54 +162,54 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
         <div className="space-y-12 pb-24">
             <form onSubmit={handleFormSubmit} className="space-y-8">
                 
-                <div className="p-4 bg-purple-50 border border-purple-100 rounded-2xl flex gap-3 text-sm text-purple-900 shadow-sm">
-                    <AlertTriangle className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
+                <div className="p-4 bg-stone-50 border border-stone-100 rounded-2xl flex gap-3 text-sm text-stone-900 shadow-sm">
+                    <AlertTriangle className="w-5 h-5 text-stone-800 shrink-0 mt-0.5" />
                     <p><strong>Admin Controls Warning:</strong> Modifying details here bypasses manager confirmations. Altering slugs may break older student bookmark links.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="rounded-3xl border-slate-200 shadow-sm overflow-hidden">
-                        <CardHeader className="bg-gradient-to-r from-purple-50 to-slate-50 border-b border-slate-100 pb-4">
-                            <CardTitle className="flex items-center gap-2 text-base text-slate-800">
-                                <ImageIcon className="w-5 h-5 text-purple-600" /> Logo / Display Image
+                    <Card className="rounded-3xl border-stone-200 shadow-sm overflow-hidden">
+                        <CardHeader className="bg-gradient-to-r from-stone-50 to-slate-50 border-b border-stone-100 pb-4">
+                            <CardTitle className="flex items-center gap-2 text-base text-stone-800">
+                                <ImageIcon className="w-5 h-5 text-stone-800" /> Logo / Display Image
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-5 flex flex-col items-center justify-center space-y-4">
-                            <div className="w-full h-44 rounded-2xl border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden relative shadow-inner p-3 text-center">
+                            <div className="w-full h-44 rounded-2xl border border-stone-200 bg-stone-50 flex items-center justify-center overflow-hidden relative shadow-inner p-3 text-center">
                                 {showActualImage ? (
                                     <img src={imagePreview} alt="Institute Logo" className="w-full h-full object-cover absolute inset-0" />
                                 ) : (
-                                    <div className="text-sm text-slate-400 flex flex-col items-center gap-2 z-10">
-                                        <ImageIcon className="w-7 h-7 text-slate-300"/> 
+                                    <div className="text-sm text-stone-400 flex flex-col items-center gap-2 z-10">
+                                        <ImageIcon className="w-7 h-7 text-stone-300"/> 
                                         <span>No Image Available</span>
                                     </div>
                                 )}
                             </div>
-                            <label className="cursor-pointer bg-slate-900 hover:bg-purple-600 text-white text-sm px-5 py-2.5 rounded-xl font-semibold transition-all flex items-center gap-2 shadow-sm">
+                            <label className="cursor-pointer bg-stone-900 hover:bg-stone-800 text-white text-sm px-5 py-2.5 rounded-xl font-semibold transition-all flex items-center gap-2 shadow-sm">
                                 <UploadCloud className="w-4 h-4" /> Change Logo
                                 <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                             </label>
                         </CardContent>
                     </Card>
 
-                    <Card className="rounded-3xl border-slate-200 shadow-sm overflow-hidden">
-                        <CardHeader className="bg-gradient-to-r from-amber-50 to-slate-50 border-b border-slate-100 pb-4">
-                            <CardTitle className="flex items-center gap-2 text-base text-slate-800">
+                    <Card className="rounded-3xl border-stone-200 shadow-sm overflow-hidden">
+                        <CardHeader className="bg-gradient-to-r from-amber-50 to-slate-50 border-b border-stone-100 pb-4">
+                            <CardTitle className="flex items-center gap-2 text-base text-stone-800">
                                 <ImageIcon className="w-5 h-5 text-amber-600" /> Cover / Banner Image
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-5 flex flex-col items-center justify-center space-y-4">
-                            <div className="w-full h-44 rounded-2xl border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden relative shadow-inner p-3 text-center">
+                            <div className="w-full h-44 rounded-2xl border border-stone-200 bg-stone-50 flex items-center justify-center overflow-hidden relative shadow-inner p-3 text-center">
                                 {showActualCover ? (
                                     <img src={coverPreview} alt="Institute Cover" className="w-full h-full object-cover absolute inset-0" />
                                 ) : (
-                                    <div className="text-sm text-slate-400 flex flex-col items-center gap-2 z-10">
-                                        <ImageIcon className="w-7 h-7 text-slate-300"/> 
+                                    <div className="text-sm text-stone-400 flex flex-col items-center gap-2 z-10">
+                                        <ImageIcon className="w-7 h-7 text-stone-300"/> 
                                         <span>No Banner Available</span>
                                     </div>
                                 )}
                             </div>
-                            <label className="cursor-pointer bg-slate-900 hover:bg-amber-600 text-white text-sm px-5 py-2.5 rounded-xl font-semibold transition-all flex items-center gap-2 shadow-sm">
+                            <label className="cursor-pointer bg-stone-900 hover:bg-amber-600 text-white text-sm px-5 py-2.5 rounded-xl font-semibold transition-all flex items-center gap-2 shadow-sm">
                                 <UploadCloud className="w-4 h-4" /> Change Cover
                                 <input type="file" accept="image/*" onChange={handleCoverUpload} className="hidden" />
                             </label>
@@ -226,9 +218,9 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                 </div>
 
                 <Tabs defaultValue="general" className="w-full">
-                    <TabsList className="flex flex-wrap w-full bg-slate-100 p-1 rounded-xl mb-6 h-auto gap-1">
+                    <TabsList className="flex flex-wrap w-full bg-stone-100 p-1 rounded-xl mb-6 h-auto gap-1">
                         <TabsTrigger value="general" className="rounded-lg py-2 flex-grow">General Info</TabsTrigger>
-                        <TabsTrigger value="features" className="rounded-lg py-2 flex-grow text-purple-700 data-[state=active]:bg-purple-100"><Sparkles className="w-4 h-4 mr-1"/> Features</TabsTrigger>
+                        <TabsTrigger value="features" className="rounded-lg py-2 flex-grow text-stone-900 data-[state=active]:bg-stone-100"><Sparkles className="w-4 h-4 mr-1"/> Features</TabsTrigger>
                         <TabsTrigger value="contact" className="rounded-lg py-2 flex-grow">Contact & Geo</TabsTrigger>
                         <TabsTrigger value="social" className="rounded-lg py-2 flex-grow">Social</TabsTrigger>
                         <TabsTrigger value="seo" className="rounded-lg py-2 flex-grow text-emerald-700 data-[state=active]:bg-emerald-100"><Search className="w-4 h-4 mr-1" /> SEO</TabsTrigger>
@@ -237,7 +229,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
 
                     {/* 🔥 FIX: Added `forceMount` and `data-[state=inactive]:hidden` to keep elements in DOM for FormData */}
                     <TabsContent value="general" forceMount className="data-[state=inactive]:hidden">
-                        <Card className="rounded-2xl border-slate-200 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 shadow-sm">
                             <CardHeader><CardTitle>Basic Information</CardTitle></CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
@@ -248,7 +240,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label>Teaching Mode</Label>
-                                        <select name="mode" defaultValue={institute.mode || "OFFLINE"} className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <select name="mode" defaultValue={institute.mode || "OFFLINE"} className="flex h-10 w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-800">
                                             <option value="OFFLINE">Offline Only</option>
                                             <option value="ONLINE">Online Only</option>
                                             <option value="HYBRID">Hybrid (Both)</option>
@@ -263,7 +255,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                     <div className="space-y-2"><Label>Refund Policy</Label><Input name="refundPolicy" defaultValue={institute.refundPolicy || ""} placeholder="e.g. 7 Days Money Back" /></div>
                                     <div className="space-y-2">
                                         <Label>City</Label>
-                                        <select name="cityId" defaultValue={institute.cityId} className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <select name="cityId" defaultValue={institute.cityId} className="flex h-10 w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-800">
                                             {allCities.map(city => <option key={city.id} value={city.id}>{city.name}</option>)}
                                         </select>
                                     </div>
@@ -271,10 +263,10 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
 
                                 <div className="space-y-2 pt-2 border-t mt-4">
                                     <Label>Tagged Categories</Label>
-                                    <div className="h-40 overflow-y-auto border border-slate-200 rounded-xl p-3 bg-slate-50 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                    <div className="h-40 overflow-y-auto border border-stone-200 rounded-xl p-3 bg-stone-50 grid grid-cols-2 sm:grid-cols-3 gap-2">
                                         {allCategories.map(cat => (
-                                            <label key={cat.id} className={`flex items-center space-x-2 border p-2 rounded-lg transition-colors cursor-pointer select-none ${selectedCategories.includes(cat.id) ? "bg-purple-50 border-purple-200 text-purple-900 font-medium" : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"}`}>
-                                                <input type="checkbox" checked={selectedCategories.includes(cat.id)} onChange={() => handleCategoryToggle(cat.id)} className="w-4 h-4 rounded border-slate-300 text-purple-600 focus:ring-purple-600" />
+                                            <label key={cat.id} className={`flex items-center space-x-2 border p-2 rounded-lg transition-colors cursor-pointer select-none ${selectedCategories.includes(cat.id) ? "bg-stone-50 border-stone-200 text-stone-900 font-medium" : "bg-white border-stone-200 text-stone-700 hover:bg-stone-50"}`}>
+                                                <input type="checkbox" checked={selectedCategories.includes(cat.id)} onChange={() => handleCategoryToggle(cat.id)} className="w-4 h-4 rounded border-stone-300 text-stone-800 focus:ring-stone-800" />
                                                 <span className="text-sm truncate">{cat.name}</span>
                                             </label>
                                         ))}
@@ -285,7 +277,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                     </TabsContent>
 
                     <TabsContent value="features" forceMount className="data-[state=inactive]:hidden space-y-6">
-                        <Card className="rounded-2xl border-slate-200 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 shadow-sm">
                             <CardHeader><CardTitle>Quick Features (Yes/No)</CardTitle></CardHeader>
                             <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="flex items-center justify-between p-3 border rounded-lg"><Label>Online Classes</Label><Switch checked={hasOnlineClasses} onCheckedChange={setHasOnlineClasses} /></div>
@@ -296,7 +288,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                             </CardContent>
                         </Card>
 
-                        <Card className="rounded-2xl border-slate-200 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 shadow-sm">
                             <CardHeader><CardTitle className="flex items-center gap-2"><Building2 className="w-5 h-5 text-blue-600" /> Facilities</CardTitle></CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="flex gap-2">
@@ -305,7 +297,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                     {facilities.map((f) => (
-                                        <div key={f.id} className={`flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-full border text-sm ${f.available ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-slate-100 border-slate-200 text-slate-400 line-through"}`}>
+                                        <div key={f.id} className={`flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-full border text-sm ${f.available ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-stone-100 border-stone-200 text-stone-400 line-through"}`}>
                                             <button type="button" onClick={() => toggleFacility(f.id)} className="font-medium">{f.name}</button>
                                             <button type="button" onClick={() => removeFacility(f.id)} className="hover:text-red-600"><X className="w-3.5 h-3.5" /></button>
                                         </div>
@@ -314,22 +306,22 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                             </CardContent>
                         </Card>
 
-                        <Card className="rounded-2xl border-slate-200 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 shadow-sm">
                             <CardHeader><CardTitle className="flex items-center gap-2"><Star className="w-5 h-5 text-amber-500" /> Highlight Stats</CardTitle></CardHeader>
                             <CardContent className="space-y-3">
                                 {stats.map((s) => (
-                                    <div key={s.id} className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center bg-slate-50 border border-slate-200 rounded-xl p-3">
+                                    <div key={s.id} className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center bg-stone-50 border border-stone-200 rounded-xl p-3">
                                         <Input value={s.label} onChange={(e) => updateStat(s.id, "label", e.target.value)} placeholder="Label" />
                                         <Input value={s.value} onChange={(e) => updateStat(s.id, "value", e.target.value)} placeholder="Value" />
                                         <Input value={s.icon} onChange={(e) => updateStat(s.id, "icon", e.target.value)} placeholder="Icon name" />
-                                        <Button type="button" variant="ghost" size="icon" onClick={() => removeStat(s.id)} className="text-slate-400 hover:text-red-600"><X className="w-4 h-4" /></Button>
+                                        <Button type="button" variant="ghost" size="icon" onClick={() => removeStat(s.id)} className="text-stone-400 hover:text-red-600"><X className="w-4 h-4" /></Button>
                                     </div>
                                 ))}
                                 <Button type="button" onClick={addStat} variant="outline" size="sm" className="gap-1"><Plus className="w-4 h-4" /> Add Stat</Button>
                             </CardContent>
                         </Card>
 
-                        <Card className="rounded-2xl border-slate-200 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 shadow-sm">
                             <CardHeader><CardTitle>Compare Highlights</CardTitle></CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2"><Label className="text-emerald-600">Pros</Label><Textarea name="pros" defaultValue={institute.pros?.join(", ") || ""} rows={2}/></div>
@@ -342,7 +334,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                     </TabsContent>
 
                     <TabsContent value="contact" forceMount className="data-[state=inactive]:hidden">
-                        <Card className="rounded-2xl border-slate-200 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 shadow-sm">
                             <CardHeader><CardTitle>Contact & Geography</CardTitle></CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
@@ -362,7 +354,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                     </TabsContent>
 
                     <TabsContent value="social" forceMount className="data-[state=inactive]:hidden">
-                        <Card className="rounded-2xl border-slate-200 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 shadow-sm">
                             <CardHeader><CardTitle>Social Media Links</CardTitle></CardHeader>
                             <CardContent className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2"><Label>WhatsApp URL</Label><Input name="whatsappUrl" type="url" defaultValue={institute.whatsappUrl || ""} /></div>
@@ -377,15 +369,15 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                     </TabsContent>
 
                     <TabsContent value="seo" forceMount className="data-[state=inactive]:hidden">
-                        <Card className="rounded-2xl border-slate-200 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 shadow-sm">
                             <CardHeader><CardTitle className="flex items-center gap-2"><Search className="w-5 h-5 text-emerald-600" /> SEO Override</CardTitle></CardHeader>
                             <CardContent className="space-y-5">
                                 <div className="space-y-2">
-                                    <div className="flex items-center justify-between"><Label>Meta Title</Label><span className="text-xs text-slate-400">{metaTitle.length}/60</span></div>
+                                    <div className="flex items-center justify-between"><Label>Meta Title</Label><span className="text-xs text-stone-400">{metaTitle.length}/60</span></div>
                                     <Input name="metaTitle" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} maxLength={70} />
                                 </div>
                                 <div className="space-y-2">
-                                    <div className="flex items-center justify-between"><Label>Meta Description</Label><span className="text-xs text-slate-400">{metaDescription.length}/160</span></div>
+                                    <div className="flex items-center justify-between"><Label>Meta Description</Label><span className="text-xs text-stone-400">{metaDescription.length}/160</span></div>
                                     <Textarea name="metaDescription" value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} rows={3} maxLength={200} />
                                 </div>
                             </CardContent>
@@ -394,22 +386,22 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
 
                     {/* ================= 5. ADMIN CONTROLS ================= */}
                     <TabsContent value="config" forceMount className="data-[state=inactive]:hidden">
-                        <Card className="rounded-2xl border-purple-200 bg-purple-50/30 shadow-sm">
+                        <Card className="rounded-2xl border-stone-200 bg-stone-50/30 shadow-sm">
                             <CardHeader>
-                                <CardTitle className="text-purple-900">Master Configuration</CardTitle>
+                                <CardTitle className="text-stone-900">Master Configuration</CardTitle>
                                 <CardDescription>Critical system-level controls and subscription overrides.</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-6">
                                 
                                 {/* 🔴 1. GLOBAL ADMIN LOCK (DANGEROUS) */}
-                                <div className={`p-5 rounded-xl border transition-colors duration-300 ${isActive ? 'bg-white border-slate-200' : 'bg-red-50 border-red-200'}`}>
+                                <div className={`p-5 rounded-xl border transition-colors duration-300 ${isActive ? 'bg-white border-stone-200' : 'bg-red-50 border-red-200'}`}>
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-1 pr-6">
                                             <Label className="text-base flex items-center gap-2">
-                                                <ShieldAlert className={`w-4 h-4 ${isActive ? 'text-slate-400' : 'text-red-600'}`} />
+                                                <ShieldAlert className={`w-4 h-4 ${isActive ? 'text-stone-400' : 'text-red-600'}`} />
                                                 Global System Status (Admin Lock)
                                             </Label>
-                                            <p className="text-xs text-slate-500 leading-relaxed">
+                                            <p className="text-xs text-stone-500 leading-relaxed">
                                                 {isActive
                                                     ? "This institute is currently ACTIVE on the platform. Turning this OFF will completely ban and hide it from the entire website, overriding all manager settings."
                                                     : "🚨 This institute is currently BANNED/DISABLED globally. Turn this ON to restore their access."}
@@ -424,14 +416,14 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                 </div>
 
                                 {/* 👁️ 2. MANAGER PUBLISH STATUS */}
-                                <div className="p-5 bg-white rounded-xl border border-slate-200">
+                                <div className="p-5 bg-white rounded-xl border border-stone-200">
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-1 pr-6">
                                             <Label className="text-base flex items-center gap-2">
                                                 <Eye className="w-4 h-4 text-blue-500" />
                                                 Manager's Publish Status
                                             </Label>
-                                            <p className="text-xs text-slate-500 leading-relaxed">
+                                            <p className="text-xs text-stone-500 leading-relaxed">
                                                 This is the toggle the institute manager uses. If OFF, the profile is saved as a "Draft" and hidden from public search results, but the manager can still log in and edit it.
                                             </p>
                                         </div>
@@ -440,33 +432,33 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                 </div>
 
                                 {/* 🌟 3. BADGES & FEATURES */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-5 bg-white rounded-xl border border-slate-200">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-5 bg-white rounded-xl border border-stone-200">
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-0.5">
                                             <Label>Verified Badge</Label>
-                                            <p className="text-[11px] text-slate-500">Shows the blue tick on profile.</p>
+                                            <p className="text-[11px] text-stone-500">Shows the blue tick on profile.</p>
                                         </div>
                                         <Switch checked={isVerified} onCheckedChange={setIsVerified} />
                                     </div>
                                     <div className="flex items-center justify-between sm:border-l sm:pl-6 border-t sm:border-t-0 pt-4 sm:pt-0">
                                         <div className="space-y-0.5">
                                             <Label>Featured Status</Label>
-                                            <p className="text-[11px] text-slate-500">Boosts ranking in directory.</p>
+                                            <p className="text-[11px] text-stone-500">Boosts ranking in directory.</p>
                                         </div>
                                         <Switch checked={isFeatured} onCheckedChange={setIsFeatured} />
                                     </div>
                                 </div>
 
                                 {/* 💳 4. SUBSCRIPTION PLAN */}
-                                <div className="p-5 bg-white rounded-xl border border-slate-200 space-y-3">
-                                    <div className="mb-4 p-4 bg-purple-50 rounded-lg border border-purple-100 flex justify-between items-center">
+                                <div className="p-5 bg-white rounded-xl border border-stone-200 space-y-3">
+                                    <div className="mb-4 p-4 bg-stone-50 rounded-lg border border-stone-100 flex justify-between items-center">
                                         <div>
-                                            <p className="text-xs text-purple-600 font-bold uppercase tracking-wide">Current Plan</p>
-                                            <p className="text-lg font-bold text-slate-900 mt-0.5">{institute.subscriptionPlan || "BASIC"}</p>
+                                            <p className="text-xs text-stone-800 font-bold uppercase tracking-wide">Current Plan</p>
+                                            <p className="text-lg font-bold text-stone-900 mt-0.5">{institute.subscriptionPlan || "BASIC"}</p>
                                         </div>
                                         <div className="text-right">
-                                            <p className="text-xs text-purple-600 font-bold uppercase tracking-wide">Valid Until</p>
-                                            <p className="text-sm font-medium text-slate-700 mt-0.5">
+                                            <p className="text-xs text-stone-800 font-bold uppercase tracking-wide">Valid Until</p>
+                                            <p className="text-sm font-medium text-stone-700 mt-0.5">
                                                 {institute.subscriptionPlan === "BASIC" ? "N/A" : (institute.planExpiresAt ? new Date(institute.planExpiresAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : "Lifetime (Never Expires)")}
                                             </p>
                                         </div>
@@ -474,9 +466,9 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
 
                                     <div>
                                         <Label>Subscription Plan (Manual Override)</Label>
-                                        <p className="text-[11px] text-slate-500 mt-1 mb-3">Manually upgrade or downgrade the institute's tier to unlock/lock features for the manager.</p>
+                                        <p className="text-[11px] text-stone-500 mt-1 mb-3">Manually upgrade or downgrade the institute's tier to unlock/lock features for the manager.</p>
                                     </div>
-                                    <select value={plan} onChange={(e) => setPlan(e.target.value)} className="flex h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    <select value={plan} onChange={(e) => setPlan(e.target.value)} className="flex h-10 w-full rounded-md border border-stone-200 bg-stone-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-800">
                                         <option value="BASIC">Basic (Free)</option>
                                         <option value="VERIFIED">Verified</option>
                                         <option value="PREMIUM">Premium</option>
@@ -485,7 +477,7 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                     {plan !== "BASIC" && (
                                         <div className="pt-2">
                                             <Label>Subscription Duration</Label>
-                                            <select value={planDuration} onChange={(e) => setPlanDuration(e.target.value)} className="flex h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 mt-1">
+                                            <select value={planDuration} onChange={(e) => setPlanDuration(e.target.value)} className="flex h-10 w-full rounded-md border border-stone-200 bg-stone-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-800 mt-1">
                                                 <option value="KEEP_EXISTING">Keep Current Validity</option>
                                                 <option value="LIFETIME">Lifetime (Never Expires)</option>
                                                 <option value="1_MONTH">1 Month</option>
@@ -498,9 +490,9 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                                 </div>
                                 
                                 {/* 📎 5. BROCHURE */}
-                                <div className="space-y-2 bg-white p-5 rounded-xl border border-slate-200">
+                                <div className="space-y-2 bg-white p-5 rounded-xl border border-stone-200">
                                     <Label>Brochure / Lead Magnet URL</Label>
-                                    <Input name="brochureUrl" type="url" defaultValue={institute.brochureUrl || ""} placeholder="https://link-to-brochure.pdf" className="bg-slate-50" />
+                                    <Input name="brochureUrl" type="url" defaultValue={institute.brochureUrl || ""} placeholder="https://link-to-brochure.pdf" className="bg-stone-50" />
                                 </div>
                             </CardContent>
                         </Card>
@@ -508,38 +500,13 @@ export default function MasterEditForm({ institute, allCities, allCategories, cu
                 </Tabs>
 
                 <div className="sticky bottom-4 z-20 flex justify-end">
-                    <Button type="submit" disabled={isLoading} className="bg-purple-600 hover:bg-purple-700 text-white rounded-2xl gap-2 px-8 py-6 shadow-xl shadow-purple-600/30">
+                    <Button type="submit" disabled={isLoading} className="bg-stone-800 hover:bg-stone-900 text-white rounded-2xl gap-2 px-8 py-6 shadow-xl shadow-stone-800/30">
                         {isLoading ? "Saving Configurations..." : <><Save className="w-4 h-4" /> Save Master Overrides</>}
                     </Button>
                 </div>
             </form>
 
-            <div className="pt-8 border-t-2 border-dashed border-slate-200 space-y-8">
-                <div className="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl shadow-sm">
-                    <h3 className="font-bold text-emerald-900 text-lg mb-1">Portfolio & Media Management</h3>
-                    <p className="text-sm text-emerald-700">Actions below save instantly directly to DB.</p>
-                </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                    <EditTeachers 
-                        instituteId={institute.id} 
-                        currentTeachers={(institute.teacherRecords || []).map((r: any) => ({
-                            membershipId: r.membershipId,
-                            designation: r.designation,
-                            department: r.department,
-                            teachingSubjects: r.teachingSubjects,
-                            user: r.membership?.user || { name: null, image: null, email: '' }
-                        }))} 
-                        maxLimit={999} 
-                    />
-                    <EditResultImages instituteId={institute.id} currentImages={institute.gallery || []} maxLimit={999} />
-                    <EditVideoLinks instituteId={institute.id} currentVideos={institute.youtubeVideos || []} maxLimit={999} />
-                    <ClassroomImages instituteId={institute.id} currentImages={institute.classroomImages || []} maxLimit={999} />
-                    <EditBatches instituteId={institute.id} currentBatches={institute.batches || []} maxLimit={999} />
-                    <EditFAQs instituteId={institute.id} currentFAQs={institute.faqs || []} maxLimit={999} />
-                    <EditAchievements instituteId={institute.id} currentAchievements={institute.achievements || []} maxLimit={999} />
-                    <EditNotablePersons instituteId={institute.id} currentPersons={institute.notablepersons || []} maxLimit={999} />
-                </div>
-            </div>
+
         </div>
     );
 }

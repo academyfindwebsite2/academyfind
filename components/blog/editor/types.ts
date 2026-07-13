@@ -5,7 +5,7 @@ import type {
   BlogFAQ,
   BlogPost,
   BlogTag,
-} from "@/app/generated/prisma/browser";
+} from "@/app/generated/prisma/client";
 
 export type EditorProps = {
   content: string;

@@ -64,7 +64,7 @@ export default async function AdminUsersPage({
 
             {/* Users Table */}
             <div className="bg-white border border-slate-200 rounded-t-2xl shadow-sm overflow-hidden">
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto w-full">
                     <table className="w-full text-sm text-left">
                         <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
                             <tr>
@@ -75,7 +75,7 @@ export default async function AdminUsersPage({
                                 <th className="p-4 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-stone-100/50">
                             {users.length === 0 ? (
                                 <tr>
                                     <td colSpan={5} className="p-8 text-center text-slate-400">No users match your filters.</td>

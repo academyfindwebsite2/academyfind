@@ -28,6 +28,7 @@ import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import type { ReactNode } from "react";
 import { ManagerSidebarWrapper } from "@/components/manager/ManagerSidebarWrapper";
+import { SidebarLink } from "@/components/manager/SidebarLink";
 
 export const metadata: Metadata = {
   title: "Admin Control Panel | AcademyFind",
@@ -98,24 +99,24 @@ export default async function AdminLayout({
     ]);
 
     return (
-        <div className="bg-slate-50 min-h-screen pb-12">
-            <div className="container mx-auto max-w-350 pt-8 px-4 flex flex-col md:flex-row gap-8">
+        <div className="bg-[#FAF8F5] min-h-screen pb-12">
+            <div className="w-full lg:pt-6 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6">
                 
                 {/* --- ADMIN SIDEBAR --- */}
-                <ManagerSidebarWrapper title="Admin Menu">
+                <ManagerSidebarWrapper title="Admin Center">
                     <div>
-                        <Link href="/" className="inline-flex items-center text-xs text-slate-500 hover:text-slate-800 mb-4 transition-colors">
-                            <ArrowLeft className="w-3 h-3 mr-1" /> Back to Main Site
+                        <Link href="/" className="inline-flex items-center text-xs text-slate-500 hover:text-stone-800 mb-6 transition-colors font-medium">
+                            <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Back to Main Site
                         </Link>
-                        <h2 className="font-extrabold text-2xl text-slate-900 leading-tight">
+                        <h2 className="font-extrabold text-2xl text-slate-900 leading-tight tracking-tight">
                             Admin Center
                         </h2>
-                        <span className="inline-block mt-2 text-[10px] uppercase tracking-wider font-bold bg-purple-100 text-purple-700 px-2.5 py-0.5 rounded-full">
+                        <span className="inline-block mt-3 text-[10px] uppercase tracking-wider font-bold bg-stone-100/80 text-stone-800 px-3 py-1 rounded-full border border-stone-200">
                             Superuser Mode
                         </span>
                     </div>
 
-                    <nav className="flex flex-col gap-1.5">
+                    <nav className="flex flex-col gap-1.5 mt-2">
                         <SidebarLink href="/af-ass-manage" icon={<LayoutDashboard />} label="Overview" />
                         <SidebarLink href="/af-ass-manage/notifications" icon={<BellIcon />} label="Notifications" count={notificationCount}/>
                         
@@ -136,12 +137,12 @@ export default async function AdminLayout({
                         <SidebarLink href="/af-ass-manage/careers" icon={<IdCard />} label="Careers" count={jobAppCount} />
                         <SidebarLink href="/af-ass-manage/blog" icon={<BookOpen />} label="Blog Management" />
                         
-                        <div className="my-2 border-t border-slate-200"></div>
+                        <div className="my-2 border-t border-stone-100/50"></div>
                         <SidebarLink href="/af-ass-manage/categories" icon={<FolderTree />} label="Categories" />
                         <SidebarLink href="/af-ass-manage/cities" icon={<MapPin />} label="Cities & Regions" />
 
-                        <div className="my-2 border-t border-slate-200"></div>
-                        <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Platform Tools</p>
+                        <div className="my-2 border-t border-stone-100/50"></div>
+                        <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-stone-900/40 mt-2 mb-1">Platform Tools</p>
                         <SidebarLink href="/af-ass-manage/memberships" icon={<UserCheck />} label="Memberships" count={pendingMemberships} />
                         <SidebarLink href="/af-ass-manage/chat" icon={<MessageCircle />} label="Chat Reports" count={pendingChatReports} />
                         <SidebarLink href="/af-ass-manage/wallets" icon={<Wallet />} label="Wallets" />
@@ -149,7 +150,7 @@ export default async function AdminLayout({
                 </ManagerSidebarWrapper>
 
                 {/* --- MAIN ADMIN CONTENT AREA --- */}
-                <main className="flex-1 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 min-h-175">
+                <main className="flex-1 min-w-0 max-w-full bg-white/80 backdrop-blur-xl rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(120,113,108,0.06)] p-5 lg:p-8 min-h-[calc(100vh-4rem)]">
                     {children}
                 </main>
 
@@ -158,36 +159,4 @@ export default async function AdminLayout({
     );
 }
 
-// 👇 UPDATED: Sidebar Link Helper Component with Badge UI
-function SidebarLink({
-    href,
-    icon,
-    label,
-    count,
-}: {
-    href: string;
-    icon: ReactNode;
-    label: string;
-    count?: number;
-}) {
-    return (
-        <Link 
-            href={href} 
-            prefetch={false}
-            className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all
-            hover:bg-purple-50 hover:text-purple-700 text-slate-600`}
-        >
-            <div className="flex items-center gap-3">
-                <span className="[&>svg]:w-4 [&>svg]:h-4">{icon}</span>
-                {label}
-            </div>
-            
-            {/* 🔥 Agar count pass hua hai aur > 0 hai, toh badge dikhao */}
-            {(count ?? 0) > 0 && (
-                <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
-                    {count}
-                </span>
-            )}
-        </Link>
-    );
-}
+

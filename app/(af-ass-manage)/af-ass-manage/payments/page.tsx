@@ -39,18 +39,18 @@ export default async function AdminPaymentListPage({
     ];
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 pb-12 p-8 font-sans">
+        <div className="w-full space-y-6 pb-12 p-8 font-sans">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b">
                 <div className="flex items-center gap-3">
                     <div className="p-2.5 bg-emerald-100 text-emerald-700 rounded-xl">
                         <IndianRupee className="w-6 h-6" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-extrabold text-slate-900">
+                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">
                             Payment Approvals
                         </h1>
                         <p className="text-slate-500 mt-1 text-sm">
-                            You have <span className="font-bold text-amber-600">{totalPendingCount} pending</span> verification requests in total.
+                            You have <span className="font-bold text-stone-600">{totalPendingCount} pending</span> verification requests in total.
                         </p>
                     </div>
                 </div>
@@ -67,8 +67,8 @@ export default async function AdminPaymentListPage({
                         href={`/af-ass-manage/payments?status=${opt.value}`}
                         className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${
                             currentFilter === opt.value 
-                            ? "bg-slate-800 text-white shadow-sm" 
-                            : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                            ? "bg-stone-900 text-white shadow-md shadow-stone-900/20 scale-105" 
+                            : "bg-white border border-stone-100 text-slate-500 hover:bg-stone-50 hover:text-stone-700 hover:border-stone-200"
                         }`}
                     >
                         {opt.label}
@@ -76,8 +76,8 @@ export default async function AdminPaymentListPage({
                 ))}
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden mt-4">
-                <div className="overflow-x-auto">
+            <div className="bg-white/80 backdrop-blur-xl border border-stone-100/60 rounded-[2rem] shadow-sm overflow-hidden mt-4">
+                <div className="overflow-x-auto w-full">
                     <table className="w-full text-sm text-left">
                         <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 uppercase tracking-wider text-xs">
                             <tr>
@@ -88,7 +88,7 @@ export default async function AdminPaymentListPage({
                                 <th className="p-4 text-right">Action</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-stone-100/50">
                             {payments.length === 0 ? (
                                 <tr>
                                     <td colSpan={5} className="p-10 text-center text-slate-400 font-medium">
@@ -99,7 +99,7 @@ export default async function AdminPaymentListPage({
                                 payments.map((payment: any) => (
                                     <tr key={payment.id} className="hover:bg-slate-50 transition-colors">
                                         <td className="p-4 text-center">
-                                            {payment.status === "PENDING" && <Clock className="w-5 h-5 text-amber-500 mx-auto" />}
+                                            {payment.status === "PENDING" && <Clock className="w-5 h-5 text-stone-500 mx-auto" />}
                                             {payment.status === "APPROVED" && <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto" />}
                                             {payment.status === "REJECTED" && <XCircle className="w-5 h-5 text-red-500 mx-auto" />}
                                         </td>

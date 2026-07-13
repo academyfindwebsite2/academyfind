@@ -51,7 +51,7 @@ export default async function AdminApprovalsPage({
                         <ShieldAlert className="w-6 h-6" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-extrabold text-slate-900">Listing Approvals</h1>
+                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Listing Approvals</h1>
                         <p className="text-sm text-slate-500">Review user-submitted setups and their claim requests. (Showing: {currentFilter})</p>
                     </div>
                 </div>
@@ -71,8 +71,8 @@ export default async function AdminApprovalsPage({
                         prefetch={false}
                         href={`/af-ass-manage/instituteRequests?status=${opt.value}`}
                         className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${currentFilter === opt.value
-                            ? "bg-slate-800 text-white shadow-sm"
-                            : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                            ? "bg-stone-900 text-white shadow-md shadow-stone-900/20 scale-105"
+                            : "bg-white border border-stone-100 text-slate-500 hover:bg-stone-50 hover:text-stone-700 hover:border-stone-200"
                             }`}
                     >
                         {opt.label}
@@ -101,7 +101,7 @@ export default async function AdminApprovalsPage({
                                         {/* 🚀 Status Badge */}
                                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${req.status === 'APPROVED' ? 'bg-green-100 text-green-700 border border-green-200' :
                                             req.status === 'REJECTED' ? 'bg-red-100 text-red-700 border border-red-200' :
-                                                'bg-amber-100 text-amber-700 border border-amber-200'
+                                                'bg-stone-100 text-stone-700 border border-stone-200'
                                             }`}>
                                             {req.status}
                                         </span>
@@ -125,7 +125,7 @@ export default async function AdminApprovalsPage({
                                             </Link>
                                             <div className="flex items-center gap-3 mt-1">
                                                 <p className="text-xs text-slate-400 font-mono">slug: {req.institute.slug}</p>
-                                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${req.institute.providerType === 'INDIVIDUAL' ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700'}`}>
+                                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${req.institute.providerType === 'INDIVIDUAL' ? 'bg-stone-50 text-stone-700 border border-stone-200/50 shadow-sm' : 'bg-indigo-100 text-indigo-700'}`}>
                                                     {req.institute.providerType || 'INSTITUTE'}
                                                 </span>
                                             </div>
@@ -146,11 +146,11 @@ export default async function AdminApprovalsPage({
 
                                         {/* 🚀 SMART UI: Show Claim Info if it exists */}
                                         {claim && (
-                                            <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl flex items-start gap-3">
-                                                <UserCheck className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                                            <div className="bg-stone-50 border border-stone-200 p-3 rounded-xl flex items-start gap-3">
+                                                <UserCheck className="w-5 h-5 text-stone-600 shrink-0 mt-0.5" />
                                                 <div>
-                                                    <h4 className="text-xs font-bold text-amber-900 uppercase">Attached Claim Request</h4>
-                                                    <div className="text-xs text-amber-800 mt-1 grid grid-cols-2 gap-x-4 gap-y-1">
+                                                    <h4 className="text-xs font-bold text-stone-900 uppercase">Attached Claim Request</h4>
+                                                    <div className="text-xs text-stone-800 mt-1 grid grid-cols-2 gap-x-4 gap-y-1">
                                                         <p>Role: <span className="font-semibold">{claim.role}</span></p>
                                                         <p>Phone: <span className="font-semibold">{claim.phone}</span></p>
                                                         <p>Name: <span className="font-semibold">{claim.fullName}</span></p>
@@ -175,7 +175,7 @@ export default async function AdminApprovalsPage({
 
                                         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold text-slate-700">
                                             <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4 text-emerald-500" /> {req.institute.city.name}</div>
-                                            <div className="flex items-center gap-1.5"><BadgeIndianRupee className="w-4 h-4 text-amber-500" /> Fees: {req.institute.feeInfo || "N/A"}</div>
+                                            <div className="flex items-center gap-1.5"><BadgeIndianRupee className="w-4 h-4 text-stone-500" /> Fees: {req.institute.feeInfo || "N/A"}</div>
                                         </div>
 
                                         {/* Only show approval buttons if the request is still PENDING */}

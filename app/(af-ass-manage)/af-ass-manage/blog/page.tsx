@@ -33,9 +33,9 @@ const PAGE_SIZE = 15;
 const ALL = "ALL";
 
 const statusStyles: Record<BlogStatus, string> = {
-  DRAFT: "bg-amber-100 text-amber-800",
+  DRAFT: "bg-stone-100 text-stone-800",
   PENDING_REVIEW: "bg-violet-100 text-violet-800",
-  SCHEDULED: "bg-blue-100 text-blue-800",
+  SCHEDULED: "bg-white/80 backdrop-blur-md border border-stone-200/50 text-stone-900 shadow-sm",
   PUBLISHED: "bg-emerald-100 text-emerald-800",
   REJECTED: "bg-red-100 text-red-800",
   ARCHIVED: "bg-slate-200 text-slate-700",
@@ -245,7 +245,7 @@ export default async function AdminBlogPage({
               <th className="p-4 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-stone-100/50">
             {posts.map((post: any) => (
               <tr key={post.id} className="hover:bg-slate-50/60">
                 <td className="p-4">
@@ -270,7 +270,7 @@ export default async function AdminBlogPage({
                       </p>
                       <div className="mt-1 flex items-center gap-1">
                         {post.isFeatured && (
-                          <Star className="size-3.5 fill-amber-400 text-amber-400" />
+                          <Star className="size-3.5 fill-stone-400 text-stone-400" />
                         )}
                         {post.isPinned && (
                           <Badge variant="outline" className="h-4 text-[10px]">

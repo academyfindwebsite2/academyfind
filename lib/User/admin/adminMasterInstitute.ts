@@ -205,11 +205,13 @@ export async function updateInstituteByAdmin(
 
         // ⚡ RUNNING EVERYTHING IN A SINGLE TRANSACTION
         await prisma.$transaction(async (tx) => {
+            const planWeights: Record<string, number> = { "ULTRA": 4, "PREMIUM": 3, "VERIFIED": 2, "BASIC": 1 };
+            const planWeight = planWeights[subscriptionPlan] || 1;
             // 1. Update Core Institute Data
             await tx.institute.update({
                 where: { id: instituteId },
                 data: {
-                    name, slug, description, feeInfo, phone, email, website, address, googleMapsUrl, cityId, subscriptionPlan, planExpiresAt,
+                    name, slug, description, feeInfo, phone, email, website, address, googleMapsUrl, cityId, subscriptionPlan, planExpiresAt, planWeight,
                     
                     whatsappUrl, instagramUrl, facebookUrl, youtubeUrl, linkedinUrl, twitterUrl, telegramUrl,
                     

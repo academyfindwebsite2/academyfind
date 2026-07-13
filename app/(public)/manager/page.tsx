@@ -6,7 +6,6 @@ import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Manager Control Panel | AcademyFind",
@@ -22,12 +21,10 @@ export default async function ManagerRootPage() {
     })
 
     if (!session) {
-        toast.error("You are not logged in");
         redirect('/login');
     }
 
     if (session.user.role !== "INSTITUTE_MANAGER") {
-        toast.error("You are not an institute manager, log in with an authorized id or become one")
         redirect('/');
     }
 

@@ -97,7 +97,7 @@ export default async function BlogDetailPage({
     "dateModified": post.updatedAt,
     "author": [{
       "@type": "Person",
-      "name": post.authorProfile?.name || "AcademyFind Team",
+      "name": post.authorProfile?.displayName || post.authorProfile?.username || "AcademyFind Team",
       "url": post.authorProfile?.username ? `https://academyfind.com/u/${post.authorProfile.username}` : "https://academyfind.com"
     }]
   };

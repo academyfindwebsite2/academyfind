@@ -126,7 +126,7 @@ function ReportCard({
                 <Link
                   prefetch={false}
                   href={`/institute/${context.institute.id}-${context.institute.slug}`}
-                  className="font-semibold text-amber-700 hover:underline"
+                  className="font-semibold text-stone-700 hover:underline"
                 >
                   {context.institute.name}
                 </Link>

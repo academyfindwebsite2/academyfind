@@ -19,8 +19,8 @@ export default async function JobApplicationsPage({ params }: { params: Promise<
     // Helper for status colors
     const getStatusStyle = (status: string) => {
         switch (status) {
-            case "NEW": return "bg-blue-100 text-blue-700";
-            case "REVIEWING": return "bg-amber-100 text-amber-700";
+            case "NEW": return "bg-stone-50 text-stone-700 border border-stone-200/50 shadow-sm";
+            case "REVIEWING": return "bg-stone-100 text-stone-700";
             case "SHORTLISTED": return "bg-emerald-100 text-emerald-700";
             case "REJECTED": return "bg-rose-100 text-rose-700";
             case "HIRED": return "bg-purple-100 text-purple-700";
@@ -29,7 +29,7 @@ export default async function JobApplicationsPage({ params }: { params: Promise<
     };
 
     return (
-        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-6">
+        <div className="p-6 md:p-10 w-full space-y-6">
             <Link href="/af-ass-manage/careers" className="inline-flex items-center text-xs font-bold text-slate-500 hover:text-purple-600 transition">
                 <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Back to Jobs
             </Link>
@@ -54,7 +54,7 @@ export default async function JobApplicationsPage({ params }: { params: Promise<
                             <th className="p-4 text-right">Action</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-stone-100/50">
                         {job.applications.map((app: any) => (
                             <tr key={app.id} className="hover:bg-slate-50/50 transition">
                                 <td className="p-4">

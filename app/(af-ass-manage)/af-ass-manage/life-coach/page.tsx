@@ -35,14 +35,14 @@ export default async function AdminLifeCoachLeadsPage({
   ];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8 font-sans">
+    <div className="p-8 w-full space-y-8 font-sans animate-in fade-in duration-500">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b pb-4">
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-purple-100 text-purple-700 rounded-xl">
             <ShieldAlert className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900">Life Coach Requests</h1>
+            <h1 className="text-3xl font-black text-slate-900 tracking-tight">Life Coach Requests</h1>
             <p className="text-sm text-slate-500">Manage and follow up with students who need mentorship. (Showing: {currentFilter})</p>
           </div>
         </div>
@@ -62,8 +62,8 @@ export default async function AdminLifeCoachLeadsPage({
             prefetch={false}
             href={`/af-ass-manage/life-coach?status=${opt.value}`}
             className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${currentFilter === opt.value
-              ? "bg-slate-800 text-white shadow-sm"
-              : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+              ? "bg-stone-900 text-white shadow-md shadow-stone-900/20 scale-105"
+              : "bg-white border border-stone-100 text-slate-500 hover:bg-stone-50 hover:text-stone-700 hover:border-stone-200"
               }`}
           >
             {opt.label}
@@ -71,11 +71,11 @@ export default async function AdminLifeCoachLeadsPage({
         ))}
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden mt-4">
-        <div className="overflow-x-auto">
+      <div className="bg-white/80 backdrop-blur-xl border border-stone-100/60 rounded-[2rem] shadow-sm overflow-hidden mt-4">
+        <div className="overflow-x-auto w-full">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500 font-bold">
+              <tr className="bg-stone-50/50 border-b border-stone-100/50 text-xs uppercase tracking-wider text-slate-500 font-bold">
                 <th className="p-4">Student Name</th>
                 <th className="p-4">Contact Info</th>
                 <th className="p-4">Date</th>
@@ -83,7 +83,7 @@ export default async function AdminLifeCoachLeadsPage({
                 <th className="p-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100/50">
               {requests.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="p-8 text-center text-slate-400 italic">No counseling requests found for "{currentFilter}".</td>
@@ -103,7 +103,7 @@ export default async function AdminLifeCoachLeadsPage({
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${req.status === "PENDING" ? "bg-amber-50 text-amber-700 border-amber-200" :
+                      <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${req.status === "PENDING" ? "bg-stone-50 text-stone-700 border-stone-200" :
                         req.status === "CONTACTED" ? "bg-blue-50 text-blue-700 border-blue-200" :
                           req.status === "RESOLVED" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
                             req.status === "JUNK" ? "bg-red-50 text-red-700 border-red-200" :

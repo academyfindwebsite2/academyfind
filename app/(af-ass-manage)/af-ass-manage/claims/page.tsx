@@ -41,7 +41,7 @@ export default async function AdminClaimPage({
   ];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8 font-sans">
+    <div className="w-full space-y-8 font-sans">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b pb-4">
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-blue-100 text-blue-700 rounded-xl">
@@ -142,7 +142,7 @@ export default async function AdminClaimPage({
 
                     {/* Status Badge */}
                     <td className="p-4">
-                      <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider border ${claim.status === "PENDING" ? "bg-amber-50 text-amber-700 border-amber-200" :
+                      <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider border ${claim.status === "PENDING" ? "bg-stone-50 text-stone-700 border-stone-200" :
                         claim.status === "APPROVED" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
                           "bg-red-50 text-red-700 border-red-200"
                         }`}>

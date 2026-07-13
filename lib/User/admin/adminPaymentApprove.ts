@@ -29,6 +29,7 @@ export async function approvePayment(paymentId: string) {
             expiryDate.setFullYear(expiryDate.getFullYear() + 1);
         }
 
+        const planWeights: Record<string, number> = { "ULTRA": 4, "PREMIUM": 3, "VERIFIED": 2, "BASIC": 1 };
         await prisma.$transaction([
             prisma.subscriptionPayment.update({
                 where: { id: paymentId },
@@ -38,6 +39,7 @@ export async function approvePayment(paymentId: string) {
                 where: { id: payment.instituteId },
                 data: {
                     subscriptionPlan: payment.planRequested as any,
+                    planWeight: planWeights[payment.planRequested] || 1,
                     planExpiresAt: expiryDate,
                     isVerified: true
                 }

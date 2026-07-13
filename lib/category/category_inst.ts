@@ -60,7 +60,9 @@ export async function getInstitutesByCategory(
     } else if (sort === "reviews") {
       searchOptions.sort = ["planWeight:desc", "googleReviewCount:desc"];
     } else if (lat && lng) {
-      searchOptions.sort = [`_geoPoint(${lat}, ${lng}):asc`, "planWeight:desc", "googleRating:desc"]; 
+      searchOptions.sort = ["planWeight:desc", `_geoPoint(${lat}, ${lng}):asc`, "googleRating:desc"]; 
+    } else {
+      searchOptions.sort = ["planWeight:desc", "googleRating:desc"];
     }
 
     let searchQuery = q ? q.trim() : "";

@@ -16,7 +16,7 @@ export default async function AdminCareersDashboard() {
     });
 
     return (
-        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8">
+        <div className="p-6 md:p-10 w-full space-y-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-2 tracking-tight">
@@ -46,7 +46,7 @@ export default async function AdminCareersDashboard() {
                             <th className="p-4 text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-stone-100/50">
                         {jobs.map((job: any) => (
                             <tr key={job.id} className="hover:bg-slate-50/50 transition">
                                 <td className="p-4">
@@ -63,7 +63,7 @@ export default async function AdminCareersDashboard() {
                                     )}
                                 </td>
                                 <td className="p-4 text-center">
-                                    <Link prefetch={false} href={`/af-ass-manage/careers/${job.id}`} className="inline-flex items-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2 rounded-xl font-bold transition">
+                                    <Link prefetch={false} href={`/af-ass-manage/careers/${job.id}`} className="inline-flex items-center gap-2 bg-blue-50 hover:bg-stone-50 text-stone-700 border border-stone-200/50 shadow-sm px-4 py-2 rounded-xl font-bold transition">
                                         <Users className="w-4 h-4" /> {job._count.applications} Total
                                         {job.applications.length > 0 && (
                                             <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-1 animate-pulse">

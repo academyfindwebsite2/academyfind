@@ -14,7 +14,7 @@ export default async function ContactMessagesPage() {
     const unreadCount = messages.filter((m: any) => !m.isRead).length;
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-500 max-w-7xl mx-auto pb-12">
+        <div className="space-y-6 animate-in fade-in duration-500 w-full pb-12">
 
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b">
@@ -29,8 +29,8 @@ export default async function ContactMessagesPage() {
             </div>
 
             {/* Inbox Table */}
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                <div className="overflow-x-auto">
+            <div className="bg-white/80 backdrop-blur-xl border border-stone-100/60 rounded-[2rem] shadow-sm overflow-hidden">
+                <div className="overflow-x-auto w-full">
                     <table className="w-full text-sm text-left">
                         <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
                             <tr>
@@ -41,7 +41,7 @@ export default async function ContactMessagesPage() {
                                 <th className="p-4 text-right">Action</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-stone-100/50">
                             {messages.length === 0 ? (
                                 <tr>
                                     <td colSpan={5} className="p-8 text-center text-slate-400">Your inbox is completely empty! 🎉</td>

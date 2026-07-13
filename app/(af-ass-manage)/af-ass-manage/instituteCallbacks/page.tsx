@@ -62,15 +62,15 @@ export default async function AdminCallbacksPage({
   ];
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-6">
+    <div className="w-full space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 flex items-center gap-3">
-            <MessageSquare className="w-8 h-8 text-amber-500" /> Original Callbacks
+            <MessageSquare className="w-8 h-8 text-stone-500" /> Original Callbacks
           </h1>
           <p className="text-slate-500 mt-1">Manage and monitor root student enquiries. (Showing: {currentFilter})</p>
         </div>
-        <div className="bg-amber-100 text-amber-800 px-4 py-2 rounded-xl font-bold text-sm shrink-0">
+        <div className="bg-stone-100 text-stone-800 px-4 py-2 rounded-xl font-bold text-sm shrink-0">
           Total Leads: {callbacks.length}
         </div>
       </div>
@@ -86,8 +86,8 @@ export default async function AdminCallbacksPage({
             prefetch={false}
             href={`/af-ass-manage/instituteCallbacks?status=${opt.value}`}
             className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${currentFilter === opt.value
-              ? "bg-slate-800 text-white shadow-sm"
-              : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+              ? "bg-stone-900 text-white shadow-md shadow-stone-900/20 scale-105"
+              : "bg-white border border-stone-100 text-slate-500 hover:bg-stone-50 hover:text-stone-700 hover:border-stone-200"
               }`}
           >
             {opt.label}
@@ -96,9 +96,9 @@ export default async function AdminCallbacksPage({
       </div>
 
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden mt-4">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto w-full">
           <table className="w-full text-left text-sm text-slate-600">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider text-xs font-bold">
+            <thead className="bg-stone-50/50 border-b border-stone-100/50 text-slate-500 uppercase tracking-wider text-xs font-bold">
               <tr>
                 <th className="p-5">Date</th>
                 <th className="p-5">Student Info</th>
@@ -107,7 +107,7 @@ export default async function AdminCallbacksPage({
                 <th className="p-5 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-stone-100/50">
               {callbacks.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="p-10 text-center text-slate-400 font-medium">
@@ -143,7 +143,7 @@ export default async function AdminCallbacksPage({
                     </td>
                     <td className="p-5">
                       <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider
-                        ${callback.status === 'NEW' ? 'bg-blue-100 text-blue-700' : ''}
+                        ${callback.status === 'NEW' ? 'bg-stone-50 text-stone-700 border border-stone-200/50 shadow-sm' : ''}
                         ${callback.status === 'MESSAGED' ? 'bg-purple-100 text-purple-700' : ''}
                         ${callback.status === 'CALLED' ? 'bg-emerald-100 text-emerald-700' : ''}
                         ${callback.status === 'DNP' ? 'bg-orange-100 text-orange-700' : ''}
@@ -155,7 +155,7 @@ export default async function AdminCallbacksPage({
                     </td>
                     <td className="p-5 text-right">
                       <Link prefetch={false} href={`/af-ass-manage/instituteCallbacks/${callback.id}`}>
-                        <button className="p-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-amber-600 hover:border-amber-200 hover:bg-amber-50 transition-all shadow-xs cursor-pointer">
+                        <button className="p-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-stone-600 hover:border-stone-200 hover:bg-stone-50 transition-all shadow-xs cursor-pointer">
                           <Eye className="w-4 h-4" />
                         </button>
                       </Link>

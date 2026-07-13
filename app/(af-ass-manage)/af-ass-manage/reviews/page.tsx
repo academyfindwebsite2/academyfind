@@ -36,18 +36,18 @@ export default async function AdminReviewsPage({
   ];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto min-h-screen bg-slate-50 font-sans">
+    <div className="p-8 w-full min-h-screen bg-slate-50 font-sans">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b pb-4 mb-6">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-amber-100 text-amber-700 rounded-xl">
+          <div className="p-2.5 bg-stone-100 text-stone-700 rounded-xl">
             <Star className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900">Review Moderation</h1>
+            <h1 className="text-3xl font-black text-slate-900 tracking-tight">Review Moderation</h1>
             <p className="text-sm text-slate-500">Manage student reviews across academies. (Showing: {currentFilter})</p>
           </div>
         </div>
-        <div className="bg-amber-100 text-amber-800 px-4 py-2 rounded-xl font-bold text-sm shrink-0">
+        <div className="bg-stone-100 text-stone-800 px-4 py-2 rounded-xl font-bold text-sm shrink-0">
           Total: {reviews.length}
         </div>
       </div>
@@ -63,8 +63,8 @@ export default async function AdminReviewsPage({
             href={`/af-ass-manage/reviews?status=${opt.value}`}
             className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors whitespace-nowrap ${
               currentFilter === opt.value 
-              ? "bg-slate-800 text-white shadow-sm" 
-              : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+              ? "bg-stone-900 text-white shadow-md shadow-stone-900/20 scale-105" 
+              : "bg-white border border-stone-100 text-slate-500 hover:bg-stone-50 hover:text-stone-700 hover:border-stone-200"
             }`}
           >
             {opt.label}
@@ -80,10 +80,10 @@ export default async function AdminReviewsPage({
         </div>
       ) : (
         <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm mt-4">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto w-full">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider text-xs font-bold">
+                <tr className="bg-stone-50/50 border-b border-stone-100/50 text-slate-500 uppercase tracking-wider text-xs font-bold">
                   <th className="p-4">User</th>
                   <th className="p-4">Institute</th>
                   <th className="p-4">Rating</th>
@@ -92,7 +92,7 @@ export default async function AdminReviewsPage({
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-sm">
+              <tbody className="divide-y divide-stone-100/50 text-sm">
                 {reviews.map((review: any) => (
                   <tr key={review.id} className="hover:bg-slate-50/50 transition-colors">
                     
@@ -115,7 +115,7 @@ export default async function AdminReviewsPage({
                     <td className="p-4">
                       <div className="flex items-center gap-1 bg-slate-50 border border-slate-100 text-slate-700 w-max px-2.5 py-1 rounded-lg">
                         <span className="font-extrabold text-sm">{review.rating}</span>
-                        <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                        <Star className="h-3.5 w-3.5 fill-stone-400 text-stone-400" />
                       </div>
                     </td>
 
@@ -129,7 +129,7 @@ export default async function AdminReviewsPage({
                     {/* Status Badge */}
                     <td className="p-4">
                       <span className={`px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase tracking-wider border ${
-                        review.status === "PENDING" ? "bg-amber-50 text-amber-700 border-amber-200" :
+                        review.status === "PENDING" ? "bg-stone-50 text-stone-700 border-stone-200" :
                         review.status === "APPROVED" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
                         "bg-red-50 text-red-700 border-red-200"
                       }`}>

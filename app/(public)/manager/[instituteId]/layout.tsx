@@ -132,25 +132,25 @@ export default async function ManagerDashBoardLayout({
     }
 
     return (
-        <div className="bg-slate-50/50 min-h-screen pb-12">
-            <div className="container mx-auto max-w-7xl pt-8 px-4 flex flex-col md:flex-row gap-8">
+        <div className="bg-[#f8fafc] min-h-screen pb-12">
+            <div className="container mx-auto max-w-7xl lg:pt-8 px-4 flex flex-col lg:flex-row gap-8">
 
                 {/* --- SIDEBAR --- */}
-                <ManagerSidebarWrapper>
+                <ManagerSidebarWrapper title={institute.name}>
                     {/* Header */}
                     <div>
-                        <Link href="/manager" className="inline-flex items-center text-xs text-slate-500 hover:text-slate-800 mb-4 transition-colors">
-                            <ArrowLeft className="w-3 h-3 mr-1" /> Switch Workspace
+                        <Link href="/manager" className="inline-flex items-center text-xs text-slate-500 hover:text-slate-800 mb-6 transition-colors font-medium">
+                            <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Switch Workspace
                         </Link>
-                        <h2 className="font-extrabold text-xl text-slate-900 leading-tight">
+                        <h2 className="font-extrabold text-2xl text-slate-900 leading-tight tracking-tight">
                             {institute.name}
                         </h2>
-                        <div className="mt-2 flex flex-col gap-1 items-start">
-                            <span className="inline-block text-[10px] uppercase tracking-wider font-bold bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full">
+                        <div className="mt-3 flex flex-col gap-1.5 items-start">
+                            <span className="inline-flex items-center text-[10px] uppercase tracking-wider font-bold bg-blue-100/80 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
                                 {plan} PLAN
                             </span>
                             {plan !== "BASIC" && institute.planExpiresAt && (
-                                <span className="text-[10px] text-slate-500 font-semibold tracking-wide">
+                                <span className="text-[11px] text-slate-500 font-medium tracking-wide">
                                     Expires {new Date(institute.planExpiresAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                                 </span>
                             )}
@@ -158,7 +158,7 @@ export default async function ManagerDashBoardLayout({
                     </div>
 
                     {/* Navigation Links */}
-                    <nav className="flex flex-col gap-1.5">
+                    <nav className="flex flex-col gap-1.5 mt-2">
                         <SidebarLink
                             href={`/manager/${instituteId}`}
                             icon={<LayoutDashboardIcon />}
@@ -173,7 +173,7 @@ export default async function ManagerDashBoardLayout({
                         <SidebarLink
                             href={`/manager/${instituteId}/team`}
                             icon={<UserRound />}
-                            label="Add a team Member"
+                            label="Add Team Member"
                         />
                         <SidebarLink
                             href={`/manager/${instituteId}/members`}
@@ -233,13 +233,13 @@ export default async function ManagerDashBoardLayout({
                             href={`/manager/${instituteId}/subscription`}
                             icon={<CreditCard />}
                             label="Billing & Plan"
-                            className="mt-4 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200/50"
+                            className="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 text-amber-800 hover:from-amber-100 hover:to-orange-100 border border-amber-200/50 shadow-sm"
                         />
                     </nav>
                 </ManagerSidebarWrapper>
 
                 {/* --- MAIN CONTENT AREA --- */}
-                <main className="flex-1 bg-white rounded-3xl border border-slate-100 shadow-sm p-6 md:p-8 min-h-[600px]">
+                <main className="flex-1 bg-white/70 backdrop-blur-xl rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 lg:p-10 min-h-[calc(100vh-4rem)]">
                     {children}
                 </main>
 

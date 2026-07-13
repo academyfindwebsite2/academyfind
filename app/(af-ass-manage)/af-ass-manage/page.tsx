@@ -6,7 +6,10 @@ import {
     FolderTree, 
     ArrowRight, 
     Clock, 
-    ShieldAlert
+    ShieldAlert,
+    PhoneCall,
+    LifeBuoy,
+    MessageCircle
 } from "lucide-react"
 import Link from "next/link"
 import { format } from "date-fns";
@@ -19,6 +22,9 @@ export default async function AdminDashboardPage() {
         totalInstitutes,
         totalCategories,
         pendingClaimsCount,
+        pendingCallbacks,
+        pendingLifeCoach,
+        pendingChatReports,
         recentClaims,
         recentUsers
     ] = await Promise.all([
@@ -26,6 +32,9 @@ export default async function AdminDashboardPage() {
         prisma.institute.count(),
         prisma.category.count(),
         prisma.instituteClaim.count({ where: { status: "PENDING" } }),
+        prisma.instituteEnquiry.count({ where: { status: "NEW" } }),
+        prisma.lifeCoachRequest.count({ where: { status: "PENDING" } }),
+        prisma.messageReport.count({ where: { status: "PENDING" } }),
         
         // Latest 5 Pending Claims
         prisma.instituteClaim.findMany({
@@ -43,50 +52,66 @@ export default async function AdminDashboardPage() {
         })
     ]);
 
-    
-
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             
             {/* 1. Welcome Banner */}
-            <div className="bg-gradient-to-r from-purple-900 to-indigo-800 rounded-3xl p-8 text-white shadow-md relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-                <h1 className="text-3xl font-extrabold tracking-tight mb-2">Platform Overview</h1>
-                <p className="text-purple-200 max-w-2xl">
-                    Welcome to the Superuser Dashboard. Yahan se aap poore AcademyFind platform ke metrics aur recent activities monitor kar sakte hain.
+            <div className="bg-gradient-to-br from-stone-800 via-stone-700 to-stone-900 rounded-[2rem] p-8 md:p-10 text-white shadow-lg relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-stone-300 opacity-20 rounded-full blur-2xl transform -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+                <h1 className="text-4xl font-extrabold tracking-tight mb-3">Platform Overview</h1>
+                <p className="text-stone-100/90 max-w-2xl text-lg font-medium">
+                    Welcome to the Superuser Dashboard. Monitor the entire AcademyFind platform's metrics and recent activities from your elegant control center.
                 </p>
             </div>
 
             {/* 2. Quick Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard 
                     title="Total Users" 
                     value={totalUsers} 
-                    icon={<Users className="w-6 h-6 text-blue-600" />} 
-                    bg="bg-blue-50" 
+                    icon={<Users className="w-5 h-5 text-stone-600" />} 
+                    bg="bg-white border border-stone-100" 
                     link="/af-ass-manage/users" 
                 />
                 <StatCard 
                     title="Institutes Listed" 
                     value={totalInstitutes} 
-                    icon={<Building2 className="w-6 h-6 text-emerald-600" />} 
-                    bg="bg-emerald-50" 
+                    icon={<Building2 className="w-5 h-5 text-emerald-600" />} 
+                    bg="bg-white border border-emerald-50" 
                     link="/af-ass-manage/institutes" 
-                />
-                <StatCard 
-                    title="Active Categories" 
-                    value={totalCategories} 
-                    icon={<FolderTree className="w-6 h-6 text-amber-600" />} 
-                    bg="bg-amber-50" 
-                    link="/af-ass-manage/categories" 
                 />
                 <StatCard 
                     title="Pending Claims" 
                     value={pendingClaimsCount} 
-                    icon={<ShieldAlert className="w-6 h-6 text-red-600" />} 
-                    bg="bg-red-50" 
+                    icon={<ShieldAlert className="w-5 h-5 text-rose-600" />} 
+                    bg="bg-white border border-rose-50" 
                     link="/af-ass-manage/claims" 
                     alert={pendingClaimsCount > 0}
+                />
+                <StatCard 
+                    title="New Callbacks" 
+                    value={pendingCallbacks} 
+                    icon={<PhoneCall className="w-5 h-5 text-blue-600" />} 
+                    bg="bg-white border border-blue-50" 
+                    link="/af-ass-manage/instituteCallbacks"
+                    alert={pendingCallbacks > 0} 
+                />
+                <StatCard 
+                    title="Life Coach Requests" 
+                    value={pendingLifeCoach} 
+                    icon={<LifeBuoy className="w-5 h-5 text-indigo-600" />} 
+                    bg="bg-white border border-indigo-50" 
+                    link="/af-ass-manage/life-coach"
+                    alert={pendingLifeCoach > 0} 
+                />
+                <StatCard 
+                    title="Chat Reports" 
+                    value={pendingChatReports} 
+                    icon={<MessageCircle className="w-5 h-5 text-stone-600" />} 
+                    bg="bg-white border border-stone-50" 
+                    link="/af-ass-manage/chat"
+                    alert={pendingChatReports > 0} 
                 />
             </div>
 
@@ -94,24 +119,24 @@ export default async function AdminDashboardPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
                 
                 {/* Left: Pending Claims */}
-                <div className="border border-slate-200 bg-white rounded-3xl shadow-sm overflow-hidden flex flex-col">
-                    <div className="p-5 border-b bg-slate-50 flex items-center justify-between">
-                        <h3 className="font-bold text-slate-800 flex items-center gap-2">
-                            <FileText className="w-5 h-5 text-red-500" /> Action Required: Claims
+                <div className="border border-stone-100/50 bg-white/60 backdrop-blur-md rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden flex flex-col">
+                    <div className="p-6 border-b border-stone-100/50 bg-stone-50/30 flex items-center justify-between">
+                        <h3 className="font-extrabold text-slate-800 flex items-center gap-2 text-lg">
+                            <div className="p-2 bg-rose-100 rounded-xl"><FileText className="w-5 h-5 text-rose-600" /></div> Action Required: Claims
                         </h3>
-                        <Link href="/af-ass-manage/claims" className="text-xs font-bold text-red-600 hover:underline">View All</Link>
+                        <Link href="/af-ass-manage/claims" className="text-sm font-bold text-stone-600 hover:text-stone-700 hover:underline">View All</Link>
                     </div>
-                    <div className="p-5 flex-1 space-y-4">
+                    <div className="p-6 flex-1 space-y-4">
                         {recentClaims.length === 0 ? (
                             <div className="text-center text-slate-400 py-8 text-sm">No pending claims. All caught up! 🎉</div>
                         ) : (
                             recentClaims.map((claim: any) => (
-                                <div key={claim.id} className="flex justify-between items-center p-3 rounded-xl border border-slate-100 hover:bg-slate-50 transition">
+                                <div key={claim.id} className="flex justify-between items-center p-4 rounded-2xl border border-slate-100/80 bg-white shadow-sm hover:shadow-md hover:border-stone-200 transition-all duration-300">
                                     <div>
-                                        <p className="font-bold text-sm text-slate-800 line-clamp-1">{claim.institute.name}</p>
-                                        <p className="text-xs text-slate-500 mt-0.5">Claimed by: {claim.fullName}</p>
+                                        <p className="font-bold text-slate-800 line-clamp-1">{claim.institute.name}</p>
+                                        <p className="text-sm text-slate-500 mt-1">Claimed by: <span className="font-medium">{claim.fullName}</span></p>
                                     </div>
-                                    <Link href="/af-ass-manage/claims" className="shrink-0 bg-slate-900 text-white text-xs px-3 py-1.5 rounded-lg hover:bg-slate-800">
+                                    <Link href="/af-ass-manage/claims" className="shrink-0 bg-slate-900 text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-stone-600 transition-colors shadow-sm">
                                         Review
                                     </Link>
                                 </div>
@@ -121,30 +146,30 @@ export default async function AdminDashboardPage() {
                 </div>
 
                 {/* Right: Newest Users */}
-                <div className="border border-slate-200 bg-white rounded-3xl shadow-sm overflow-hidden flex flex-col">
-                    <div className="p-5 border-b bg-slate-50 flex items-center justify-between">
-                        <h3 className="font-bold text-slate-800 flex items-center gap-2">
-                            <Users className="w-5 h-5 text-blue-500" /> Newest Registrations
+                <div className="border border-stone-100/50 bg-white/60 backdrop-blur-md rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden flex flex-col">
+                    <div className="p-6 border-b border-stone-100/50 bg-stone-50/30 flex items-center justify-between">
+                        <h3 className="font-extrabold text-slate-800 flex items-center gap-2 text-lg">
+                            <div className="p-2 bg-blue-100 rounded-xl"><Users className="w-5 h-5 text-blue-600" /></div> New Registrations
                         </h3>
-                        <Link href="/af-ass-manage/users" className="text-xs font-bold text-blue-600 hover:underline">Manage Users</Link>
+                        <Link href="/af-ass-manage/users" className="text-sm font-bold text-stone-600 hover:text-stone-700 hover:underline">Manage Users</Link>
                     </div>
-                    <div className="p-5 flex-1 space-y-4">
+                    <div className="p-6 flex-1 space-y-4">
                         {recentUsers.length === 0 ? (
                             <div className="text-center text-slate-400 py-8 text-sm">No users found.</div>
                         ) : (
                             recentUsers.map((user:any) => (
-                                <div key={user.id} className="flex justify-between items-center p-3 rounded-xl border border-slate-100 hover:bg-slate-50 transition">
+                                <div key={user.id} className="flex justify-between items-center p-4 rounded-2xl border border-slate-100/80 bg-white shadow-sm hover:shadow-md hover:border-stone-200 transition-all duration-300">
                                     <div>
-                                        <p className="font-bold text-sm text-slate-800 line-clamp-1">{user.name || "Anonymous"}</p>
-                                        <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
+                                        <p className="font-bold text-slate-800 line-clamp-1">{user.name || "Anonymous"}</p>
+                                        <p className="text-sm text-slate-500 mt-1 flex items-center gap-1">
                                             {user.email} 
                                         </p>
                                     </div>
                                     <div className="text-right shrink-0">
-                                        <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded uppercase font-bold tracking-wider">
+                                        <span className="text-[10px] bg-stone-100/80 text-stone-800 border border-stone-200 px-2 py-1 rounded-md uppercase font-extrabold tracking-wider">
                                             {user.role}
                                         </span>
-                                        <p className="text-[10px] text-slate-400 mt-1 flex items-center justify-end gap-1">
+                                        <p className="text-[10px] text-slate-400 mt-2 flex items-center justify-end gap-1">
                                             <Clock className="w-3 h-3" /> {formatIST(user.createdAt, "MMM d")}
                                         </p>
                                     </div>
@@ -163,22 +188,22 @@ export default async function AdminDashboardPage() {
 function StatCard({ title, value, icon, bg, link, alert }: any) {
     return (
         <Link href={link} className="block group">
-            <div className={`relative p-6 rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all h-full ${alert ? 'ring-2 ring-red-400' : ''}`}>
+            <div className={`relative p-6 rounded-3xl border border-stone-100/50 bg-white/70 backdrop-blur-lg shadow-sm hover:shadow-[0_8px_30px_rgb(120,113,108,0.12)] hover:-translate-y-1 transition-all duration-300 h-full ${alert ? 'ring-2 ring-rose-400 shadow-[0_8px_30px_rgb(225,29,72,0.1)]' : ''}`}>
                 {alert && (
                     <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-4 w-4 bg-rose-500"></span>
                     </span>
                 )}
-                <div className="flex justify-between items-start mb-4">
-                    <div className={`p-3 rounded-2xl ${bg}`}>
+                <div className="flex justify-between items-start mb-6">
+                    <div className={`p-4 rounded-[1.25rem] ${bg}`}>
                         {icon}
                     </div>
-                    <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-slate-800 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-5 h-5 text-stone-200 group-hover:text-stone-600 group-hover:translate-x-1.5 transition-all duration-300" />
                 </div>
                 <div>
-                    <h3 className="text-3xl font-extrabold text-slate-800">{value}</h3>
-                    <p className="text-sm font-medium text-slate-500 mt-1">{title}</p>
+                    <h3 className="text-4xl font-black text-slate-800 tracking-tight">{value}</h3>
+                    <p className="text-sm font-bold text-slate-400 mt-2 uppercase tracking-wider">{title}</p>
                 </div>
             </div>
         </Link>
