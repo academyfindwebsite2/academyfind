@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Trophy, Plus, Trash2, Save, Image as ImageIcon } from "lucide-react";
+import { Trophy, Plus, Trash2, Save, Image as ImageIcon, Loader2 } from "lucide-react";
 import { updateAchievements } from "@/lib/User/manager/updateRelateddata";
 
 type Achievement = {
@@ -21,7 +21,7 @@ type Achievement = {
 
 export default function EditAchievements({ instituteId, currentAchievements, maxLimit }: { instituteId: string; currentAchievements: any[]; maxLimit: number }) {
     const [items, setItems] = useState<Achievement[]>(
-        currentAchievements.map((a:any) => ({
+        currentAchievements.map((a: any) => ({
             id: a.id, year: a.year?.toString() || "", title: a.title || "", studentName: a.studentName || "",
             achievementType: a.achievementType || "", imageUrl: a.imageUrl || "", _file: null
         }))

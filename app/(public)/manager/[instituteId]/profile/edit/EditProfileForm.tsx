@@ -19,7 +19,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import {
     Save, Lock, MapPin, Image as ImageIcon, IndianRupee, Link as LinkIcon, UploadCloud,
     Map, Video, Users, Trophy, ShieldCheck, UsersRound, Settings, Sparkles, Search,
-    Plus, X, Building2, Star, Clock, GraduationCap, HelpCircle
+    Plus, X, Building2, Star, Clock, GraduationCap, HelpCircle,
+    Award
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
 
@@ -172,7 +173,7 @@ export default function EditProfileForm({
         const arrayFields = ["pros", "cons", "affiliations", "awards", "mediumOfInstruction"];
         arrayFields.forEach((field: any) => {
             const rawVal = formData.get(field)?.toString() || "";
-            const parsedArray = rawVal.split(",").map((s:any) => s.trim()).filter(Boolean);
+            const parsedArray = rawVal.split(",").map((s: any) => s.trim()).filter(Boolean);
             formData.set(field, JSON.stringify(parsedArray));
         });
 
@@ -356,7 +357,7 @@ export default function EditProfileForm({
                                     <Label>Tagged Categories</Label>
                                     <p className="text-xs text-stone-500">Select the courses and exams you teach.</p>
                                     <div className="h-48 overflow-y-auto border border-stone-200 rounded-xl p-3 bg-stone-50 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        {allCategories?.map((cat:any) => {
+                                        {allCategories?.map((cat: any) => {
                                             const isSelected = selectedCategories.includes(cat.id);
                                             return (
                                                 <label key={cat.id} className={`flex items-center space-x-2 border p-2 rounded-lg transition-colors cursor-pointer select-none ${isSelected ? "bg-[#ebdbb7]/20 border-blue-200 text-blue-900 font-medium" : "bg-white/60 backdrop-blur-md border-white/60 text-stone-700 hover:bg-stone-50"}`}>
@@ -428,7 +429,7 @@ export default function EditProfileForm({
                                     <p className="text-sm text-stone-400 italic">No facilities added yet.</p>
                                 ) : (
                                     <div className="flex flex-wrap gap-2">
-                                        {facilities.map((f:any) => (
+                                        {facilities.map((f: any) => (
                                             <div key={f.id} className={`flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-full border text-sm ${f.available ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-stone-100 border-stone-200 text-stone-400 line-through"}`}>
                                                 <button type="button" onClick={() => toggleFacility(f.id)} className="font-medium">{f.name}</button>
                                                 <button type="button" onClick={() => removeFacility(f.id)} className="hover:text-red-600">
@@ -448,7 +449,7 @@ export default function EditProfileForm({
                                 <CardDescription>Quick numbers shown on your profile, e.g. "500+ Students Trained"</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-3">
-                                {stats.map((s:any) => (
+                                {stats.map((s: any) => (
                                     <div key={s.id} className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center bg-stone-50 border border-stone-200 rounded-xl p-3">
                                         <Input value={s.label} onChange={(e) => updateStat(s.id, "label", e.target.value)} placeholder="Label (e.g. Students Trained)" />
                                         <Input value={s.value} onChange={(e) => updateStat(s.id, "value", e.target.value)} placeholder="Value (e.g. 500+)" />
