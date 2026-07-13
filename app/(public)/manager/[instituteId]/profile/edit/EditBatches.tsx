@@ -69,17 +69,17 @@ export default function EditBatches({ instituteId, currentBatches, maxLimit }: {
     };
 
     return (
-        <Card className="rounded-3xl border-slate-200 shadow-sm">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-slate-50 border-b border-slate-100">
-                <CardTitle className="flex items-center gap-2 text-base"><GraduationCap className="w-5 h-5 text-blue-600" /> Batches & Fee Structure</CardTitle>
+        <Card className="rounded-3xl border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] bg-white/60 backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.2,1,0.2,1)] hover:scale-[1.01]">
+            <CardHeader className="bg-gradient-to-r from-stone-50 to-stone-50 border-b border-stone-100">
+                <CardTitle className="flex items-center gap-2 text-base"><GraduationCap className="w-5 h-5 text-stone-800" /> Batches & Fee Structure</CardTitle>
                 <CardDescription>{batches.length}/{maxLimit} batches added</CardDescription>
             </CardHeader>
             <CardContent className="p-5 space-y-4">
-                {batches.length === 0 && <p className="text-sm text-slate-400 italic">No batches added yet.</p>}
+                {batches.length === 0 && <p className="text-sm text-stone-400 italic">No batches added yet.</p>}
 
                 {batches.map((b: any, idx: any) => (
-                    <div key={b.id || idx} className="border border-slate-200 rounded-2xl p-4 space-y-3 bg-slate-50 relative">
-                        <button type="button" onClick={() => removeBatch(idx)} className="absolute top-3 right-3 text-slate-400 hover:text-red-600">
+                    <div key={b.id || idx} className="border border-stone-200 rounded-2xl p-4 space-y-3 bg-stone-50 relative">
+                        <button type="button" onClick={() => removeBatch(idx)} className="absolute top-3 right-3 text-stone-400 hover:text-red-600">
                             <Trash2 className="w-4 h-4" />
                         </button>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pr-6">
@@ -97,7 +97,7 @@ export default function EditBatches({ instituteId, currentBatches, maxLimit }: {
                             </div>
                             <div className="space-y-1">
                                 <Label className="text-xs">Batch Type</Label>
-                                <select value={b.batchType} onChange={(e) => updateField(idx, "batchType", e.target.value)} className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm">
+                                <select value={b.batchType} onChange={(e) => updateField(idx, "batchType", e.target.value)} className="flex h-10 w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm">
                                     <option value="">Select Type</option>
                                     <option value="Weekday">Weekday</option>
                                     <option value="Weekend">Weekend</option>
@@ -107,7 +107,7 @@ export default function EditBatches({ instituteId, currentBatches, maxLimit }: {
                             </div>
                             <div className="space-y-1">
                                 <Label className="text-xs">Mode</Label>
-                                <select value={b.mode} onChange={(e) => updateField(idx, "mode", e.target.value)} className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm">
+                                <select value={b.mode} onChange={(e) => updateField(idx, "mode", e.target.value)} className="flex h-10 w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm">
                                     <option value="OFFLINE">Offline</option>
                                     <option value="ONLINE">Online</option>
                                     <option value="HYBRID">Hybrid</option>
@@ -116,7 +116,7 @@ export default function EditBatches({ instituteId, currentBatches, maxLimit }: {
                             <div className="space-y-1">
                                 <Label className="text-xs">Fee (₹)</Label>
                                 <div className="relative">
-                                    <IndianRupee className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                                    <IndianRupee className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-400" />
                                     <Input type="number" value={b.fee} onChange={(e) => updateField(idx, "fee", e.target.value)} className="bg-white pl-7" />
                                 </div>
                             </div>
@@ -148,7 +148,7 @@ export default function EditBatches({ instituteId, currentBatches, maxLimit }: {
                     <Button type="button" variant="outline" onClick={addBatch} className="gap-1">
                         <Plus className="w-4 h-4" /> Add Batch
                     </Button>
-                    <Button type="button" onClick={handleSave} disabled={isSaving} className="bg-blue-600 hover:bg-blue-700 text-white gap-2">
+                    <Button type="button" onClick={handleSave} disabled={isSaving} className="bg-stone-800 hover:bg-stone-900 text-white gap-2">
                         {isSaving ? "Saving..." : <><Save className="w-4 h-4" /> Save Batches</>}
                     </Button>
                 </div>

@@ -90,7 +90,7 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             <div className="text-center max-w-2xl mx-auto">
-                <h2 className="text-3xl font-extrabold text-slate-900 flex items-center justify-center gap-2 mb-2">
+                <h2 className="text-3xl font-extrabold text-stone-900 flex items-center justify-center gap-2 mb-2">
                     <CreditCard className="w-7 h-7 text-amber-500" /> Subscription Plans
                 </h2>
                 
@@ -99,28 +99,28 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
                     🎉 <span className="text-amber-900">Early Bird Offer:</span> Special pricing valid only till <span className="bg-amber-200/50 px-2 py-0.5 rounded-md whitespace-nowrap mx-1">31st July</span>!
                 </div>
 
-                <p className="text-sm text-slate-500 mt-2">
+                <p className="text-sm text-stone-500 mt-2">
                     Upgrade your plan to generate more admissions, track performance, and unlock priority ranking.
                 </p>
             </div>
 
             {/* 🚀 TOGGLE BUTTON: Monthly vs Annually */}
             <div className="flex justify-center mt-6 mb-10">
-                <div className="bg-slate-100 p-1 rounded-full inline-flex relative shadow-inner border border-slate-200">
+                <div className="bg-stone-100 p-1 rounded-full inline-flex relative shadow-inner border border-stone-200">
                     <button
                         onClick={() => setIsAnnual(false)}
-                        className={`relative w-32 py-2 text-sm font-bold rounded-full transition-colors z-10 ${!isAnnual ? 'text-slate-900' : 'text-slate-400 hover:text-slate-600'}`}
+                        className={`relative w-32 py-2 text-sm font-bold rounded-full transition-colors z-10 ${!isAnnual ? 'text-stone-900' : 'text-stone-400 hover:text-stone-600'}`}
                     >
                         Monthly
                     </button>
                     <button
                         onClick={() => setIsAnnual(true)}
-                        className={`relative w-32 py-2 text-sm font-bold rounded-full transition-colors z-10 ${isAnnual ? 'text-slate-900' : 'text-slate-400 hover:text-slate-600'}`}
+                        className={`relative w-32 py-2 text-sm font-bold rounded-full transition-colors z-10 ${isAnnual ? 'text-stone-900' : 'text-stone-400 hover:text-stone-600'}`}
                     >
                         Annually
                     </button>
                     {/* Animated Pill Background */}
-                    <div className={`absolute top-1 left-1 bottom-1 w-32 bg-white rounded-full shadow-sm border border-slate-200 transition-transform duration-300 ease-in-out ${isAnnual ? 'translate-x-32' : 'translate-x-0'}`}></div>
+                    <div className={`absolute top-1 left-1 bottom-1 w-32 bg-white rounded-full shadow-sm border border-stone-200 transition-transform duration-300 ease-in-out ${isAnnual ? 'translate-x-32' : 'translate-x-0'}`}></div>
                 </div>
             </div>
 
@@ -131,7 +131,7 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
                     const isCurrentCycleAndPlan = currentPlan === plan.id && ((isAnnual && currentBillingCycle === "ANNUAL") || (!isAnnual && currentBillingCycle === "MONTHLY"));
 
                     return (
-                        <div key={plan.id} className={`relative p-6 rounded-3xl border-2 flex flex-col transition-all duration-300 ${isCurrentCycleAndPlan ? "border-amber-400 bg-amber-50/20 shadow-md scale-[1.02]" : "border-slate-100 bg-white hover:border-slate-300 hover:shadow-sm"
+                        <div key={plan.id} className={`relative p-6 rounded-3xl border-2 flex flex-col transition-all duration-300 ${isCurrentCycleAndPlan ? "border-amber-400 bg-amber-50/20 shadow-md scale-[1.02]" : "border-stone-100 bg-white hover:border-stone-300 hover:shadow-sm"
                             }`}>
                             {isCurrentCycleAndPlan && (
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-amber-400 text-amber-950 px-4 py-1 rounded-full text-[10px] font-extrabold tracking-widest uppercase shadow-sm">
@@ -139,26 +139,26 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
                                 </div>
                             )}
 
-                            <h3 className="text-xl font-extrabold text-slate-800">{plan.name}</h3>
+                            <h3 className="text-xl font-extrabold text-stone-800">{plan.name}</h3>
 
                             {/* 🚀 PRICING DISPLAY (Original Strikethrough + Offer) */}
                             <div className="mt-3 mb-1">
-                                <span className="text-lg text-slate-400 line-through font-semibold mr-2">
+                                <span className="text-lg text-stone-400 line-through font-semibold mr-2">
                                     ₹{priceData.original.toLocaleString('en-IN')}
                                 </span>
-                                <span className="text-3xl font-black text-blue-600">
+                                <span className="text-3xl font-black text-stone-800">
                                     ₹{priceData.offer.toLocaleString('en-IN')}
                                 </span>
-                                <span className="text-sm text-slate-500 font-medium ml-1">
+                                <span className="text-sm text-stone-500 font-medium ml-1">
                                     /{isAnnual ? 'yr' : 'mo'}
                                 </span>
                             </div>
 
-                            <p className="text-xs text-slate-500 mt-2 mb-6 h-8 leading-relaxed font-medium">{plan.desc}</p>
+                            <p className="text-xs text-stone-500 mt-2 mb-6 h-8 leading-relaxed font-medium">{plan.desc}</p>
 
                             <ul className="space-y-3 mb-8 flex-1">
                                 {plan.features.map((feature: any, i: any) => (
-                                    <li key={i} className="flex items-start gap-2 text-sm text-slate-700 font-medium">
+                                    <li key={i} className="flex items-start gap-2 text-sm text-stone-700 font-medium">
                                         <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                                         <span className="leading-tight">{feature}</span>
                                     </li>
@@ -166,8 +166,8 @@ export default function SubscriptionClient({ currentPlan, currentBillingCycle, i
                             </ul>
 
                             <Button onClick={() => handleCheckout(plan.id)} className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${isCurrentCycleAndPlan || (!isCurrentCycleAndPlan && currentPlan === plan.id) || currentPlanRank > (planPriority[plan.id] ?? 0)
-                                ? "bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200"
-                                : "bg-slate-900 text-white hover:bg-blue-600 shadow-sm hover:shadow-md hover:-translate-y-1"
+                                ? "bg-stone-100 text-stone-400 cursor-not-allowed border border-stone-200"
+                                : "bg-stone-900 text-white hover:bg-blue-600 shadow-sm hover:shadow-md hover:-translate-y-1"
                                 }`}>
                                 {isCurrentCycleAndPlan
                                     ? "Active"

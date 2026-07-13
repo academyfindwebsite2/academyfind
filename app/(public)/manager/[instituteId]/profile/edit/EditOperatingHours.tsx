@@ -37,9 +37,9 @@ export default function EditOperatingHours({ instituteId, currentHours }: { inst
     };
 
     return (
-        <div className="space-y-4 pt-4 border-t border-slate-100">
+        <div className="space-y-4 pt-4 border-t border-stone-100">
             <div className="flex items-center justify-between mb-4">
-                <Label className="text-base flex items-center gap-2 text-slate-800"><Clock className="w-4 h-4 text-blue-600"/> Weekly Operating Hours</Label>
+                <Label className="text-base flex items-center gap-2 text-stone-800"><Clock className="w-4 h-4 text-stone-800"/> Weekly Operating Hours</Label>
                 <Button type="button" onClick={handleSave} disabled={isSaving} size="sm" variant="outline" className="gap-2">
                     {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />} Save Hours
                 </Button>
@@ -47,15 +47,15 @@ export default function EditOperatingHours({ instituteId, currentHours }: { inst
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {hours.map((h:any, idx:any) => (
-                    <div key={idx} className={`flex items-center justify-between p-3 rounded-xl border ${h.isClosed ? 'bg-slate-50 border-slate-200' : 'bg-white border-blue-100'}`}>
+                    <div key={idx} className={`flex items-center justify-between p-3 rounded-xl border ${h.isClosed ? 'bg-stone-50/50 border-stone-200/50' : 'bg-white border-blue-100'}`}>
                         <div className="w-24">
-                            <span className={`text-sm font-semibold ${h.isClosed ? 'text-slate-400' : 'text-slate-700'}`}>{DAYS[idx]}</span>
+                            <span className={`text-sm font-semibold ${h.isClosed ? 'text-stone-400' : 'text-stone-700'}`}>{DAYS[idx]}</span>
                         </div>
                         
                         {!h.isClosed ? (
                             <div className="flex items-center gap-1.5 flex-grow justify-center">
                                 <Input type="time" value={h.openTime} onChange={(e) => updateDay(idx, "openTime", e.target.value)} className="h-8 w-24 text-xs px-2" />
-                                <span className="text-slate-400 text-xs">-</span>
+                                <span className="text-stone-400 text-xs">-</span>
                                 <Input type="time" value={h.closeTime} onChange={(e) => updateDay(idx, "closeTime", e.target.value)} className="h-8 w-24 text-xs px-2" />
                             </div>
                         ) : (

@@ -55,21 +55,21 @@ export default function EditNotablePersons({ instituteId, currentPersons, maxLim
     };
 
     return (
-        <Card className="rounded-3xl border-slate-200 shadow-sm">
-            <CardHeader className="bg-gradient-to-r from-indigo-50 to-slate-50 border-b border-slate-100">
-                <CardTitle className="flex items-center gap-2 text-base"><Users className="w-5 h-5 text-indigo-600" /> Notable Alumni</CardTitle>
+        <Card className="p-0 rounded-3xl border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] bg-white/60 backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.2,1,0.2,1)] hover:scale-[1.01] overflow-hidden">
+            <CardHeader className="rounded-t-3xl bg-gradient-to-r from-[#ebdbb7]/40 to-transparent border-b border-[#ebdbb7]/20 p-6 pb-4">
+                <CardTitle className="flex items-center gap-2 text-base"><Users className="w-5 h-5 text-stone-800" /> Notable Alumni</CardTitle>
                 <CardDescription>{items.length}/{maxLimit} alumni added</CardDescription>
             </CardHeader>
             <CardContent className="p-5 space-y-4">
-                {items.length === 0 && <p className="text-sm text-slate-400 italic">No notable alumni added yet.</p>}
+                {items.length === 0 && <p className="text-sm text-stone-400 italic">No notable alumni added yet.</p>}
 
                 {items.map((it:any, idx:any) => (
-                    <div key={it.id || idx} className="border border-slate-200 rounded-2xl p-4 bg-slate-50 relative flex gap-4">
-                        <button type="button" onClick={() => removeItem(idx)} className="absolute top-3 right-3 text-slate-400 hover:text-red-600"><Trash2 className="w-4 h-4" /></button>
+                    <div key={it.id || idx} className="border border-stone-200 rounded-2xl p-4 bg-stone-50 relative flex gap-4">
+                        <button type="button" onClick={() => removeItem(idx)} className="absolute top-3 right-3 text-stone-400 hover:text-red-600"><Trash2 className="w-4 h-4" /></button>
 
                         <label className="cursor-pointer shrink-0">
-                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white shadow-sm bg-slate-200 flex items-center justify-center overflow-hidden">
-                                {it.imageUrl ? <img src={it.imageUrl} className="w-full h-full object-cover" /> : <ImageIcon className="w-6 h-6 text-slate-400" />}
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white shadow-sm bg-stone-200 flex items-center justify-center overflow-hidden">
+                                {it.imageUrl ? <img src={it.imageUrl} className="w-full h-full object-cover" /> : <ImageIcon className="w-6 h-6 text-stone-400" />}
                             </div>
                             <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImagePick(idx, e.target.files?.[0] || null)} />
                         </label>
@@ -85,8 +85,9 @@ export default function EditNotablePersons({ instituteId, currentPersons, maxLim
 
                 <div className="flex items-center justify-between pt-2">
                     <Button type="button" variant="outline" onClick={addItem} className="gap-1"><Plus className="w-4 h-4" /> Add Alumni</Button>
-                    <Button type="button" onClick={handleSave} disabled={isSaving} className="bg-indigo-600 hover:bg-indigo-700 text-white gap-2">
-                        {isSaving ? "Saving..." : <><Save className="w-4 h-4" /> Save Alumni</>}
+                    <Button type="button" onClick={handleSave} disabled={isSaving} className="bg-stone-900 hover:bg-[#ebdbb7] hover:text-stone-900 text-white gap-2 transition-colors">
+                        {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                        Save Alumni
                     </Button>
                 </div>
             </CardContent>

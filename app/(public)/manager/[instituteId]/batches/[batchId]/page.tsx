@@ -58,35 +58,35 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
       <div>
         <Link
           href={`/manager/${instituteId}/batches`}
-          className="mb-4 inline-flex items-center text-sm text-slate-500 hover:text-slate-800"
+          className="mb-4 inline-flex items-center text-sm text-stone-500 hover:text-stone-800"
         >
           <ArrowLeft className="mr-1 size-4" /> Back to Batches
         </Link>
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-slate-900">{batch.name} - Members</h1>
+          <h1 className="text-2xl font-bold text-stone-900">{batch.name} - Members</h1>
           <EditBatchModal instituteId={instituteId} batch={batch} />
         </div>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-stone-500">
           Add or remove students and teachers for this batch.
         </p>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
         {/* Teachers */}
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
+        <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-900">
             <PackageOpen className="size-5 text-amber-500" /> Teachers ({batch.teacherMembers.length})
           </h2>
           
           <div className="mb-6 space-y-3">
             {batch.teacherMembers.length === 0 ? (
-              <p className="text-sm text-slate-500 italic">No teachers assigned.</p>
+              <p className="text-sm text-stone-500 italic">No teachers assigned.</p>
             ) : (
               batch.teacherMembers.map((tm: any) => (
-                <div key={tm.id} className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-3">
+                <div key={tm.id} className="flex items-center justify-between rounded-xl border border-stone-100 bg-stone-50 p-3">
                   <div>
-                    <p className="font-semibold text-slate-900">{tm.teacherRecord.teacherProfile?.user?.name || "Unknown Teacher"}</p>
-                    <p className="text-xs text-slate-500">{tm.teacherRecord.designation}</p>
+                    <p className="font-semibold text-stone-900">{tm.teacherRecord.teacherProfile?.user?.name || "Unknown Teacher"}</p>
+                    <p className="text-xs text-stone-500">{tm.teacherRecord.designation}</p>
                   </div>
                   <form action={async () => {
                     "use server";
@@ -102,20 +102,20 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
             )}
           </div>
 
-          <h3 className="mb-3 text-sm font-bold text-slate-700">Available Teachers</h3>
+          <h3 className="mb-3 text-sm font-bold text-stone-700">Available Teachers</h3>
           <div className="max-h-60 space-y-2 overflow-y-auto">
             {availableTeachers.length === 0 ? (
-              <p className="text-xs text-slate-400">All available teachers are in this batch.</p>
+              <p className="text-xs text-stone-400">All available teachers are in this batch.</p>
             ) : (
               availableTeachers.map((t: any) => (
-                <div key={t.id} className="flex items-center justify-between rounded-lg border border-slate-100 p-2 text-sm">
+                <div key={t.id} className="flex items-center justify-between rounded-lg border border-stone-100 p-2 text-sm">
                   <span className="truncate">{t.teacherProfile?.user?.name || "Unknown Teacher"}</span>
                   <form action={async () => {
                     "use server";
                     const { addBatchTeacher } = await import("../actions");
                     await addBatchTeacher(instituteId, batchId, t.id);
                   }}>
-                    <button type="submit" className="flex items-center gap-1 rounded bg-slate-900 px-2 py-1 text-xs font-semibold text-white hover:bg-slate-800">
+                    <button type="submit" className="flex items-center gap-1 rounded bg-stone-900 px-2 py-1 text-xs font-semibold text-white hover:bg-stone-800">
                       <Plus className="size-3" /> Add
                     </button>
                   </form>
@@ -126,20 +126,20 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
         </section>
 
         {/* Students */}
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
+        <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-900">
             <Users className="size-5 text-blue-500" /> Students ({batch.studentMembers.length})
           </h2>
           
           <div className="mb-6 space-y-3">
             {batch.studentMembers.length === 0 ? (
-              <p className="text-sm text-slate-500 italic">No students assigned.</p>
+              <p className="text-sm text-stone-500 italic">No students assigned.</p>
             ) : (
               batch.studentMembers.map((sm: any) => (
-                <div key={sm.id} className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-3">
+                <div key={sm.id} className="flex items-center justify-between rounded-xl border border-stone-100 bg-stone-50 p-3">
                   <div>
-                    <p className="font-semibold text-slate-900">{sm.studentRecord.studentProfile?.user?.name || "Unknown Student"}</p>
-                    <p className="text-xs text-slate-500">{sm.studentRecord.courseName}</p>
+                    <p className="font-semibold text-stone-900">{sm.studentRecord.studentProfile?.user?.name || "Unknown Student"}</p>
+                    <p className="text-xs text-stone-500">{sm.studentRecord.courseName}</p>
                   </div>
                   <form action={async () => {
                     "use server";
@@ -155,20 +155,20 @@ export default async function ManagerBatchDetailsPage({ params }: Props) {
             )}
           </div>
 
-          <h3 className="mb-3 text-sm font-bold text-slate-700">Available Students</h3>
+          <h3 className="mb-3 text-sm font-bold text-stone-700">Available Students</h3>
           <div className="max-h-60 space-y-2 overflow-y-auto">
             {availableStudents.length === 0 ? (
-              <p className="text-xs text-slate-400">All available students are in this batch.</p>
+              <p className="text-xs text-stone-400">All available students are in this batch.</p>
             ) : (
               availableStudents.map((s: any) => (
-                <div key={s.id} className="flex items-center justify-between rounded-lg border border-slate-100 p-2 text-sm">
+                <div key={s.id} className="flex items-center justify-between rounded-lg border border-stone-100 p-2 text-sm">
                   <span className="truncate">{s.studentProfile?.user?.name || "Unknown Student"}</span>
                   <form action={async () => {
                     "use server";
                     const { addBatchStudent } = await import("../actions");
                     await addBatchStudent(instituteId, batchId, s.id);
                   }}>
-                    <button type="submit" className="flex items-center gap-1 rounded bg-slate-900 px-2 py-1 text-xs font-semibold text-white hover:bg-slate-800">
+                    <button type="submit" className="flex items-center gap-1 rounded bg-stone-900 px-2 py-1 text-xs font-semibold text-white hover:bg-stone-800">
                       <Plus className="size-3" /> Add
                     </button>
                   </form>

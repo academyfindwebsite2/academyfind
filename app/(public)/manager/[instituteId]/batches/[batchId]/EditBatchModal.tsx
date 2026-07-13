@@ -89,7 +89,7 @@ export function EditBatchModal({ instituteId, batch }: { instituteId: string; ba
             <Textarea name="description" defaultValue={batch.description || ""} rows={3} placeholder="Brief description of what this batch covers..." />
           </div>
           
-          <Button type="submit" disabled={loading} className="w-full bg-slate-900 text-white hover:bg-slate-800">
+          <Button type="submit" disabled={loading} className="w-full bg-stone-900 text-white hover:bg-stone-800">
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save Changes"}
           </Button>
         </form>

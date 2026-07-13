@@ -2,10 +2,11 @@ import { PremiumLock } from "@/components/manager/PremiumLock";
 import { ManagerSidebarWrapper } from "@/components/manager/ManagerSidebarWrapper";
 import { auth } from "@/lib/auth/auth";
 import { prisma } from "@/lib/prisma";
-import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound, Users, PackageOpen, MessageCircle, FileText, Zap } from "lucide-react";
+import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, MessageSquare, User, UserRound, Users, PackageOpen, MessageCircle, FileText, Zap, Building2 } from "lucide-react";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
+import { ManagerSidebarLink } from "@/components/manager/ManagerSidebarLink";
 
 export const metadata: Metadata = {
     title: "Manager Control Panel | AcademyFind",
@@ -149,21 +150,24 @@ export default async function ManagerDashBoardLayout({
     }
 
     return (
-        <div className="bg-[#f8fafc] min-h-screen pb-12">
-            <div className="container mx-auto max-w-7xl lg:pt-8 px-4 flex flex-col lg:flex-row gap-8">
+        <div className="relative bg-[#f9f6f0] min-h-screen pb-12 selection:bg-[#ebdbb7]/40 selection:text-stone-900 font-sans">
+            {/* Grainy Noise Overlay */}
+            <div className="pointer-events-none fixed inset-0 z-50 h-full w-full opacity-[0.035] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+
+            <div className="w-full max-w-[1600px] mx-auto pt-4 lg:pt-6 px-4 lg:px-8 flex flex-col lg:flex-row gap-6 lg:gap-8 relative z-10">
 
                 {/* --- SIDEBAR --- */}
                 <ManagerSidebarWrapper title={institute.name}>
                     {/* Header */}
                     <div>
-                        <Link href="/manager" className="inline-flex items-center text-xs text-slate-500 hover:text-slate-800 mb-6 transition-colors font-medium">
+                        <Link href="/manager" className="inline-flex items-center text-xs text-stone-500 hover:text-stone-800 mb-6 transition-colors font-medium">
                             <ArrowLeft className="w-3.5 h-3.5 mr-1.5" /> Switch Workspace
                         </Link>
-                        <h2 className="font-extrabold text-2xl text-slate-900 leading-tight tracking-tight">
+                        <h2 className="font-extrabold text-2xl text-stone-900 leading-tight tracking-tight">
                             {institute.name}
                         </h2>
                         <div className="mt-3 flex flex-col gap-1.5 items-start">
-                            <span className="inline-flex items-center text-[10px] uppercase tracking-wider font-bold bg-blue-100/80 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
+                            <span className="inline-flex items-center text-[10px] uppercase tracking-wider font-bold bg-[#ebdbb7]/20 text-stone-700 px-3 py-1 rounded-full border border-[#ebdbb7]/40">
                                 {plan} PLAN
                             </span>
                             {plan !== "BASIC" && institute.planExpiresAt && (
@@ -176,77 +180,71 @@ export default async function ManagerDashBoardLayout({
 
                     {/* Navigation Links */}
                     <nav className="flex flex-col gap-1.5 mt-2">
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}`}
                             icon={<LayoutDashboardIcon />}
-                            label="Dashboard"
+                            label="Overview"
                         />
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/profile`}
-                            icon={<User />}
-                            label="Profile Data"
-                            locked={plan == "BASIC"}
+                            icon={<Building2 />}
+                            label="Institute Profile"
                         />
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/team`}
                             icon={<UserRound />}
                             label="Add Team Member"
                         />
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/members`}
                             icon={<Users />}
                             label="Members"
                             badge={pendingCount > 0 ? pendingCount : undefined}
                             locked={plan === "BASIC" || plan == "VERIFIED"}
                         />
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/batches`}
                             icon={<PackageOpen />}
                             label="Batches"
                             locked={plan == "BASIC" || plan == "VERIFIED"}
                         />
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/chat`}
                             icon={<MessageCircle />}
                             label="Institute Chat"
                             locked={plan == "BASIC" || plan == "VERIFIED"}
-                            onClick={() => {
-                                if (plan === "BASIC" || plan === "VERIFIED") {
-                                    return <PremiumLock title="Institute Chat Locked" description="Upgrade to Premium or Ultra to unlock institute chats, enabling direct communication between students and teachers." instituteId={instituteId} />
-                                }
-                            }}
                         />
-                        <SidebarLink href={`/manager/${instituteId}/leads`} icon={<MessageSquare />} label="Student Leads" locked={plan === "BASIC" || plan == "VERIFIED"} />
+                        <ManagerSidebarLink href={`/manager/${instituteId}/leads`} icon={<MessageSquare />} label="Student Leads" locked={plan === "BASIC" || plan == "VERIFIED"} />
 
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/blogs`}
                             icon={<FileText />}
                             label="Articles"
                             locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
 
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/metrics`}
                             icon={<BarChart2 />}
                             label="Metrics"
                             locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
 
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/analytics`}
                             icon={<BarChart3 />}
                             label="Analytics"
                             locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
 
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/integrations`}
                             icon={<Zap />}
                             label="Integrations"
                             locked={plan === "BASIC" || plan === "VERIFIED"}
                         />
 
-                        <SidebarLink
+                        <ManagerSidebarLink
                             href={`/manager/${instituteId}/subscription`}
                             icon={<CreditCard />}
                             label="Billing & Plan"
@@ -265,24 +263,3 @@ export default async function ManagerDashBoardLayout({
     );
 }
 
-// Helper Component for Sidebar Links
-function SidebarLink({ href, icon, label, locked, badge, className = "" }: any) {
-    return (
-        <Link
-            href={href}
-            className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all
-            hover:bg-blue-50 hover:text-blue-700 text-slate-600 ${className}`}
-        >
-            <div className="flex items-center gap-3">
-                <span className="[&>svg]:w-4 [&>svg]:h-4">{icon}</span>
-                {label}
-            </div>
-            {locked && <span className="text-xs bg-slate-100 text-slate-500 px-1.5 rounded">🔒</span>}
-            {!locked && badge !== undefined && (
-                <span className="rounded-full bg-rose-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
-                    {badge}
-                </span>
-            )}
-        </Link>
-    );
-}

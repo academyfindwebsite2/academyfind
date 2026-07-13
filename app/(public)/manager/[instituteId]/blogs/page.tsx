@@ -34,7 +34,7 @@ function StatusBadge({ status }: { status: string }) {
     );
   }
   return (
-    <span className="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-bold text-slate-800">
+    <span className="flex items-center gap-1 rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-bold text-stone-800">
       <Clock className="h-3.5 w-3.5" /> {status}
     </span>
   );
@@ -58,7 +58,7 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
   if (!isPremiumOrUltra) {
     return (
       <div className="p-8">
-        <h1 className="mb-6 text-2xl font-extrabold text-slate-900">Institute Articles</h1>
+        <h1 className="mb-6 text-2xl font-extrabold text-stone-900">Institute Articles</h1>
         <PremiumLock
           title="Institute Articles Locked"
           description="Upgrade to Premium or Ultra to write articles for your institute. Share your insights, updates, and articles directly with the student community."
@@ -87,8 +87,8 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
     <div className="p-4 sm:p-8">
       <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900">Institute Articles</h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <h1 className="text-2xl font-extrabold text-stone-900">Institute Articles</h1>
+          <p className="mt-1 text-sm text-stone-500">
             Write and manage articles to showcase your institute's expertise.
           </p>
         </div>
@@ -101,15 +101,15 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
       </div>
 
       {blogs.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
+        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-stone-300 bg-white p-12 text-center">
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <FileText className="mb-4 h-12 w-12 text-slate-300" />
-            <h3 className="mb-2 text-lg font-bold text-slate-900">No Articles Yet</h3>
-            <p className="text-sm text-slate-500">
+            <FileText className="mb-4 h-12 w-12 text-stone-300" />
+            <h3 className="mb-2 text-lg font-bold text-stone-900">No Articles Yet</h3>
+            <p className="text-sm text-stone-500">
               You haven't written any articles for this institute yet.
             </p>
           </div>
-          <Button asChild className="bg-slate-900 text-white hover:bg-slate-800 rounded-xl">
+          <Button asChild className="bg-stone-900 text-white hover:bg-stone-800 rounded-xl">
             <Link href={`/manager/${instituteId}/blogs/write`}>Create First Article</Link>
           </Button>
         </div>
@@ -118,9 +118,9 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
           {blogs.map((blog: any) => (
             <div
               key={blog.id}
-              className="group flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xs transition-all hover:shadow-md hover:border-slate-200"
+              className="group flex flex-col overflow-hidden rounded-3xl border border-stone-100 bg-white shadow-xs transition-all hover:shadow-md hover:border-stone-200"
             >
-              <div className="relative aspect-video w-full bg-slate-100">
+              <div className="relative aspect-video w-full bg-stone-100">
                 {blog.coverImage ? (
                   <Image
                     src={blog.coverImage}
@@ -129,7 +129,7 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-slate-100 text-slate-400">
+                  <div className="flex h-full w-full items-center justify-center bg-stone-100 text-stone-400">
                     No Cover Image
                   </div>
                 )}
@@ -139,10 +139,10 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
               </div>
 
               <div className="flex flex-1 flex-col p-5">
-                <h3 className="mb-2 line-clamp-2 font-bold leading-snug text-slate-900">
+                <h3 className="mb-2 line-clamp-2 font-bold leading-snug text-stone-900">
                   {blog.title}
                 </h3>
-                <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-semibold text-slate-500">
+                <div className="mt-auto flex items-center justify-between border-t border-stone-100 pt-4 text-xs font-semibold text-stone-500">
                   <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
                   <span className="flex items-center gap-1">
                     {blog.viewCount} views
@@ -159,7 +159,7 @@ export default async function ManagerBlogsPage(props: { params: Promise<{ instit
                   <Button
                     asChild
                     variant="outline"
-                    className="w-full rounded-xl border-slate-200 font-bold"
+                    className="w-full rounded-xl border-stone-200 font-bold"
                   >
                     <Link href={`/manager/${instituteId}/blogs/edit/${blog.id}`}>
                       <Edit2 className="mr-2 h-4 w-4" />

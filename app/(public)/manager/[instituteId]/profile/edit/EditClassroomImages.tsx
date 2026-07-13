@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Lock, Image as ImageIcon, Trash2, UploadCloud, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 import { addClassroomImages, removeClassroomImage } from "@/lib/User/manager/update-classroom-images";
 
 export default function ClassroomImages({ 
@@ -16,6 +17,7 @@ export default function ClassroomImages({
     maxLimit: number;
 }) {
     const [isUploading, setIsUploading] = useState(false);
+    const [deleteConfirmUrl, setDeleteConfirmUrl] = useState<string | null>(null);
     const isLimitReached = currentImages.length >= maxLimit;
 
     // ☁️ Cloudinary Upload & DB Save
@@ -36,8 +38,14 @@ export default function ClassroomImages({
         e.target.value = ""; // Reset input
     };
 
-    async function handleDelete(url: string) {
-        if (!confirm("Delete this image?")) return;
+    const handleDeleteClick = (url: string) => {
+        setDeleteConfirmUrl(url);
+    };
+
+    async function confirmDelete() {
+        if (!deleteConfirmUrl) return;
+        const url = deleteConfirmUrl;
+        setDeleteConfirmUrl(null);
         const result = await removeClassroomImage(instituteId, url);
         if (result.success) toast.success("Image removed.");
         else toast.error("Failed to remove image.");
@@ -45,25 +53,25 @@ export default function ClassroomImages({
 
     if (maxLimit === 0) {
         return (
-            <div className="bg-slate-50 border border-dashed border-slate-300 rounded-2xl p-8 text-center flex flex-col items-center">
-                <div className="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center mb-3">
-                    <Lock className="w-6 h-6 text-slate-500" />
+            <div className="bg-stone-50 border border-dashed border-stone-300 rounded-2xl p-8 text-center flex flex-col items-center">
+                <div className="w-12 h-12 bg-stone-200 rounded-full flex items-center justify-center mb-3">
+                    <Lock className="w-6 h-6 text-stone-500" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-800">Classroom Gallery Locked</h3>
-                <p className="text-sm text-slate-500 max-w-md mt-1 mb-4">Upgrade your plan to showcase your Classroom and academy photos.</p>
-                <Link href={`/manager/${instituteId}/upgrade`} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl text-sm font-semibold transition">View Plans</Link>
+                <h3 className="text-lg font-bold text-stone-800">Classroom Gallery Locked</h3>
+                <p className="text-sm text-stone-500 max-w-md mt-1 mb-4">Upgrade your plan to showcase your Classroom and academy photos.</p>
+                <Link href={`/manager/${instituteId}/upgrade`} className="bg-stone-800 hover:bg-stone-900 text-white px-5 py-2 rounded-xl text-sm font-semibold transition">View Plans</Link>
             </div>
         );
     }
 
     return (
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-            <div className="flex justify-between items-center mb-6">
+        <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden transition-all duration-700 hover:scale-[1.01]">
+            <div className="bg-gradient-to-r from-[#ebdbb7]/40 to-transparent border-b border-[#ebdbb7]/20 p-6 pb-4 flex justify-between items-center">
                 <div>
-                    <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <h3 className="text-lg font-bold text-stone-900 flex items-center gap-2">
                         <ImageIcon className="w-5 h-5 text-indigo-500" /> Classroom Images
                     </h3>
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-stone-500 mt-1">
                         Added: {currentImages.length} / {maxLimit}
                     </p>
                 </div>
@@ -73,7 +81,7 @@ export default function ClassroomImages({
                         <Lock className="w-3.5 h-3.5" /> Upgrade for more
                     </Link>
                 ) : (
-                    <label className="cursor-pointer bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl text-sm font-medium flex items-center gap-2 transition">
+                    <label className="cursor-pointer bg-stone-900 hover:bg-[#ebdbb7] hover:text-stone-900 text-white px-4 py-2 rounded-xl text-sm font-medium flex items-center gap-2 transition border border-transparent hover:border-stone-200">
                         {isUploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <UploadCloud className="w-4 h-4" />}
                         {isUploading ? "Uploading..." : "Upload Image"}
                         <input type="file" accept="image/*" disabled={isUploading || isLimitReached} onChange={handleImageUpload} className="hidden" />
@@ -81,15 +89,17 @@ export default function ClassroomImages({
                 )}
             </div>
 
+            <div className="p-6">
+
             {currentImages.length === 0 ? (
-                <div className="text-center p-6 border border-dashed rounded-xl text-slate-400 text-sm">No images uploaded yet.</div>
+                <div className="text-center p-6 border border-dashed rounded-xl text-stone-400 text-sm">No images uploaded yet.</div>
             ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                     {currentImages.map((url: any, idx:any) => (
-                        <div key={idx} className="relative group rounded-xl overflow-hidden border border-slate-200 aspect-square">
+                        <div key={idx} className="relative group rounded-xl overflow-hidden border border-stone-200 aspect-square">
                             <img src={url} alt="Result" className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <button onClick={() => handleDelete(url)} className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition shadow-lg">
+                                <button onClick={() => handleDeleteClick(url)} className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition shadow-lg">
                                     <Trash2 className="w-4 h-4" />
                                 </button>
                             </div>
@@ -97,6 +107,16 @@ export default function ClassroomImages({
                     ))}
                 </div>
             )}
+            </div>
+            <ConfirmModal
+                isOpen={!!deleteConfirmUrl}
+                onClose={() => setDeleteConfirmUrl(null)}
+                onConfirm={confirmDelete}
+                title="Remove Image?"
+                description="Are you sure you want to delete this classroom image?"
+                confirmText="Delete"
+                destructive
+            />
         </div>
     )
 }

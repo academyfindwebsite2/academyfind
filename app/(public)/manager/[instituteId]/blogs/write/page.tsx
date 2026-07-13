@@ -21,7 +21,7 @@ export default async function ManagerWriteBlogPage(props: { params: Promise<{ in
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/50 pb-12">
+    <div className="min-h-screen bg-stone-50/50 pb-12">
       <BlogEditor mode="create" management="manager" relatedInstituteId={instituteId} />
     </div>
   );

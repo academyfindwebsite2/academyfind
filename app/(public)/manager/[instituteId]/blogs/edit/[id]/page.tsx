@@ -31,7 +31,7 @@ export default async function ManagerEditBlogPage(props: {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/50 pb-12">
+    <div className="min-h-screen bg-stone-50/50 pb-12">
       <BlogEditor 
         mode="edit" 
         initialData={initialData} 

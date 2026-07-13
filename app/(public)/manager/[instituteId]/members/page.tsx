@@ -28,15 +28,15 @@ export default async function ManagerMembersPage({ params }: Props) {
 
   if (subscriptionplan === "BASIC" || subscriptionplan === "VERIFIED") {
     return (
-      <div className="min-h-[500px] flex flex-col items-center justify-center text-center p-8 bg-slate-50/50 rounded-3xl border border-dashed border-slate-200">
-        <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6">
+      <div className="min-h-[500px] flex flex-col items-center justify-center text-center p-8 bg-stone-50/50 rounded-3xl border border-dashed border-stone-200">
+        <div className="w-16 h-16 bg-[#ebdbb7]/30 text-stone-800 rounded-full flex items-center justify-center mb-6">
           <Lock className="w-8 h-8" />
         </div>
-        <h2 className="text-2xl font-bold text-slate-800 mb-2">Student Leads Locked</h2>
-        <p className="text-slate-500 max-w-md mb-6">
+        <h2 className="text-2xl font-bold text-stone-800 mb-2">Student Leads Locked</h2>
+        <p className="text-stone-500 max-w-md mb-6">
           Unlock direct student enquiries and lead generation. Upgrade to the <b>Premium</b> or <b>Elite </b> Plans to see who is trying to contact your academy.
         </p>
-        <Link href={`/manager/${instituteId}/subscription`} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-medium transition">
+        <Link href={`/manager/${instituteId}/subscription`} className="bg-stone-800 hover:bg-stone-900 text-white px-6 py-2.5 rounded-xl font-medium transition">
           View Upgrade Plans
         </Link>
       </div>
@@ -109,8 +109,8 @@ export default async function ManagerMembersPage({ params }: Props) {
     <div className="space-y-10">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Members</h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <h1 className="text-2xl font-bold text-stone-900">Members</h1>
+          <p className="mt-1 text-sm text-stone-500">
             Manage student and teacher memberships for {institute.name}.
           </p>
         </div>
@@ -136,7 +136,7 @@ export default async function ManagerMembersPage({ params }: Props) {
 
       {/* ── PENDING REQUESTS ── */}
       <section>
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-800">
+        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-800">
           <Clock className="size-5 text-amber-500" /> Pending Requests
           {pending.length > 0 && (
             <span className="rounded-full bg-rose-500 px-2.5 py-0.5 text-xs font-bold text-white">
@@ -151,34 +151,34 @@ export default async function ManagerMembersPage({ params }: Props) {
             {pending.map((m: any) => (
               <div
                 key={m.id}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
+                className="rounded-2xl border border-stone-200 bg-stone-50 p-5"
               >
                 <div className="flex items-start gap-3">
                   <UserAvatar user={m.user} />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-slate-900">
+                      <span className="font-semibold text-stone-900">
                         {m.user.name ?? m.user.username}
                       </span>
                       <RoleBadge role={m.role} />
                     </div>
-                    <p className="text-xs text-slate-400">@{m.user.username} · {m.user.email}</p>
+                    <p className="text-xs text-stone-400">@{m.user.username} · {m.user.email}</p>
                     {m.studentRecord && (
-                      <p className="mt-1 text-sm text-slate-600">
+                      <p className="mt-1 text-sm text-stone-600">
                         {[m.studentRecord.courseName, m.studentRecord.batchYear ? `${m.studentRecord.batchYear} Batch` : null].filter(Boolean).join(" · ")}
                       </p>
                     )}
                     {m.teacherRecord && (
-                      <p className="mt-1 text-sm text-slate-600">
+                      <p className="mt-1 text-sm text-stone-600">
                         {m.teacherRecord.designation} · {m.teacherRecord.teachingSubjects.join(", ")}
                       </p>
                     )}
                     {(m.studentRecord?.bio || m.teacherRecord?.bio) && (
-                      <p className="mt-2 text-xs text-slate-500 italic line-clamp-2">
+                      <p className="mt-2 text-xs text-stone-500 italic line-clamp-2">
                         {m.studentRecord?.bio ?? m.teacherRecord?.bio}
                       </p>
                     )}
-                    <p className="mt-2 text-xs text-slate-400">
+                    <p className="mt-2 text-xs text-stone-400">
                       Requested {m.createdAt.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                     </p>
                   </div>
@@ -219,9 +219,9 @@ export default async function ManagerMembersPage({ params }: Props) {
 
       {/* ── STUDENTS ── */}
       <section>
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-800">
+        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-800">
           <GraduationCap className="size-5 text-blue-500" /> Students
-          <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">
+          <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold text-stone-600">
             {students.length}
           </span>
         </h2>
@@ -232,15 +232,15 @@ export default async function ManagerMembersPage({ params }: Props) {
             {students.map((m: any) => (
               <div
                 key={m.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-stone-200 bg-white p-4"
               >
                 <div className="flex items-center gap-3">
                   <UserAvatar user={m.user} size="sm" />
                   <div>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-stone-900">
                       {m.user.name ?? m.user.username}
                     </span>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-stone-500">
                       {[
                         m.studentRecord?.courseName,
                         m.studentRecord?.batchYear ? `${m.studentRecord.batchYear} Batch` : null,
@@ -277,9 +277,9 @@ export default async function ManagerMembersPage({ params }: Props) {
 
       {/* ── TEACHERS ── */}
       <section>
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-800">
+        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-800">
           <BookOpen className="size-5 text-amber-500" /> Faculty
-          <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">
+          <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold text-stone-600">
             {teachers.length}
           </span>
         </h2>
@@ -290,22 +290,22 @@ export default async function ManagerMembersPage({ params }: Props) {
             {teachers.map((m: any) => (
               <div
                 key={m.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-stone-200 bg-white p-4"
               >
                 <div className="flex items-center gap-3">
                   <UserAvatar user={m.user} size="sm" />
                   <div>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-stone-900">
                       {m.user.name ?? m.user.username}
                     </span>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-stone-500">
                       {m.teacherRecord?.designation ?? "Faculty"}
                       {m.teacherRecord?.department ? ` · ${m.teacherRecord.department}` : ""}
                     </p>
                     {m.teacherRecord?.teachingSubjects.length ? (
                       <div className="mt-1 flex flex-wrap gap-1">
                         {m.teacherRecord.teachingSubjects.slice(0, 3).map((s: any) => (
-                          <span key={s} className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-600">
+                          <span key={s} className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] text-stone-600">
                             {s}
                           </span>
                         ))}
@@ -357,12 +357,12 @@ function UserAvatar({
   const dim = size === "sm" ? "size-9" : "size-11";
   return (
     <div
-      className={`relative shrink-0 overflow-hidden rounded-full bg-slate-100 ${dim}`}
+      className={`relative shrink-0 overflow-hidden rounded-full bg-stone-100 ${dim}`}
     >
       {user.image ? (
         <Image src={user.image} alt="" fill className="object-cover" />
       ) : (
-        <span className="flex h-full items-center justify-center text-sm font-bold text-slate-400">
+        <span className="flex h-full items-center justify-center text-sm font-bold text-stone-400">
           {(user.name ?? "U").charAt(0).toUpperCase()}
         </span>
       )}
@@ -372,13 +372,13 @@ function UserAvatar({
 
 function RoleBadge({ role }: { role: string }) {
   const styles: Record<string, string> = {
-    STUDENT: "bg-blue-50 text-blue-700 border-blue-200",
+    STUDENT: "bg-[#ebdbb7]/20 text-stone-900 border-blue-200",
     TEACHER: "bg-amber-50 text-amber-700 border-amber-200",
     MANAGER: "bg-violet-50 text-violet-700 border-violet-200",
   };
   return (
     <span
-      className={`rounded-md border px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${styles[role] ?? "bg-slate-100 text-slate-600"}`}
+      className={`rounded-md border px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${styles[role] ?? "bg-stone-100 text-stone-600"}`}
     >
       {role}
     </span>
@@ -387,7 +387,7 @@ function RoleBadge({ role }: { role: string }) {
 
 function EmptyCard({ text }: { text: string }) {
   return (
-    <div className="rounded-2xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-400">
+    <div className="rounded-2xl border border-dashed border-stone-300 p-8 text-center text-sm text-stone-400">
       {text}
     </div>
   );

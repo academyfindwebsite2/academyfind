@@ -51,8 +51,8 @@ export default async function ManagerBatchesPage({ params }: Props) {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Batches</h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <h1 className="text-2xl font-bold text-stone-900">Batches</h1>
+          <p className="mt-1 text-sm text-stone-500">
             Manage courses and batches for {institute.name}.
           </p>
         </div>
@@ -66,8 +66,8 @@ export default async function ManagerBatchesPage({ params }: Props) {
           instituteId={institute.id}
         />
       ) : (
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-5 text-lg font-bold text-slate-900">
+        <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-5 text-lg font-bold text-stone-900">
             Create New Batch
           </h2>
           <form action={createBatchFn} className="grid gap-4 sm:grid-cols-2">
@@ -130,11 +130,11 @@ export default async function ManagerBatchesPage({ params }: Props) {
 
       {/* Batch list */}
       <section>
-        <h2 className="mb-4 text-lg font-bold text-slate-800">
+        <h2 className="mb-4 text-lg font-bold text-stone-800">
           All Batches ({batches.length})
         </h2>
         {batches.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 p-10 text-center text-sm text-slate-400">
+          <div className="rounded-2xl border border-dashed border-stone-300 p-10 text-center text-sm text-stone-400">
             No batches yet. Create your first batch above.
           </div>
         ) : (
@@ -153,19 +153,19 @@ export default async function ManagerBatchesPage({ params }: Props) {
                 <div
                   key={batch.id}
                   className={`rounded-2xl border bg-white p-5 shadow-sm ${batch.isActive
-                    ? "border-slate-200"
-                    : "border-slate-100 opacity-60"
+                    ? "border-stone-200"
+                    : "border-stone-100 opacity-60"
                     }`}
                 >
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-bold text-slate-900">{batch.name}</h3>
-                        <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-600 uppercase">
+                        <h3 className="font-bold text-stone-900">{batch.name}</h3>
+                        <span className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-bold text-stone-600 uppercase">
                           {batch.mode}
                         </span>
                         {!batch.isActive && (
-                          <span className="rounded-md bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-400 uppercase">
+                          <span className="rounded-md bg-stone-200 px-1.5 py-0.5 text-[10px] font-bold text-stone-400 uppercase">
                             Inactive
                           </span>
                         )}
@@ -175,14 +175,14 @@ export default async function ManagerBatchesPage({ params }: Props) {
                           {batch.courseName}
                         </p>
                       )}
-                      <div className="mt-2 flex flex-wrap gap-4 text-sm text-slate-500">
+                      <div className="mt-2 flex flex-wrap gap-4 text-sm text-stone-500">
                         {batch.duration && (
                           <span className="flex items-center gap-1">
                             <Clock className="size-3.5" /> {batch.duration}
                           </span>
                         )}
                         {batch.fee && (
-                          <span className="flex items-center gap-1 font-medium text-slate-700">
+                          <span className="flex items-center gap-1 font-medium text-stone-700">
                             <IndianRupee className="size-3.5" />
                             {batch.fee.toLocaleString("en-IN")}
                           </span>
@@ -200,14 +200,14 @@ export default async function ManagerBatchesPage({ params }: Props) {
                       {/* Seat progress */}
                       {batch.seatsTotal && seatsPercent !== null && (
                         <div className="mt-3">
-                          <div className="flex justify-between text-xs text-slate-400">
+                          <div className="flex justify-between text-xs text-stone-400">
                             <span>
                               {batch.seatsTotal - (batch.seatsLeft ?? 0)} /{" "}
                               {batch.seatsTotal} seats filled
                             </span>
                             <span>{seatsPercent}%</span>
                           </div>
-                          <div className="mt-1 h-2 overflow-hidden rounded-full bg-slate-100">
+                          <div className="mt-1 h-2 overflow-hidden rounded-full bg-stone-100">
                             <div
                               className={`h-full rounded-full ${seatsPercent >= 90
                                 ? "bg-rose-500"
@@ -246,7 +246,7 @@ export default async function ManagerBatchesPage({ params }: Props) {
                         <button
                           type="submit"
                           className={`rounded-xl border px-3 py-2 text-xs font-semibold ${batch.isActive
-                            ? "border-slate-200 text-slate-600 hover:bg-slate-50"
+                            ? "border-stone-200 text-stone-600 hover:bg-stone-50"
                             : "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                             }`}
                         >
@@ -256,7 +256,7 @@ export default async function ManagerBatchesPage({ params }: Props) {
 
                       <Link
                         href={`/manager/${instituteId}/batches/${batch.id}`}
-                        className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100"
+                        className="rounded-xl border border-stone-200 bg-stone-50 px-3 py-2 text-xs font-bold text-stone-700 hover:bg-stone-100"
                       >
                         Manage Members
                       </Link>
@@ -273,7 +273,7 @@ export default async function ManagerBatchesPage({ params }: Props) {
 }
 
 const INPUT_CLASS =
-  "w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400";
+  "w-full rounded-xl border border-stone-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400";
 
 function Input({
   name,
@@ -299,7 +299,7 @@ function Input({
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <label className="mb-1.5 block text-sm font-semibold text-slate-700">
+    <label className="mb-1.5 block text-sm font-semibold text-stone-700">
       {children}
     </label>
   );

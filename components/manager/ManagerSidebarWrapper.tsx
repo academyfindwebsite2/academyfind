@@ -21,50 +21,50 @@ export function ManagerSidebarWrapper({ children, title = "Manager Dashboard" }:
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return (
-    <>
-      {/* Mobile Top Bar */}
-      <div className="lg:hidden flex items-center justify-between bg-white/80 backdrop-blur-md p-4 sticky top-0 z-40 border-b border-slate-100 shadow-sm">
-        <span className="font-extrabold text-lg bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">{title}</span>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsMobileOpen(true)}
-          className="rounded-full hover:bg-slate-100"
-        >
-          <Menu className="w-6 h-6 text-slate-700" />
-        </Button>
-      </div>
-
-      {/* Mobile Drawer Overlay */}
-      {isMobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 flex">
-          <div 
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
-            onClick={() => setIsMobileOpen(false)}
-          />
-          <div className="relative w-[280px] max-w-[80vw] h-full bg-white shadow-2xl flex flex-col p-6 animate-in slide-in-from-left duration-300">
-            <div className="flex items-center justify-between mb-8">
-              <span className="font-bold text-lg text-slate-800">Menu</span>
-              <Button variant="ghost" size="icon" onClick={() => setIsMobileOpen(false)} className="rounded-full">
-                <X className="w-5 h-5 text-slate-500" />
-              </Button>
-            </div>
-            <div className="flex-1 overflow-y-auto pb-8 space-y-6 scrollbar-hide" onClick={(e) => {
-              if ((e.target as HTMLElement).closest('a')) setIsMobileOpen(false);
-            }}>
-              {children}
+    return (
+      <>
+        {/* Mobile Top Bar */}
+        <div className="lg:hidden flex items-center justify-between bg-white/60 backdrop-blur-xl p-4 sticky top-0 z-40 border-b border-white/40 shadow-sm">
+          <span className="font-extrabold text-lg text-stone-800">{title}</span>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMobileOpen(true)}
+            className="rounded-full hover:bg-stone-100"
+          >
+            <Menu className="w-6 h-6 text-stone-700" />
+          </Button>
+        </div>
+  
+        {/* Mobile Drawer Overlay */}
+        {isMobileOpen && (
+          <div className="lg:hidden fixed inset-0 z-50 flex">
+            <div 
+              className="fixed inset-0 bg-stone-900/20 backdrop-blur-sm transition-opacity"
+              onClick={() => setIsMobileOpen(false)}
+            />
+            <div className="relative w-[280px] max-w-[80vw] h-full bg-[#f9f6f0] shadow-2xl flex flex-col p-6 animate-in slide-in-from-left duration-300">
+              <div className="flex items-center justify-between mb-8">
+                <span className="font-bold text-lg text-stone-800">Menu</span>
+                <Button variant="ghost" size="icon" onClick={() => setIsMobileOpen(false)} className="rounded-full">
+                  <X className="w-5 h-5 text-stone-500" />
+                </Button>
+              </div>
+              <div className="flex-1 overflow-y-auto pb-8 space-y-6 scrollbar-hide" onClick={(e) => {
+                if ((e.target as HTMLElement).closest('a')) setIsMobileOpen(false);
+              }}>
+                {children}
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Desktop Sidebar Container */}
-      <div className={`hidden lg:block shrink-0 transition-all duration-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${isOpen ? "w-64" : "w-0 opacity-0 mx-0 overflow-hidden"}`}>
-        <div className="sticky top-8 relative h-[calc(100vh-4rem)]">
-          <aside className="absolute inset-0 bg-white/80 backdrop-blur-xl border border-stone-200/60 shadow-sm rounded-[2rem] p-6 flex flex-col space-y-6 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {children}
-          </aside>
+        )}
+  
+        {/* Desktop Sidebar Container */}
+        <div className={`hidden lg:block shrink-0 transition-all duration-700 ease-[cubic-bezier(0.2,1,0.2,1)] ${isOpen ? "w-64" : "w-0 opacity-0 mx-0 overflow-hidden"}`}>
+          <div className="sticky top-8 relative h-[calc(100vh-4rem)]">
+            <aside className="absolute inset-0 bg-white/60 backdrop-blur-2xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2rem] p-6 flex flex-col space-y-6 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {children}
+            </aside>
           
           {/* Collapse button */}
           <div className={`absolute z-30 transition-all duration-400 ${isOpen ? "right-6" : "opacity-0 pointer-events-none"} top-10`}>

@@ -56,22 +56,22 @@ export default function EditFAQs({ instituteId, currentFAQs, maxLimit }: { insti
     };
 
     return (
-        <Card className="rounded-3xl border-slate-200 shadow-sm">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-slate-50 border-b border-slate-100">
+        <Card className="p-0 rounded-3xl border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] bg-white/60 backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.2,1,0.2,1)] hover:scale-[1.01] overflow-hidden">
+            <CardHeader className="rounded-t-3xl bg-gradient-to-r from-[#ebdbb7]/40 to-transparent border-b border-[#ebdbb7]/20 p-6 pb-4">
                 <CardTitle className="flex items-center gap-2 text-base"><HelpCircle className="w-5 h-5 text-purple-600" /> FAQs</CardTitle>
                 <CardDescription>{faqs.length}/{maxLimit} questions added — these also power your FAQ rich results on Google</CardDescription>
             </CardHeader>
             <CardContent className="p-5 space-y-4">
-                {faqs.length === 0 && <p className="text-sm text-slate-400 italic">No FAQs added yet.</p>}
+                {faqs.length === 0 && <p className="text-sm text-stone-400 italic">No FAQs added yet.</p>}
 
                 {faqs.map((f: any, idx:any) => (
-                    <div key={f.id || idx} className="border border-slate-200 rounded-2xl p-4 space-y-2 bg-slate-50 relative">
+                    <div key={f.id || idx} className="border border-stone-200 rounded-2xl p-4 space-y-2 bg-stone-50 relative">
                         <div className="flex items-center justify-between">
-                            <Label className="text-xs text-slate-500">Question {idx + 1}</Label>
+                            <Label className="text-xs text-stone-500">Question {idx + 1}</Label>
                             <div className="flex items-center gap-1">
                                 <Button type="button" variant="ghost" size="icon" className="h-7 w-7" onClick={() => move(idx, -1)} disabled={idx === 0}><ArrowUp className="w-3.5 h-3.5" /></Button>
                                 <Button type="button" variant="ghost" size="icon" className="h-7 w-7" onClick={() => move(idx, 1)} disabled={idx === faqs.length - 1}><ArrowDown className="w-3.5 h-3.5" /></Button>
-                                <Button type="button" variant="ghost" size="icon" className="h-7 w-7 text-slate-400 hover:text-red-600" onClick={() => removeFAQ(idx)}><Trash2 className="w-3.5 h-3.5" /></Button>
+                                <Button type="button" variant="ghost" size="icon" className="h-7 w-7 text-stone-400 hover:text-red-600" onClick={() => removeFAQ(idx)}><Trash2 className="w-3.5 h-3.5" /></Button>
                             </div>
                         </div>
                         <Input value={f.question} onChange={(e) => updateField(idx, "question", e.target.value)} placeholder="e.g. Do you provide study material?" className="bg-white" />
@@ -83,8 +83,9 @@ export default function EditFAQs({ instituteId, currentFAQs, maxLimit }: { insti
                     <Button type="button" variant="outline" onClick={addFAQ} className="gap-1">
                         <Plus className="w-4 h-4" /> Add FAQ
                     </Button>
-                    <Button type="button" onClick={handleSave} disabled={isSaving} className="bg-purple-600 hover:bg-purple-700 text-white gap-2">
-                        {isSaving ? "Saving..." : <><Save className="w-4 h-4" /> Save FAQs</>}
+                    <Button type="button" onClick={handleSave} disabled={isSaving} className="bg-stone-900 hover:bg-[#ebdbb7] hover:text-stone-900 text-white gap-2 transition-colors">
+                        {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                        Save FAQs
                     </Button>
                 </div>
             </CardContent>

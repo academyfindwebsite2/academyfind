@@ -80,8 +80,8 @@ export default async function ManagerCommunityPage({ params }: Props) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Institute Chat</h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <h1 className="text-2xl font-bold text-stone-900">Institute Chat</h1>
+        <p className="mt-1 text-sm text-stone-500">
           Manage channels and moderate messages for {institute.name}.
         </p>
       </div>
@@ -106,13 +106,13 @@ export default async function ManagerCommunityPage({ params }: Props) {
           {/* Channels overview */}
       <section>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="flex items-center gap-2 text-lg font-bold text-slate-800">
+          <h2 className="flex items-center gap-2 text-lg font-bold text-stone-800">
             <MessageCircle className="size-5 text-violet-500" /> Channels
           </h2>
           <CreateChannelModal instituteId={instituteId} />
         </div>
         {channels.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-400">
+          <div className="rounded-2xl border border-dashed border-stone-300 p-8 text-center text-sm text-stone-400">
             No channels yet. They'll be created automatically when the first member joins.
           </div>
         ) : (
@@ -120,13 +120,13 @@ export default async function ManagerCommunityPage({ params }: Props) {
             {channels.map((ch: any) => (
               <div
                 key={ch.id}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-slate-900 flex items-center gap-2">
+                  <h3 className="font-semibold text-stone-900 flex items-center gap-2">
                     {ch.title ?? `# ${ch.channelType?.toLowerCase()}`}
                     {ch.isReadOnly && (
-                      <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
+                      <span className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] font-bold text-stone-500 uppercase">
                         Read-only
                       </span>
                     )}
@@ -135,7 +135,7 @@ export default async function ManagerCommunityPage({ params }: Props) {
                     <DeleteChannelButton channelId={ch.id} />
                   )}
                 </div>
-                <div className="mt-3 flex gap-4 text-sm text-slate-500">
+                <div className="mt-3 flex gap-4 text-sm text-stone-500">
                   <span className="flex items-center gap-1">
                     <Users className="size-3.5" />
                     {(() => {
@@ -151,8 +151,8 @@ export default async function ManagerCommunityPage({ params }: Props) {
                   </span>
                 </div>
                 {ch.lastMessage && (
-                  <div className="mt-3 rounded-lg border border-slate-100 bg-slate-50 p-2 text-xs text-slate-600">
-                    <p className="font-semibold text-slate-400 mb-1">Last message</p>
+                  <div className="mt-3 rounded-lg border border-stone-100 bg-stone-50 p-2 text-xs text-stone-600">
+                    <p className="font-semibold text-stone-400 mb-1">Last message</p>
                     <p className="line-clamp-2">{ch.lastMessage.content}</p>
                   </div>
                 )}
@@ -172,7 +172,7 @@ export default async function ManagerCommunityPage({ params }: Props) {
 
       {/* Reported messages */}
       <section>
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-800">
+        <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-800">
           🚨 Reported Messages
           {reports.length > 0 && (
             <span className="rounded-full bg-rose-500 px-2.5 py-0.5 text-xs font-bold text-white">
@@ -181,7 +181,7 @@ export default async function ManagerCommunityPage({ params }: Props) {
           )}
         </h2>
         {reports.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-400">
+          <div className="rounded-2xl border border-dashed border-stone-300 p-8 text-center text-sm text-stone-400">
             No pending reports. 🎉
           </div>
         ) : (
@@ -193,18 +193,18 @@ export default async function ManagerCommunityPage({ params }: Props) {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">
+                    <p className="text-sm font-semibold text-stone-900">
                       Reported in{" "}
                       <span className="text-amber-700">
                         {r.message.conversation.title ?? r.message.conversation.channelType}
                       </span>
                     </p>
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-stone-600">
                       By @{r.message.sender.username}: &quot;
                       {r.message.content?.slice(0, 100)}
                       {(r.message.content?.length ?? 0) > 100 ? "…" : ""}&quot;
                     </p>
-                    <p className="mt-2 text-xs text-slate-400">
+                    <p className="mt-2 text-xs text-stone-400">
                       Reason: <span className="font-medium text-rose-600">{r.reason}</span>{" "}
                       · Reported by @{r.reporter.username} ·{" "}
                       {r.createdAt.toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
