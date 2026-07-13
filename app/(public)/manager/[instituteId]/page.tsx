@@ -12,6 +12,7 @@ import {
     ArrowRight,
     Sparkles
 } from "lucide-react";
+import { InstituteQRCode } from "@/components/manager/InstituteQRCode";
 import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Manager Control Panel | AcademyFind",
@@ -168,7 +169,7 @@ export default async function InstituteDashboardOverview({
             </div>
 
             {/* Action Cards / Next Steps */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
                 {/* Profile Completion Prompt */}
                 <Card className="rounded-2xl border-slate-100 p-6 flex flex-col justify-between space-y-4 shadow-sm bg-slate-50/50">
                     <div className="space-y-2">
@@ -224,6 +225,8 @@ export default async function InstituteDashboardOverview({
                         </Button>
                     </Card>
                 )}
+                
+                <InstituteQRCode slug={institute.slug} />
             </div>
         </div>
     );

@@ -6,8 +6,6 @@ import { ArrowLeft, BarChart2, BarChart3, CreditCard, LayoutDashboardIcon, Messa
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
 
 export const metadata: Metadata = {
     title: "Manager Control Panel | AcademyFind",
@@ -29,8 +27,18 @@ export default async function ManagerDashBoardLayout({
     })
 
     if (!session) {
-        toast.error("You are not logged In")
-        redirect('/login')
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+                <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                </div>
+                <h1 className="text-3xl font-bold text-slate-800 mb-2">Oops! You are not logged in.</h1>
+                <p className="text-slate-500 mb-8 max-w-md">You need to log in with an authorized manager account to access this dashboard.</p>
+                <Link href="/login" className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-medium transition-colors">
+                    Log In Now
+                </Link>
+            </div>
+        )
     }
 
     const isAuthorized = await prisma.instituteManager.findUnique({
@@ -44,7 +52,16 @@ export default async function ManagerDashBoardLayout({
 
     if (session.user.role !== "ADMIN" && !isAuthorized) {
         return (
-            <div className="p-12 text-center text-red-500 font-bold text-xl">Unauthorized Access!</div>
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+                <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
+                </div>
+                <h1 className="text-3xl font-bold text-slate-800 mb-2">Access Denied</h1>
+                <p className="text-slate-500 mb-8 max-w-md">You do not have manager permissions for this institute. Please contact the administrator if you believe this is a mistake.</p>
+                <Link href="/" className="bg-slate-800 hover:bg-slate-900 text-white px-6 py-3 rounded-xl font-medium transition-colors">
+                    Return Home
+                </Link>
+            </div>
         )
     }
 
