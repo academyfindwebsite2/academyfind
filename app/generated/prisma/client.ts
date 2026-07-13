@@ -441,3 +441,23 @@ export type BlogBrand = Prisma.BlogBrandModel
  * 
  */
 export type CRMIntegration = Prisma.CRMIntegrationModel
+/**
+ * Model UserEducation
+ * 
+ */
+export type UserEducation = Prisma.UserEducationModel
+/**
+ * Model UserExperience
+ * 
+ */
+export type UserExperience = Prisma.UserExperienceModel
+/**
+ * Model UserAchievement
+ * 
+ */
+export type UserAchievement = Prisma.UserAchievementModel
+/**
+ * Model UserSkill
+ * 
+ */
+export type UserSkill = Prisma.UserSkillModel

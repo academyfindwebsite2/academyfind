@@ -31,8 +31,9 @@ import {
 
 import type { CompletePublicProfile } from "@/lib/profile/queries";
 import { MembershipCard } from "@/app/(public)/u/[username]/components/MembershipCard";
+import { PortfolioTab } from "@/app/(public)/u/[username]/components/PortfolioSection";
 
-type Tab = "Dashboard" | "Overview" | "Student" | "Teacher" | "Blogs" | "Reviews" | "Activity";
+type Tab = "Dashboard" | "Overview" | "Portfolio" | "Student" | "Teacher" | "Blogs" | "Reviews" | "Activity";
 
 export function ProfileTabs({
   profile,
@@ -44,8 +45,8 @@ export function ProfileTabs({
   privateData?: any;
 }) {
   const TABS: Tab[] = isOwnProfile 
-    ? ["Dashboard", "Overview", "Student", "Teacher", "Blogs", "Reviews", "Activity"] 
-    : ["Overview", "Student", "Teacher", "Blogs", "Reviews", "Activity"];
+    ? ["Dashboard", "Overview", "Portfolio", "Student", "Teacher", "Blogs", "Reviews", "Activity"] 
+    : ["Overview", "Portfolio", "Student", "Teacher", "Blogs", "Reviews", "Activity"];
 
   const [active, setActive] = useState<Tab>(isOwnProfile ? "Dashboard" : "Overview");
 
@@ -71,6 +72,7 @@ export function ProfileTabs({
 
       {active === "Dashboard" && isOwnProfile && <DashboardTab privateData={privateData} />}
       {active === "Overview" && <OverviewTab profile={profile} />}
+      {active === "Portfolio" && <PortfolioTab profile={profile} isOwnProfile={isOwnProfile} />}
       {active === "Student" && <StudentTab profile={profile} isOwnProfile={isOwnProfile} />}
       {active === "Teacher" && <TeacherTab profile={profile} isOwnProfile={isOwnProfile} />}
       {active === "Blogs" && <BlogsTab profile={profile} isOwnProfile={isOwnProfile} />}

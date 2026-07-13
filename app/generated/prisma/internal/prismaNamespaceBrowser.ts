@@ -130,7 +130,11 @@ export const ModelName = {
   BlogReaction: 'BlogReaction',
   BlogFAQ: 'BlogFAQ',
   BlogBrand: 'BlogBrand',
-  CRMIntegration: 'CRMIntegration'
+  CRMIntegration: 'CRMIntegration',
+  UserEducation: 'UserEducation',
+  UserExperience: 'UserExperience',
+  UserAchievement: 'UserAchievement',
+  UserSkill: 'UserSkill'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1447,6 +1451,63 @@ export const CRMIntegrationScalarFieldEnum = {
 } as const
 
 export type CRMIntegrationScalarFieldEnum = (typeof CRMIntegrationScalarFieldEnum)[keyof typeof CRMIntegrationScalarFieldEnum]
+
+
+export const UserEducationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  institutionName: 'institutionName',
+  courseOrClass: 'courseOrClass',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  score: 'score',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserEducationScalarFieldEnum = (typeof UserEducationScalarFieldEnum)[keyof typeof UserEducationScalarFieldEnum]
+
+
+export const UserExperienceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  company: 'company',
+  role: 'role',
+  description: 'description',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isCurrent: 'isCurrent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserExperienceScalarFieldEnum = (typeof UserExperienceScalarFieldEnum)[keyof typeof UserExperienceScalarFieldEnum]
+
+
+export const UserAchievementScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserAchievementScalarFieldEnum = (typeof UserAchievementScalarFieldEnum)[keyof typeof UserAchievementScalarFieldEnum]
+
+
+export const UserSkillScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  level: 'level',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserSkillScalarFieldEnum = (typeof UserSkillScalarFieldEnum)[keyof typeof UserSkillScalarFieldEnum]
 
 
 export const SortOrder = {

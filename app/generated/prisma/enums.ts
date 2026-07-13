@@ -347,3 +347,21 @@ export const CRMProvider = {
 } as const
 
 export type CRMProvider = (typeof CRMProvider)[keyof typeof CRMProvider]
+
+
+export const EducationType = {
+  SCHOOL: 'SCHOOL',
+  COLLEGE: 'COLLEGE'
+} as const
+
+export type EducationType = (typeof EducationType)[keyof typeof EducationType]
+
+
+export const SkillLevel = {
+  BEGINNER: 'BEGINNER',
+  INTERMEDIATE: 'INTERMEDIATE',
+  PRO: 'PRO',
+  EXPERT: 'EXPERT'
+} as const
+
+export type SkillLevel = (typeof SkillLevel)[keyof typeof SkillLevel]

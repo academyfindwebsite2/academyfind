@@ -463,7 +463,11 @@ export const ModelName = {
   BlogReaction: 'BlogReaction',
   BlogFAQ: 'BlogFAQ',
   BlogBrand: 'BlogBrand',
-  CRMIntegration: 'CRMIntegration'
+  CRMIntegration: 'CRMIntegration',
+  UserEducation: 'UserEducation',
+  UserExperience: 'UserExperience',
+  UserAchievement: 'UserAchievement',
+  UserSkill: 'UserSkill'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -479,7 +483,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userWallet" | "walletTransaction" | "userReputation" | "userPreference" | "userPreferredCategory" | "userPreferenceCity" | "reputationLog" | "session" | "account" | "verification" | "institute" | "city" | "category" | "categoryCityContent" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "studentProfile" | "instituteMembership" | "studentInstituteRecord" | "teacherInstituteRecord" | "conversation" | "conversationParticipant" | "message" | "messageAttachment" | "messageReaction" | "messageRead" | "messageReport" | "chatSettings" | "userNotification" | "userBlock" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume" | "instituteDailyView" | "instituteFacility" | "instituteBatch" | "batchStudent" | "batchTeacher" | "instituteHighlightStat" | "instituteAchievement" | "instituteFAQ" | "instituteOperatingHour" | "userCompareList" | "compareListInstitute" | "communityQuestion" | "communityAnswer" | "notablePersons" | "instituteComparisonCache" | "leadDistributionLog" | "blogAuthorProfile" | "blogCategory" | "blogTag" | "blogPost" | "blogSlugHistory" | "blogRevision" | "blogView" | "blogBookmark" | "blogAuthorFollower" | "blogSubscriber" | "blogReport" | "blogPostTag" | "blogComment" | "blogReaction" | "blogFAQ" | "blogBrand" | "cRMIntegration"
+    modelProps: "user" | "userWallet" | "walletTransaction" | "userReputation" | "userPreference" | "userPreferredCategory" | "userPreferenceCity" | "reputationLog" | "session" | "account" | "verification" | "institute" | "city" | "category" | "categoryCityContent" | "instituteCategory" | "instituteManager" | "review" | "instituteClaim" | "userShortlist" | "userHistory" | "instituteEnquiry" | "teacherProfile" | "studentProfile" | "instituteMembership" | "studentInstituteRecord" | "teacherInstituteRecord" | "conversation" | "conversationParticipant" | "message" | "messageAttachment" | "messageReaction" | "messageRead" | "messageReport" | "chatSettings" | "userNotification" | "userBlock" | "contactMessage" | "instituteRequest" | "subscriptionPayment" | "salesAssignment" | "salesCategoryAssignment" | "lifeCoachRequest" | "adminNotification" | "jobPosting" | "jobApplication" | "generalResume" | "instituteDailyView" | "instituteFacility" | "instituteBatch" | "batchStudent" | "batchTeacher" | "instituteHighlightStat" | "instituteAchievement" | "instituteFAQ" | "instituteOperatingHour" | "userCompareList" | "compareListInstitute" | "communityQuestion" | "communityAnswer" | "notablePersons" | "instituteComparisonCache" | "leadDistributionLog" | "blogAuthorProfile" | "blogCategory" | "blogTag" | "blogPost" | "blogSlugHistory" | "blogRevision" | "blogView" | "blogBookmark" | "blogAuthorFollower" | "blogSubscriber" | "blogReport" | "blogPostTag" | "blogComment" | "blogReaction" | "blogFAQ" | "blogBrand" | "cRMIntegration" | "userEducation" | "userExperience" | "userAchievement" | "userSkill"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -6403,6 +6407,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UserEducation: {
+      payload: Prisma.$UserEducationPayload<ExtArgs>
+      fields: Prisma.UserEducationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserEducationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserEducationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>
+        }
+        findFirst: {
+          args: Prisma.UserEducationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserEducationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>
+        }
+        findMany: {
+          args: Prisma.UserEducationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>[]
+        }
+        create: {
+          args: Prisma.UserEducationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>
+        }
+        createMany: {
+          args: Prisma.UserEducationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserEducationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>[]
+        }
+        delete: {
+          args: Prisma.UserEducationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>
+        }
+        update: {
+          args: Prisma.UserEducationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserEducationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserEducationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserEducationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserEducationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserEducationPayload>
+        }
+        aggregate: {
+          args: Prisma.UserEducationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserEducation>
+        }
+        groupBy: {
+          args: Prisma.UserEducationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserEducationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserEducationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserEducationCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserExperience: {
+      payload: Prisma.$UserExperiencePayload<ExtArgs>
+      fields: Prisma.UserExperienceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserExperienceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserExperienceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>
+        }
+        findFirst: {
+          args: Prisma.UserExperienceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserExperienceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>
+        }
+        findMany: {
+          args: Prisma.UserExperienceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>[]
+        }
+        create: {
+          args: Prisma.UserExperienceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>
+        }
+        createMany: {
+          args: Prisma.UserExperienceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserExperienceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>[]
+        }
+        delete: {
+          args: Prisma.UserExperienceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>
+        }
+        update: {
+          args: Prisma.UserExperienceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>
+        }
+        deleteMany: {
+          args: Prisma.UserExperienceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserExperienceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserExperienceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>[]
+        }
+        upsert: {
+          args: Prisma.UserExperienceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserExperiencePayload>
+        }
+        aggregate: {
+          args: Prisma.UserExperienceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserExperience>
+        }
+        groupBy: {
+          args: Prisma.UserExperienceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserExperienceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserExperienceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserExperienceCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserAchievement: {
+      payload: Prisma.$UserAchievementPayload<ExtArgs>
+      fields: Prisma.UserAchievementFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserAchievementFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserAchievementFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+        }
+        findFirst: {
+          args: Prisma.UserAchievementFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserAchievementFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+        }
+        findMany: {
+          args: Prisma.UserAchievementFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>[]
+        }
+        create: {
+          args: Prisma.UserAchievementCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+        }
+        createMany: {
+          args: Prisma.UserAchievementCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserAchievementCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>[]
+        }
+        delete: {
+          args: Prisma.UserAchievementDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+        }
+        update: {
+          args: Prisma.UserAchievementUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserAchievementDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserAchievementUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserAchievementUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserAchievementUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAchievementPayload>
+        }
+        aggregate: {
+          args: Prisma.UserAchievementAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserAchievement>
+        }
+        groupBy: {
+          args: Prisma.UserAchievementGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserAchievementGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserAchievementCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserAchievementCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserSkill: {
+      payload: Prisma.$UserSkillPayload<ExtArgs>
+      fields: Prisma.UserSkillFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserSkillFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserSkillFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>
+        }
+        findFirst: {
+          args: Prisma.UserSkillFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserSkillFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>
+        }
+        findMany: {
+          args: Prisma.UserSkillFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>[]
+        }
+        create: {
+          args: Prisma.UserSkillCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>
+        }
+        createMany: {
+          args: Prisma.UserSkillCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserSkillCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>[]
+        }
+        delete: {
+          args: Prisma.UserSkillDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>
+        }
+        update: {
+          args: Prisma.UserSkillUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserSkillDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserSkillUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserSkillUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserSkillUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSkillPayload>
+        }
+        aggregate: {
+          args: Prisma.UserSkillAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserSkill>
+        }
+        groupBy: {
+          args: Prisma.UserSkillGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserSkillGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserSkillCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserSkillCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -7742,6 +8042,63 @@ export const CRMIntegrationScalarFieldEnum = {
 export type CRMIntegrationScalarFieldEnum = (typeof CRMIntegrationScalarFieldEnum)[keyof typeof CRMIntegrationScalarFieldEnum]
 
 
+export const UserEducationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  institutionName: 'institutionName',
+  courseOrClass: 'courseOrClass',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  score: 'score',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserEducationScalarFieldEnum = (typeof UserEducationScalarFieldEnum)[keyof typeof UserEducationScalarFieldEnum]
+
+
+export const UserExperienceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  company: 'company',
+  role: 'role',
+  description: 'description',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isCurrent: 'isCurrent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserExperienceScalarFieldEnum = (typeof UserExperienceScalarFieldEnum)[keyof typeof UserExperienceScalarFieldEnum]
+
+
+export const UserAchievementScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserAchievementScalarFieldEnum = (typeof UserAchievementScalarFieldEnum)[keyof typeof UserAchievementScalarFieldEnum]
+
+
+export const UserSkillScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  level: 'level',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserSkillScalarFieldEnum = (typeof UserSkillScalarFieldEnum)[keyof typeof UserSkillScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -8285,6 +8642,34 @@ export type EnumCRMProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
 export type ListEnumCRMProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CRMProvider[]'>
     
 
+
+/**
+ * Reference to a field of type 'EducationType'
+ */
+export type EnumEducationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EducationType'>
+    
+
+
+/**
+ * Reference to a field of type 'EducationType[]'
+ */
+export type ListEnumEducationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EducationType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SkillLevel'
+ */
+export type EnumSkillLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SkillLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'SkillLevel[]'
+ */
+export type ListEnumSkillLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SkillLevel[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -8475,6 +8860,10 @@ export type GlobalOmitConfig = {
   blogFAQ?: Prisma.BlogFAQOmit
   blogBrand?: Prisma.BlogBrandOmit
   cRMIntegration?: Prisma.CRMIntegrationOmit
+  userEducation?: Prisma.UserEducationOmit
+  userExperience?: Prisma.UserExperienceOmit
+  userAchievement?: Prisma.UserAchievementOmit
+  userSkill?: Prisma.UserSkillOmit
 }
 
 /* Types for Logging */

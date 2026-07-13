@@ -58,6 +58,10 @@ export const getPublicProfile = cache(async (username: string) =>
       _count: {
         select: { reviews: true, memberships: true, publishedPosts: true },
       },
+      educations: { orderBy: { startDate: 'desc' } },
+      experiences: { orderBy: { startDate: 'desc' } },
+      achievements: { orderBy: { date: 'desc' } },
+      skills: true,
     },
   }),
 );

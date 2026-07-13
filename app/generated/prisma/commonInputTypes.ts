@@ -824,6 +824,40 @@ export type EnumCRMProviderWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel>
 }
 
+export type EnumEducationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.EducationType | Prisma.EnumEducationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.EducationType[] | Prisma.ListEnumEducationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EducationType[] | Prisma.ListEnumEducationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEducationTypeFilter<$PrismaModel> | $Enums.EducationType
+}
+
+export type EnumEducationTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EducationType | Prisma.EnumEducationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.EducationType[] | Prisma.ListEnumEducationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EducationType[] | Prisma.ListEnumEducationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEducationTypeWithAggregatesFilter<$PrismaModel> | $Enums.EducationType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEducationTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEducationTypeFilter<$PrismaModel>
+}
+
+export type EnumSkillLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.SkillLevel | Prisma.EnumSkillLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.SkillLevel[] | Prisma.ListEnumSkillLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SkillLevel[] | Prisma.ListEnumSkillLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSkillLevelFilter<$PrismaModel> | $Enums.SkillLevel
+}
+
+export type EnumSkillLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SkillLevel | Prisma.EnumSkillLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.SkillLevel[] | Prisma.ListEnumSkillLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SkillLevel[] | Prisma.ListEnumSkillLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSkillLevelWithAggregatesFilter<$PrismaModel> | $Enums.SkillLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSkillLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSkillLevelFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1607,6 +1641,40 @@ export type NestedEnumCRMProviderWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCRMProviderFilter<$PrismaModel>
+}
+
+export type NestedEnumEducationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.EducationType | Prisma.EnumEducationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.EducationType[] | Prisma.ListEnumEducationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EducationType[] | Prisma.ListEnumEducationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEducationTypeFilter<$PrismaModel> | $Enums.EducationType
+}
+
+export type NestedEnumEducationTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EducationType | Prisma.EnumEducationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.EducationType[] | Prisma.ListEnumEducationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EducationType[] | Prisma.ListEnumEducationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEducationTypeWithAggregatesFilter<$PrismaModel> | $Enums.EducationType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEducationTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEducationTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumSkillLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.SkillLevel | Prisma.EnumSkillLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.SkillLevel[] | Prisma.ListEnumSkillLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SkillLevel[] | Prisma.ListEnumSkillLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSkillLevelFilter<$PrismaModel> | $Enums.SkillLevel
+}
+
+export type NestedEnumSkillLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SkillLevel | Prisma.EnumSkillLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.SkillLevel[] | Prisma.ListEnumSkillLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SkillLevel[] | Prisma.ListEnumSkillLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSkillLevelWithAggregatesFilter<$PrismaModel> | $Enums.SkillLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSkillLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSkillLevelFilter<$PrismaModel>
 }
 
 
