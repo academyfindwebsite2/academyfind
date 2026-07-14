@@ -1301,7 +1301,7 @@ export default async function InstitutePage({ params }: PageProps) {
             )}
           </div>
           <div className="mt-8">
-            <ReviewForm instituteId={institute.id} />
+            <ReviewForm instituteId={institute.id} isLoggedIn={!!userId} />
           </div>
         </section>
 

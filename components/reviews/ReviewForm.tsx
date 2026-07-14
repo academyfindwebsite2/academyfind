@@ -4,11 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, AlertTriangle } from "lucide-react";
 
+import Link from "next/link";
+
 interface Props {
   instituteId: string;
+  isLoggedIn?: boolean;
 }
 
-export default function ReviewForm({ instituteId }: Props) {
+export default function ReviewForm({ instituteId, isLoggedIn = true }: Props) {
   const router = useRouter();
   
   const [rating, setRating] = useState(5);
@@ -70,10 +73,27 @@ export default function ReviewForm({ instituteId }: Props) {
         Write a Review
       </h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="mt-6 rounded-3xl border border-slate-100 bg-white p-6 sm:p-8 shadow-sm"
-      >
+      {!isLoggedIn ? (
+        <div className="mt-6 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm flex flex-col items-center justify-center">
+          <div className="bg-amber-100 p-4 rounded-full mb-4">
+            <AlertTriangle className="w-8 h-8 text-amber-600" />
+          </div>
+          <h3 className="text-xl font-bold text-slate-900 mb-2">Login Required</h3>
+          <p className="text-slate-600 mb-6 max-w-md">
+            You need to be logged in to share your experience and write a review for this institute.
+          </p>
+          <Link 
+            href="/login" 
+            className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-sm"
+          >
+            Login to Review
+          </Link>
+        </div>
+      ) : (
+        <form
+          onSubmit={handleSubmit}
+          className="mt-6 rounded-3xl border border-slate-100 bg-white p-6 sm:p-8 shadow-sm"
+        >
         {successMsg && (
           <div className="mb-6 flex items-start gap-3 rounded-2xl bg-emerald-50 p-4 text-emerald-700 border border-emerald-100">
             <CheckCircle2 size={20} className="mt-0.5 shrink-0" />
@@ -127,6 +147,7 @@ export default function ReviewForm({ instituteId }: Props) {
           {loading ? "Submitting..." : successMsg ? "Submitted" : "Submit Review"}
         </button>
       </form>
+      )}
     </section>
   );
 }
