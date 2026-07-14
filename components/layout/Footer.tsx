@@ -231,7 +231,9 @@ export function Footer() {
             "
           >
             <p>
-              © 2026 AcademyFind. All rights reserved.
+              <Link href="/directory" className="text-muted-foreground hover:text-muted-foreground/80 transition-colors" title="Institute Directory">
+                © 2026 AcademyFind. All rights reserved.
+              </Link>
             </p>
 
             <div

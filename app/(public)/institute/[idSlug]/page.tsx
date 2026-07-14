@@ -594,10 +594,24 @@ export default async function InstitutePage({ params }: PageProps) {
         teacherMembershipId={teacherMembership?.id ?? null}
       />
 
+      {/* ── STICKY TABLE OF CONTENTS (SITELINKS SEO) ── */}
+      <div className="sticky top-[72px] z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/60 shadow-sm hidden md:block">
+        <div className="mx-auto max-w-7xl px-4 overflow-x-auto no-scrollbar py-3">
+          <ul className="flex items-center space-x-8 text-sm font-bold text-slate-600 whitespace-nowrap">
+            <li><a href="#overview" className="hover:text-amber-600 transition-colors">Overview</a></li>
+            <li><a href="#courses" className="hover:text-amber-600 transition-colors">Courses & Fees</a></li>
+            <li><a href="#community" className="hover:text-amber-600 transition-colors">Community</a></li>
+            <li><a href="#gallery" className="hover:text-amber-600 transition-colors">Gallery</a></li>
+            <li><a href="#faqs" className="hover:text-amber-600 transition-colors">FAQs</a></li>
+            <li><a href="#reviews" className="hover:text-amber-600 transition-colors">Reviews</a></li>
+          </ul>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-7xl px-4 py-12 space-y-16 relative z-10">
 
         {/* 🚀 QUICK FACTS & STATS */}
-        <section>
+        <section id="overview" className="scroll-mt-32">
           <div className="grid gap-5 grid-cols-2 lg:grid-cols-4">
             <div className="rounded-3xl border bg-white p-5 shadow-sm flex flex-col justify-center items-center text-center">
               <Calendar className="w-6 h-6 text-amber-500 mb-2" />
@@ -666,7 +680,7 @@ export default async function InstitutePage({ params }: PageProps) {
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-indigo-100 text-indigo-600 rounded-xl"><BookOpen className="w-6 h-6" /></div>
               <div>
-                <h2 className="text-3xl font-bold text-slate-900">Courses & Batches</h2>
+                <h2 id="courses" className="scroll-mt-32 text-3xl font-bold text-slate-900">Courses & Batches</h2>
                 <p className="text-slate-500 text-sm mt-1">Explore available programs and fee structures.</p>
               </div>
             </div>
@@ -745,7 +759,7 @@ export default async function InstitutePage({ params }: PageProps) {
           <div className="flex items-center gap-3 mb-6">
             <div className="p-3 bg-emerald-100 text-emerald-600 rounded-xl"><Users className="w-6 h-6" /></div>
             <div>
-              <h2 className="text-3xl font-bold text-slate-900">Community</h2>
+              <h2 id="community" className="scroll-mt-32 text-3xl font-bold text-slate-900">Community</h2>
               <p className="text-slate-500 text-sm mt-1">Connect with students and faculty.</p>
             </div>
           </div>
@@ -975,7 +989,7 @@ export default async function InstitutePage({ params }: PageProps) {
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-amber-100 text-amber-600 rounded-xl"><Trophy className="w-6 h-6" /></div>
               <div>
-                <h2 className="text-3xl font-bold text-slate-900">Gallery</h2>
+                <h2 id="gallery" className="scroll-mt-32 text-3xl font-bold text-slate-900">Gallery</h2>
                 <p className="text-slate-500 text-sm mt-1">Glimpses of events, results, and milestones.</p>
               </div>
             </div>
@@ -1060,7 +1074,7 @@ export default async function InstitutePage({ params }: PageProps) {
           <section className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
             <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4">
               <HelpCircle className="w-6 h-6 text-slate-700" />
-              <h2 className="text-2xl font-bold text-slate-900">Frequently Asked Questions</h2>
+              <h2 id="faqs" className="scroll-mt-32 text-2xl font-bold text-slate-900">Frequently Asked Questions</h2>
             </div>
 
             {/* 🔥 FIX: Yahan relative div lagaya hai heading ke neeche, with min-h */}
@@ -1269,7 +1283,7 @@ export default async function InstitutePage({ params }: PageProps) {
 
         {/* Reviews Section */}
         <section>
-          <h2 className="text-3xl font-bold text-slate-900">AcademyFind Reviews</h2>
+          <h2 id="reviews" className="scroll-mt-32 text-3xl font-bold text-slate-900">AcademyFind Reviews</h2>
           <p className="mt-2 text-slate-600">Share your personal experience with this institute.</p>
           <div className="mt-6 space-y-4">
             {institute.reviews.length === 0 ? (
