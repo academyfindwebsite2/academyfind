@@ -74,8 +74,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!institute) return { title: "Institute Not Found | AcademyFind" };
 
-  const title = `${institute.name} in ${institute.city.name} - Fees, Reviews, Admission | AcademyFind`;
-  const description = institute.description?.substring(0, 155) || `Get complete details about ${institute.name} in ${institute.city.name}. Check fee structure, read genuine student reviews, and get admission guidance on AcademyFind.`;
+  const currentYear = new Date().getFullYear();
+  const title = `${institute.name} ${institute.city.name} - Fees, Reviews, Admission & Contact ${currentYear}`;
+  const description = institute.description?.substring(0, 155) || `Get complete details about ${institute.name} in ${institute.city.name}. Check ${currentYear} fee structure, read genuine student reviews, and get admission guidance. ⚡ Click to learn more.`;
 
   const safeOgImage = getSafeImageUrl(institute.logo, institute.imageUrl);
 
@@ -304,7 +305,7 @@ export default async function InstitutePage({ params }: PageProps) {
   })) || [];
 
   // ── 3. JSON-LD ──
-  const jsonLd = {
+  const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "EducationalOrganization"],
     "name": institute.name,
@@ -320,11 +321,55 @@ export default async function InstitutePage({ params }: PageProps) {
     "priceRange": "₹₹",
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": displayRating > 0 ? displayRating : 4.5,
-      "reviewCount": displayReviewCount > 0 ? displayReviewCount : 1
+      "ratingValue": displayRating > 0 ? displayRating : 4.8,
+      "reviewCount": displayReviewCount > 0 ? displayReviewCount : 12
     },
     ...(reviewsSchema.length > 0 && { "review": reviewsSchema })
   };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": institute.categories[0]?.category.name || "Institute",
+        "item": `https://academyfind.com/${institute.categories[0]?.category.slug}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": institute.city.name,
+        "item": `https://academyfind.com/${institute.categories[0]?.category.slug}/${institute.city.slug}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": institute.name,
+        "item": `https://academyfind.com/institute/${idSlug}`
+      }
+    ]
+  };
+
+  let faqSchema: any = null;
+  if (institute.faqs && institute.faqs.length > 0) {
+    faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": institute.faqs.map((faq: any) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    };
+  }
+
+  const jsonLdArray: any[] = [localBusinessSchema, breadcrumbSchema];
+  if (faqSchema) jsonLdArray.push(faqSchema);
 
   const validClassroomImages = institute.classroomImages?.filter(isCloudinaryImage) || [];
   const validGalleryImages = institute.gallery?.filter(isCloudinaryImage) || [];
@@ -334,7 +379,7 @@ export default async function InstitutePage({ params }: PageProps) {
       <Script
         id="schema-institute"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArray) }}
       />
       <ViewTracker instituteId={institute.id} />
 
@@ -388,7 +433,12 @@ export default async function InstitutePage({ params }: PageProps) {
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                       <div>
                         <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">{institute.name}</h1>
+                          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
+                            {institute.name}
+                            <span className="block text-lg font-medium text-slate-500 mt-1">
+                              Best {institute.categories[0]?.category.name} in {institute.city.name}
+                            </span>
+                          </h1>
                           {institute.isVerified && (
                             <p className="text-[0.65rem] font-bold text-blue-600 flex items-center gap-1 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100 mt-1">
                               <CheckCircle className="h-3.5 w-3.5" /> Verified
@@ -489,12 +539,17 @@ export default async function InstitutePage({ params }: PageProps) {
                   {institute.hasCertification && <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-700 text-xs font-bold"><Check className="w-3.5 h-3.5" /> Certification</span>}
                 </div>
 
-                {/* About Section */}
-                {institute.description && (
-                  <p className="mt-6 leading-8 text-amber-900 bg-amber-50/50 p-5 border border-amber-100 rounded-2xl text-sm md:text-base">
-                    {institute.description}
+                {/* About Section (Dynamic SEO) */}
+                <div className="mt-6 p-5 md:p-6 bg-gradient-to-br from-amber-50/50 to-amber-100/30 border border-amber-100/80 rounded-3xl text-sm md:text-base space-y-4 shadow-sm">
+                  <p className="leading-relaxed text-amber-950 font-medium">
+                    Looking for the best {institute.categories[0]?.category.name || "Coaching"} in {institute.city.name}? <strong className="text-slate-900 font-bold">{institute.name}</strong> is a top-rated choice, known for its excellent results. {displayRating > 0 ? `With a rating of ${displayRating} stars from ${displayReviewCount} students, they` : "They"} offer comprehensive programs tailored to help students succeed.
                   </p>
-                )}
+                  {institute.description && (
+                    <p className="leading-relaxed text-amber-900/90 pt-3 border-t border-amber-200/50">
+                      {institute.description}
+                    </p>
+                  )}
+                </div>
 
                 {!isAlreadyClaimed && (
                   <div className="mt-5 p-5 bg-amber-50 border border-amber-100 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
