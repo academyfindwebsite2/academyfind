@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Flame } from "lucide-react";
+import { Flame, PenLine } from "lucide-react";
 
 interface CategoryTabsProps {
   activeCategorySlug?: string;
@@ -60,6 +60,17 @@ export default function CategoryTabs({
             {category.name}
           </Link>
         ))}
+
+        <div className="mx-1 h-6 w-px bg-slate-200" />
+
+        <Link
+          href="/blog/write"
+          prefetch={false}
+          className="group flex items-center gap-1.5 whitespace-nowrap rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-amber-500 hover:shadow-md hover:shadow-amber-500/20"
+        >
+          <PenLine className="h-4 w-4" />
+          <span className="hidden sm:inline">Write</span>
+        </Link>
       </div>
     </div>
   );

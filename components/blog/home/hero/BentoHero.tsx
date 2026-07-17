@@ -51,6 +51,19 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
             <div className="mt-8 [&_.text-slate-500]:text-slate-500 [&_a]:bg-slate-100 [&_a]:text-slate-700 [&_a:hover]:bg-amber-100 [&_a:hover]:text-amber-700">
               <TrendingTopics />
             </div>
+
+            {/* Writer Call to Action */}
+            <div className="mt-8 flex items-center gap-3 border-t border-slate-100 pt-6">
+              <span className="text-sm text-slate-500">Interested in writing for us?</span>
+              <Link 
+                href="/blog/write" 
+                prefetch={false}
+                className="group flex items-center gap-1.5 text-sm font-semibold text-amber-600 transition-colors hover:text-amber-700"
+              >
+                Join the Creator Workspace
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
 
           {/* Main Featured Post - Spans 5 cols */}

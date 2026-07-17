@@ -141,7 +141,7 @@ export default function SearchHero({
   return (
     <section className="rounded-3xl border border-slate-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-8 shadow-sm md:p-12">
       <div className="mx-auto max-w-3xl text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
+        <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl font-serif">
           Search Blog
         </h1>
 
@@ -155,9 +155,9 @@ export default function SearchHero({
         >
           <form
             onSubmit={handleSubmit}
-            className="flex overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
+            className="flex overflow-hidden rounded-2xl border-2 border-amber-500/30 bg-white shadow-[0_8px_30px_rgb(245,158,11,0.15)] ring-4 ring-amber-500/10 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(245,158,11,0.2)] hover:border-amber-500/50 focus-within:border-amber-500 focus-within:ring-4 focus-within:ring-amber-500/20"
           >
-            <div className="flex items-center px-5 text-slate-400">
+            <div className="flex items-center px-5 text-slate-400 group-focus-within:text-amber-500">
               <Search className="h-5 w-5" />
             </div>
 
@@ -176,7 +176,7 @@ export default function SearchHero({
 
             <button
               type="submit"
-              className="bg-amber-500 px-8 font-semibold text-white transition hover:bg-amber-600"
+              className="bg-amber-400 px-8 font-semibold text-slate-900 transition hover:bg-amber-500"
             >
               Search
             </button>
