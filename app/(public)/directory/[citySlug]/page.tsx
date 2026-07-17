@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `Top Coaching Institutes & Tutors in ${city.name} - AcademyFind`,
     description: `Explore the complete directory of all top-rated coaching institutes, schools, and tutors in ${city.name}. Read reviews and find the best educational centers near you.`,
     robots: {
-      index: true,
+      index: false,
       follow: true,
     }
   };

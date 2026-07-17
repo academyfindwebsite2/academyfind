@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "AcademyFind Directory - All Coaching Institutes & Schools by City",
   description: "Explore the ultimate directory of all top-rated coaching institutes, schools, and tutors across India. Browse by city and find the best educational centers near you.",
   robots: {
-    index: true,
+    index: false,
     follow: true,
   }
 };
