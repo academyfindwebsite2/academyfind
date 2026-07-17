@@ -15,40 +15,40 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
   const [mainPost, sidePost1, sidePost2] = featuredPosts || [];
 
   return (
-    <section className="relative w-full overflow-hidden bg-slate-950 py-16 text-white sm:py-24">
+    <section className="relative w-full overflow-hidden bg-[#FAFAFA] py-16 sm:py-24">
       {/* Background Glows for Amber theme */}
       <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-amber-500/20 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] h-[400px] w-[400px] rounded-full bg-orange-600/20 blur-[100px]" />
+        <div className="absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-amber-200/40 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] h-[400px] w-[400px] rounded-full bg-rose-200/30 blur-[100px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-12 lg:grid-rows-[auto_auto] lg:gap-8">
 
           {/* Main Hero Copy - Spans 7 cols on Desktop */}
-          <div className="flex flex-col justify-center rounded-3xl bg-white/5 p-8 backdrop-blur-xl ring-1 ring-white/10 lg:col-span-7 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="inline-flex items-center gap-2 self-start rounded-full bg-amber-500/20 px-4 py-2 text-sm font-semibold text-amber-400 ring-1 ring-amber-500/30">
+          <div className="flex flex-col justify-center rounded-3xl bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 lg:col-span-7 lg:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="inline-flex items-center gap-2 self-start rounded-full bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700 ring-1 ring-amber-200/50">
               <Sparkles className="h-4 w-4" />
               The AcademyFind Blog
             </div>
-            <h1 className="mt-8 text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-8 text-5xl font-black tracking-tight text-slate-900 sm:text-6xl lg:text-7xl font-serif">
               Fuel your <br />
-              <span className="bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-600 to-amber-500 bg-clip-text text-transparent">
                 Curiosity.
               </span>
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-slate-300">
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-slate-600">
               Discover the absolute best coaching reviews, expert preparation strategies, and deep dives into the Indian education system.
             </p>
 
             <div className="mt-10">
               {/* Inherits search bar but we wrap it to restrict width if needed */}
-              <div className="[&>form]:mx-0 [&>form]:max-w-xl [&_input]:text-white [&_input]:placeholder-slate-400 [&_.group]:bg-slate-900/50 [&_.group]:ring-1 [&_.group]:ring-white/10 [&_.group]:backdrop-blur-md">
+              <div className="[&>form]:mx-0 [&>form]:max-w-xl">
                 <SearchBar />
               </div>
             </div>
 
-            <div className="mt-8 [&_.text-slate-500]:text-slate-400 [&_a]:bg-white/10 [&_a]:text-slate-300 [&_a:hover]:bg-amber-500/20 [&_a:hover]:text-amber-300">
+            <div className="mt-8 [&_.text-slate-500]:text-slate-500 [&_a]:bg-slate-100 [&_a]:text-slate-700 [&_a:hover]:bg-amber-100 [&_a:hover]:text-amber-700">
               <TrendingTopics />
             </div>
           </div>
@@ -58,7 +58,7 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
             <Link
               href={`/blog/${mainPost.slug}`}
               prefetch={false}
-              className="group relative flex min-h-[400px] flex-col justify-end overflow-hidden rounded-3xl ring-1 ring-white/10 lg:col-span-5 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150"
+              className="group relative flex min-h-[400px] flex-col justify-end overflow-hidden rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 lg:col-span-5 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150"
             >
               <Image
                 src={mainPost.coverImage || DEFAULT_IMAGE}
@@ -86,7 +86,7 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
               </div>
             </Link>
           ) : (
-            <div className="hidden lg:col-span-5 lg:block rounded-3xl bg-white/5 ring-1 ring-white/10" />
+            <div className="hidden lg:col-span-5 lg:block rounded-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100" />
           )}
 
           {/* Secondary Featured Post 1 - Spans 6 cols */}
@@ -94,7 +94,7 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
             <Link
               href={`/blog/${sidePost1.slug}`}
               prefetch={false}
-              className="group relative flex min-h-[250px] flex-col justify-end overflow-hidden rounded-3xl ring-1 ring-white/10 lg:col-span-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300"
+              className="group relative flex min-h-[250px] flex-col justify-end overflow-hidden rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 lg:col-span-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300"
             >
               <Image
                 src={sidePost1.coverImage || DEFAULT_IMAGE}
@@ -127,7 +127,7 @@ export default function BentoHero({ featuredPosts }: { featuredPosts: any[] }) {
             <Link
               href={`/blog/${sidePost2.slug}`}
               prefetch={false}
-              className="group relative flex min-h-[250px] flex-col justify-end overflow-hidden rounded-3xl ring-1 ring-white/10 lg:col-span-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500"
+              className="group relative flex min-h-[250px] flex-col justify-end overflow-hidden rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 lg:col-span-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500"
             >
               <Image
                 src={sidePost2.coverImage || DEFAULT_IMAGE}

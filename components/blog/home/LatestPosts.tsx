@@ -19,7 +19,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
   };
 
   return (
-    <section className="bg-white py-24 relative overflow-hidden">
+    <section className="bg-[#FAFAFA] py-24 relative overflow-hidden">
       {/* Decorative Blur */}
       <div className="pointer-events-none absolute left-0 top-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-amber-100/50 blur-[120px]" />
 
@@ -27,8 +27,8 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
         {/* Header */}
         <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h2 className="text-4xl font-black tracking-tight text-slate-900 md:text-5xl lg:text-6xl">
-              Fresh <span className="text-amber-500">Insights.</span>
+            <h2 className="text-4xl font-black tracking-tight text-slate-900 md:text-5xl lg:text-6xl font-serif">
+              Fresh <span className="text-amber-600">Insights.</span>
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-slate-600 font-medium">
               Stay updated with coaching reviews, admission news,
@@ -40,7 +40,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
           <Link
             href="/blog/search"
             prefetch={false}
-            className="group inline-flex items-center gap-3 self-start rounded-full bg-slate-950 px-6 py-3 font-semibold text-white transition-all hover:bg-amber-500 hover:shadow-xl hover:shadow-amber-500/20 md:self-auto"
+            className="group inline-flex items-center gap-3 self-start rounded-full bg-slate-900 px-6 py-3 font-semibold text-white transition-all hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-200 md:self-auto"
           >
             Explore All
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -78,7 +78,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
                     key={post.id}
                     href={`/blog/${post.slug}`}
                     prefetch={false}
-                    className={`group relative flex overflow-hidden rounded-[2.5rem] bg-slate-50 border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(245,158,11,0.15)] ${spanClasses}`}
+                    className={`group relative flex overflow-hidden rounded-[2rem] bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] ${spanClasses}`}
                     style={{ animationDelay: `${i * 100}ms` }}
                   >
                     {/* Image */}
@@ -111,7 +111,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
                           </div>
                         </div>
 
-                        <h3 className={`mt-6 font-black leading-tight text-slate-900 transition-colors group-hover:text-amber-500 ${isLarge ? 'text-3xl lg:text-4xl line-clamp-3' : 'text-2xl line-clamp-3'}`}>
+                        <h3 className={`mt-6 font-bold leading-tight text-slate-900 font-serif transition-colors group-hover:text-amber-600 ${isLarge ? 'text-3xl lg:text-4xl line-clamp-3' : 'text-2xl line-clamp-3'}`}>
                           {post.title}
                         </h3>
 
@@ -124,7 +124,7 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
                         <span className="text-sm font-bold text-slate-800">
                           By {post.authorProfile?.displayName || "AcademyFind"}
                         </span>
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-50 text-amber-600 transition-transform group-hover:bg-amber-400 group-hover:text-white group-hover:rotate-[-45deg]">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 text-slate-400 transition-all group-hover:bg-amber-50 group-hover:text-amber-600 group-hover:translate-x-1">
                           <ArrowRight className="h-5 w-5" />
                         </div>
                       </div>
