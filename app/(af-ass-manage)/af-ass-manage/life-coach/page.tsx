@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { Eye, Phone, Mail, Clock, ShieldAlert, Filter } from "lucide-react";
 import { LifeCoachRequestStatus } from "@/app/generated/prisma/enums";
+import { formatIST } from "@/lib/utils";
 
 export default async function AdminLifeCoachLeadsPage({
   searchParams
@@ -97,9 +98,12 @@ export default async function AdminLifeCoachLeadsPage({
                       {req.email && <div className="flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-slate-400" /> {req.email}</div>}
                     </td>
                     <td className="p-4 text-sm text-slate-500">
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" />
-                        {new Date(req.createdAt).toLocaleDateString()}
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-1.5 font-medium">
+                          <Clock className="w-3.5 h-3.5" />
+                          {formatIST(req.createdAt, "dd MMM yyyy")}
+                        </div>
+                        <span className="text-xs text-slate-400 mt-1 pl-5">{formatIST(req.createdAt, "hh:mm a")}</span>
                       </div>
                     </td>
                     <td className="p-4">

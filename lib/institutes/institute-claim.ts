@@ -24,7 +24,7 @@ export async function submitClaimRequest(formData: FormData) {
 
     const [user, institute, existingManager] = await Promise.all([
       prisma.user.findUnique({ where: { id: userId }, select: { id: true } }),
-      prisma.institute.findUnique({ where: { id: instituteId }, select: { id: true } }),
+      prisma.institute.findUnique({ where: { id: instituteId }, select: { id: true, name: true } }),
       prisma.instituteManager.findFirst({ where: { instituteId } }),
     ]);
 
@@ -54,7 +54,7 @@ export async function submitClaimRequest(formData: FormData) {
     }
 
     // Database me nayi claim request save karna
-    await prisma.instituteClaim.create({
+    const claim = await prisma.instituteClaim.create({
       data: {
         instituteId,
         userId,
@@ -64,6 +64,14 @@ export async function submitClaimRequest(formData: FormData) {
         role,
         message,
         status: CLAIM_PENDING_STATUS, // By default PENDING jayega admin approval ke liye
+      },
+    });
+
+    await prisma.adminNotification.create({
+      data: {
+        type: "NEW_INSTITUTE_CLAIM",
+        title: "New Institute Claim Request",
+        message: `${fullName} (${phone}) requested to claim ownership of institute: ${institute.name}`,
       },
     });
 

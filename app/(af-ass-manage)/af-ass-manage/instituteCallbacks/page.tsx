@@ -118,9 +118,12 @@ export default async function AdminCallbacksPage({
                 callbacks.map((callback: any) => (
                   <tr key={callback.id} className="hover:bg-slate-50/50 transition-colors group">
                     <td className="p-5 whitespace-nowrap">
-                      <div className="flex items-center gap-2 text-slate-700 font-medium">
-                        <Calendar className="w-4 h-4 text-slate-400" />
-                        {formatIST(callback.createdAt, "dd MMM yyyy")}
+                      <div className="flex flex-col text-slate-700 font-medium">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-slate-400" />
+                          {formatIST(callback.createdAt, "dd MMM yyyy")}
+                        </div>
+                        <span className="text-xs text-slate-400 mt-1 pl-6">{formatIST(callback.createdAt, "hh:mm a")}</span>
                       </div>
                     </td>
                     <td className="p-5">

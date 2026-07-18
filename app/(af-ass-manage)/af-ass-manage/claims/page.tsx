@@ -103,7 +103,8 @@ export default async function AdminClaimPage({
 
                     {/* Date */}
                     <td className="p-4 whitespace-nowrap text-sm text-slate-600 font-medium">
-                      {formatIST(claim.createdAt, "dd MMM yyyy")}
+                      {formatIST(claim.createdAt, "dd MMM yyyy")} <br />
+                      <span className="text-xs text-slate-400">{formatIST(claim.createdAt, "hh:mm a")}</span>
                     </td>
 
                     {/* Institute Details */}
