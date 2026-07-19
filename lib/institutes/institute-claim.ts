@@ -5,9 +5,16 @@ import { revalidatePath } from "next/cache";
 import {
   CLAIM_PENDING_STATUS,
 } from "@/lib/institutes/institute-workflow";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function submitClaimRequest(formData: FormData) {
   try {
+    // Apply Rate Limiting: Max 3 claims per 5 minutes per IP
+    const rateLimit = await checkRateLimit("submitClaimRequest", 3, 5 * 60 * 1000);
+    if (!rateLimit.success) {
+      return { success: false, error: rateLimit.message };
+    }
+
     // Form se data nikalna
     const instituteId = formData.get("instituteId") as string;
     const userId = formData.get("userId") as string;

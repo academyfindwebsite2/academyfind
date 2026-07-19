@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { v2 as cloudinary } from "cloudinary"
 import { revalidatePath } from "next/cache";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -30,6 +31,11 @@ async function uploadImageToCloudinary(file: File, folderName: string, idPrefix:
 
 export async function addInstitute(userId: string, formData: FormData,selectedCategoryIds: string[]){
     try{
+        // Apply Rate Limiting: Max 3 joins per 5 minutes per IP
+        const rateLimit = await checkRateLimit("addInstitute", 3, 5 * 60 * 1000);
+        if (!rateLimit.success) {
+            return { success: false, error: rateLimit.message };
+        }
         const name = formData.get("name") as string;
         const description = formData.get("description") as string;
         const phone = formData.get("phone") as string;
