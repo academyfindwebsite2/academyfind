@@ -191,12 +191,15 @@ export default function InstituteCard({
         overflow-hidden
         rounded-2xl
         border
-        bg-background
+        border-white/50
+        bg-white/70
+        backdrop-blur-md
         transition-all
-        duration-300
-        hover:-translate-y-1
-        hover:border-amber-200
-        hover:shadow-lg
+        duration-500
+        hover:-translate-y-2
+        hover:border-amber-200/60
+        hover:shadow-[0_20px_40px_rgba(251,191,36,0.15)]
+        hover:[transform:perspective(1000px)_rotateX(2deg)_rotateY(-2deg)]
       "
     >
       {/* Image */}

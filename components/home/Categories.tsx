@@ -101,11 +101,17 @@ export function ExploreByGoal() {
                     overflow-hidden
                     rounded-2xl
                     border
+                    border-white/40
+                    bg-white/60
+                    backdrop-blur-md
+                    shadow-[0_10px_30px_rgba(0,0,0,0.03)]
                     transition-all
-                    duration-300
-                    md:hover:-translate-y-2
-                    md:hover:border-amber-200
-                    md:hover:shadow-2xl
+                    duration-500
+                    ease-out
+                    md:hover:border-amber-200/60
+                    md:hover:bg-white/80
+                    md:hover:shadow-[0_30px_60px_rgba(251,191,36,0.15)]
+                    md:hover:[transform:perspective(1000px)_rotateX(4deg)_rotateY(-4deg)_translateY(-8px)]
                   "
                 >
                   {/* Glow */}

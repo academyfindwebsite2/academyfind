@@ -13,6 +13,7 @@ import { StartJourney } from "@/components/home/StartJourney";
 import { TrendingDestinations } from "@/components/home/Trending";
 import { getSession } from "@/lib/auth/getSession";
 import { prisma } from "@/lib/prisma";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 // Removed static revalidate to allow personalized dynamic rendering for logged in users
 // export const revalidate = 86400; // Cache for 24 hours
@@ -195,15 +196,42 @@ export default async function Home() {
     <>
       <JsonLdSchemas />
       <HeroSection />
-      <HeroCards />
-      <TrendingDestinations />
-      <ExploreByGoal />
-      <LifeCoachCTA />
-      <PopularComparisons />
-      <FeaturedInstitutes preferredCityIds={preferredCityIds} preferredCategoryIds={preferredCategoryIds} />
-      <PopularCities />
-      <StartJourney />
-      <FAQSection />
+      
+      <ScrollReveal direction="up">
+        <HeroCards />
+      </ScrollReveal>
+      
+      <ScrollReveal direction="up" delay={0.1}>
+        <TrendingDestinations />
+      </ScrollReveal>
+      
+      <ScrollReveal direction="up">
+        <ExploreByGoal />
+      </ScrollReveal>
+      
+      <ScrollReveal direction="up">
+        <LifeCoachCTA />
+      </ScrollReveal>
+      
+      <ScrollReveal direction="up">
+        <PopularComparisons />
+      </ScrollReveal>
+      
+      <ScrollReveal direction="up">
+        <FeaturedInstitutes preferredCityIds={preferredCityIds} preferredCategoryIds={preferredCategoryIds} />
+      </ScrollReveal>
+      
+      <ScrollReveal direction="up">
+        <PopularCities />
+      </ScrollReveal>
+      
+      <ScrollReveal direction="up">
+        <StartJourney />
+      </ScrollReveal>
+      
+      <ScrollReveal direction="up">
+        <FAQSection />
+      </ScrollReveal>
     </>
   );
 }

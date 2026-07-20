@@ -1,5 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, LifeBuoy } from "lucide-react";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 import { SearchBar } from "@/components/search/SearchBar";
 import TypingHeading from "./TypingHeading";
@@ -31,11 +36,36 @@ const trendingSearches = [
 ];
 
 export function HeroSection() {
+  const container = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    // Staggered entrance for hero elements
+    tl.fromTo(
+      ".hero-stagger",
+      { y: 50, opacity: 0, rotateX: 10 },
+      { y: 0, opacity: 1, rotateX: 0, duration: 1, stagger: 0.15 }
+    );
+
+    // Floating animation for ambient orbs
+    gsap.to(".hero-orb", {
+      y: "random(-20, 20)",
+      x: "random(-20, 20)",
+      duration: "random(4, 6)",
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      stagger: 0.5
+    });
+  }, { scope: container });
+
   return (
-    <section className="relative border-b bg-linear-to-b from-amber-50 via-background to-background">
+    <section ref={container} className="relative border-b bg-linear-to-b from-amber-50 via-background to-background perspective-[1000px]">
       {/* Background Glow */}
       <div
         className="
+            hero-orb
             absolute
             left-1/2
             top-10
@@ -44,8 +74,8 @@ export function HeroSection() {
             w-64
             -translate-x-1/2
             rounded-full
-            bg-amber-200/20
-            blur-3xl
+            bg-amber-200/30
+            blur-[60px]
 
             sm:h-96
             sm:w-96
@@ -57,16 +87,18 @@ export function HeroSection() {
           {/* Badge */}
           <div
             className="
+                hero-stagger
                 mb-3
                 rounded-full
                 border
-                bg-white/80
+                border-white/50
+                bg-white/30
                 px-4
                 py-2
                 text-xs
                 font-medium
                 shadow-sm
-                backdrop-blur
+                backdrop-blur-md
               "
           >
             India's Coaching Discovery Platform
@@ -75,6 +107,7 @@ export function HeroSection() {
           {/* Heading */}
           <h1
             className="
+                hero-stagger
                 font-extrabold
                 tracking-tight
                 leading-[1.05]
@@ -88,6 +121,7 @@ export function HeroSection() {
           {/* Description */}
           <p
             className="
+                hero-stagger
                 mt-3
                 max-w-xl
                 text-xs
@@ -103,6 +137,7 @@ export function HeroSection() {
           {/* Search Label */}
           <p
             className="
+                hero-stagger
                 mt-6
                 mb-3
                 text-xs
@@ -118,7 +153,7 @@ export function HeroSection() {
           </p>
 
           {/* Search */}
-          <div className="relative w-full max-w-4xl">
+          <div className="relative w-full max-w-4xl hero-stagger">
             {/* Outer Glow */}
             <div
               className="
@@ -129,10 +164,10 @@ export function HeroSection() {
                   scale-110
                   rounded-[2rem]
                   bg-linear-to-r
-                  from-amber-300/25
-                  via-yellow-200/25
-                  to-amber-300/25
-                  blur-3xl
+                  from-amber-300/20
+                  via-yellow-200/20
+                  to-amber-300/20
+                  blur-[50px]
                 "
             />
 
@@ -149,8 +184,9 @@ export function HeroSection() {
                   -translate-x-1/2
                   -translate-y-1/2
                   rounded-full
-                  bg-amber-400/10
-                  blur-3xl
+                  bg-amber-400/20
+                  blur-[60px]
+                  hero-orb
                 "
             />
 
@@ -160,11 +196,11 @@ export function HeroSection() {
                   relative
                   rounded-[2rem]
                   border
-                  border-amber-100
-                  bg-white/95
+                  border-white/50
+                  bg-white/40
                   p-3
-                  shadow-[0_20px_60px_rgba(251,191,36,0.15)]
-                  backdrop-blur-sm
+                  shadow-[0_8px_32px_rgba(31,38,135,0.07)]
+                  backdrop-blur-xl
                   overflow-visible
                   sm:p-4
                 "
@@ -188,13 +224,15 @@ export function HeroSection() {
                   className="
                       rounded-full
                       border
-                      bg-background
+                      border-white/30
+                      bg-white/20
+                      backdrop-blur-sm
                       px-4
                       py-2
                       text-sm
                       transition-all
-                      hover:border-amber-200
-                      hover:bg-amber-50
+                      hover:border-amber-200/50
+                      hover:bg-white/40
                     "
                 >
                   {item.title}
@@ -221,17 +259,18 @@ export function HeroSection() {
             Browse All Categories
             <ArrowRight className="h-4 w-4" />
           </Link>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-5 py-2.5 text-sm shadow-sm transition-all hover:border-amber-300 hover:bg-amber-100/80">
-            <span className="text-slate-600">Confused about what to choose in life?</span>
-            <Link
-              href="/user/life-coach" /* Agar aapka path /user/life-coach hai toh isko update kar lena */
-              className="inline-flex items-center gap-1 font-bold text-amber-400 transition-colors hover:text-amber-500"
-              prefetch={false}
-            >
-              Ask our Life Coach
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row hero-stagger">
+            <div className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-5 py-2.5 text-sm shadow-sm transition-all hover:border-amber-300 hover:bg-amber-100/80">
+              <span className="text-slate-600">Confused about what to choose in life?</span>
+              <Link
+                href="/user/life-coach"
+                className="inline-flex items-center gap-1 font-bold text-amber-400 transition-colors hover:text-amber-500"
+                prefetch={false}
+              >
+                Ask our Life Coach
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
