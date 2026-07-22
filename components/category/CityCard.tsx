@@ -17,6 +17,7 @@ export default function CityCard({
   return (
     <Link
       href={`/${categorySlug}/${citySlug}`}
+      prefetch={false}
       className="
         group 
         relative 
@@ -45,7 +46,7 @@ export default function CityCard({
         <div className="rounded-xl bg-amber-50 p-3 text-amber-500 transition-colors group-hover:bg-amber-100 group-hover:text-amber-600">
           <MapPin className="h-6 w-6" />
         </div>
-        
+
         {/* Animated Arrow */}
         <div className="rounded-full bg-slate-50 p-2 transition-colors group-hover:bg-amber-50">
           <ArrowRight className="h-4 w-4 text-slate-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-amber-500" />
@@ -56,7 +57,7 @@ export default function CityCard({
         <h3 className="text-xl font-bold text-slate-900 transition-colors group-hover:text-amber-600">
           {cityName}
         </h3>
-        
+
         <div className="mt-2 flex items-center gap-2 text-sm text-slate-500">
           <Building2 className="h-4 w-4 text-slate-400" />
           <span>
