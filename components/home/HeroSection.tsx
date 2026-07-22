@@ -153,7 +153,7 @@ export function HeroSection() {
           </p>
 
           {/* Search */}
-          <div className="relative w-full max-w-4xl hero-stagger">
+          <div className="relative z-50 w-full max-w-4xl hero-stagger">
             {/* Outer Glow */}
             <div
               className="
